@@ -5,6 +5,7 @@ import typescript from 'rollup-plugin-typescript2'
 import scss from 'rollup-plugin-scss'
 import vue from 'rollup-plugin-vue'
 import packageJson from './package.json'
+import postcss from 'rollup-plugin-postcss'
 import postcssImport from 'postcss-import'
 
 export default {
