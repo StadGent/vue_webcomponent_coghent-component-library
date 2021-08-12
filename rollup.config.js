@@ -5,6 +5,7 @@ import typescript from 'rollup-plugin-typescript2'
 import scss from 'rollup-plugin-scss'
 import vue from 'rollup-plugin-vue'
 import packageJson from './package.json'
+import postcssImport from 'postcss-import'
 
 export default {
   input: 'src/index.ts',
@@ -22,6 +23,12 @@ export default {
       globals: { vue: 'Vue' }
     }
   ],
-  plugins: [vue(), typescript(), peerDepsExternal(), resolve(), commonjs(), scss()],
+  plugins: [
+    vue({ preprocessStyles: true }),
+    postcss({
+      extract: true,
+      plugins: [postcssImport()]
+    }),
+    typescript(), peerDepsExternal(), resolve(), commonjs(), scss()],
   external: ['vue']
 }
