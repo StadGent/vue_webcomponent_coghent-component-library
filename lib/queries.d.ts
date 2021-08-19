@@ -1,3 +1,4 @@
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 export declare type Maybe<T> = T | null;
 export declare type Exact<T extends {
     [key: string]: unknown;
@@ -20,15 +21,15 @@ export declare type Scalars = {
     Void: void;
 };
 export declare type EntitiesResults = {
-    __typename?: 'EntitiesResults';
+    __typename?: "EntitiesResults";
     results?: Maybe<Array<Maybe<Entity>>>;
-    count?: Maybe<Scalars['Int']>;
-    limit?: Maybe<Scalars['Int']>;
+    count?: Maybe<Scalars["Int"]>;
+    limit?: Maybe<Scalars["Int"]>;
 };
 export declare type Entity = {
-    __typename?: 'Entity';
-    id: Scalars['String'];
-    type: Scalars['String'];
+    __typename?: "Entity";
+    id: Scalars["String"];
+    type: Scalars["String"];
     metadata: Array<Maybe<Metadata>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
 };
@@ -36,10 +37,10 @@ export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
 };
 export declare type MediaFile = {
-    __typename?: 'MediaFile';
-    _id: Scalars['String'];
-    original_file_location?: Maybe<Scalars['String']>;
-    entities?: Maybe<Array<Maybe<Scalars['String']>>>;
+    __typename?: "MediaFile";
+    _id: Scalars["String"];
+    original_file_location?: Maybe<Scalars["String"]>;
+    entities?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 export declare enum MetaKey {
     Title = "title",
@@ -49,107 +50,153 @@ export declare enum MetaKey {
     Material = "material"
 }
 export declare type Metadata = {
-    __typename?: 'Metadata';
+    __typename?: "Metadata";
     key: MetaKey;
-    value: Scalars['String'];
-    lang?: Maybe<Scalars['String']>;
+    value: Scalars["String"];
+    lang?: Maybe<Scalars["String"]>;
 };
 export declare type MetadataInput = {
     key: MetaKey;
-    value: Scalars['String'];
-    lang?: Maybe<Scalars['String']>;
+    value: Scalars["String"];
+    lang?: Maybe<Scalars["String"]>;
 };
 export declare type Mutation = {
-    __typename?: 'Mutation';
+    __typename?: "Mutation";
     replaceMetadata?: Maybe<Entity>;
 };
 export declare type MutationReplaceMetadataArgs = {
-    id: Scalars['String'];
+    id: Scalars["String"];
     metadata: Array<MetadataInput>;
 };
 export declare type Query = {
-    __typename?: 'Query';
+    __typename?: "Query";
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     SearchEntities?: Maybe<EntitiesResults>;
 };
 export declare type QueryEntityArgs = {
-    id: Scalars['String'];
+    id: Scalars["String"];
 };
 export declare type QueryEntitiesArgs = {
-    limit?: Maybe<Scalars['Int']>;
-    skip?: Maybe<Scalars['Int']>;
-    searchQuery?: Maybe<Scalars['String']>;
+    limit?: Maybe<Scalars["Int"]>;
+    skip?: Maybe<Scalars["Int"]>;
+    searchQuery?: Maybe<Scalars["String"]>;
 };
 export declare type QuerySearchEntitiesArgs = {
-    limit?: Maybe<Scalars['Int']>;
-    skip?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars["Int"]>;
+    skip?: Maybe<Scalars["Int"]>;
 };
 export declare type MinimalEntityFragment = {
-    __typename?: 'Entity';
+    __typename?: "Entity";
     id: string;
     type: string;
     metadata: Array<Maybe<{
-        __typename?: 'Metadata';
+        __typename?: "Metadata";
         key: MetaKey;
         value: string;
     }>>;
 };
 export declare type FullEntityFragment = {
-    __typename?: 'Entity';
+    __typename?: "Entity";
     id: string;
     type: string;
     title: Array<Maybe<{
-        __typename?: 'Metadata';
+        __typename?: "Metadata";
         value: string;
     }>>;
     metadata: Array<Maybe<{
-        __typename?: 'Metadata';
+        __typename?: "Metadata";
         key: MetaKey;
         value: string;
     }>>;
     mediafiles?: Maybe<Array<Maybe<{
-        __typename?: 'MediaFile';
+        __typename?: "MediaFile";
         original_file_location?: Maybe<string>;
     }>>>;
 };
 export declare type GetEntitiesQueryVariables = Exact<{
-    limit?: Maybe<Scalars['Int']>;
-    skip?: Maybe<Scalars['Int']>;
-    searchQuery?: Maybe<Scalars['String']>;
+    limit?: Maybe<Scalars["Int"]>;
+    skip?: Maybe<Scalars["Int"]>;
+    searchQuery?: Maybe<Scalars["String"]>;
 }>;
 export declare type GetEntitiesQuery = {
-    __typename?: 'Query';
+    __typename?: "Query";
     Entities?: Maybe<{
-        __typename?: 'EntitiesResults';
+        __typename?: "EntitiesResults";
         count?: Maybe<number>;
         limit?: Maybe<number>;
-        results?: Maybe<Array<Maybe<({
-            __typename?: 'Entity';
-        } & MinimalEntityFragment)>>>;
+        results?: Maybe<Array<Maybe<{
+            __typename?: "Entity";
+            id: string;
+            type: string;
+            metadata: Array<Maybe<{
+                __typename?: "Metadata";
+                key: MetaKey;
+                value: string;
+            }>>;
+        }>>>;
     }>;
 };
 export declare type GetEntityByIdQueryVariables = Exact<{
-    id: Scalars['String'];
+    id: Scalars["String"];
 }>;
 export declare type GetEntityByIdQuery = {
-    __typename?: 'Query';
-    Entity?: Maybe<({
-        __typename?: 'Entity';
-    } & FullEntityFragment)>;
+    __typename?: "Query";
+    Entity?: Maybe<{
+        __typename?: "Entity";
+        id: string;
+        type: string;
+        title: Array<Maybe<{
+            __typename?: "Metadata";
+            value: string;
+        }>>;
+        metadata: Array<Maybe<{
+            __typename?: "Metadata";
+            key: MetaKey;
+            value: string;
+        }>>;
+        mediafiles?: Maybe<Array<Maybe<{
+            __typename?: "MediaFile";
+            original_file_location?: Maybe<string>;
+        }>>>;
+    }>;
 };
 export declare type EditMetadataMutationVariables = Exact<{
-    id: Scalars['String'];
+    id: Scalars["String"];
     metadata: Array<MetadataInput> | MetadataInput;
 }>;
 export declare type EditMetadataMutation = {
-    __typename?: 'Mutation';
-    replaceMetadata?: Maybe<({
-        __typename?: 'Entity';
-    } & FullEntityFragment)>;
+    __typename?: "Mutation";
+    replaceMetadata?: Maybe<{
+        __typename?: "Entity";
+        id: string;
+        type: string;
+        title: Array<Maybe<{
+            __typename?: "Metadata";
+            value: string;
+        }>>;
+        metadata: Array<Maybe<{
+            __typename?: "Metadata";
+            key: MetaKey;
+            value: string;
+        }>>;
+        mediafiles?: Maybe<Array<Maybe<{
+            __typename?: "MediaFile";
+            original_file_location?: Maybe<string>;
+        }>>>;
+    }>;
 };
-export declare const MinimalEntityFragmentDoc: any;
-export declare const FullEntityFragmentDoc: any;
-export declare const GetEntitiesDocument: any;
-export declare const GetEntityByIdDocument: any;
-export declare const EditMetadataDocument: any;
+export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
+export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
+export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
+    limit?: number | null | undefined;
+    skip?: number | null | undefined;
+    searchQuery?: string | null | undefined;
+}>>;
+export declare const GetEntityByIdDocument: DocumentNode<GetEntityByIdQuery, Exact<{
+    id: Scalars["String"];
+}>>;
+export declare const EditMetadataDocument: DocumentNode<EditMetadataMutation, Exact<{
+    id: Scalars["String"];
+    metadata: Array<MetadataInput> | MetadataInput;
+}>>;
