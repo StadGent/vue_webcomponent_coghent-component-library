@@ -20,6 +20,10 @@ fragment fullEntity on Entity {
   mediafiles {
       original_file_location
   }
+  relations {
+    key
+    type
+  }
 }
 
 query getEntities($limit: Int, $skip: Int, $searchQuery: String) {
@@ -28,6 +32,16 @@ query getEntities($limit: Int, $skip: Int, $searchQuery: String) {
     limit
     results {
       ...minimalEntity
+    }
+  }
+}
+
+query getFullEntities($limit: Int, $skip: Int, $searchQuery: String, $fetchPolicy: String) {
+  Entities(limit: $limit, skip: $skip, searchQuery: $searchQuery, fetchPolicy: $fetchPolicy) {
+    count
+    limit
+    results {
+      ...fullEntity
     }
   }
 }

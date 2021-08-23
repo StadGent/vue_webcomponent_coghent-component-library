@@ -1,6 +1,6 @@
 import HelloWorld from "./components/HelloWorld.vue"
 import "./index.css"
 
-import { GetEntitiesDocument } from "./queries"
+import { GetEntitiesDocument, EntitiesResults, GetFullEntitiesDocument } from "./queries"
 
-export { HelloWorld, GetEntitiesDocument }
+export { HelloWorld, GetEntitiesDocument, EntitiesResults, GetFullEntitiesDocument }

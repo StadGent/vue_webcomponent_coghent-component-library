@@ -8,6 +8,11 @@ enum MetaKey {
   material
 }
 
+enum RelationType {
+  authoredBy
+  isIn
+}
+
 type Metadata {
   key: MetaKey!
   value: String!
@@ -24,13 +29,19 @@ type Entity {
   id: String!
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
-  mediafiles: [MediaFile]
+  mediafiles: [MediaFile],
+  relations: [Relation]
 }
 
 type MediaFile {
   _id: String!
   original_file_location: String
   entities: [String]
+}
+
+type Relation {
+  key: String!
+  type: RelationType!
 }
 
 type EntitiesResults {
@@ -41,7 +52,7 @@ type EntitiesResults {
 
 type Query {
   Entity(id: String!): Entity
-  Entities(limit: Int, skip: Int, searchQuery: String): EntitiesResults
+  Entities(limit: Int, skip: Int, searchQuery: String, fetchPolicy: String): EntitiesResults
   SearchEntities(limit: Int, skip: Int): EntitiesResults
 }
 
