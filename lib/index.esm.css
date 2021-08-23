@@ -16,7 +16,7 @@ a[data-v-469af010] {
   color: #42b983;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://use.typekit.net/trm3hjr.css');
 
 /*! tailwindcss v2.2.7 | MIT License | https://tailwindcss.com */
 
@@ -15229,7 +15229,7 @@ video {
 }
 
 .font-body{
-  font-family: Lato;
+  font-family:  poppins;
 }
 
 .text-xs{
@@ -33134,7 +33134,7 @@ video {
   }
 
   .sm\:font-body{
-    font-family: Lato;
+    font-family:  poppins;
   }
 
   .sm\:text-xs{
@@ -51027,7 +51027,7 @@ video {
   }
 
   .md\:font-body{
-    font-family: Lato;
+    font-family:  poppins;
   }
 
   .md\:text-xs{
@@ -68920,7 +68920,7 @@ video {
   }
 
   .lg\:font-body{
-    font-family: Lato;
+    font-family:  poppins;
   }
 
   .lg\:text-xs{
@@ -86813,7 +86813,7 @@ video {
   }
 
   .xl\:font-body{
-    font-family: Lato;
+    font-family:  poppins;
   }
 
   .xl\:text-xs{
@@ -104706,7 +104706,7 @@ video {
   }
 
   .\32xl\:font-body{
-    font-family: Lato;
+    font-family:  poppins;
   }
 
   .\32xl\:text-xs{
