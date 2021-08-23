@@ -11,6 +11,7 @@ enum MetaKey {
 enum RelationType {
   authoredBy
   isIn
+  contains
 }
 
 type Metadata {
