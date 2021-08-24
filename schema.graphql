@@ -31,11 +31,12 @@ type Entity {
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
   mediafiles: [MediaFile],
-  relations: [Relation]
+  relations: [Relation],
+  title: [Metadata]
 }
 
 type MediaFile {
-  _id: String!
+  _id: String
   original_file_location: String
   entities: [String]
 }

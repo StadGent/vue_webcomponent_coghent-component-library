@@ -33,15 +33,23 @@ export declare type Entity = {
     metadata: Array<Maybe<Metadata>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
+    title?: Maybe<Array<Maybe<Metadata>>>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
 };
 export declare type MediaFile = {
+<<<<<<< HEAD
     __typename?: "MediaFile";
     _id: Scalars["String"];
     original_file_location?: Maybe<Scalars["String"]>;
     entities?: Maybe<Array<Maybe<Scalars["String"]>>>;
+=======
+    __typename?: 'MediaFile';
+    _id?: Maybe<Scalars['String']>;
+    original_file_location?: Maybe<Scalars['String']>;
+    entities?: Maybe<Array<Maybe<Scalars['String']>>>;
+>>>>>>> d29a98a (Fixed relations)
 };
 export declare enum MetaKey {
     Title = "title",
@@ -95,7 +103,8 @@ export declare type Relation = {
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
-    IsIn = "isIn"
+    IsIn = "isIn",
+    Contains = "contains"
 }
 export declare type MinimalEntityFragment = {
     __typename?: "Entity";
@@ -112,7 +121,12 @@ export declare type FullEntityFragment = {
     id: string;
     type: string;
     title: Array<Maybe<{
+<<<<<<< HEAD
         __typename?: "Metadata";
+=======
+        __typename?: 'Metadata';
+        key: MetaKey;
+>>>>>>> d29a98a (Fixed relations)
         value: string;
     }>>;
     metadata: Array<Maybe<{
@@ -121,7 +135,12 @@ export declare type FullEntityFragment = {
         value: string;
     }>>;
     mediafiles?: Maybe<Array<Maybe<{
+<<<<<<< HEAD
         __typename?: "MediaFile";
+=======
+        __typename?: 'MediaFile';
+        _id?: Maybe<string>;
+>>>>>>> d29a98a (Fixed relations)
         original_file_location?: Maybe<string>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
@@ -170,7 +189,12 @@ export declare type GetFullEntitiesQuery = {
             id: string;
             type: string;
             title: Array<Maybe<{
+<<<<<<< HEAD
                 __typename?: "Metadata";
+=======
+                __typename?: 'Metadata';
+                key: MetaKey;
+>>>>>>> d29a98a (Fixed relations)
                 value: string;
             }>>;
             metadata: Array<Maybe<{
@@ -179,7 +203,12 @@ export declare type GetFullEntitiesQuery = {
                 value: string;
             }>>;
             mediafiles?: Maybe<Array<Maybe<{
+<<<<<<< HEAD
                 __typename?: "MediaFile";
+=======
+                __typename?: 'MediaFile';
+                _id?: Maybe<string>;
+>>>>>>> d29a98a (Fixed relations)
                 original_file_location?: Maybe<string>;
             }>>>;
             relations?: Maybe<Array<Maybe<{
@@ -200,7 +229,12 @@ export declare type GetEntityByIdQuery = {
         id: string;
         type: string;
         title: Array<Maybe<{
+<<<<<<< HEAD
             __typename?: "Metadata";
+=======
+            __typename?: 'Metadata';
+            key: MetaKey;
+>>>>>>> d29a98a (Fixed relations)
             value: string;
         }>>;
         metadata: Array<Maybe<{
@@ -209,7 +243,12 @@ export declare type GetEntityByIdQuery = {
             value: string;
         }>>;
         mediafiles?: Maybe<Array<Maybe<{
+<<<<<<< HEAD
             __typename?: "MediaFile";
+=======
+            __typename?: 'MediaFile';
+            _id?: Maybe<string>;
+>>>>>>> d29a98a (Fixed relations)
             original_file_location?: Maybe<string>;
         }>>>;
         relations?: Maybe<Array<Maybe<{
@@ -230,7 +269,12 @@ export declare type EditMetadataMutation = {
         id: string;
         type: string;
         title: Array<Maybe<{
+<<<<<<< HEAD
             __typename?: "Metadata";
+=======
+            __typename?: 'Metadata';
+            key: MetaKey;
+>>>>>>> d29a98a (Fixed relations)
             value: string;
         }>>;
         metadata: Array<Maybe<{
@@ -239,7 +283,12 @@ export declare type EditMetadataMutation = {
             value: string;
         }>>;
         mediafiles?: Maybe<Array<Maybe<{
+<<<<<<< HEAD
             __typename?: "MediaFile";
+=======
+            __typename?: 'MediaFile';
+            _id?: Maybe<string>;
+>>>>>>> d29a98a (Fixed relations)
             original_file_location?: Maybe<string>;
         }>>>;
         relations?: Maybe<Array<Maybe<{

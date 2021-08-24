@@ -11,6 +11,7 @@ fragment fullEntity on Entity {
   id
   type
   title: metadata(key: [title]) {
+    key
     value
   }
   metadata(key: [description, material, type]) {
@@ -18,7 +19,8 @@ fragment fullEntity on Entity {
     value
   }
   mediafiles {
-      original_file_location
+    _id
+    original_file_location
   }
   relations {
     key
