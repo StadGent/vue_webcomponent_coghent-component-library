@@ -5,26 +5,34 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
         required: true;
     };
-    selected: {
+    isSelected: {
         type: BooleanConstructor;
         default: boolean;
         required: false;
+    };
+    icon: {
+        type: StringConstructor;
+        default: string;
+        required: true;
     };
 }, {
     selectFilter: () => void;
     tagSelected: import("vue").Ref<boolean>;
     styles: Record<TagStyle, string>;
     style: import("vue").Ref<string>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:selected"[], "update:selected", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:isSelected"[], "update:isSelected", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     filter?: unknown;
-    selected?: unknown;
+    isSelected?: unknown;
+    icon?: unknown;
 } & {
-    selected: boolean;
     filter: string;
+    isSelected: boolean;
+    icon: string;
 } & {}> & {
-    "onUpdate:selected"?: ((...args: any[]) => any) | undefined;
+    "onUpdate:isSelected"?: ((...args: any[]) => any) | undefined;
 }, {
-    selected: boolean;
     filter: string;
+    isSelected: boolean;
+    icon: string;
 }>;
 export default _default;
