@@ -30,8 +30,8 @@ type Entity {
   id: String!
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
-  mediafiles: [MediaFile],
-  relations: [Relation],
+  mediafiles: [MediaFile]
+  relations: [Relation]
   title: [Metadata]
 }
 
@@ -63,7 +63,7 @@ type Query {
 	Entities(
 		limit: Int
 		skip: Int
-		searchValue: SearchFilter
+		searchValue: SearchFilter!
 		fetchPolicy: String
 	): EntitiesResults
 }

@@ -1,4 +1,6 @@
 schema: schema.graphql
+watch: 
+  - schema.graphql
 documents: src/queries.graphql
 generates:
   src/queries.ts:
