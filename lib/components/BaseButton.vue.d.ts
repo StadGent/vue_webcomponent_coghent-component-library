@@ -1,5 +1,6 @@
 import { PropType } from 'vue';
-declare type ButtonTypes = 'primary' | 'secundary' | 'ghost-black' | 'ghost-purple';
+declare type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user';
+declare type ButtonTypes = 'primary' | 'secondary' | 'ghost-black' | 'ghost-purple' | 'ghost-red';
 declare const _default: import("vue").DefineComponent<{
     text: {
         type: StringConstructor;
@@ -14,7 +15,7 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
     customIcon: {
-        type: StringConstructor;
+        type: PropType<CustomIcon>;
         default: string;
     };
     iconShown: {
@@ -32,12 +33,12 @@ declare const _default: import("vue").DefineComponent<{
 } & {
     onClick: Function;
     customStyle: ButtonTypes;
-    customIcon: string;
+    customIcon: CustomIcon;
     iconShown: boolean;
 } & {
     text?: string | undefined;
 }> & {}, {
     customStyle: ButtonTypes;
-    customIcon: string;
+    customIcon: CustomIcon;
 }>;
 export default _default;
