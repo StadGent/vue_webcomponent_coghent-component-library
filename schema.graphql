@@ -30,8 +30,8 @@ type Entity {
   id: String!
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
-  mediafiles: [MediaFile],
-  relations: [Relation],
+  mediafiles: [MediaFile]
+  relations: [Relation]
   title: [Metadata]
 }
 
@@ -52,10 +52,20 @@ type EntitiesResults {
   limit: Int
 }
 
+input SearchFilter {
+	value: String
+	isAsc: Boolean
+	key: String
+}
+
 type Query {
-  Entity(id: String!): Entity
-  Entities(limit: Int, skip: Int, searchQuery: String, fetchPolicy: String): EntitiesResults
-  SearchEntities(limit: Int, skip: Int): EntitiesResults
+	Entity(id: String!): Entity
+	Entities(
+		limit: Int
+		skip: Int
+		searchValue: SearchFilter!
+		fetchPolicy: String
+	): EntitiesResults
 }
 
 type Mutation {

@@ -28,24 +28,34 @@ fragment fullEntity on Entity {
   }
 }
 
-query getEntities($limit: Int, $skip: Int, $searchQuery: String) {
-  Entities(limit: $limit, skip: $skip, searchQuery: $searchQuery) {
-    count
-    limit
-    results {
-      ...minimalEntity
-    }
-  }
+query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
+	Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
+		count
+		limit
+		results {
+			...minimalEntity
+		}
+	}
 }
 
-query getFullEntities($limit: Int, $skip: Int, $searchQuery: String, $fetchPolicy: String) {
-  Entities(limit: $limit, skip: $skip, searchQuery: $searchQuery, fetchPolicy: $fetchPolicy) {
-    count
-    limit
-    results {
-      ...fullEntity
-    }
-  }
+query getFullEntities(
+	$limit: Int
+	$skip: Int
+	$searchValue: SearchFilter!
+	$fetchPolicy: String
+) {
+	Entities(
+		limit: $limit
+		skip: $skip
+		searchValue: $searchValue
+		fetchPolicy: $fetchPolicy
+	) {
+		count
+		limit
+		results {
+			...fullEntity
+		}
+	}
 }
 
 query getEntityById($id: String!) {

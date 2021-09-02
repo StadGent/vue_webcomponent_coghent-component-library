@@ -74,7 +74,6 @@ export declare type Query = {
     __typename?: 'Query';
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
-    SearchEntities?: Maybe<EntitiesResults>;
 };
 export declare type QueryEntityArgs = {
     id: Scalars['String'];
@@ -82,12 +81,8 @@ export declare type QueryEntityArgs = {
 export declare type QueryEntitiesArgs = {
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
-    searchQuery?: Maybe<Scalars['String']>;
+    searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
-};
-export declare type QuerySearchEntitiesArgs = {
-    limit?: Maybe<Scalars['Int']>;
-    skip?: Maybe<Scalars['Int']>;
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -99,6 +94,11 @@ export declare enum RelationType {
     IsIn = "isIn",
     Contains = "contains"
 }
+export declare type SearchFilter = {
+    value?: Maybe<Scalars['String']>;
+    isAsc?: Maybe<Scalars['Boolean']>;
+    key?: Maybe<Scalars['String']>;
+};
 export declare type MinimalEntityFragment = {
     __typename?: 'Entity';
     id: string;
@@ -137,7 +137,7 @@ export declare type FullEntityFragment = {
 export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
-    searchQuery?: Maybe<Scalars['String']>;
+    searchValue: SearchFilter;
 }>;
 export declare type GetEntitiesQuery = {
     __typename?: 'Query';
@@ -145,22 +145,15 @@ export declare type GetEntitiesQuery = {
         __typename?: 'EntitiesResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
-        results?: Maybe<Array<Maybe<{
+        results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
-            id: string;
-            type: string;
-            metadata: Array<Maybe<{
-                __typename?: 'Metadata';
-                key: MetaKey;
-                value: string;
-            }>>;
-        }>>>;
+        } & MinimalEntityFragment)>>>;
     }>;
 };
 export declare type GetFullEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
-    searchQuery?: Maybe<Scalars['String']>;
+    searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
 }>;
 export declare type GetFullEntitiesQuery = {
@@ -169,31 +162,9 @@ export declare type GetFullEntitiesQuery = {
         __typename?: 'EntitiesResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
-        results?: Maybe<Array<Maybe<{
+        results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
-            id: string;
-            type: string;
-            title: Array<Maybe<{
-                __typename?: 'Metadata';
-                key: MetaKey;
-                value: string;
-            }>>;
-            metadata: Array<Maybe<{
-                __typename?: 'Metadata';
-                key: MetaKey;
-                value: string;
-            }>>;
-            mediafiles?: Maybe<Array<Maybe<{
-                __typename?: 'MediaFile';
-                _id?: Maybe<string>;
-                original_file_location?: Maybe<string>;
-            }>>>;
-            relations?: Maybe<Array<Maybe<{
-                __typename?: 'Relation';
-                key: string;
-                type: RelationType;
-            }>>>;
-        }>>>;
+        } & FullEntityFragment)>>>;
     }>;
 };
 export declare type GetEntityByIdQueryVariables = Exact<{
@@ -201,31 +172,9 @@ export declare type GetEntityByIdQueryVariables = Exact<{
 }>;
 export declare type GetEntityByIdQuery = {
     __typename?: 'Query';
-    Entity?: Maybe<{
+    Entity?: Maybe<({
         __typename?: 'Entity';
-        id: string;
-        type: string;
-        title: Array<Maybe<{
-            __typename?: 'Metadata';
-            key: MetaKey;
-            value: string;
-        }>>;
-        metadata: Array<Maybe<{
-            __typename?: 'Metadata';
-            key: MetaKey;
-            value: string;
-        }>>;
-        mediafiles?: Maybe<Array<Maybe<{
-            __typename?: 'MediaFile';
-            _id?: Maybe<string>;
-            original_file_location?: Maybe<string>;
-        }>>>;
-        relations?: Maybe<Array<Maybe<{
-            __typename?: 'Relation';
-            key: string;
-            type: RelationType;
-        }>>>;
-    }>;
+    } & FullEntityFragment)>;
 };
 export declare type EditMetadataMutationVariables = Exact<{
     id: Scalars['String'];
@@ -233,43 +182,21 @@ export declare type EditMetadataMutationVariables = Exact<{
 }>;
 export declare type EditMetadataMutation = {
     __typename?: 'Mutation';
-    replaceMetadata?: Maybe<{
+    replaceMetadata?: Maybe<({
         __typename?: 'Entity';
-        id: string;
-        type: string;
-        title: Array<Maybe<{
-            __typename?: 'Metadata';
-            key: MetaKey;
-            value: string;
-        }>>;
-        metadata: Array<Maybe<{
-            __typename?: 'Metadata';
-            key: MetaKey;
-            value: string;
-        }>>;
-        mediafiles?: Maybe<Array<Maybe<{
-            __typename?: 'MediaFile';
-            _id?: Maybe<string>;
-            original_file_location?: Maybe<string>;
-        }>>>;
-        relations?: Maybe<Array<Maybe<{
-            __typename?: 'Relation';
-            key: string;
-            type: RelationType;
-        }>>>;
-    }>;
+    } & FullEntityFragment)>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
-    searchQuery?: string | null | undefined;
+    searchValue: SearchFilter;
 }>>;
 export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
-    searchQuery?: string | null | undefined;
+    searchValue: SearchFilter;
     fetchPolicy?: string | null | undefined;
 }>>;
 export declare const GetEntityByIdDocument: DocumentNode<GetEntityByIdQuery, Exact<{
