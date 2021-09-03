@@ -15,6 +15,7 @@ import BaseInput from "./components/BaseInput.vue"
 import FilterTag from "./components/FilterTag.vue"
 import LanguageSelector from "./components/LanguageSelector.vue"
 import CardComponent from "./components/CardComponent.vue"
+import TheCarousel from "./components/TheCarousel.vue"
 
 export {
 	GetEntitiesDocument,
@@ -30,4 +31,5 @@ export {
 	LanguageSelector,
 	GetFullEntitiesQuery,
 	GetFullEntitiesQueryVariables,
+	TheCarousel
 }

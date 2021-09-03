@@ -7,4 +7,5 @@ import BaseInput from "./components/BaseInput.vue";
 import FilterTag from "./components/FilterTag.vue";
 import LanguageSelector from "./components/LanguageSelector.vue";
 import CardComponent from "./components/CardComponent.vue";
-export { GetEntitiesDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, CardComponent, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, };
+import TheCarousel from "./components/TheCarousel.vue";
+export { GetEntitiesDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, CardComponent, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, TheCarousel };
