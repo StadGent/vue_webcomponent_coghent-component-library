@@ -25,13 +25,6 @@ module.exports = {
         neutral: '#e0dfdf',
         selected: '#2d242a',
       },
-      image: {
-        fade100: 'rgba(0,0,0, 1)',
-        fade75: 'rgba(0,0,0, 0.7)',
-        fade50: 'rgba(0,0,0, 0.5)',
-        fade25: 'rgba(0,0,0, 0.2)',
-        fade0: 'rgba(0,0,0, 0)',
-      },
     },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
