@@ -53,19 +53,20 @@ type EntitiesResults {
 }
 
 input SearchFilter {
-	value: String
-	isAsc: Boolean
-	key: String
+  value: String
+  isAsc: Boolean
+  key: String
+  raw: Boolean
 }
 
 type Query {
-	Entity(id: String!): Entity
-	Entities(
-		limit: Int
-		skip: Int
-		searchValue: SearchFilter!
-		fetchPolicy: String
-	): EntitiesResults
+  Entity(id: String!): Entity
+  Entities(
+    limit: Int
+    skip: Int
+    searchValue: SearchFilter!
+    fetchPolicy: String
+  ): EntitiesResults
 }
 
 type Mutation {

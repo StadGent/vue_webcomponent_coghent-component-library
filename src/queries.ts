@@ -112,6 +112,7 @@ export type SearchFilter = {
   value?: Maybe<Scalars['String']>;
   isAsc?: Maybe<Scalars['Boolean']>;
   key?: Maybe<Scalars['String']>;
+  raw?: Maybe<Scalars['Boolean']>;
 };
 
 
