@@ -15,6 +15,7 @@ module.exports = {
         yellow: '#fdc20b',
         green: '#02a77f',
         purple: '#b65099',
+        grey: 'rgba(45, 36, 42, 0.65)'
       },
       text: {
         white: '#ffffff',

@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user'
+type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close'
 const icons: Record<CustomIcon, String> = {
   storybox: `<svg v-if="icon == 'verhalenbox'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
     <path  stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M2.5.5h11M11.5 6.5v2h-7v-2" />
@@ -25,6 +25,10 @@ const icons: Record<CustomIcon, String> = {
   user: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="none" viewBox="0 0 16 18">
     <path stroke="#F6F5F1" stroke-linecap="round" stroke-linejoin="round" d="M11.182 4.333C11.182 2.493 9.757 1 8 1S4.818 2.492 4.818 4.333v1.334C4.818 7.507 6.243 9 8 9s3.182-1.492 3.182-3.333V4.333zM1 17v-2c-.001-.999.193-1.988.57-2.905.378-.917.931-1.744 1.625-2.428M12.807 9.667c.693.685 1.246 1.511 1.623 2.428.377.918.571 1.906.57 2.905v2"/>
 </svg>`,
+close: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M14 3L3 14M3 3l11 11"/>
+</svg>
+`
 }
 
 export default defineComponent({

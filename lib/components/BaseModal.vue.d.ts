@@ -1,18 +1,17 @@
-import { PropType } from 'vue';
-declare type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close';
 declare const _default: import("vue").DefineComponent<{
-    icon: {
-        type: PropType<CustomIcon>;
-        default: string;
+    isShow: {
+        type: BooleanConstructor;
         required: true;
+        default: boolean;
     };
 }, {
-    icons: Record<CustomIcon, String>;
+    show: import("vue").Ref<{
+        valueOf: () => boolean;
+    }>;
+    closeModal: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    icon?: unknown;
+    isShow?: unknown;
 } & {
-    icon: CustomIcon;
-} & {}> & {}, {
-    icon: CustomIcon;
-}>;
+    isShow: boolean;
+} & {}> & {}, {}>;
 export default _default;

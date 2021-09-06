@@ -16,6 +16,7 @@ import FilterTag from "./components/FilterTag.vue"
 import LanguageSelector from "./components/LanguageSelector.vue"
 import CardComponent from "./components/CardComponent.vue"
 import TheCarousel from "./components/TheCarousel.vue"
+import BaseModal from "./components/BaseModal.vue"
 
 export {
 	GetEntitiesDocument,
@@ -26,6 +27,7 @@ export {
 	BaseSearch,
 	BaseIcon,
 	BaseInput,
+	BaseModal,
 	CardComponent,
 	FilterTag,
 	LanguageSelector,
