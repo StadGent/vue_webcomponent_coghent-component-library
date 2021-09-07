@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close' | 'info' | 'link'
+type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close' | 'info' | 'link' | 'check'
 const icons: Record<CustomIcon, String> = {
   storybox: `<svg v-if="icon == 'verhalenbox'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
     <path  stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M2.5.5h11M11.5 6.5v2h-7v-2" />
@@ -35,6 +35,9 @@ info: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none
 link: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M8.995 7.005c1.375 1.374 1.375 3.601 0 4.975l-1.99 1.99c-1.373 1.374-3.6 1.374-4.974 0-1.375-1.374-1.375-3.6 0-4.975l1.748-1.698"/>
     <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M7.005 8.995c-1.374-1.374-1.374-3.601 0-4.975l1.99-1.99c1.374-1.374 3.601-1.374 4.975 0 1.374 1.374 1.374 3.601 0 4.975l-1.748 1.698"/>
+</svg>`,
+check: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 9l4 4L15 3"/>
 </svg>`
 }
 
