@@ -1,8 +1,8 @@
 <template>
   <Modal v-model="show" :close="closeModal">
-    <div class="modal w-auto h-auto bg-background-medium">
-        <div class="w-auto h-auto float-right pr-5 pt-2"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
-        <div class="p-10 bg-background-medium"><slot></slot></div>
+    <div class="h-auto w-9/12 bg-background-dark">
+        <div class="w-auto h-auto float-right pr-5 pt-2 bg-background-dark"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
+        <div class="bg-background-dark"><slot></slot></div>
     </div>
   </Modal>
 </template>
