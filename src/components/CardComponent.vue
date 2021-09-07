@@ -1,33 +1,228 @@
 <template>
   <div>
-    <div class="bg-background-medium w-full h-14 flex items-center justify-between" v-show="large">
-      <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-10 lg:ml-6 md:ml-6 sm:ml-4 ml-10"></div>
-      <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4"></div>
-      <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 sm:ml-16 ml-24 ring-8 ring-accent-green"></div>
-      <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 ml-24 sm:ml-16"></div>
-      <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4"></div>
-      <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 lg:ml-16 md:ml-8 ml-24"></div>
-      <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4"></div>
-      <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4"></div>
-      <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 xl:ml-16 ml-24 mr-2"></div>
+    <div
+      class="
+        bg-background-medium
+        w-full
+        h-14
+        flex
+        items-center
+        justify-between
+        overflow-hidden
+      "
+      v-show="large"
+    >
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-4
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-10
+          lg:ml-6
+          md:ml-6
+          sm:ml-4
+          ml-10
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-9
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-4
+          ml-4
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-4
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-24
+          sm:ml-16
+          ml-24
+          ring-8 ring-accent-green
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-9
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-24
+          ml-24
+          sm:ml-16
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-4
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-4
+          ml-4
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-9
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-24
+          lg:ml-16
+          md:ml-8
+          ml-24
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-9
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-4
+          ml-4
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-4
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-4
+          ml-4
+        "
+      ></div>
+      <div
+        class="
+          bg-text-white
+          rounded-full
+          w-9
+          h-4
+          flex-shrink-0
+          shadow-inner
+          2xl:ml-24
+          xl:ml-16
+          ml-24
+          mr-2
+        "
+      ></div>
     </div>
     <div class="w-3/12 h-auto bg-accent-green" v-show="!large">
       <div class="h-12 items-center flex overflow-hidden">
-        <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner ml-4"></div>
-        <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4"></div>
-        <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 lg:ml-10 ml-4"></div>
-        <div class="bg-text-white rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-16 xl:ml-12 md:ml-6 ml-20"></div>
-        <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-20 xl:ml-16 ml-20"></div>
-        <div class="bg-text-white rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4"></div>
+        <div
+          class="
+            bg-text-white
+            rounded-full
+            w-9
+            h-4
+            flex-shrink-0
+            shadow-inner
+            ml-4
+          "
+        ></div>
+        <div
+          class="
+            bg-text-white
+            rounded-full
+            w-4
+            h-4
+            flex-shrink-0
+            shadow-inner
+            2xl:ml-4
+            ml-4
+          "
+        ></div>
+        <div
+          class="
+            bg-text-white
+            rounded-full
+            w-4
+            h-4
+            flex-shrink-0
+            shadow-inner
+            2xl:ml-4
+            lg:ml-10
+            ml-4
+          "
+        ></div>
+        <div
+          class="
+            bg-text-white
+            rounded-full
+            w-4
+            h-4
+            flex-shrink-0
+            shadow-inner
+            2xl:ml-16
+            xl:ml-12
+            md:ml-6
+            ml-20
+          "
+        ></div>
+        <div
+          class="
+            bg-text-white
+            rounded-full
+            w-9
+            h-4
+            flex-shrink-0
+            shadow-inner
+            2xl:ml-20
+            xl:ml-16
+            ml-20
+          "
+        ></div>
+        <div
+          class="
+            bg-text-white
+            rounded-full
+            w-9
+            h-4
+            flex-shrink-0
+            shadow-inner
+            2xl:ml-4
+            ml-4
+          "
+        ></div>
       </div>
     </div>
-    <div class="p-5" :class="{ [`bg-accent-green w-3/12`]: !large, [`bg-background-medium w-full`]: large }">
+    <div
+      class="p-5"
+      :class="{
+        [`bg-accent-green w-3/12`]: !large,
+        [`bg-background-medium w-full`]: large,
+      }"
+    >
       <slot></slot>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue"
 
 export default defineComponent({
   props: {
