@@ -28,6 +28,14 @@ fragment fullEntity on Entity {
   }
 }
 
+fragment fullUser on User {
+  email
+  family_name
+  given_name
+  name
+  preferred_username
+}
+
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 	Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
 		count
@@ -61,6 +69,12 @@ query getFullEntities(
 query getEntityById($id: String!) {
   Entity(id: $id) {
     ...fullEntity
+  }
+}
+
+query getMe {
+  User {
+    ...fullUser
   }
 }
 
