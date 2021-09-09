@@ -1,8 +1,8 @@
 <template>
-  <Modal v-model="isShow" :close="closeModal">
-    <div class="h-auto w-9/12 bg-background-medium">
-        <div class="w-auto h-auto float-right pr-5 pt-2 bg-background-medium"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
-        <div class="bg-background-medium"><slot></slot></div>
+  <Modal v-model="isShow" class="w-screen h-screen" :close="closeModal">
+    <div class="h-min w-9/12 bg-background-medium">
+      <div v-show="showHeader" class="w-auto h-auto float-right pr-5 pt-2 bg-background-medium"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
+      <div class="bg-background-medium"><slot class="z-40"></slot></div>
     </div>
   </Modal>
 </template>
@@ -18,8 +18,13 @@ export default defineComponent({
     isShow: {
       type: Boolean,
       required: true,
-      default: false
+      default: false,
     },
+    showHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
   },
   emits: ['update:isShow'],
   setup(props, { emit }) {
@@ -28,14 +33,11 @@ export default defineComponent({
       () => props.isShow,
       () => {
         show.value = props.isShow
-        console.log('modal exe', show.value)
-        
       }
     )
 
     const closeModal = () => {
       show.value = false
-      console.log('Closed', show.value)
       emit('update:isShow', false)
     }
     return { show, closeModal }

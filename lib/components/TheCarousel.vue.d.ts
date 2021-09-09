@@ -9,6 +9,10 @@ declare const _default: import("vue").DefineComponent<{
     nextImage: () => void;
     getNextImage: () => number;
     getPrevImage: () => number;
+    openFullscreenModal: () => void;
+    openModal: import("vue").Ref<{
+        valueOf: () => boolean;
+    }>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     source?: unknown;
 } & {

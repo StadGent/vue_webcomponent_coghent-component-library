@@ -17,6 +17,8 @@ import LanguageSelector from "./components/LanguageSelector.vue"
 import CardComponent from "./components/CardComponent.vue"
 import TheCarousel from "./components/TheCarousel.vue"
 import BaseModal from "./components/BaseModal.vue"
+import ViewerToolbar from "./components/ViewerToolbar.vue"
+import IIIFViewer from "./components/IIIFViewer.vue"
 
 export {
 	GetEntitiesDocument,
@@ -33,5 +35,7 @@ export {
 	LanguageSelector,
 	GetFullEntitiesQuery,
 	GetFullEntitiesQueryVariables,
-	TheCarousel
+	TheCarousel,
+	ViewerToolbar,
+	IIIFViewer
 }
