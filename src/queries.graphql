@@ -29,6 +29,7 @@ fragment fullEntity on Entity {
 }
 
 fragment fullUser on User {
+  id
   email
   family_name
   given_name

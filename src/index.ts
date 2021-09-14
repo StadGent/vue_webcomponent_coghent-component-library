@@ -8,7 +8,8 @@ import {
   GetFullEntitiesQuery,
   GetFullEntitiesQueryVariables,
   GetMeQuery,
-  GetMeDocument
+  GetMeDocument,
+  User
 } from "./queries"
 import BaseButton from "./components/BaseButton.vue"
 import BaseSearch from "./components/BaseSearch.vue"
@@ -41,5 +42,6 @@ export {
 	ViewerToolbar,
 	IIIFViewer,
 	GetMeQuery,
-	GetMeDocument
+	GetMeDocument,
+	User
 }
