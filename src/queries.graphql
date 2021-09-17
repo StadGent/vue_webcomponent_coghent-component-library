@@ -37,6 +37,11 @@ fragment fullUser on User {
   preferred_username
 }
 
+fragment fullRelation on Relation {
+  key
+  type
+}
+
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 	Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
 		count
@@ -77,6 +82,16 @@ query getMe {
   User {
     ...fullUser
   }
+}
+
+query getRelations($searchValue: SearchFilter!) {
+	Relations(searchValue: $searchValue) {
+    count
+		limit
+		results {
+			...fullRelation
+		}
+	}
 }
 
 mutation editMetadata($id: String!, $metadata: [MetadataInput!]!) {

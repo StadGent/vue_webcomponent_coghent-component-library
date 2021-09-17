@@ -26,6 +26,12 @@ export declare type EntitiesResults = {
     count?: Maybe<Scalars['Int']>;
     limit?: Maybe<Scalars['Int']>;
 };
+export declare type RelationsResults = {
+    __typename?: 'RelationsResults';
+    results?: Maybe<Array<Maybe<Relation>>>;
+    count?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+};
 export declare type Entity = {
     __typename?: 'Entity';
     id: Scalars['String'];
@@ -154,9 +160,17 @@ export declare type FullUserFragment = {
     name: string;
     preferred_username: string;
 };
+export declare type FullRelationFragment = {
+    __typename?: 'Relation';
+    key: string;
+    type: RelationType;
+};
 export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
+    searchValue: SearchFilter;
+}>;
+export declare type GetRelationsQueryVariables = Exact<{
     searchValue: SearchFilter;
 }>;
 export declare type GetEntitiesQuery = {
@@ -168,6 +182,17 @@ export declare type GetEntitiesQuery = {
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
         } & MinimalEntityFragment)>>>;
+    }>;
+};
+export declare type GetRelationsQuery = {
+    __typename?: 'Query';
+    Entities?: Maybe<{
+        __typename?: 'RelationsResults';
+        count?: Maybe<number>;
+        limit?: Maybe<number>;
+        results?: Maybe<Array<Maybe<({
+            __typename?: 'Relation';
+        } & FullRelationFragment)>>>;
     }>;
 };
 export declare type GetFullEntitiesQueryVariables = Exact<{
@@ -215,12 +240,16 @@ export declare type EditMetadataMutation = {
         __typename?: 'Entity';
     } & FullEntityFragment)>;
 };
+export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
+    searchValue: SearchFilter;
+}>>;
+export declare const GetRelationsDocument: DocumentNode<GetRelationsQuery, Exact<{
     searchValue: SearchFilter;
 }>>;
 export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery, Exact<{
