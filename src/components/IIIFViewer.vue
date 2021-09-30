@@ -40,7 +40,7 @@
           toolbar: document.getElementById('OpenSeadragon-toolbar'),
           tileSources: {
             type: 'image',
-            url: props.imageUrl,
+            url: replaceStringStorageApi(props.imageUrl),
           },
         };
 
@@ -60,12 +60,17 @@
         OpenSeadragon(dragonOption);
       });
 
+      const replaceStringStorageApi = (input: string) => {
+      return input.replace("storage-api", "localhost");
+    };
+
       return {
         OpenSeadragonDiv,
         zoomInDiv,
         zoomOutDiv,
         fullPageButtonDiv,
         homeDiv,
+        replaceStringStorageApi
       };
     },
   });
