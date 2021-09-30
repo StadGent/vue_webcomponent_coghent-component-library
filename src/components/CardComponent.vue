@@ -131,7 +131,7 @@
         "
       ></div>
     </div>
-    <div class="w-3/12 h-auto bg-accent-green" v-show="!large">
+    <div class="w-10/12 h-auto bg-accent-green" v-show="!large">
       <div class="h-12 items-center flex overflow-hidden">
         <div
           class="
@@ -213,7 +213,7 @@
     <div
       class="p-5"
       :class="{
-        [`bg-accent-green w-3/12`]: !large,
+        [`bg-accent-green w-10/12`]: !large,
         [`bg-background-medium w-full`]: large,
       }"
     >
