@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close' | 'info' | 'link' | 'check' | 'fullscreen' | 'monitor' | 'zoomIn' | 'zoomOut'
+type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close' | 'info' | 'link' | 'check' | 'fullscreen' | 'monitor' | 'zoomIn' | 'zoomOut' | 'chest'
 const icons: Record<CustomIcon, String> = {
   storybox: `<svg v-if="icon == 'verhalenbox'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
     <path  stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M2.5.5h11M11.5 6.5v2h-7v-2" />
@@ -72,6 +72,31 @@ const icons: Record<CustomIcon, String> = {
 			c11.048,0,20.004-8.956,20.004-20.004v-77.94h77.94c11.048,0,20.004-8.956,20.004-20.004
 			C321.901,192.905,312.945,183.949,301.897,183.949z"/>
 </svg>`,
+  chest: `<svg viewBox="0 0 133 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M28.4048 60.6641H58.6619" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M84.2002 60.6641H114.457" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M104.861 75.0055C108.37 70.3264 115.163 69.2577 117.874 69.4746L117.875 84.725H101.933V84.7248C101.933 83.098 101.933 78.9095 104.861 75.0055Z" fill="white"/>
+<path d="M37.7141 75.4071C34.2046 70.728 27.4115 69.6593 24.7003 69.8762L24.7002 85.1265H40.6421V85.1264C40.6421 83.4995 40.6421 79.311 37.7141 75.4071Z" fill="white"/>
+<rect x="24.8501" y="46.2" width="92.35" height="38.8" rx="1" stroke="white" stroke-width="2"/>
+<path d="M110.162 34.3L116.513 45.9H25.5411L31.9188 34.3H110.162Z" stroke="white" stroke-width="2"/>
+<path d="M23.8501 17.15L31.7126 34.15H110.665L118.2 17.15H23.8501Z" stroke="white" stroke-width="2"/>
+<path d="M23 16.9419L22.5039 16.8796L22.4333 17.4419H23V16.9419ZM119.05 16.9419V17.4419H119.617L119.546 16.8796L119.05 16.9419ZM34.6728 0.5C30.5369 0.5 27.6527 3.34804 25.7492 6.73313C23.8411 10.1263 22.8429 14.1787 22.5039 16.8796L23.4961 17.0042C23.8241 14.3911 24.7936 10.4726 26.6208 7.22329C28.4525 3.96593 31.0712 1.5 34.6728 1.5V0.5ZM70.6914 0.5H34.6728V1.5H70.6914V0.5ZM70.6914 1.5H71.3586V0.5H70.6914V1.5ZM71.3586 1.5H107.377V0.5H71.3586V1.5ZM107.377 1.5C110.979 1.5 113.597 3.96593 115.429 7.22329C117.256 10.4726 118.226 14.3911 118.554 17.0042L119.546 16.8796C119.207 14.1787 118.209 10.1263 116.301 6.73313C114.397 3.34804 111.513 0.5 107.377 0.5V1.5ZM119.05 16.4419H71.3586V17.4419H119.05V16.4419ZM71.3586 16.4419H70.6914V17.4419H71.3586V16.4419ZM23 17.4419H70.6914V16.4419H23V17.4419Z" fill="white"/>
+<path d="M16.5 23C14 22.3333 9 19.2 9 12" stroke="white"/>
+<path d="M1 23C3.5 22.3333 8.5 19.2 8.5 12" stroke="white"/>
+<path d="M1 23C3.5 23.6667 8.5 26.8 8.5 34" stroke="white"/>
+<path d="M16.5 23C14 23.6667 9 26.8 9 34" stroke="white"/>
+<path d="M22 37.3871C20.5484 37 17.6452 35.1806 17.6452 31" stroke="white"/>
+<path d="M13 37.3871C14.4516 37 17.3548 35.1806 17.3548 31" stroke="white"/>
+<path d="M13 37.3871C14.4516 37.7742 17.3548 39.5935 17.3548 43.7742" stroke="white"/>
+<path d="M22 37.3871C20.5484 37.7742 17.6452 39.5935 17.6452 43.7742" stroke="white"/>
+<path d="M132 9.3871C130.548 9 127.645 7.18064 127.645 3" stroke="white"/>
+<path d="M123 9.3871C124.452 9 127.355 7.18064 127.355 3" stroke="white"/>
+<path d="M123 9.38707C124.452 9.77417 127.355 11.5935 127.355 15.7742" stroke="white"/>
+<path d="M132 9.38707C130.548 9.77417 127.645 11.5935 127.645 15.7742" stroke="white"/>
+<path d="M62 46H81V57.5C81 62.7467 76.7467 67 71.5 67V67C66.2533 67 62 62.7467 62 57.5V46Z" stroke="white" stroke-width="2"/>
+<path d="M55.7339 74.3286H101.282" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M73.3055 55.8638C73.8678 55.3593 74.2215 54.627 74.2215 53.8121C74.2215 52.2901 72.9876 51.0562 71.4656 51.0562C69.9436 51.0562 68.7098 52.2901 68.7098 53.8121C68.7098 54.6268 69.0633 55.359 69.6254 55.8636L68.0972 61.4672H74.8337L73.3055 55.8638Z" fill="white"/>
+</svg>`,
 }
 
 export default defineComponent({
@@ -88,5 +113,4 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
