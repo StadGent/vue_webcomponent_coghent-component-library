@@ -26,28 +26,32 @@ export declare type EntitiesResults = {
     count?: Maybe<Scalars['Int']>;
     limit?: Maybe<Scalars['Int']>;
 };
-export declare type RelationsResults = {
-    __typename?: 'RelationsResults';
-    results?: Maybe<Array<Maybe<Relation>>>;
-    count?: Maybe<Scalars['Int']>;
-    limit?: Maybe<Scalars['Int']>;
-};
 export declare type Entity = {
     __typename?: 'Entity';
     id: Scalars['String'];
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
-    mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
-    title?: Maybe<Array<Maybe<Metadata>>>;
+    mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
 };
+export declare type JsPatch = {
+    op: JsPatchOp;
+    path: Array<Scalars['String']>;
+    value: Scalars['String'];
+};
+export declare enum JsPatchOp {
+    Add = "add",
+    Replace = "replace",
+    Remove = "remove"
+}
 export declare type MediaFile = {
     __typename?: 'MediaFile';
-    _id?: Maybe<Scalars['String']>;
+    _id: Scalars['String'];
     original_file_location?: Maybe<Scalars['String']>;
+    thumbnail_file_location?: Maybe<Scalars['String']>;
     entities?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 export declare enum MetaKey {
@@ -70,7 +74,7 @@ export declare type MetadataInput = {
 };
 export declare type Mutation = {
     __typename?: 'Mutation';
-    replaceMetadata?: Maybe<Entity>;
+    replaceMetadata: Array<Metadata>;
 };
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
@@ -80,6 +84,7 @@ export declare type Query = {
     __typename?: 'Query';
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
+    Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
 };
 export declare type QueryEntityArgs = {
@@ -91,16 +96,28 @@ export declare type QueryEntitiesArgs = {
     searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
 };
+export declare type QueryRelationsArgs = {
+    searchValue: SearchFilter;
+    fetchPolicy?: Maybe<Scalars['String']>;
+};
 export declare type Relation = {
     __typename?: 'Relation';
     key: Scalars['String'];
     type: RelationType;
+    label?: Maybe<Scalars['String']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
     IsIn = "isIn",
-    Contains = "contains"
+    Contains = "contains",
+    IsTypeOf = "isTypeOf"
 }
+export declare type RelationsResults = {
+    __typename?: 'RelationsResults';
+    results?: Maybe<Array<Maybe<Relation>>>;
+    count?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+};
 export declare type SearchFilter = {
     value?: Maybe<Scalars['String']>;
     isAsc?: Maybe<Scalars['Boolean']>;
@@ -120,11 +137,10 @@ export declare type MinimalEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
-    metadata: Array<Maybe<{
-        __typename?: 'Metadata';
-        key: MetaKey;
-        value: string;
-    }>>;
+    mediafiles?: Maybe<Array<Maybe<{
+        __typename?: 'MediaFile';
+        location?: Maybe<string>;
+    }>>>;
 };
 export declare type FullEntityFragment = {
     __typename?: 'Entity';
@@ -142,13 +158,14 @@ export declare type FullEntityFragment = {
     }>>;
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
-        _id?: Maybe<string>;
+        _id: string;
         original_file_location?: Maybe<string>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';
         key: string;
         type: RelationType;
+        label?: Maybe<string>;
     }>>>;
 };
 export declare type FullUserFragment = {
@@ -170,9 +187,6 @@ export declare type GetEntitiesQueryVariables = Exact<{
     skip?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
 }>;
-export declare type GetRelationsQueryVariables = Exact<{
-    searchValue: SearchFilter;
-}>;
 export declare type GetEntitiesQuery = {
     __typename?: 'Query';
     Entities?: Maybe<{
@@ -182,17 +196,6 @@ export declare type GetEntitiesQuery = {
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
         } & MinimalEntityFragment)>>>;
-    }>;
-};
-export declare type GetRelationsQuery = {
-    __typename?: 'Query';
-    Entities?: Maybe<{
-        __typename?: 'RelationsResults';
-        count?: Maybe<number>;
-        limit?: Maybe<number>;
-        results?: Maybe<Array<Maybe<({
-            __typename?: 'Relation';
-        } & FullRelationFragment)>>>;
     }>;
 };
 export declare type GetFullEntitiesQueryVariables = Exact<{
@@ -230,26 +233,27 @@ export declare type GetMeQuery = {
         __typename?: 'User';
     } & FullUserFragment)>;
 };
-export declare type EditMetadataMutationVariables = Exact<{
-    id: Scalars['String'];
-    metadata: Array<MetadataInput> | MetadataInput;
+export declare type GetRelationsQueryVariables = Exact<{
+    searchValue: SearchFilter;
 }>;
-export declare type EditMetadataMutation = {
-    __typename?: 'Mutation';
-    replaceMetadata?: Maybe<({
-        __typename?: 'Entity';
-    } & FullEntityFragment)>;
+export declare type GetRelationsQuery = {
+    __typename?: 'Query';
+    Relations?: Maybe<{
+        __typename?: 'RelationsResults';
+        count?: Maybe<number>;
+        limit?: Maybe<number>;
+        results?: Maybe<Array<Maybe<({
+            __typename?: 'Relation';
+        } & FullRelationFragment)>>>;
+    }>;
 };
-export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
+export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
-    searchValue: SearchFilter;
-}>>;
-export declare const GetRelationsDocument: DocumentNode<GetRelationsQuery, Exact<{
     searchValue: SearchFilter;
 }>>;
 export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery, Exact<{
@@ -264,7 +268,6 @@ export declare const GetEntityByIdDocument: DocumentNode<GetEntityByIdQuery, Exa
 export declare const GetMeDocument: DocumentNode<GetMeQuery, Exact<{
     [key: string]: never;
 }>>;
-export declare const EditMetadataDocument: DocumentNode<EditMetadataMutation, Exact<{
-    id: Scalars['String'];
-    metadata: Array<MetadataInput> | MetadataInput;
+export declare const GetRelationsDocument: DocumentNode<GetRelationsQuery, Exact<{
+    searchValue: SearchFilter;
 }>>;

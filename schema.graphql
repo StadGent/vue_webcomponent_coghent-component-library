@@ -12,6 +12,19 @@ enum RelationType {
   authoredBy
   isIn
   contains
+  isTypeOf
+}
+
+enum JSPatchOp {
+  add
+  replace
+  remove
+}
+
+input JSPatch {
+  op: JSPatchOp!
+  path: [String!]!
+  value: String!
 }
 
 type Metadata {
@@ -30,20 +43,21 @@ type Entity {
   id: String!
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
-  mediafiles: [MediaFile]
   relations: [Relation]
-  title: [Metadata]
+  mediafiles: [MediaFile]
 }
 
 type MediaFile {
-  _id: String
+  _id: String!
   original_file_location: String
+  thumbnail_file_location: String
   entities: [String]
 }
 
 type Relation {
   key: String!
   type: RelationType!
+  label: String
 }
 
 type EntitiesResults {
@@ -75,17 +89,17 @@ type User {
 }
 
 type Query {
-	Entity(id: String!): Entity
-	Entities(
-		limit: Int
-		skip: Int
-		searchValue: SearchFilter!
-		fetchPolicy: String
-	): EntitiesResults
+  Entity(id: String!): Entity
+  Entities(
+    limit: Int
+    skip: Int
+    searchValue: SearchFilter!
+    fetchPolicy: String
+  ): EntitiesResults
   Relations(searchValue: SearchFilter!, fetchPolicy: String): RelationsResults
   User: User
 }
 
 type Mutation {
-  replaceMetadata(id: String!, metadata: [MetadataInput!]!): Entity
+  replaceMetadata(id: String!, metadata: [MetadataInput!]!): [Metadata!]!
 }

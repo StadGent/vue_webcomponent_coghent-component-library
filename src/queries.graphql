@@ -1,9 +1,8 @@
 fragment minimalEntity on Entity {
   id
   type
-  metadata(key: [title, type]) {
-    key
-    value
+  mediafiles {
+    location: original_file_location
   }
 }
 
@@ -25,6 +24,7 @@ fragment fullEntity on Entity {
   relations {
     key
     type
+    label
   }
 }
 
@@ -43,33 +43,33 @@ fragment fullRelation on Relation {
 }
 
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
-	Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
-		count
-		limit
-		results {
-			...minimalEntity
-		}
-	}
+  Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
+    count
+    limit
+    results {
+      ...minimalEntity
+    }
+  }
 }
 
 query getFullEntities(
-	$limit: Int
-	$skip: Int
-	$searchValue: SearchFilter!
-	$fetchPolicy: String
+  $limit: Int
+  $skip: Int
+  $searchValue: SearchFilter!
+  $fetchPolicy: String
 ) {
-	Entities(
-		limit: $limit
-		skip: $skip
-		searchValue: $searchValue
-		fetchPolicy: $fetchPolicy
-	) {
-		count
-		limit
-		results {
-			...fullEntity
-		}
-	}
+  Entities(
+    limit: $limit
+    skip: $skip
+    searchValue: $searchValue
+    fetchPolicy: $fetchPolicy
+  ) {
+    count
+    limit
+    results {
+      ...fullEntity
+    }
+  }
 }
 
 query getEntityById($id: String!) {
@@ -85,17 +85,11 @@ query getMe {
 }
 
 query getRelations($searchValue: SearchFilter!) {
-	Relations(searchValue: $searchValue) {
+  Relations(searchValue: $searchValue) {
     count
-		limit
-		results {
-			...fullRelation
-		}
-	}
-}
-
-mutation editMetadata($id: String!, $metadata: [MetadataInput!]!) {
-  replaceMetadata(id: $id, metadata: $metadata) {
-    ...fullEntity
+    limit
+    results {
+      ...fullRelation
+    }
   }
 }
