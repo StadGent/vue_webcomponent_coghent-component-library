@@ -1,11 +1,10 @@
 <template>
   <div
-    class="tag flex items-center text-sm font-semibold"
+    class="tag flex items-center text-sm font-semibold cursor-pointer"
     :class="style"
-    @click="selectFilter()"
   >
     <base-icon
-      v-show="tagSelected"
+      v-show="isSelected"
       class="flex stroke-current text-text-white ml-1 mr-2"
       :icon="icon"
     />
@@ -13,14 +12,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import BaseIcon from "./BaseIcon.vue";
+import { computed, defineComponent, ref } from "vue"
+import BaseIcon from "./BaseIcon.vue"
 
-type TagStyle = "primary" | "selected";
+type TagStyle = "primary" | "selected"
 const styles: Record<TagStyle, string> = {
   primary: "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center",
   selected: "bg-tag-selected text-text-white py-2 px-4 mx-2 my-2 text-center",
-};
+}
 
 export default defineComponent({
   name: "FilterTag",
@@ -42,25 +41,16 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["update:isSelected"],
-  setup(props, { emit }) {
-    let tagSelected = ref(props.isSelected);
-    let style = ref(styles["primary"]);
+  setup(props) {
+    const style = computed(() => {
+      if (props.isSelected) {
+        return styles["selected"]
+      } else {
+        return styles["primary"]
+      }
+    })
 
-    const toggleTagStyle = () => {
-      if (tagSelected.value) style.value = styles["selected"];
-      else style.value = styles["primary"];
-    };
-
-    const selectFilter = () => {
-      tagSelected.value = !tagSelected.value;
-      toggleTagStyle();
-      emit("update:isSelected", tagSelected.value);
-    };
-
-    toggleTagStyle();
-
-    return { selectFilter, tagSelected, styles, style };
+    return { styles, style }
   },
-});
+})
 </script>

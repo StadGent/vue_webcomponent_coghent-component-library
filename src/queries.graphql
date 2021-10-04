@@ -40,6 +40,7 @@ fragment fullUser on User {
 fragment fullRelation on Relation {
   key
   type
+  label
 }
 
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
@@ -48,6 +49,9 @@ query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
     limit
     results {
       ...minimalEntity
+    }
+    relations {
+      ...fullRelation
     }
   }
 }

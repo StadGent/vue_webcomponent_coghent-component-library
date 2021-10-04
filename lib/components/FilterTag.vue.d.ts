@@ -16,11 +16,9 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
     };
 }, {
-    selectFilter: () => void;
-    tagSelected: import("vue").Ref<boolean>;
     styles: Record<TagStyle, string>;
-    style: import("vue").Ref<string>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:isSelected"[], "update:isSelected", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    style: import("vue").ComputedRef<string>;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     filter?: unknown;
     isSelected?: unknown;
     icon?: unknown;
@@ -28,9 +26,7 @@ declare const _default: import("vue").DefineComponent<{
     filter: string;
     isSelected: boolean;
     icon: string;
-} & {}> & {
-    "onUpdate:isSelected"?: ((...args: any[]) => any) | undefined;
-}, {
+} & {}> & {}, {
     filter: string;
     isSelected: boolean;
     icon: string;

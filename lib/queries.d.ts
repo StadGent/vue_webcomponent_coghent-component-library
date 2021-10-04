@@ -23,6 +23,7 @@ export declare type Scalars = {
 export declare type EntitiesResults = {
     __typename?: 'EntitiesResults';
     results?: Maybe<Array<Maybe<Entity>>>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
     count?: Maybe<Scalars['Int']>;
     limit?: Maybe<Scalars['Int']>;
 };
@@ -110,7 +111,8 @@ export declare enum RelationType {
     AuthoredBy = "authoredBy",
     IsIn = "isIn",
     Contains = "contains",
-    IsTypeOf = "isTypeOf"
+    IsTypeOf = "isTypeOf",
+    IsUsedIn = "isUsedIn"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
@@ -122,7 +124,7 @@ export declare type SearchFilter = {
     value?: Maybe<Scalars['String']>;
     isAsc?: Maybe<Scalars['Boolean']>;
     key?: Maybe<Scalars['String']>;
-    raw?: Maybe<Scalars['Boolean']>;
+    relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 export declare type User = {
     __typename?: 'User';
@@ -181,6 +183,7 @@ export declare type FullRelationFragment = {
     __typename?: 'Relation';
     key: string;
     type: RelationType;
+    label?: Maybe<string>;
 };
 export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
@@ -196,6 +199,9 @@ export declare type GetEntitiesQuery = {
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
         } & MinimalEntityFragment)>>>;
+        relations?: Maybe<Array<Maybe<({
+            __typename?: 'Relation';
+        } & FullRelationFragment)>>>;
     }>;
 };
 export declare type GetFullEntitiesQueryVariables = Exact<{
