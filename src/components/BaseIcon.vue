@@ -2,9 +2,28 @@
   <div v-html="icons[icon]"></div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user' | 'close' | 'info' | 'link' | 'check' | 'fullscreen' | 'monitor' | 'zoomIn' | 'zoomOut' | 'chest'
+import { defineComponent, PropType } from "vue";
+type CustomIcon =
+  | "storybox"
+  | "globe"
+  | "delete"
+  | "edit"
+  | "logout"
+  | "user"
+  | "close"
+  | "info"
+  | "link"
+  | "check"
+  | "fullscreen"
+  | "monitor"
+  | "zoomIn"
+  | "zoomOut"
+  | "chest"
+  | "talk";
 const icons: Record<CustomIcon, String> = {
+  talk: `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 17 17">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M15 1H2c-.552 0-1 .448-1 1v10c0 .552.448 1 1 1h4l2.5 3 2.5-3h4c.552 0 1-.448 1-1V2c0-.552-.448-1-1-1zM4 5h9M4 9h9"/>
+</svg>`,
   storybox: `<svg v-if="icon == 'verhalenbox'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
     <path  stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M2.5.5h11M11.5 6.5v2h-7v-2" />
     <path  stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M15.5 3.5H.5v11h15v-11z" />
@@ -97,20 +116,20 @@ const icons: Record<CustomIcon, String> = {
 <path d="M55.7339 74.3286H101.282" stroke="white" stroke-width="2" stroke-linecap="round"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M73.3055 55.8638C73.8678 55.3593 74.2215 54.627 74.2215 53.8121C74.2215 52.2901 72.9876 51.0562 71.4656 51.0562C69.9436 51.0562 68.7098 52.2901 68.7098 53.8121C68.7098 54.6268 69.0633 55.359 69.6254 55.8636L68.0972 61.4672H74.8337L73.3055 55.8638Z" fill="white"/>
 </svg>`,
-}
+};
 
 export default defineComponent({
   props: {
     icon: {
       type: String as PropType<CustomIcon>,
-      default: 'storybox',
+      default: "storybox",
       required: true,
     },
   },
   setup() {
-    return { icons }
+    return { icons };
   },
-})
+});
 </script>
 
 <style scoped></style>
