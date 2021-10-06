@@ -11,4 +11,5 @@ import TheCarousel from "./components/TheCarousel.vue";
 import BaseModal from "./components/BaseModal.vue";
 import ViewerToolbar from "./components/ViewerToolbar.vue";
 import IIIFViewer from "./components/IIIFViewer.vue";
-export { GetEntitiesDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, BaseModal, CardComponent, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, TheCarousel, ViewerToolbar, IIIFViewer, GetMeQuery, GetMeDocument, User, FullRelationFragment, GetRelationsDocument, RelationsResults, GetEntitiesQuery, GetEntitiesQueryVariables, };
+import * as Util from "./utils/stringUtil";
+export { GetEntitiesDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, BaseModal, CardComponent, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, TheCarousel, ViewerToolbar, IIIFViewer, GetMeQuery, GetMeDocument, User, FullRelationFragment, GetRelationsDocument, RelationsResults, GetEntitiesQuery, GetEntitiesQueryVariables, Util };

@@ -49,7 +49,7 @@
           shadow-inner
           2xl:ml-24
           sm:ml-16
-          ml-24
+          ml-16
           ring-8 ring-accent-green
         "
       ></div>
@@ -62,7 +62,7 @@
           flex-shrink-0
           shadow-inner
           2xl:ml-24
-          ml-24
+          ml-12
           sm:ml-16
         "
       ></div>
@@ -75,7 +75,7 @@
           flex-shrink-0
           shadow-inner
           2xl:ml-4
-          ml-4
+          ml-6
         "
       ></div>
       <div
@@ -222,7 +222,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
@@ -233,6 +233,6 @@ export default defineComponent({
     },
   },
   setup() {},
-})
+});
 </script>
 <style scoped></style>
