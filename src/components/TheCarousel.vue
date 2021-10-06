@@ -10,7 +10,7 @@
     <div class="z-0 mt-24 w-1/4 transform -translate-x-1/4">
       <img
         class="opacity-70"
-        :src="replaceStringStorageApi(source[getPrevImage()])"
+        :src="util.replaceStringStorageApi(source[getPrevImage()])"
         v-show="source.length > 2"
       />
     </div>
@@ -22,7 +22,7 @@
         :iconShown="true"
         :onClick="openFullscreenModal"
       />
-      <img class="z-10" :src="replaceStringStorageApi(source[selectedIndex])" />
+      <img class="z-10" :src="util.replaceStringStorageApi(source[selectedIndex])" />
       <div
         class="
           flex
@@ -100,7 +100,7 @@
     <div class="z-0 mt-24 w-1/4 transform translate-x-1/4">
       <img
         class="opacity-70"
-        :src="replaceStringStorageApi(source[getNextImage()])"
+        :src="util.replaceStringStorageApi(source[getNextImage()])"
         v-show="source.length > 1"
       />
     </div>
@@ -111,6 +111,7 @@ import { defineComponent, ref } from "vue";
 import BaseButton from "./BaseButton.vue";
 import BaseModal from "./BaseModal.vue";
 import IIIFViewer from "./IIIFViewer.vue";
+import * as util from '../utils/stringUtil'
 
 const key = "ywZWVMg3eFuhuS804wD6PuGBKyWsrXQF-bee2SJtqmw";
 
@@ -160,12 +161,6 @@ export default defineComponent({
       openModal.value = true;
     };
 
-    const replaceStringStorageApi = (input: string) => {
-      return input.replace(
-        "http://localhost:8001http://storage-api:8001/",
-        "http://localhost:8001/"
-      );
-    };
 
     return {
       selectedIndex,
@@ -175,7 +170,7 @@ export default defineComponent({
       getPrevImage,
       openFullscreenModal,
       openModal,
-      replaceStringStorageApi,
+      util
     };
   },
 });

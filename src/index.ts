@@ -27,6 +27,7 @@ import TheCarousel from "./components/TheCarousel.vue"
 import BaseModal from "./components/BaseModal.vue"
 import ViewerToolbar from "./components/ViewerToolbar.vue"
 import IIIFViewer from "./components/IIIFViewer.vue"
+import * as Util from "./utils/stringUtil"
 
 export {
   GetEntitiesDocument,
@@ -54,4 +55,5 @@ export {
   RelationsResults,
   GetEntitiesQuery,
   GetEntitiesQueryVariables,
+  Util
 }

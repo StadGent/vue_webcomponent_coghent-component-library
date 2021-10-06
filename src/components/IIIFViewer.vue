@@ -15,6 +15,7 @@
 import { defineComponent, onMounted, ref } from "vue";
 import OpenSeadragon from "openseadragon";
 import ViewerToolbar from "./ViewerToolbar.vue";
+import * as util from "../utils/stringUtil";
 
 export default defineComponent({
   name: "IIIFViewer",
@@ -40,7 +41,7 @@ export default defineComponent({
         toolbar: document.getElementById("OpenSeadragon-toolbar"),
         tileSources: {
           type: "image",
-          url: replaceStringStorageApi(props.imageUrl),
+          url: util.replaceStringStorageApi(props.imageUrl),
         },
       };
 
@@ -60,20 +61,12 @@ export default defineComponent({
       OpenSeadragon(dragonOption);
     });
 
-    const replaceStringStorageApi = (input: string) => {
-      return input.replace(
-        "http://localhost:8001http://storage-api:8001/",
-        "http://localhost:8001/"
-      );
-    };
-
     return {
       OpenSeadragonDiv,
       zoomInDiv,
       zoomOutDiv,
       fullPageButtonDiv,
       homeDiv,
-      replaceStringStorageApi,
     };
   },
 });
