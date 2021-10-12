@@ -13,7 +13,11 @@ fragment fullEntity on Entity {
     key
     value
   }
-  metadata(key: [description, material, type]) {
+  description: metadata(key: [description]) {
+    key
+    value
+  }
+  metadata(key: [material, type, collection]) {
     key
     value
   }

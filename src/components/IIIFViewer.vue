@@ -12,10 +12,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import OpenSeadragon from "openseadragon";
-import ViewerToolbar from "./ViewerToolbar.vue";
-import * as util from "../utils/stringUtil";
+import { defineComponent, onMounted, ref } from "vue"
+import OpenSeadragon from "openseadragon"
+import ViewerToolbar from "./ViewerToolbar.vue"
 
 export default defineComponent({
   name: "IIIFViewer",
@@ -26,12 +25,12 @@ export default defineComponent({
     imageUrl: { type: String, default: "" },
   },
   setup: (props) => {
-    const OpenSeadragonDiv = ref<HTMLDivElement | undefined>(undefined);
+    const OpenSeadragonDiv = ref<HTMLDivElement | undefined>(undefined)
 
-    const zoomInDiv = ref<string | undefined>(undefined);
-    const zoomOutDiv = ref<string | undefined>(undefined);
-    const fullPageButtonDiv = ref<string | undefined>(undefined);
-    const homeDiv = ref<string | undefined>(undefined);
+    const zoomInDiv = ref<string | undefined>(undefined)
+    const zoomOutDiv = ref<string | undefined>(undefined)
+    const fullPageButtonDiv = ref<string | undefined>(undefined)
+    const homeDiv = ref<string | undefined>(undefined)
 
     onMounted(() => {
       const dragonOption: OpenSeadragon.Options = {
@@ -41,25 +40,25 @@ export default defineComponent({
         toolbar: document.getElementById("OpenSeadragon-toolbar"),
         tileSources: {
           type: "image",
-          url: util.replaceStringStorageApi(props.imageUrl),
+          url: props.imageUrl,
         },
-      };
+      }
 
       if (zoomInDiv.value !== null) {
-        dragonOption.zoomInButton = zoomInDiv.value;
+        dragonOption.zoomInButton = zoomInDiv.value
       }
       if (zoomOutDiv.value !== null) {
-        dragonOption.zoomOutButton = zoomOutDiv.value;
+        dragonOption.zoomOutButton = zoomOutDiv.value
       }
       if (fullPageButtonDiv.value !== null) {
-        dragonOption.fullPageButton = fullPageButtonDiv.value;
+        dragonOption.fullPageButton = fullPageButtonDiv.value
       }
       if (homeDiv.value !== null) {
-        dragonOption.homeButton = homeDiv.value;
+        dragonOption.homeButton = homeDiv.value
       }
 
-      OpenSeadragon(dragonOption);
-    });
+      OpenSeadragon(dragonOption)
+    })
 
     return {
       OpenSeadragonDiv,
@@ -67,9 +66,9 @@ export default defineComponent({
       zoomOutDiv,
       fullPageButtonDiv,
       homeDiv,
-    };
+    }
   },
-});
+})
 </script>
 
 <style scoped>

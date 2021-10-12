@@ -1,4 +1,3 @@
-import * as util from '../utils/stringUtil';
 declare const _default: import("vue").DefineComponent<{
     source: {
         type: ArrayConstructor;
@@ -11,10 +10,7 @@ declare const _default: import("vue").DefineComponent<{
     getNextImage: () => number;
     getPrevImage: () => number;
     openFullscreenModal: () => void;
-    openModal: import("vue").Ref<{
-        valueOf: () => boolean;
-    }>;
-    util: typeof util;
+    openModal: import("vue").Ref<boolean>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     source?: unknown;
 } & {

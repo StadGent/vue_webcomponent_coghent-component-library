@@ -10,7 +10,7 @@
     <div class="z-0 mt-24 w-1/4 transform -translate-x-1/4">
       <img
         class="opacity-70"
-        :src="util.replaceStringStorageApi(source[getPrevImage()])"
+        :src="source[getPrevImage()]"
         v-show="source.length > 2"
       />
     </div>
@@ -22,7 +22,7 @@
         :iconShown="true"
         :onClick="openFullscreenModal"
       />
-      <img class="z-10" :src="util.replaceStringStorageApi(source[selectedIndex])" />
+      <img class="z-10" :src="source[selectedIndex]" />
       <div
         class="
           flex
@@ -100,20 +100,19 @@
     <div class="z-0 mt-24 w-1/4 transform translate-x-1/4">
       <img
         class="opacity-70"
-        :src="util.replaceStringStorageApi(source[getNextImage()])"
+        :src="source[getNextImage()]"
         v-show="source.length > 1"
       />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import BaseButton from "./BaseButton.vue";
-import BaseModal from "./BaseModal.vue";
-import IIIFViewer from "./IIIFViewer.vue";
-import * as util from '../utils/stringUtil'
+import { defineComponent, ref } from "vue"
+import BaseButton from "./BaseButton.vue"
+import BaseModal from "./BaseModal.vue"
+import IIIFViewer from "./IIIFViewer.vue"
 
-const key = "ywZWVMg3eFuhuS804wD6PuGBKyWsrXQF-bee2SJtqmw";
+const key = "ywZWVMg3eFuhuS804wD6PuGBKyWsrXQF-bee2SJtqmw"
 
 export default defineComponent({
   props: {
@@ -124,43 +123,42 @@ export default defineComponent({
   },
   components: { BaseButton, BaseModal, IIIFViewer },
   setup(props) {
-    const selectedIndex = ref<number>(0);
-    const nextIndex = ref<number>(0);
-    const prevIndex = ref<number>(0);
-    const openModal = ref<Boolean>(false);
+    const selectedIndex = ref<number>(0)
+    const nextIndex = ref<number>(0)
+    const prevIndex = ref<number>(0)
+    const openModal = ref<boolean>(false)
 
     const nextImage = () => {
       selectedIndex.value =
         selectedIndex.value < props.source.length - 1
           ? selectedIndex.value + 1
-          : 0;
-    };
+          : 0
+    }
 
     const prevImage = () => {
       selectedIndex.value =
         selectedIndex.value === 0
           ? props.source.length - 1
-          : selectedIndex.value - 1;
-    };
+          : selectedIndex.value - 1
+    }
 
     const getNextImage = () => {
       return (nextIndex.value =
         selectedIndex.value < props.source.length - 1
           ? selectedIndex.value + 1
-          : 0);
-    };
+          : 0)
+    }
 
     const getPrevImage = () => {
       return (prevIndex.value =
         selectedIndex.value === 0
           ? props.source.length - 1
-          : selectedIndex.value - 1);
-    };
+          : selectedIndex.value - 1)
+    }
 
     const openFullscreenModal = () => {
-      openModal.value = true;
-    };
-
+      openModal.value = true
+    }
 
     return {
       selectedIndex,
@@ -170,9 +168,8 @@ export default defineComponent({
       getPrevImage,
       openFullscreenModal,
       openModal,
-      util
-    };
+    }
   },
-});
+})
 </script>
 <style scoped></style>

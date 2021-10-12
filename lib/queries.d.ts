@@ -153,6 +153,11 @@ export declare type FullEntityFragment = {
         key: MetaKey;
         value: string;
     }>>;
+    description: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value: string;
+    }>>;
     metadata: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
