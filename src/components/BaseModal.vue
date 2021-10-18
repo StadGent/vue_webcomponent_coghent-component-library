@@ -1,8 +1,10 @@
 <template>
   <Modal v-model="isShow" class="w-screen h-screen" :close="closeModal">
-    <div class="h-min w-9/12 bg-background-medium">
-      <div v-show="showHeader" class="w-auto h-auto float-right pr-5 pt-2 bg-background-medium"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
-      <div class="bg-background-medium"><slot class="z-40"></slot></div>
+    <div class="h-min w-11/12 bg-background-light flex flex-col">
+    <div class="relative">
+      <div v-show="showHeader" class="w-min h-min absolute right-0 top-0 pr-2 pt-2"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
+      <div class="bg-background-light"><slot class="z-40 flex"></slot></div>
+    </div>
     </div>
   </Modal>
 </template>

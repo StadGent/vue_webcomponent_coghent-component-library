@@ -112,8 +112,6 @@ import BaseButton from "./BaseButton.vue"
 import BaseModal from "./BaseModal.vue"
 import IIIFViewer from "./IIIFViewer.vue"
 
-const key = "ywZWVMg3eFuhuS804wD6PuGBKyWsrXQF-bee2SJtqmw"
-
 export default defineComponent({
   props: {
     source: {
@@ -167,7 +165,7 @@ export default defineComponent({
       getNextImage,
       getPrevImage,
       openFullscreenModal,
-      openModal,
+      openModal
     }
   },
 })
