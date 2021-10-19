@@ -1,7 +1,6 @@
 {
   "name": "coghent-vue-3-component-library",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -14,6 +13,9 @@
     "openseadragon": "^2.4.2",
     "ts-debounce": "^3.0.0",
     "vue": "^3.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.inuits.io/repository/npm-private"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^2.0.2",
