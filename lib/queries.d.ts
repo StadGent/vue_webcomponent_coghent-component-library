@@ -32,6 +32,7 @@ export declare type Entity = {
     id: Scalars['String'];
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
+    title: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
 };
@@ -112,7 +113,9 @@ export declare enum RelationType {
     IsIn = "isIn",
     Contains = "contains",
     IsTypeOf = "isTypeOf",
-    IsUsedIn = "isUsedIn"
+    IsUsedIn = "isUsedIn",
+    Components = "components",
+    Parent = "parent"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';

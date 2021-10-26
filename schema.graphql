@@ -14,6 +14,8 @@ enum RelationType {
   contains
   isTypeOf
   isUsedIn
+  components
+  parent
 }
 
 enum JSPatchOp {
@@ -44,6 +46,7 @@ type Entity {
   id: String!
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
+  title: [Metadata]!
   relations: [Relation]
   mediafiles: [MediaFile]
 }
