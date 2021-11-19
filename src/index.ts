@@ -15,6 +15,8 @@ import {
   FullRelationFragment,
   GetRelationsDocument,
   RelationsResults,
+  GetStoriesDocument,
+  GetEnumsByNameDocument,
 } from "./queries"
 import BaseButton from "./components/BaseButton.vue"
 import BaseSearch from "./components/BaseSearch.vue"
@@ -30,6 +32,8 @@ import IIIFViewer from "./components/IIIFViewer.vue"
 
 export {
   GetEntitiesDocument,
+  GetStoriesDocument,
+  GetEnumsByNameDocument,
   EntitiesResults,
   GetFullEntitiesDocument,
   GetEntityByIdDocument,

@@ -24,6 +24,15 @@ enum JSPatchOp {
   remove
 }
 
+enum Story {
+  id
+  type
+  title
+  metadata
+  mediafiles
+  frames
+}
+
 input JSPatch {
   op: JSPatchOp!
   path: [String!]!
@@ -48,6 +57,9 @@ type Entity {
   metadata(key: [MetaKey]): [Metadata]!
   title: [Metadata]!
   relations: [Relation]
+  components: [Entity]
+  assets: [Entity]
+  frames: [Entity]
   mediafiles: [MediaFile]
 }
 

@@ -32,6 +32,22 @@ fragment fullEntity on Entity {
   }
 }
 
+fragment storyEntity on Entity {
+  id
+  type
+  title: metadata(key: [title]) {
+    key
+    value
+  }
+  metadata(key: [description,collection]) {
+    key
+    value
+  }
+  mediafiles {
+    original_file_location
+  }
+}
+
 fragment fullUser on User {
   id
   email
@@ -98,6 +114,31 @@ query getRelations($searchValue: SearchFilter!) {
     limit
     results {
       ...fullRelation
+    }
+  }
+}
+
+query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
+	Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
+		count
+		limit
+		results {
+			...storyEntity
+			frames {
+        ...storyEntity
+				assets {
+					...storyEntity
+				}
+			}
+		}
+	}
+}
+
+query getEnumsByName($enumName: String!) {
+  __type(name: $enumName) {
+    name
+    enumValues {
+      name
     }
   }
 }
