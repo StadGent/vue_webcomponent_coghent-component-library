@@ -127,7 +127,18 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 			frames {
         ...storyEntity
 				assets {
-					...storyEntity
+					id
+          title: metadata(key: [title]) {
+            key
+            value
+          }
+          metadata(key: [description,collection, hoogte, diameter]) {
+            key
+            value
+          }
+          mediafiles {
+            original_file_location
+          }
 				}
 			}
 		}
