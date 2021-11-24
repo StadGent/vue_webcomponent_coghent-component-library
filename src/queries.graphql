@@ -132,10 +132,14 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
             key
             value
           }
-          metadata(key: [description,collection, hoogte, diameter]) {
-            key
-            value
-          }
+          collections: metadata(key: [collection]) {
+						key
+						value
+					}
+					dimensions: metadata(key: [diameter, hoogte]) {
+						key
+						value
+					}
           mediafiles {
             original_file_location
           }

@@ -33,6 +33,8 @@ export declare type Entity = {
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
     title: Array<Maybe<Metadata>>;
+    collections: Array<Maybe<Metadata>>;
+    dimensions: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     components?: Maybe<Array<Maybe<Entity>>>;
     assets?: Maybe<Array<Maybe<Entity>>>;
@@ -64,7 +66,9 @@ export declare enum MetaKey {
     Type = "type",
     Collection = "collection",
     Description = "description",
-    Material = "material"
+    Material = "material",
+    Diameter = "diameter",
+    Hoogte = "hoogte"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -400,9 +404,29 @@ export declare type GetStoriesQuery = {
             __typename?: 'Entity';
             frames?: Maybe<Array<Maybe<({
                 __typename?: 'Entity';
-                assets?: Maybe<Array<Maybe<({
+                assets?: Maybe<Array<Maybe<{
                     __typename?: 'Entity';
-                } & StoryEntityFragment)>>>;
+                    id: string;
+                    title: Array<Maybe<{
+                        __typename?: 'Metadata';
+                        key: MetaKey;
+                        value: string;
+                    }>>;
+                    collections: Array<Maybe<{
+                        __typename?: 'Metadata';
+                        key: MetaKey;
+                        value: string;
+                    }>>;
+                    dimensions: Array<Maybe<{
+                        __typename?: 'Metadata';
+                        key: MetaKey;
+                        value: string;
+                    }>>;
+                    mediafiles?: Maybe<Array<Maybe<{
+                        __typename?: 'MediaFile';
+                        original_file_location?: Maybe<string>;
+                    }>>>;
+                }>>>;
             } & StoryEntityFragment)>>>;
         } & StoryEntityFragment)>>>;
     }>;
