@@ -140,6 +140,10 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 						key
 						value
 					}
+					timestamps: metadata(key: [timestamp]) {
+						key
+						value
+					}
           mediafiles {
             original_file_location
           }
