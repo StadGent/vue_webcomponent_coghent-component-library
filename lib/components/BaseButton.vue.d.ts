@@ -1,6 +1,6 @@
 import { PropType } from 'vue';
 declare type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user';
-declare type ButtonTypes = 'primary' | 'secondary' | 'ghost-black' | 'ghost-purple' | 'ghost-red' | 'secondary-round';
+declare type ButtonTypes = 'primary' | 'secondary' | 'ghost-black' | 'ghost-purple' | 'ghost-red' | 'secondary-round' | 'cc-round-black';
 declare type iconTypes = 'sm' | 'default';
 declare const _default: import("vue").DefineComponent<{
     text: {
@@ -9,7 +9,7 @@ declare const _default: import("vue").DefineComponent<{
     };
     onClick: {
         type: FunctionConstructor;
-        required: true;
+        required: false;
     };
     customStyle: {
         type: PropType<ButtonTypes>;
@@ -27,6 +27,11 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: true;
     };
+    iconLeft: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
 }, {
     buttonstyles: Record<ButtonTypes, String>;
     iconstyles: Record<iconTypes, String>;
@@ -37,17 +42,20 @@ declare const _default: import("vue").DefineComponent<{
     customIconStyle?: unknown;
     customIcon?: unknown;
     iconShown?: unknown;
+    iconLeft?: unknown;
 } & {
-    onClick: Function;
     customStyle: ButtonTypes;
     customIconStyle: iconTypes;
     customIcon: CustomIcon;
     iconShown: boolean;
+    iconLeft: boolean;
 } & {
     text?: string | undefined;
+    onClick?: Function | undefined;
 }> & {}, {
     customStyle: ButtonTypes;
     customIconStyle: iconTypes;
     customIcon: CustomIcon;
+    iconLeft: boolean;
 }>;
 export default _default;

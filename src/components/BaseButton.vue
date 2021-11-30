@@ -1,14 +1,15 @@
 <template>
   <span class="flex max-h-12 font-bold items-center stroke-current cursor-pointer" :class="buttonstyles[customStyle]" @click="onClick()">
-    <base-icon v-if="iconShown" class="flex mr-3 -ml-2 stroke-current" :class="iconstyles[customIconStyle]" :icon="customIcon" />
+    <base-icon v-if="iconShown && iconLeft" class="flex mr-3 -ml-2 stroke-current" :class="iconstyles[customIconStyle]" :icon="customIcon" />
     {{ text }}
+    <base-icon v-if="iconShown && !iconLeft" class="flex ml-2 -mr-2 stroke-current" :class="iconstyles[customIconStyle]" :icon="customIcon" />
   </span>
 </template>
 <script lang="ts">
 import { defineComponent, ref, PropType } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user'
-type ButtonTypes = 'primary' | 'secondary' | 'ghost-black' | 'ghost-purple' | 'ghost-red' | 'secondary-round'
+type ButtonTypes = 'primary' | 'secondary' | 'ghost-black' | 'ghost-purple' | 'ghost-red' | 'secondary-round' | 'cc-round-black'
 const buttonstyles: Record<ButtonTypes, String> = {
   primary: 'text-text-white bg-accent-purple rounded-full shadow-lg px-10 py-3',
   secondary: 'text-accent-purple bg-text-white rounded-full shadow-lg px-10 py-3',
@@ -16,6 +17,7 @@ const buttonstyles: Record<ButtonTypes, String> = {
   'ghost-purple': 'text-accent-purple py-3',
   'ghost-red': 'text-text-red py-3',
   'secondary-round' : 'text-accent-purple bg-text-white rounded-full shadow-lg px-4 py-2',
+  'cc-round-black' : 'text-text-black bg-text-white rounded-full shadow-lg px-4 pr-6 py-2 stroke-0'
 }
 type iconTypes = 'sm' | 'default'
 const iconstyles: Record<iconTypes, String> = {
@@ -29,7 +31,7 @@ export default defineComponent({
     text: { type: String, required: false },
     onClick: {
       type: Function,
-      required: true,
+      required: false,
     },
     customStyle: {
       type: String as PropType<ButtonTypes>,
@@ -47,6 +49,11 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+    iconLeft: {
+      type: Boolean,
+      required: false,
+      default: true,
+    }
   },
   emits: [],
   setup: (props, { emit }) => {

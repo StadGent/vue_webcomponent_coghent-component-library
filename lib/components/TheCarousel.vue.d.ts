@@ -11,6 +11,8 @@ declare const _default: import("vue").DefineComponent<{
     getPrevImage: () => number;
     openFullscreenModal: () => void;
     openModal: import("vue").Ref<boolean>;
+    openTab: import("vue").Ref<boolean>;
+    toggleCCTab: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     source?: unknown;
 } & {
