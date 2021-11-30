@@ -68,7 +68,7 @@ query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
     count
     limit
     results {
-      ...minimalEntity
+      ...fullEntity
     }
     relations {
       ...fullRelation

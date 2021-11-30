@@ -1,6 +1,6 @@
 <template>
   <Modal v-model="isShow" class="w-screen h-screen" :close="closeModal">
-    <div class="h-min w-11/12 bg-background-light flex flex-col">
+    <div class="h-min w-11/12 lg:w-8/12 bg-background-light flex flex-col">
     <div class="relative">
       <div v-show="showHeader" class="w-min h-min absolute right-0 top-0 pr-2 pt-2"><base-button :onClick="closeModal" customStyle="ghost-black" :iconShown="true" customIcon="close" /></div>
       <div class="bg-background-light"><slot class="z-40 flex"></slot></div>

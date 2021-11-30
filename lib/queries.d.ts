@@ -33,6 +33,7 @@ export declare type Entity = {
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
     title: Array<Maybe<Metadata>>;
+    timestamps: Array<Maybe<Metadata>>;
     collections: Array<Maybe<Metadata>>;
     dimensions: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
@@ -68,7 +69,8 @@ export declare enum MetaKey {
     Description = "description",
     Material = "material",
     Diameter = "diameter",
-    Hoogte = "hoogte"
+    Hoogte = "hoogte",
+    Timestamp = "timestamp"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -334,7 +336,7 @@ export declare type GetEntitiesQuery = {
         limit?: Maybe<number>;
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
-        } & MinimalEntityFragment)>>>;
+        } & FullEntityFragment)>>>;
         relations?: Maybe<Array<Maybe<({
             __typename?: 'Relation';
         } & FullRelationFragment)>>>;
@@ -418,6 +420,11 @@ export declare type GetStoriesQuery = {
                         value: string;
                     }>>;
                     dimensions: Array<Maybe<{
+                        __typename?: 'Metadata';
+                        key: MetaKey;
+                        value: string;
+                    }>>;
+                    timestamps: Array<Maybe<{
                         __typename?: 'Metadata';
                         key: MetaKey;
                         value: string;
