@@ -63,7 +63,7 @@ fragment fullRelation on Relation {
   label
 }
 
-fragment relationMetadata on Relation {
+fragment assetMetadata on Relation {
   key
   label
   timestamp_start
@@ -140,7 +140,7 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 			frames {
         ...storyEntity
         relationMetadata {
-					...relationMetadata
+					 ...assetMetadata
 				}
 				assets {
 					...storyEntity
