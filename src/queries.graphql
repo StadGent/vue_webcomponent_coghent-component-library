@@ -63,6 +63,19 @@ fragment fullRelation on Relation {
   label
 }
 
+fragment relationMetadata on Relation {
+  key
+  label
+  timestamp_start
+  timestamp_end
+  position{
+    x
+    y
+    z
+  }
+  scale
+}
+
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
   Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
     count
@@ -127,17 +140,10 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 			frames {
         ...storyEntity
         relationMetadata {
-					key
-          label
-					timestamp_start
-					timestamp_end
+					...relationMetadata
 				}
 				assets {
-					id
-          title: metadata(key: [title]) {
-            key
-            value
-          }
+					...storyEntity
           collections: metadata(key: [collection]) {
 						key
 						value
@@ -145,14 +151,7 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 					dimensions: metadata(key: [diameter, hoogte]) {
 						key
 						value
-					}
-					timestamps: metadata(key: [timestamp]) {
-						key
-						value
-					}
-          mediafiles {
-            original_file_location
-          }
+					}        
 				}
 			}
 		}
