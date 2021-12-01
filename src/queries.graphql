@@ -126,6 +126,12 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
 			...storyEntity
 			frames {
         ...storyEntity
+        relationMetadata {
+					key
+          label
+					timestamp_start
+					timestamp_end
+				}
 				assets {
 					id
           title: metadata(key: [title]) {
