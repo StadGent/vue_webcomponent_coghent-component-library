@@ -1,7 +1,7 @@
-import { PropType } from 'vue';
-declare type CustomIcon = 'storybox' | 'globe' | 'delete' | 'edit' | 'logout' | 'user';
-declare type ButtonTypes = 'primary' | 'secondary' | 'ghost-black' | 'ghost-purple' | 'ghost-red' | 'secondary-round' | 'cc-round-black';
-declare type iconTypes = 'sm' | 'default';
+import { PropType } from "vue";
+declare type CustomIcon = "storybox" | "globe" | "delete" | "edit" | "logout" | "user" | "surprise";
+declare type ButtonTypes = "primary" | "secondary" | "ghost-black" | "ghost-purple" | "ghost-red" | "secondary-round" | "cc-round-black";
+declare type iconTypes = "sm" | "default";
 declare const _default: import("vue").DefineComponent<{
     text: {
         type: StringConstructor;
@@ -33,8 +33,8 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
 }, {
-    buttonstyles: Record<ButtonTypes, String>;
-    iconstyles: Record<iconTypes, String>;
+    buttonstyles: Record<ButtonTypes, string>;
+    iconstyles: Record<iconTypes, string>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, never[], never, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     text?: unknown;
     onClick?: unknown;

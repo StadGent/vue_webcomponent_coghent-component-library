@@ -2,31 +2,32 @@
   <div v-html="icons[icon]"></div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType } from "vue"
 type CustomIcon =
-  | 'storybox'
-  | 'globe'
-  | 'delete'
-  | 'edit'
-  | 'logout'
-  | 'user'
-  | 'close'
-  | 'info'
-  | 'link'
-  | 'check'
-  | 'fullscreen'
-  | 'monitor'
-  | 'zoomIn'
-  | 'zoomOut'
-  | 'chest'
-  | 'talk'
-  | 'arrowRight'
-  | 'arrowRightLine'
-  | 'creativeCommonsCC'
-  | 'creativeCommonsSA'
-  | 'creativeCommonsBY'
-  | 'creativeCommonsNC'
-const icons: Record<CustomIcon, String> = {
+  | "storybox"
+  | "globe"
+  | "delete"
+  | "edit"
+  | "logout"
+  | "user"
+  | "close"
+  | "info"
+  | "link"
+  | "check"
+  | "fullscreen"
+  | "monitor"
+  | "zoomIn"
+  | "zoomOut"
+  | "chest"
+  | "talk"
+  | "arrowRight"
+  | "arrowRightLine"
+  | "creativeCommonsCC"
+  | "creativeCommonsSA"
+  | "creativeCommonsBY"
+  | "creativeCommonsNC"
+  | "surprise"
+const icons: Record<CustomIcon, string> = {
   talk: `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 17 17">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M15 1H2c-.552 0-1 .448-1 1v10c0 .552.448 1 1 1h4l2.5 3 2.5-3h4c.552 0 1-.448 1-1V2c0-.552-.448-1-1-1zM4 5h9M4 9h9"/>
 </svg>`,
@@ -145,14 +146,24 @@ const icons: Record<CustomIcon, String> = {
   arrowRightLine: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.5 12.5L11 8L6.5 3.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`
+`,
+  surprise: `<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.5 13C9.32843 13 10 12.3284 10 11.5C10 10.6716 9.32843 10 8.5 10C7.67157 10 7 10.6716 7 11.5C7 12.3284 7.67157 13 8.5 13Z" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.9339 9.5C15.6934 11.3012 14.8071 12.9537 13.4398 14.1506C12.0724 15.3475 10.3171 16.0072 8.49992 16.0072C6.68276 16.0072 4.9274 15.3475 3.56008 14.1506C2.19275 12.9537 1.30646 11.3012 1.06592 9.5" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.73682 2.00798C5.88098 1.34763 7.17877 1 8.49982 1C9.82086 1 11.1187 1.34763 12.2628 2.00798" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.5 9C6.433 9 8 7.433 8 5.5C8 3.567 6.433 2 4.5 2C2.567 2 1 3.567 1 5.5C1 7.433 2.567 9 4.5 9Z" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.5 9C14.433 9 16 7.433 16 5.5C16 3.567 14.433 2 12.5 2C10.567 2 9 3.567 9 5.5C9 7.433 10.567 9 12.5 9Z" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.5 6.5C5.05228 6.5 5.5 6.05228 5.5 5.5C5.5 4.94772 5.05228 4.5 4.5 4.5C3.94772 4.5 3.5 4.94772 3.5 5.5C3.5 6.05228 3.94772 6.5 4.5 6.5Z" fill="#2D242A"/>
+<path d="M12.5 6.5C13.0523 6.5 13.5 6.05228 13.5 5.5C13.5 4.94772 13.0523 4.5 12.5 4.5C11.9477 4.5 11.5 4.94772 11.5 5.5C11.5 6.05228 11.9477 6.5 12.5 6.5Z" fill="#2D242A"/>
+</svg>
+`,
 }
 
 export default defineComponent({
   props: {
     icon: {
       type: String as PropType<CustomIcon>,
-      default: 'storybox',
+      default: "storybox",
       required: true,
     },
   },
