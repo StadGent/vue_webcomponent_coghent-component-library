@@ -1,6 +1,6 @@
 <template>
   <!--Fullscreen modal-->
-  <base-modal :showHeader="false" v-model:isShow="openModal" class="z-50">
+  <base-modal :showHeader="false" v-model:isShow="openIIIFModal" class="z-50">
     <section class="h-large flex relative w-full">
       <IIIFViewer :imageUrl="source[selectedIndex]" />
     </section>
@@ -13,18 +13,18 @@
     <div class="flex flex-col items-center w-3/4 relative">
       <base-button class="w-0 absolute z-20 top-0 left-0 mt-3 ml-3" customStyle="secondary-round" customIcon="fullscreen" :iconShown="true" :onClick="openFullscreenModal" />
 
-      <div class="top-0 right-0 absolute z-30 bg-background-light mt-3 rounded-full mr-3 cursor-pointer">
-        <div class="static ">
-          <div v-show="openTab" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8">
-            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
-            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
-            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
-            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
-            <div class="border-r-2 h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" />
-          </div>
-        </div>
-        <base-button class="absolute right-0 w-0 z-30" :class="{ [`-mt-10`]: openTab }" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="toggleCCTab" />
+      <div class="top-0 right-0 absolute z-30 bg-background-light mt-3 rounded-full mr-3 cursor-pointer" @click="openCCModal">
+    <div class="static">
+      <div v-show="openTab" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8">
+        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
+        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
+        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
+        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
+        <div class="border-r-2 h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" />
       </div>
+    </div>
+    <base-button class="absolute right-0 w-0 z-30" :class="{ [`-mt-10`]: openTab }" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="toggleCCTab" />
+  </div>
 
       <img class="z-10" :src="source[selectedIndex]" />
       <div class="flex items-center bg-text-white shadow w-min inline-block rounded-full p-3 px-5 z-20 -mt-4" v-show="source.length > 1">
@@ -54,11 +54,12 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, SetupContext } from 'vue'
 import BaseButton from './BaseButton.vue'
 import BaseModal from './BaseModal.vue'
 import BaseIcon from './BaseIcon.vue'
 import IIIFViewer from './IIIFViewer.vue'
+import CreativeCommons from './CreativeCommons.vue'
 
 export default defineComponent({
   props: {
@@ -67,12 +68,13 @@ export default defineComponent({
       required: true,
     },
   },
-  components: { BaseButton, BaseModal, IIIFViewer, BaseIcon },
-  setup(props) {
+  components: { BaseButton, BaseModal, IIIFViewer, BaseIcon, CreativeCommons },
+  emits: ['openingCcmodal'],
+  setup(props, { emit }: SetupContext) {
     const selectedIndex = ref<number>(0)
     const nextIndex = ref<number>(0)
     const prevIndex = ref<number>(0)
-    const openModal = ref<boolean>(false)
+    const openIIIFModal = ref<boolean>(false)
     const openTab = ref<boolean>(false)
 
     const nextImage = () => {
@@ -92,12 +94,17 @@ export default defineComponent({
     }
 
     const openFullscreenModal = () => {
-      openModal.value = true
+      openIIIFModal.value = true
     }
 
     const toggleCCTab = () => {
       openTab.value = !openTab.value
     }
+
+    const openCCModal = () => {
+      emit('openingCcmodal', true);
+      console.log('Emitting openingccmodal');
+    };
 
     return {
       selectedIndex,
@@ -106,9 +113,10 @@ export default defineComponent({
       getNextImage,
       getPrevImage,
       openFullscreenModal,
-      openModal,
+      openIIIFModal,
       openTab,
       toggleCCTab,
+      openCCModal
     }
   },
 })

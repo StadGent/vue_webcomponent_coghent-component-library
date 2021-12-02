@@ -28,8 +28,8 @@ module.exports = {
       },
     },
     extend: {
-      height:{
-        large: '80vh'
+      height: {
+        large: '80vh',
       },
       boxShadow: {
         sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
