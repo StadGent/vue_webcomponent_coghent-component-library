@@ -12,17 +12,19 @@
     </div>
     <div class="flex flex-col items-center w-3/4 relative">
       <base-button class="w-0 absolute z-20 top-0 left-0 mt-3 ml-3" customStyle="secondary-round" customIcon="fullscreen" :iconShown="true" :onClick="openFullscreenModal" />
-      <div v-show="openTab" class="absolute w-0 z-20 object-right-top mt-7 -mr-12 ">
-        <div class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 -mt-4">
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
-          <div class="border-r-2 h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" />
-          <!-- <base-button class="font-xs font-thin" text="meer info" customStyle="ghost-purple" customIcon="arrowRightLine" :icon-shown="true" :iconLeft="false"/> -->
+
+      <div class="top-0 right-0 absolute z-30 bg-background-light mt-3 rounded-full mr-3 cursor-pointer">
+        <div class="static ">
+          <div v-show="openTab" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8">
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
+            <div class="border-r-2 h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" />
+          </div>
         </div>
+        <base-button class="absolute right-0 w-0 z-30" :class="{ [`-mt-10`]: openTab }" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="toggleCCTab" />
       </div>
-      <base-button class="w-0 absolute z-30 top-0 right-0 mt-3 mr-3" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="toggleCCTab" />
 
       <img class="z-10" :src="source[selectedIndex]" />
       <div class="flex items-center bg-text-white shadow w-min inline-block rounded-full p-3 px-5 z-20 -mt-4" v-show="source.length > 1">
