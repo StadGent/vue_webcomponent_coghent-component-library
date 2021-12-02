@@ -24,6 +24,11 @@ fragment fullEntity on Entity {
   mediafiles {
     _id
     original_file_location
+    filename
+    mediainfo {
+      width
+      height
+    }
   }
   relations {
     key
@@ -39,7 +44,7 @@ fragment storyEntity on Entity {
     key
     value
   }
-  metadata(key: [description,collection]) {
+  metadata(key: [description, collection]) {
     key
     value
   }
@@ -68,7 +73,7 @@ fragment assetMetadata on Relation {
   label
   timestamp_start
   timestamp_end
-  position{
+  position {
     x
     y
     z
@@ -132,30 +137,30 @@ query getRelations($searchValue: SearchFilter!) {
 }
 
 query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
-	Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
-		count
-		limit
-		results {
-			...storyEntity
-			frames {
+  Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
+    count
+    limit
+    results {
+      ...storyEntity
+      frames {
         ...storyEntity
         relationMetadata {
-					 ...assetMetadata
-				}
-				assets {
-					...storyEntity
+          ...assetMetadata
+        }
+        assets {
+          ...storyEntity
           collections: metadata(key: [collection]) {
-						key
-						value
-					}
-					dimensions: metadata(key: [diameter, hoogte]) {
-						key
-						value
-					}        
-				}
-			}
-		}
-	}
+            key
+            value
+          }
+          dimensions: metadata(key: [diameter, hoogte]) {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
 }
 
 query getEnumsByName($enumName: String!) {

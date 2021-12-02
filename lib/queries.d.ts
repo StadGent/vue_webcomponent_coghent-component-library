@@ -60,7 +60,14 @@ export declare type MediaFile = {
     _id: Scalars['String'];
     original_file_location?: Maybe<Scalars['String']>;
     thumbnail_file_location?: Maybe<Scalars['String']>;
+    filename?: Maybe<Scalars['String']>;
     entities?: Maybe<Array<Maybe<Scalars['String']>>>;
+    mediainfo?: Maybe<MediaInfo>;
+};
+export declare type MediaInfo = {
+    __typename?: 'MediaInfo';
+    width: Scalars['String'];
+    height: Scalars['String'];
 };
 export declare enum MetaKey {
     Title = "title",
@@ -290,6 +297,12 @@ export declare type FullEntityFragment = {
         __typename?: 'MediaFile';
         _id: string;
         original_file_location?: Maybe<string>;
+        filename?: Maybe<string>;
+        mediainfo?: Maybe<{
+            __typename?: 'MediaInfo';
+            width: string;
+            height: string;
+        }>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';
