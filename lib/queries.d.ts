@@ -33,10 +33,10 @@ export declare type Entity = {
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
     title: Array<Maybe<Metadata>>;
-    timestamps: Array<Maybe<Metadata>>;
     collections: Array<Maybe<Metadata>>;
     dimensions: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
+    relationMetadata?: Maybe<Array<Maybe<Relation>>>;
     components?: Maybe<Array<Maybe<Entity>>>;
     assets?: Maybe<Array<Maybe<Entity>>>;
     frames?: Maybe<Array<Maybe<Entity>>>;
@@ -69,8 +69,7 @@ export declare enum MetaKey {
     Description = "description",
     Material = "material",
     Diameter = "diameter",
-    Hoogte = "hoogte",
-    Timestamp = "timestamp"
+    Hoogte = "hoogte"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -90,6 +89,12 @@ export declare type Mutation = {
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
     metadata: Array<MetadataInput>;
+};
+export declare type Position = {
+    __typename?: 'Position';
+    x?: Maybe<Scalars['Int']>;
+    y?: Maybe<Scalars['Int']>;
+    z?: Maybe<Scalars['Int']>;
 };
 export declare type Query = {
     __typename?: 'Query';
@@ -116,6 +121,10 @@ export declare type Relation = {
     key: Scalars['String'];
     type: RelationType;
     label?: Maybe<Scalars['String']>;
+    timestamp_start?: Maybe<Scalars['Float']>;
+    timestamp_end?: Maybe<Scalars['Float']>;
+    position?: Maybe<Position>;
+    scale?: Maybe<Scalars['Float']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -323,6 +332,20 @@ export declare type FullRelationFragment = {
     type: RelationType;
     label?: Maybe<string>;
 };
+export declare type AssetMetadataFragment = {
+    __typename?: 'Relation';
+    key: string;
+    label?: Maybe<string>;
+    timestamp_start?: Maybe<number>;
+    timestamp_end?: Maybe<number>;
+    scale?: Maybe<number>;
+    position?: Maybe<{
+        __typename?: 'Position';
+        x?: Maybe<number>;
+        y?: Maybe<number>;
+        z?: Maybe<number>;
+    }>;
+};
 export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
@@ -406,14 +429,11 @@ export declare type GetStoriesQuery = {
             __typename?: 'Entity';
             frames?: Maybe<Array<Maybe<({
                 __typename?: 'Entity';
-                assets?: Maybe<Array<Maybe<{
+                relationMetadata?: Maybe<Array<Maybe<({
+                    __typename?: 'Relation';
+                } & AssetMetadataFragment)>>>;
+                assets?: Maybe<Array<Maybe<({
                     __typename?: 'Entity';
-                    id: string;
-                    title: Array<Maybe<{
-                        __typename?: 'Metadata';
-                        key: MetaKey;
-                        value: string;
-                    }>>;
                     collections: Array<Maybe<{
                         __typename?: 'Metadata';
                         key: MetaKey;
@@ -424,16 +444,7 @@ export declare type GetStoriesQuery = {
                         key: MetaKey;
                         value: string;
                     }>>;
-                    timestamps: Array<Maybe<{
-                        __typename?: 'Metadata';
-                        key: MetaKey;
-                        value: string;
-                    }>>;
-                    mediafiles?: Maybe<Array<Maybe<{
-                        __typename?: 'MediaFile';
-                        original_file_location?: Maybe<string>;
-                    }>>>;
-                }>>>;
+                } & StoryEntityFragment)>>>;
             } & StoryEntityFragment)>>>;
         } & StoryEntityFragment)>>>;
     }>;
@@ -457,6 +468,7 @@ export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unk
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
+export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
