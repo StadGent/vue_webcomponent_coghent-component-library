@@ -59,7 +59,6 @@ import BaseButton from './BaseButton.vue'
 import BaseModal from './BaseModal.vue'
 import BaseIcon from './BaseIcon.vue'
 import IIIFViewer from './IIIFViewer.vue'
-import CreativeCommons from './CreativeCommons.vue'
 
 export default defineComponent({
   props: {
@@ -68,7 +67,7 @@ export default defineComponent({
       required: true,
     },
   },
-  components: { BaseButton, BaseModal, IIIFViewer, BaseIcon, CreativeCommons },
+  components: { BaseButton, BaseModal, IIIFViewer, BaseIcon },
   emits: ['openingCcmodal'],
   setup(props, { emit }: SetupContext) {
     const selectedIndex = ref<number>(0)
