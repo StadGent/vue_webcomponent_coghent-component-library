@@ -13,18 +13,22 @@
     <div class="flex flex-col items-center w-3/4 relative">
       <base-button class="w-0 absolute z-20 top-0 left-0 mt-3 ml-3" customStyle="secondary-round" customIcon="fullscreen" :iconShown="true" :onClick="openFullscreenModal" />
 
-      <div class="top-0 right-0 absolute z-30 bg-background-light mt-3 rounded-full mr-3 cursor-pointer" @click="openCCModal">
-    <div class="static">
-      <div v-show="openTab" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8">
-        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
-        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
-        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
-        <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
-        <div class="border-r-2 h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" />
+      <div class="top-0 right-0 hidden z-30 bg-background-light mt-2 rounded-full mr-3 cursor-pointer absolute lg:block">
+        <div class="static">
+          <div v-show="openTab" @click="openCCModal" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8">
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
+            <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
+            <div class="border-r-2 h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" />
+          </div>
+        </div>
+        <base-button class="absolute right-0 w-0 z-30 transform scale-90" :class="{ [`-mt-10`]: openTab }" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="toggleCCTab" />
+      </div> 
+
+      <div class="top-0 right-0 absolute z-30 bg-background-light mt-2 rounded-full mr-3 cursor-pointer lg:hidden">
+        <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="openCCModal" />
       </div>
-    </div>
-    <base-button class="absolute right-0 w-0 z-30" :class="{ [`-mt-10`]: openTab }" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="toggleCCTab" />
-  </div>
 
       <img class="z-10" :src="source[selectedIndex]" />
       <div class="flex items-center bg-text-white shadow w-min inline-block rounded-full p-3 px-5 z-20 -mt-4" v-show="source.length > 1">
@@ -101,9 +105,8 @@ export default defineComponent({
     }
 
     const openCCModal = () => {
-      emit('openingCcmodal', true);
-      console.log('Emitting openingccmodal');
-    };
+      emit('openingCcmodal', true)
+    }
 
     return {
       selectedIndex,
@@ -115,7 +118,7 @@ export default defineComponent({
       openIIIFModal,
       openTab,
       toggleCCTab,
-      openCCModal
+      openCCModal,
     }
   },
 })
