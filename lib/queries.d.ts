@@ -75,6 +75,10 @@ export declare enum MetaKey {
     Collection = "collection",
     Description = "description",
     Material = "material",
+    Height = "height",
+    Width = "width",
+    Depth = "depth",
+    UnMapped = "unMapped",
     Diameter = "diameter",
     Hoogte = "hoogte"
 }
@@ -83,6 +87,7 @@ export declare type Metadata = {
     key: MetaKey;
     value: Scalars['String'];
     lang?: Maybe<Scalars['String']>;
+    unMappedKey?: Maybe<Scalars['String']>;
 };
 export declare type MetadataInput = {
     key: MetaKey;
@@ -294,6 +299,7 @@ export declare type FullEntityFragment = {
         __typename?: 'Metadata';
         key: MetaKey;
         value: string;
+        unMappedKey?: Maybe<string>;
     }>>;
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';

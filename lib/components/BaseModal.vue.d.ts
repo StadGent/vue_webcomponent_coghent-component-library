@@ -10,9 +10,7 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
 }, {
-    show: import("vue").Ref<{
-        valueOf: () => boolean;
-    }>;
+    show: import("vue").Ref<boolean>;
     closeModal: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:isShow"[], "update:isShow", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     isShow?: unknown;

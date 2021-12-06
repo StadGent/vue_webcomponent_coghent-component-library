@@ -6,6 +6,10 @@ enum MetaKey {
   collection
   description
   material
+  height
+  width
+  depth
+  unMapped
   diameter
   hoogte
 }
@@ -45,6 +49,7 @@ type Metadata {
   key: MetaKey!
   value: String!
   lang: String
+  unMappedKey: String
 }
 
 input MetadataInput {
