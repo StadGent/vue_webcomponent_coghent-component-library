@@ -132,6 +132,8 @@ export declare type Relation = {
     timestamp_end?: Maybe<Scalars['Float']>;
     position?: Maybe<Position>;
     scale?: Maybe<Scalars['Float']>;
+    audioFile?: Maybe<Scalars['String']>;
+    subtitleFile?: Maybe<Scalars['String']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -328,6 +330,12 @@ export declare type StoryEntityFragment = {
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
         original_file_location?: Maybe<string>;
+        filename?: Maybe<string>;
+        mediainfo?: Maybe<{
+            __typename?: 'MediaInfo';
+            width: string;
+            height: string;
+        }>;
     }>>>;
 };
 export declare type FullUserFragment = {
@@ -440,6 +448,12 @@ export declare type GetStoriesQuery = {
         limit?: Maybe<number>;
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
+            relationMetadata?: Maybe<Array<Maybe<{
+                __typename?: 'Relation';
+                key: string;
+                audioFile?: Maybe<string>;
+                subtitleFile?: Maybe<string>;
+            }>>>;
             frames?: Maybe<Array<Maybe<({
                 __typename?: 'Entity';
                 relationMetadata?: Maybe<Array<Maybe<({

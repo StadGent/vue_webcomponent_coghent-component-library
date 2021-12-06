@@ -147,6 +147,11 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
     limit
     results {
       ...storyEntity
+      relationMetadata {
+        key
+        audioFile
+        subtitleFile
+      }
       frames {
         ...storyEntity
         relationMetadata {
