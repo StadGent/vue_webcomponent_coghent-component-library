@@ -17,10 +17,10 @@ import BaseIcon from "./BaseIcon.vue"
 
 type TagStyle = "primary" | "selected" | "loading"
 const styles: Record<TagStyle, string> = {
-  primary:
-    "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center animate-pulse",
+  primary: "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center",
   selected: "bg-tag-selected text-text-white py-2 px-4 mx-2 my-2 text-center",
-  loading: "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center",
+  loading:
+    "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center animate-pulse",
 }
 
 export default defineComponent({
