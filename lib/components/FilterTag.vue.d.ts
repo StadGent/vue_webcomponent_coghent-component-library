@@ -1,4 +1,4 @@
-declare type TagStyle = "primary" | "selected";
+declare type TagStyle = "primary" | "selected" | "loading";
 declare const _default: import("vue").DefineComponent<{
     filter: {
         type: StringConstructor;
@@ -15,6 +15,11 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
         required: true;
     };
+    loading: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
 }, {
     styles: Record<TagStyle, string>;
     style: import("vue").ComputedRef<string>;
@@ -22,11 +27,14 @@ declare const _default: import("vue").DefineComponent<{
     filter?: unknown;
     isSelected?: unknown;
     icon?: unknown;
+    loading?: unknown;
 } & {
+    loading: boolean;
     filter: string;
     isSelected: boolean;
     icon: string;
 } & {}> & {}, {
+    loading: boolean;
     filter: string;
     isSelected: boolean;
     icon: string;
