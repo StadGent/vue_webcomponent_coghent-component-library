@@ -123,6 +123,8 @@ export declare type QueryEntitiesArgs = {
     skip?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
+    randomization?: Maybe<Scalars['Boolean']>;
+    seed?: Maybe<Scalars['String']>;
 };
 export declare type QueryRelationsArgs = {
     searchValue: SearchFilter;
@@ -377,6 +379,8 @@ export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
+    randomization?: Maybe<Scalars['Boolean']>;
+    seed?: Maybe<Scalars['String']>;
 }>;
 export declare type GetEntitiesQuery = {
     __typename?: 'Query';
@@ -506,6 +510,8 @@ export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
     searchValue: SearchFilter;
+    randomization?: boolean | null | undefined;
+    seed?: string | null | undefined;
 }>>;
 export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery, Exact<{
     limit?: number | null | undefined;
