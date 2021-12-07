@@ -15,10 +15,11 @@
 import { computed, defineComponent, ref } from "vue"
 import BaseIcon from "./BaseIcon.vue"
 
-type TagStyle = "primary" | "selected"
+type TagStyle = "primary" | "selected" | "loading"
 const styles: Record<TagStyle, string> = {
-  primary: "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center",
+  primary: "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center animate-pulse",
   selected: "bg-tag-selected text-text-white py-2 px-4 mx-2 my-2 text-center",
+  loading: "bg-tag-neutral text-text-dark py-2 px-4 mx-2 my-2 text-center"
 }
 
 export default defineComponent({
@@ -40,9 +41,17 @@ export default defineComponent({
       default: "storybox",
       required: true,
     },
+     loading: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   setup(props) {
     const style = computed(() => {
+      if(props.loading){
+        retrun styles["loading"]
+      }
       if (props.isSelected) {
         return styles["selected"]
       } else {
