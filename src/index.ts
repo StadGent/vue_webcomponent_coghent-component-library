@@ -30,6 +30,7 @@ import BaseModal from "./components/BaseModal.vue"
 import ViewerToolbar from "./components/ViewerToolbar.vue"
 import IIIFViewer from "./components/IIIFViewer.vue"
 import CopyrightTab from "./components/CopyrightTab.vue"
+import LazyLoadImage from "./components/LazyLoadImage.vue"
 
 export {
   GetEntitiesDocument,
@@ -60,4 +61,5 @@ export {
   RelationsResults,
   GetEntitiesQuery,
   GetEntitiesQueryVariables,
+  LazyLoadImage,
 }
