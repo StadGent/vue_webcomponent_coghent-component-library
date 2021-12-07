@@ -11,4 +11,5 @@ import TheCarousel from "./components/TheCarousel.vue";
 import BaseModal from "./components/BaseModal.vue";
 import ViewerToolbar from "./components/ViewerToolbar.vue";
 import IIIFViewer from "./components/IIIFViewer.vue";
-export { GetEntitiesDocument, GetStoriesDocument, GetEnumsByNameDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, BaseModal, CardComponent, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, TheCarousel, ViewerToolbar, IIIFViewer, GetMeQuery, GetMeDocument, User, FullRelationFragment, GetRelationsDocument, RelationsResults, GetEntitiesQuery, GetEntitiesQueryVariables, };
+import CopyrightTab from "./components/CopyrightTab.vue";
+export { GetEntitiesDocument, GetStoriesDocument, GetEnumsByNameDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, BaseModal, CardComponent, CopyrightTab, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, TheCarousel, ViewerToolbar, IIIFViewer, GetMeQuery, GetMeDocument, User, FullRelationFragment, GetRelationsDocument, RelationsResults, GetEntitiesQuery, GetEntitiesQueryVariables, };

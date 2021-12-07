@@ -2,7 +2,7 @@
   <span
     class="flex max-h-12 font-bold items-center stroke-current cursor-pointer"
     :class="buttonstyles[customStyle]"
-    @click="onClick()"
+    @click="onClick"
   >
     <base-icon
       v-if="iconShown && iconLeft"

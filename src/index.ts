@@ -29,6 +29,7 @@ import TheCarousel from "./components/TheCarousel.vue"
 import BaseModal from "./components/BaseModal.vue"
 import ViewerToolbar from "./components/ViewerToolbar.vue"
 import IIIFViewer from "./components/IIIFViewer.vue"
+import CopyrightTab from "./components/CopyrightTab.vue"
 
 export {
   GetEntitiesDocument,
@@ -43,6 +44,7 @@ export {
   BaseInput,
   BaseModal,
   CardComponent,
+  CopyrightTab,
   FilterTag,
   LanguageSelector,
   GetFullEntitiesQuery,
