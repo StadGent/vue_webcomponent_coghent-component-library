@@ -80,7 +80,9 @@ export declare enum MetaKey {
     Depth = "depth",
     UnMapped = "unMapped",
     Diameter = "diameter",
-    Hoogte = "hoogte"
+    Hoogte = "hoogte",
+    ObjectNumber = "object_number",
+    ObjectName = "object_name"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -149,7 +151,8 @@ export declare enum RelationType {
     IsTypeOf = "isTypeOf",
     IsUsedIn = "isUsedIn",
     Components = "components",
-    Parent = "parent"
+    Parent = "parent",
+    CarriedOutBy = "carriedOutBy"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
@@ -162,6 +165,8 @@ export declare type SearchFilter = {
     isAsc?: Maybe<Scalars['Boolean']>;
     key?: Maybe<Scalars['String']>;
     relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
+    randomization?: Maybe<Scalars['Boolean']>;
+    seed?: Maybe<Scalars['String']>;
 };
 export declare enum Story {
     Id = "id",
@@ -297,6 +302,16 @@ export declare type FullEntityFragment = {
         key: MetaKey;
         value: string;
     }>>;
+    objectNumber: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value: string;
+    }>>;
+    objectName: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value: string;
+    }>>;
     metadata: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -379,8 +394,6 @@ export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     skip?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
-    randomization?: Maybe<Scalars['Boolean']>;
-    seed?: Maybe<Scalars['String']>;
 }>;
 export declare type GetEntitiesQuery = {
     __typename?: 'Query';
@@ -510,8 +523,6 @@ export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
     searchValue: SearchFilter;
-    randomization?: boolean | null | undefined;
-    seed?: string | null | undefined;
 }>>;
 export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery, Exact<{
     limit?: number | null | undefined;

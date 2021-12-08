@@ -17,6 +17,14 @@ fragment fullEntity on Entity {
     key
     value
   }
+  objectNumber: metadata(key: [object_number]) {
+    key
+    value
+  }
+  objectName: metadata(key: [object_name]) {
+    key
+    value
+  }
   metadata(key: [material, type, collection, depth, width, height, unMapped]) {
     key
     value

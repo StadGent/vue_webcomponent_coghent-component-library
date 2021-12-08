@@ -12,6 +12,8 @@ enum MetaKey {
   unMapped
   diameter
   hoogte
+  object_number
+  object_name
 }
 
 enum RelationType {
@@ -22,6 +24,7 @@ enum RelationType {
   isUsedIn
   components
   parent
+  carriedOutBy
 }
 
 enum JSPatchOp {
