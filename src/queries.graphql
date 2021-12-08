@@ -34,10 +34,6 @@ fragment fullEntity on Entity {
     _id
     original_file_location
     filename
-    mediainfo {
-      width
-      height
-    }
   }
   relations {
     key

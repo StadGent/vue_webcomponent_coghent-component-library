@@ -323,11 +323,6 @@ export declare type FullEntityFragment = {
         _id: string;
         original_file_location?: Maybe<string>;
         filename?: Maybe<string>;
-        mediainfo?: Maybe<{
-            __typename?: 'MediaInfo';
-            width: string;
-            height: string;
-        }>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';
