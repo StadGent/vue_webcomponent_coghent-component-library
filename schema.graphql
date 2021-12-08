@@ -126,7 +126,7 @@ input SearchFilter {
   isAsc: Boolean
   key: String
   relation_filter: [String]
-  randomization: Boolean
+  randomize: Boolean
   seed: String
 }
 
@@ -146,7 +146,7 @@ type Query {
     skip: Int
     searchValue: SearchFilter!
     fetchPolicy: String
-    randomization: Boolean
+    randomize: Boolean
     seed: String
   ): EntitiesResults
   Relations(searchValue: SearchFilter!, fetchPolicy: String): RelationsResults

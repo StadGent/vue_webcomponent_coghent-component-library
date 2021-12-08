@@ -125,7 +125,7 @@ export declare type QueryEntitiesArgs = {
     skip?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
-    randomization?: Maybe<Scalars['Boolean']>;
+    randomize?: Maybe<Scalars['Boolean']>;
     seed?: Maybe<Scalars['String']>;
 };
 export declare type QueryRelationsArgs = {
@@ -165,7 +165,7 @@ export declare type SearchFilter = {
     isAsc?: Maybe<Scalars['Boolean']>;
     key?: Maybe<Scalars['String']>;
     relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
-    randomization?: Maybe<Scalars['Boolean']>;
+    randomize?: Maybe<Scalars['Boolean']>;
     seed?: Maybe<Scalars['String']>;
 };
 export declare enum Story {

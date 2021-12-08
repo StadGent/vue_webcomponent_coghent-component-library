@@ -140,7 +140,7 @@ export type QueryEntitiesArgs = {
   skip?: Maybe<Scalars['Int']>;
   searchValue: SearchFilter;
   fetchPolicy?: Maybe<Scalars['String']>;
-  randomization?: Maybe<Scalars['Boolean']>;
+  randomize?: Maybe<Scalars['Boolean']>;
   seed?: Maybe<Scalars['String']>;
 };
 
@@ -186,7 +186,7 @@ export type SearchFilter = {
   isAsc?: Maybe<Scalars['Boolean']>;
   key?: Maybe<Scalars['String']>;
   relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
-  randomization?: Maybe<Scalars['Boolean']>;
+  randomize?: Maybe<Scalars['Boolean']>;
   seed?: Maybe<Scalars['String']>;
 };
 
