@@ -48,8 +48,6 @@ export default defineComponent({
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false)
 
-    console.log('CCBUTTON');
-
     const toggleCCTab = () => {
       openTab.value = !openTab.value
     }
