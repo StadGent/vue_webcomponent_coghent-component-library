@@ -10,8 +10,6 @@ enum MetaKey {
   width
   depth
   unMapped
-  diameter
-  hoogte
   object_number
   object_name
 }
@@ -67,7 +65,6 @@ type Entity {
   metadata(key: [MetaKey]): [Metadata]!
   title: [Metadata]!
   collections: [Metadata]!
-  dimensions: [Metadata]!
   relations: [Relation]
   relationMetadata: [Relation]
   components: [Entity]

@@ -34,7 +34,6 @@ export declare type Entity = {
     metadata: Array<Maybe<Metadata>>;
     title: Array<Maybe<Metadata>>;
     collections: Array<Maybe<Metadata>>;
-    dimensions: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     relationMetadata?: Maybe<Array<Maybe<Relation>>>;
     components?: Maybe<Array<Maybe<Entity>>>;
@@ -80,8 +79,6 @@ export declare enum MetaKey {
     Width = "width",
     Depth = "depth",
     UnMapped = "unMapped",
-    Diameter = "diameter",
-    Hoogte = "hoogte",
     ObjectNumber = "object_number",
     ObjectName = "object_name"
 }
@@ -489,11 +486,6 @@ export declare type GetStoriesQuery = {
                 assets?: Maybe<Array<Maybe<({
                     __typename?: 'Entity';
                     collections: Array<Maybe<{
-                        __typename?: 'Metadata';
-                        key: MetaKey;
-                        value: string;
-                    }>>;
-                    dimensions: Array<Maybe<{
                         __typename?: 'Metadata';
                         key: MetaKey;
                         value: string;
