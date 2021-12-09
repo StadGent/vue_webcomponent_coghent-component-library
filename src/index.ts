@@ -31,6 +31,7 @@ import ViewerToolbar from "./components/ViewerToolbar.vue"
 import IIIFViewer from "./components/IIIFViewer.vue"
 import CopyrightTab from "./components/CopyrightTab.vue"
 import LazyLoadImage from "./components/LazyLoadImage.vue"
+import BaseMetaData from "./components/BaseMetaData.vue"
 
 export {
   GetEntitiesDocument,
@@ -44,6 +45,7 @@ export {
   BaseIcon,
   BaseInput,
   BaseModal,
+  BaseMetaData,
   CardComponent,
   CopyrightTab,
   FilterTag,
