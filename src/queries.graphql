@@ -1,9 +1,15 @@
 fragment minimalEntity on Entity {
   id
   type
-  mediafiles {
-    location: original_file_location
+  title: metadata(key: [title]) {
+    key
+    value
   }
+  description: metadata(key: [description]) {
+    key
+    value
+  }
+  primary_mediafile
 }
 
 fragment fullEntity on Entity {
@@ -96,7 +102,7 @@ query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
     count
     limit
     results {
-      ...fullEntity
+      ...minimalEntity
     }
     relations {
       ...fullRelation

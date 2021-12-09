@@ -41,6 +41,7 @@ export declare type Entity = {
     assets?: Maybe<Array<Maybe<Entity>>>;
     frames?: Maybe<Array<Maybe<Entity>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
+    primary_mediafile?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -283,10 +284,17 @@ export declare type MinimalEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
-    mediafiles?: Maybe<Array<Maybe<{
-        __typename?: 'MediaFile';
-        location?: Maybe<string>;
-    }>>>;
+    primary_mediafile?: Maybe<string>;
+    title: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value: string;
+    }>>;
+    description: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value: string;
+    }>>;
 };
 export declare type FullEntityFragment = {
     __typename?: 'Entity';
@@ -398,7 +406,7 @@ export declare type GetEntitiesQuery = {
         limit?: Maybe<number>;
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
-        } & FullEntityFragment)>>>;
+        } & MinimalEntityFragment)>>>;
         relations?: Maybe<Array<Maybe<({
             __typename?: 'Relation';
         } & FullRelationFragment)>>>;
