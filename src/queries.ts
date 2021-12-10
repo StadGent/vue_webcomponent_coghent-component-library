@@ -189,6 +189,7 @@ export type SearchFilter = {
   relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
   randomize?: Maybe<Scalars['Boolean']>;
   seed?: Maybe<Scalars['String']>;
+  has_mediafile?: Maybe<Scalars['Boolean']>;
 };
 
 export enum Story {
