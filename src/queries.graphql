@@ -170,6 +170,10 @@ query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
         }
         assets {
           ...storyEntity
+          relations {
+            key
+            audioFile
+          }
           collections: metadata(key: [collection]) {
             key
             value

@@ -485,6 +485,11 @@ export declare type GetStoriesQuery = {
                 } & AssetMetadataFragment)>>>;
                 assets?: Maybe<Array<Maybe<({
                     __typename?: 'Entity';
+                    relations?: Maybe<Array<Maybe<{
+                        __typename?: 'Relation';
+                        key: string;
+                        audioFile?: Maybe<string>;
+                    }>>>;
                     collections: Array<Maybe<{
                         __typename?: 'Metadata';
                         key: MetaKey;
