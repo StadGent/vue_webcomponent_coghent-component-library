@@ -35,6 +35,13 @@ fragment fullEntity on Entity {
     key
     value
     unMappedKey
+    label
+    nestedMetaData {
+        key
+        value
+        unMappedKey
+        label
+    }
   }
   mediafiles {
     _id

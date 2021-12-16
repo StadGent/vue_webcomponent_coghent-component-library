@@ -86,8 +86,10 @@ export declare type Metadata = {
     __typename?: 'Metadata';
     key: MetaKey;
     value: Scalars['String'];
+    nestedMetaData?: Maybe<Array<Maybe<Metadata>>>;
     lang?: Maybe<Scalars['String']>;
     unMappedKey?: Maybe<Scalars['String']>;
+    label?: Maybe<Scalars['String']>;
 };
 export declare type MetadataInput = {
     key: MetaKey;
@@ -324,6 +326,14 @@ export declare type FullEntityFragment = {
         key: MetaKey;
         value: string;
         unMappedKey?: Maybe<string>;
+        label?: Maybe<string>;
+        nestedMetaData?: Maybe<Array<Maybe<{
+            __typename?: 'Metadata';
+            key: MetaKey;
+            value: string;
+            unMappedKey?: Maybe<string>;
+            label?: Maybe<string>;
+        }>>>;
     }>>;
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
