@@ -137,6 +137,7 @@ export declare type Relation = {
     label?: Maybe<Scalars['String']>;
     timestamp_start?: Maybe<Scalars['Float']>;
     timestamp_end?: Maybe<Scalars['Float']>;
+    timestamp_zoom?: Maybe<Scalars['Float']>;
     position?: Maybe<Position>;
     scale?: Maybe<Scalars['Float']>;
     audioFile?: Maybe<Scalars['String']>;
@@ -383,6 +384,7 @@ export declare type AssetMetadataFragment = {
     label?: Maybe<string>;
     timestamp_start?: Maybe<number>;
     timestamp_end?: Maybe<number>;
+    timestamp_zoom?: Maybe<number>;
     scale?: Maybe<number>;
     position?: Maybe<{
         __typename?: 'Position';

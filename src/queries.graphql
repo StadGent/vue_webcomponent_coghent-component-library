@@ -89,6 +89,7 @@ fragment assetMetadata on Relation {
   label
   timestamp_start
   timestamp_end
+  timestamp_zoom
   position {
     x
     y
