@@ -25,19 +25,15 @@ enum RelationType {
   carriedOutBy
 }
 
+enum ComponentType {
+  frame
+  audio
+}
+
 enum JSPatchOp {
   add
   replace
   remove
-}
-
-enum Story {
-  id
-  type
-  title
-  metadata
-  mediafiles
-  frames
 }
 
 input JSPatch {
@@ -48,11 +44,12 @@ input JSPatch {
 
 type Metadata {
   key: MetaKey!
-  value: String! 
-  nestedMetaData: [Metadata]
+  value: String
+  nestedMetaData: Entity
   lang: String
   unMappedKey: String
   label: String
+  type: RelationType
 }
 
 input MetadataInput {
@@ -61,15 +58,23 @@ input MetadataInput {
   lang: String
 }
 
+type MetadataCollection {
+  label: String!
+  data: [Metadata]
+  nested: Boolean
+}
+
 type Entity {
   id: String!
   type: String!
   metadata(key: [MetaKey]): [Metadata]!
+  metadataCollection(key: [MetaKey]): [MetadataCollection]
   title: [Metadata]!
   collections: [Metadata]!
   relations: [Relation]
   relationMetadata: [Relation]
   components: [Entity]
+  componentsOfType(key: String): [Entity]
   assets: [Entity]
   frames: [Entity]
   mediafiles: [MediaFile]
@@ -100,6 +105,7 @@ type Relation {
   key: String!
   type: RelationType!
   label: String
+  value: String
   timestamp_start: Float
   timestamp_end: Float
   timestamp_zoom: Float
@@ -148,7 +154,7 @@ type Query {
     skip: Int
     searchValue: SearchFilter!
     fetchPolicy: String
-    randomize: Boolean
+    randomization: Boolean
     seed: String
   ): EntitiesResults
   Relations(searchValue: SearchFilter!, fetchPolicy: String): RelationsResults

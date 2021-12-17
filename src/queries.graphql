@@ -12,6 +12,47 @@ fragment minimalEntity on Entity {
   primary_mediafile
 }
 
+fragment nestedEntity on Entity {
+  id
+  type
+  title: metadata(key: [title]) {
+    key
+    value
+  }
+  description: metadata(key: [description]) {
+    key
+    value
+  }
+  objectNumber: metadata(key: [object_number]) {
+    key
+    value
+  }
+  objectName: metadata(key: [object_name]) {
+    key
+    value
+  }
+  metadataCollection(key: [title, description, object_number]) {
+    label
+    nested
+    data {
+      value
+      unMappedKey
+      label
+    }
+  }
+  mediafiles {
+    _id
+    original_file_location
+    filename
+  }
+  relations {
+    key
+    type
+    label
+    value
+  }
+}
+
 fragment fullEntity on Entity {
   id
   type
@@ -31,16 +72,16 @@ fragment fullEntity on Entity {
     key
     value
   }
-  metadata(key: [material, type, collection, depth, width, height, unMapped]) {
-    key
-    value
-    unMappedKey
+  metadataCollection(key: [title, description, object_number]) {
     label
-    nestedMetaData {
-        key
-        value
-        unMappedKey
-        label
+    nested
+    data {
+      value
+      unMappedKey
+      label
+      nestedMetaData {
+        ...nestedEntity
+      }
     }
   }
   mediafiles {
@@ -52,6 +93,7 @@ fragment fullEntity on Entity {
     key
     type
     label
+    value
   }
 }
 
@@ -89,6 +131,7 @@ fragment fullRelation on Relation {
   key
   type
   label
+  value
 }
 
 fragment assetMetadata on Relation {

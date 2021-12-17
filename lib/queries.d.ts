@@ -20,6 +20,10 @@ export declare type Scalars = {
     Float: number;
     Void: void;
 };
+export declare enum ComponentType {
+    Frame = "frame",
+    Audio = "audio"
+}
 export declare type EntitiesResults = {
     __typename?: 'EntitiesResults';
     results?: Maybe<Array<Maybe<Entity>>>;
@@ -32,11 +36,13 @@ export declare type Entity = {
     id: Scalars['String'];
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
+    metadataCollection?: Maybe<Array<Maybe<MetadataCollection>>>;
     title: Array<Maybe<Metadata>>;
     collections: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     relationMetadata?: Maybe<Array<Maybe<Relation>>>;
     components?: Maybe<Array<Maybe<Entity>>>;
+    componentsOfType?: Maybe<Array<Maybe<Entity>>>;
     assets?: Maybe<Array<Maybe<Entity>>>;
     frames?: Maybe<Array<Maybe<Entity>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
@@ -44,6 +50,12 @@ export declare type Entity = {
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
+};
+export declare type EntityMetadataCollectionArgs = {
+    key?: Maybe<Array<Maybe<MetaKey>>>;
+};
+export declare type EntityComponentsOfTypeArgs = {
+    key?: Maybe<Scalars['String']>;
 };
 export declare type JsPatch = {
     op: JsPatchOp;
@@ -85,11 +97,18 @@ export declare enum MetaKey {
 export declare type Metadata = {
     __typename?: 'Metadata';
     key: MetaKey;
-    value: Scalars['String'];
-    nestedMetaData?: Maybe<Array<Maybe<Metadata>>>;
+    value?: Maybe<Scalars['String']>;
+    nestedMetaData?: Maybe<Entity>;
     lang?: Maybe<Scalars['String']>;
     unMappedKey?: Maybe<Scalars['String']>;
     label?: Maybe<Scalars['String']>;
+    type?: Maybe<RelationType>;
+};
+export declare type MetadataCollection = {
+    __typename?: 'MetadataCollection';
+    label: Scalars['String'];
+    data?: Maybe<Array<Maybe<Metadata>>>;
+    nested?: Maybe<Scalars['Boolean']>;
 };
 export declare type MetadataInput = {
     key: MetaKey;
@@ -125,7 +144,7 @@ export declare type QueryEntitiesArgs = {
     skip?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
-    randomize?: Maybe<Scalars['Boolean']>;
+    randomization?: Maybe<Scalars['Boolean']>;
     seed?: Maybe<Scalars['String']>;
 };
 export declare type QueryRelationsArgs = {
@@ -137,6 +156,7 @@ export declare type Relation = {
     key: Scalars['String'];
     type: RelationType;
     label?: Maybe<Scalars['String']>;
+    value?: Maybe<Scalars['String']>;
     timestamp_start?: Maybe<Scalars['Float']>;
     timestamp_end?: Maybe<Scalars['Float']>;
     timestamp_zoom?: Maybe<Scalars['Float']>;
@@ -170,14 +190,6 @@ export declare type SearchFilter = {
     seed?: Maybe<Scalars['String']>;
     has_mediafile?: Maybe<Scalars['Boolean']>;
 };
-export declare enum Story {
-    Id = "id",
-    Type = "type",
-    Title = "title",
-    Metadata = "metadata",
-    Mediafiles = "mediafiles",
-    Frames = "frames"
-}
 export declare type User = {
     __typename?: 'User';
     id: Scalars['String'];
@@ -289,52 +301,49 @@ export declare type MinimalEntityFragment = {
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
     description: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
 };
-export declare type FullEntityFragment = {
+export declare type NestedEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
     description: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
     objectNumber: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
     objectName: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
-    metadata: Array<Maybe<{
-        __typename?: 'Metadata';
-        key: MetaKey;
-        value: string;
-        unMappedKey?: Maybe<string>;
-        label?: Maybe<string>;
-        nestedMetaData?: Maybe<Array<Maybe<{
+    metadataCollection?: Maybe<Array<Maybe<{
+        __typename?: 'MetadataCollection';
+        label: string;
+        nested?: Maybe<boolean>;
+        data?: Maybe<Array<Maybe<{
             __typename?: 'Metadata';
-            key: MetaKey;
-            value: string;
+            value?: Maybe<string>;
             unMappedKey?: Maybe<string>;
             label?: Maybe<string>;
         }>>>;
-    }>>;
+    }>>>;
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
         _id: string;
@@ -346,6 +355,59 @@ export declare type FullEntityFragment = {
         key: string;
         type: RelationType;
         label?: Maybe<string>;
+        value?: Maybe<string>;
+    }>>>;
+};
+export declare type FullEntityFragment = {
+    __typename?: 'Entity';
+    id: string;
+    type: string;
+    title: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    description: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    objectNumber: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    objectName: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    metadataCollection?: Maybe<Array<Maybe<{
+        __typename?: 'MetadataCollection';
+        label: string;
+        nested?: Maybe<boolean>;
+        data?: Maybe<Array<Maybe<{
+            __typename?: 'Metadata';
+            value?: Maybe<string>;
+            unMappedKey?: Maybe<string>;
+            label?: Maybe<string>;
+            nestedMetaData?: Maybe<({
+                __typename?: 'Entity';
+            } & NestedEntityFragment)>;
+        }>>>;
+    }>>>;
+    mediafiles?: Maybe<Array<Maybe<{
+        __typename?: 'MediaFile';
+        _id: string;
+        original_file_location?: Maybe<string>;
+        filename?: Maybe<string>;
+    }>>>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        value?: Maybe<string>;
     }>>>;
 };
 export declare type StoryEntityFragment = {
@@ -355,12 +417,12 @@ export declare type StoryEntityFragment = {
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
     metadata: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value: string;
+        value?: Maybe<string>;
     }>>;
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
@@ -387,6 +449,7 @@ export declare type FullRelationFragment = {
     key: string;
     type: RelationType;
     label?: Maybe<string>;
+    value?: Maybe<string>;
 };
 export declare type AssetMetadataFragment = {
     __typename?: 'Relation';
@@ -505,7 +568,7 @@ export declare type GetStoriesQuery = {
                     collections: Array<Maybe<{
                         __typename?: 'Metadata';
                         key: MetaKey;
-                        value: string;
+                        value?: Maybe<string>;
                     }>>;
                 } & StoryEntityFragment)>>>;
             } & StoryEntityFragment)>>>;
@@ -527,6 +590,7 @@ export declare type GetEnumsByNameQuery = {
     }>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
+export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
