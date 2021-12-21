@@ -119,10 +119,10 @@ fragment storyEntity on Entity {
   mediafiles {
     original_file_location
     filename
-    mediainfo {
-      width
-      height
-    }
+    # mediainfo {
+    #   width
+    #   height
+    # }
   }
 }
 
@@ -248,6 +248,21 @@ query getEnumsByName($enumName: String!) {
     name
     enumValues {
       name
+    }
+  }
+}
+
+query getBoxVisiters{
+  BoxVisitors {
+    count
+    limit
+    results {
+      id
+      type
+      metadata(key: [QRCode]) {
+        key
+        value
+      }
     }
   }
 }

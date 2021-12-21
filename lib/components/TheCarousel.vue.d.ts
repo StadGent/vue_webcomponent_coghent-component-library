@@ -7,6 +7,9 @@ declare const _default: import("vue").DefineComponent<{
         type: ArrayConstructor;
         required: true;
     };
+    mediafiles: {
+        type: ArrayConstructor;
+    };
 }, {
     selectedIndex: import("vue").Ref<number>;
     prevImage: () => void;
@@ -20,14 +23,20 @@ declare const _default: import("vue").DefineComponent<{
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, "openingCcmodal" | "currentCarouselPicture", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, (Readonly<{
     infotext?: unknown;
     source?: unknown;
+    mediafiles?: unknown;
 } & {
     infotext: string;
     source: unknown[];
-} & {}> & {}) | (Readonly<{
+} & {
+    mediafiles?: unknown[] | undefined;
+}> & {}) | (Readonly<{
     infotext?: unknown;
     source?: unknown;
+    mediafiles?: unknown;
 } & {
     infotext: string;
     source: unknown[];
-} & {}> & {}), {}>;
+} & {
+    mediafiles?: unknown[] | undefined;
+}> & {}), {}>;
 export default _default;

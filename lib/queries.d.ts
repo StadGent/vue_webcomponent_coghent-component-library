@@ -103,7 +103,8 @@ export declare enum MetaKey {
     Depth = "depth",
     UnMapped = "unMapped",
     ObjectNumber = "object_number",
-    ObjectName = "object_name"
+    ObjectName = "object_name",
+    QrCode = "QRCode"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -129,6 +130,7 @@ export declare type MetadataInput = {
 export declare type Mutation = {
     __typename?: 'Mutation';
     replaceMetadata: Array<Metadata>;
+    CreateBoxVisiter?: Maybe<Entity>;
 };
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
@@ -142,6 +144,7 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
+    BoxVisitors?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
@@ -603,6 +606,35 @@ export declare type GetEnumsByNameQuery = {
         }>>;
     }>;
 };
+export declare type GetBoxVisitersQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type GetBoxVisitersQuery = {
+    __typename?: 'Query';
+    BoxVisitors?: Maybe<{
+        __typename?: 'EntitiesResults';
+        count?: Maybe<number>;
+        limit?: Maybe<number>;
+        results?: Maybe<Array<Maybe<{
+            __typename?: 'Entity';
+            type: string;
+            metadata: Array<Maybe<{
+                __typename?: 'Metadata';
+                key: MetaKey;
+                value: string;
+            }>>;
+        }>>>;
+    }>;
+};
+export declare type CreationOfBoxVisitorMutationVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type CreationOfBoxVisitorMutation = {
+    __typename?: 'Mutation';
+    CreateBoxVisiter?: Maybe<({
+        __typename?: 'Entity';
+    } & FullEntityFragment)>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
@@ -637,4 +669,10 @@ export declare const GetStoriesDocument: DocumentNode<GetStoriesQuery, Exact<{
 }>>;
 export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, Exact<{
     enumName: Scalars['String'];
+}>>;
+export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare const CreationOfBoxVisitorDocument: DocumentNode<CreationOfBoxVisitorMutation, Exact<{
+    [key: string]: never;
 }>>;
