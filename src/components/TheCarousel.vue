@@ -113,7 +113,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, SetupContext } from "vue"
+import { defineComponent, ref, SetupContext, watch } from "vue"
 import BaseButton from "./BaseButton.vue"
 import BaseModal from "./BaseModal.vue"
 import BaseIcon from "./BaseIcon.vue"
@@ -140,13 +140,17 @@ export default defineComponent({
     CopyrightTab,
     LazyLoadImage,
   },
-  emits: ["openingCcmodal"],
+  emits: ["openingCcmodal", "currentCarouselPicture"],
   setup(props, { emit }: SetupContext) {
     const selectedIndex = ref<number>(0)
     const nextIndex = ref<number>(0)
     const prevIndex = ref<number>(0)
     const openIIIFModal = ref<boolean>(false)
     const openTab = ref<boolean>(false)
+
+    watch(() => selectedIndex.value ,(value) =>{
+        emit('currentCarouselPicture', value);
+      })
 
     const nextImage = () => {
       selectedIndex.value =

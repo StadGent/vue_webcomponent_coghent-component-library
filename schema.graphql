@@ -87,6 +87,11 @@ type MediaInfo {
   height: String!
 }
 
+type MediaFileMetadata {
+  key: String
+  value: String
+}
+
 type MediaFile {
   _id: String!
   original_file_location: String
@@ -94,6 +99,7 @@ type MediaFile {
   filename: String
   entities: [String]
   mediainfo: MediaInfo
+  metadata: [MediaFileMetadata]
 }
 
 type Position {

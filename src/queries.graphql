@@ -92,6 +92,10 @@ fragment fullEntity on Entity {
     _id
     original_file_location
     filename
+    metadata {
+      key
+      value
+    }
   }
   relations {
     key
