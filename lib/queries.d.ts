@@ -80,6 +80,12 @@ export declare type MediaFile = {
     filename?: Maybe<Scalars['String']>;
     entities?: Maybe<Array<Maybe<Scalars['String']>>>;
     mediainfo?: Maybe<MediaInfo>;
+    metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
+};
+export declare type MediaFileMetadata = {
+    __typename?: 'MediaFileMetadata';
+    key?: Maybe<Scalars['String']>;
+    value?: Maybe<Scalars['String']>;
 };
 export declare type MediaInfo = {
     __typename?: 'MediaInfo';
@@ -404,6 +410,11 @@ export declare type FullEntityFragment = {
         _id: string;
         original_file_location?: Maybe<string>;
         filename?: Maybe<string>;
+        metadata?: Maybe<Array<Maybe<{
+            __typename?: 'MediaFileMetadata';
+            key?: Maybe<string>;
+            value?: Maybe<string>;
+        }>>>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';

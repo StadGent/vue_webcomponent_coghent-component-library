@@ -17,7 +17,7 @@ declare const _default: import("vue").DefineComponent<{
     openIIIFModal: import("vue").Ref<boolean>;
     openTab: import("vue").Ref<boolean>;
     openCCModal: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, "openingCcmodal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, (Readonly<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, "openingCcmodal" | "currentCarouselPicture", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, (Readonly<{
     infotext?: unknown;
     source?: unknown;
 } & {
