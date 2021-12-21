@@ -27,11 +27,13 @@ fragment nestedEntity on Entity {
     key
     value
   }
-  objectName: metadata(key: [object_name]) {
-    key
+  objectName: metadataByLabel(key: ["objectnaam"]) {
     value
   }
-  metadataCollection(key: [title, description, object_number]) {
+  metadataCollection(
+    key: [title, description, object_number]
+    label: ["objectnaam", "objectnummer"]
+  ) {
     label
     nested
     data {
@@ -68,11 +70,13 @@ fragment fullEntity on Entity {
     key
     value
   }
-  objectName: metadata(key: [object_name]) {
-    key
+  objectName: metadataByLabel(key: ["objectnaam"]) {
     value
   }
-  metadataCollection(key: [title, description, object_number]) {
+  metadataCollection(
+    key: [title, description, object_number]
+    label: ["objectnaam"]
+  ) {
     label
     nested
     data {

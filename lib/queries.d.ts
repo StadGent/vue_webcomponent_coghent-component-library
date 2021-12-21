@@ -36,6 +36,7 @@ export declare type Entity = {
     id: Scalars['String'];
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
+    metadataByLabel: Array<Maybe<Metadata>>;
     metadataCollection?: Maybe<Array<Maybe<MetadataCollection>>>;
     title: Array<Maybe<Metadata>>;
     collections: Array<Maybe<Metadata>>;
@@ -51,8 +52,12 @@ export declare type Entity = {
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
 };
+export declare type EntityMetadataByLabelArgs = {
+    key?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
 export declare type EntityMetadataCollectionArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
+    label?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 export declare type EntityComponentsOfTypeArgs = {
     key?: Maybe<Scalars['String']>;
@@ -330,7 +335,6 @@ export declare type NestedEntityFragment = {
     }>>;
     objectName: Array<Maybe<{
         __typename?: 'Metadata';
-        key: MetaKey;
         value?: Maybe<string>;
     }>>;
     metadataCollection?: Maybe<Array<Maybe<{
@@ -379,7 +383,6 @@ export declare type FullEntityFragment = {
     }>>;
     objectName: Array<Maybe<{
         __typename?: 'Metadata';
-        key: MetaKey;
         value?: Maybe<string>;
     }>>;
     metadataCollection?: Maybe<Array<Maybe<{
