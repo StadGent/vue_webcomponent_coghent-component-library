@@ -17,25 +17,29 @@
         class="absolute right-0 w-0 z-30 transform scale-90"
         :class="{ [`-mt-10`]: openTab }"
         customStyle="cc-round-black"
-        customIcon="creativeCommonsCC"
+        :customIcon="copyrightCategory == 'In Copyright' ? 'copyrightCategoryRS' : copyrightCategory == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'"
         :iconShown="true"
         :onClick="toggleCCTab"
       />
     </div>
 
     <div class="top-0 right-0 absolute z-30 bg-background-light mt-2 rounded-full mr-3 cursor-pointer lg:hidden">
-      <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" customIcon="creativeCommonsCC" :iconShown="true" :onClick="openCCModal" />
+      <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" :customIcon="copyrightCategory == 'In Copyright' ? 'copyrightCategoryRS' : copyrightCategory == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'" :iconShown="true" :onClick="openCCModal" />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, SetupContext } from 'vue'
+import { defineComponent, ref, SetupContext, watch } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 import BaseButton from './BaseButton.vue'
 
 export default defineComponent({
   props:{
     infotext:{
+      type: String,
+      required: true
+    },
+    copyrightCategory: {
       type: String,
       required: true
     }
@@ -47,6 +51,10 @@ export default defineComponent({
   emits: ['openingCcmodal'],
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false)
+
+    watch(() => props.copyrightCategory, (category: String) => {
+      console.log(category)
+    })
 
     const toggleCCTab = () => {
       openTab.value = !openTab.value

@@ -23,8 +23,10 @@
         :onClick="openFullscreenModal"
       />
       <copyright-tab
+      v-if="selectedImageRightsCategory"
         class="absolute top-0 right-0 w-full h-full"
         :infotext="infotext"
+        :copyrightCategory="selectedImageRightsCategory"
         @openingCcmodal="openCCModal"
       />
 
@@ -131,6 +133,9 @@ export default defineComponent({
       type: Array,
       required: true,
     },
+    mediafiles: {
+      type: Array
+    }
   },
   components: {
     BaseButton,
@@ -147,10 +152,32 @@ export default defineComponent({
     const prevIndex = ref<number>(0)
     const openIIIFModal = ref<boolean>(false)
     const openTab = ref<boolean>(false)
+    const localMediaFiles: Array<any> | undefined = props.mediafiles
+    const selectedImageRightsCategory = ref<string>()
 
-    watch(() => selectedIndex.value ,(value) =>{
-        emit('currentCarouselPicture', value);
+    const getRightsCategory = (metadata: string) => {
+      if (metadata && metadata.toLowerCase().includes('in copyright')){
+          selectedImageRightsCategory.value = "In Copyright"
+        }
+        else if (metadata && metadata.toLowerCase().includes('cc')){
+          selectedImageRightsCategory.value = "CC"
+        }
+        else{
+          selectedImageRightsCategory.value = "Public Domain"
+        }
+
+    }
+
+    watch(() => selectedIndex.value ,(index) =>{
+      if (localMediaFiles){
+        const selectedImageMetaData = localMediaFiles[index].metadata[0].value
+        getRightsCategory(selectedImageMetaData)
+        }
       })
+
+    if (localMediaFiles){
+      getRightsCategory(localMediaFiles[selectedIndex.value].metadata[0].value)
+    }
 
     const nextImage = () => {
       selectedIndex.value =
@@ -203,6 +230,7 @@ export default defineComponent({
       openTab,
       // toggleCCTab,
       openCCModal,
+      selectedImageRightsCategory
     }
   },
 })

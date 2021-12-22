@@ -1,5 +1,5 @@
 import { PropType } from "vue";
-declare type CustomIcon = "storybox" | "globe" | "delete" | "edit" | "logout" | "user" | "close" | "info" | "link" | "check" | "fullscreen" | "monitor" | "zoomIn" | "zoomOut" | "chest" | "talk" | "arrowRight" | "arrowRightLine" | "creativeCommonsCC" | "creativeCommonsSA" | "creativeCommonsBY" | "creativeCommonsNC" | "surprise";
+declare type CustomIcon = "storybox" | "globe" | "delete" | "edit" | "logout" | "user" | "close" | "info" | "link" | "check" | "fullscreen" | "monitor" | "zoomIn" | "zoomOut" | "chest" | "talk" | "arrowRight" | "arrowRightLine" | "creativeCommonsCC" | "creativeCommonsSA" | "creativeCommonsBY" | "creativeCommonsNC" | "copyrightCategoryCC" | "copyrightCategoryPDM" | "copyrightCategoryRS" | "surprise";
 declare const _default: import("vue").DefineComponent<{
     icon: {
         type: PropType<CustomIcon>;
