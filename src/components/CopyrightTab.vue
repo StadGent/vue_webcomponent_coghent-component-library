@@ -54,7 +54,7 @@ export default defineComponent({
     const customIcon = ref<String>()
 
     watch(() => props.copyrightCategory, (category: String) => {
-      customIcon.value = props.copyrightCategory == 'In Copyright' ? 'copyrightCategoryRS' : props.copyrightCategory == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
+      customIcon.value = category == 'In Copyright' ? 'copyrightCategoryRS' : category == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
     })
 
     const toggleCCTab = () => {
