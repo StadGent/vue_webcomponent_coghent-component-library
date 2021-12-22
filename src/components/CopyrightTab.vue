@@ -69,9 +69,13 @@ export default defineComponent({
           iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC', 'copyrightCategoryND', 'copyrightCategoryZero')
           break
         case'In Copyright':
-        case'In Copyright -  unknown rightsholder': 
+          iconArray.push('copyrightCategoryIC')
+          break
+        case'In Copyright -  unknown rightsholder':
+          iconArray.push('copyrightCategoryICUR')
+          break
         case'In Copyright - non-commercial use permitted':
-          iconArray.push('copyrightCategoryRS')
+          iconArray.push('copyrightCategoryICNC')
           break
         case 'Public Domain Mark 1.0':
           iconArray.push('copyrightCategoryPDM')
