@@ -53,8 +53,17 @@ export default defineComponent({
     const openTab = ref<boolean>(false)
     const customIcon = ref<String>()
 
-    watch(() => props.copyrightCategory, (category: String) => {
-      customIcon.value = category == 'In Copyright' ? 'copyrightCategoryRS' : category == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
+    const getCustomIconBasedOnCopyrightCategory = (category: String) => {
+      const icon = category == 'In Copyright' ? 'copyrightCategoryRS' : category == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
+      return icon
+    }
+
+    customIcon.value = getCustomIconBasedOnCopyrightCategory(props.copyrightCategory)
+
+     watch(() => props.copyrightCategory, (category: String) => {
+      customIcon.value = getCustomIconBasedOnCopyrightCategory(category)
+      console.log('foo')
+      console.log(customIcon)
     })
 
     const toggleCCTab = () => {
