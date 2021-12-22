@@ -23,13 +23,13 @@
         :onClick="openFullscreenModal"
       />
       <copyright-tab
-      v-if="selectedImageRightsCategory"
+      v-if="selectedImageRightsCategory && copyrightStatement"
         class="absolute top-0 right-0 w-full h-full"
         :infotext="infotext"
         :copyrightCategory="selectedImageRightsCategory"
+        :copyrightStatement="copyrightStatement"
         @openingCcmodal="openCCModal"
       />
-
       <lazy-load-image extraClass="z-10" :url="source[selectedIndex]" />
       <div
         class="
@@ -154,8 +154,9 @@ export default defineComponent({
     const openTab = ref<boolean>(false)
     const localMediaFiles: Array<any> | undefined = props.mediafiles
     const selectedImageRightsCategory = ref<string>()
+    const copyrightStatement = ref<String>()
 
-    const getRightsCategory = (metadata: string) => {
+    const getRightsCategory = (metadata: String) => {
       if (metadata && metadata.toLowerCase().includes('in copyright')){
           selectedImageRightsCategory.value = "In Copyright"
         }
@@ -168,16 +169,19 @@ export default defineComponent({
 
     }
 
-    watch(() => selectedIndex.value ,(index) =>{
-      if (localMediaFiles){
-        const selectedImageMetaData = localMediaFiles[index].metadata[0].value
-        getRightsCategory(selectedImageMetaData)
-        }
-      })
-
     if (localMediaFiles){
+      copyrightStatement.value = localMediaFiles[selectedIndex.value].metadata[0].value
       getRightsCategory(localMediaFiles[selectedIndex.value].metadata[0].value)
     }
+
+    watch(() => selectedIndex.value ,(index) =>{
+      if (localMediaFiles){
+        copyrightStatement.value = localMediaFiles[index].metadata[0].value
+        if (copyrightStatement.value){
+        getRightsCategory(copyrightStatement.value)
+        }
+        }
+      })
 
     const nextImage = () => {
       selectedIndex.value =
@@ -230,7 +234,8 @@ export default defineComponent({
       openTab,
       // toggleCCTab,
       openCCModal,
-      selectedImageRightsCategory
+      selectedImageRightsCategory,
+      copyrightStatement
     }
   },
 })

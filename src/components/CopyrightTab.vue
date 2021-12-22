@@ -4,10 +4,7 @@
       <div class="static">
         <div v-show="openTab" @click="openCCModal" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8 divide-x divide-neutral-80">
           <div class="flex">
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsCC" />
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsBY" />
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsNC" />
-          <base-icon class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" icon="creativeCommonsSA" />
+          <base-icon v-for="icon in secondaryIcons" v-bind:key="icon" class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" :icon="icon" />
           </div>
           <!-- <div class="border-r-2 border-solid h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" /> -->
           <p class="text-xxs w-max mr-3 pl-3 text-accent-purple">{{infotext}}</p>
@@ -42,6 +39,10 @@ export default defineComponent({
     copyrightCategory: {
       type: String,
       required: true
+    },
+    copyrightStatement:{
+      type: String,
+      required: true,
     }
   },
   components: {
@@ -52,18 +53,45 @@ export default defineComponent({
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false)
     const customIcon = ref<String>()
+    const secondaryIcons = ref<Array<String>>()
 
     const getCustomIconBasedOnCopyrightCategory = (category: String) => {
       const icon = category == 'In Copyright' ? 'copyrightCategoryRS' : category == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
       return icon
     }
 
+    const getSecondaryCopyrightIcons = () => {
+      const copyrightStatement = props.copyrightStatement
+      const iconArray: Array<String> = []
+      switch (copyrightStatement){
+        case 'CC0':
+        case'CC-BY-NC-ND 4.0':
+          iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC', 'copyrightCategoryND', 'copyrightCategoryZero')
+          break
+        case'In Copyright':
+        case'In Copyright -  unknown rightsholder': 
+        case'In Copyright - non-commercial use permitted':
+          iconArray.push('copyrightCategoryRS')
+          break
+        case 'Public Domain Mark 1.0':
+          iconArray.push('copyrightCategoryPDM')
+          break
+        default:
+          break
+      }
+      console.log(iconArray)
+      return iconArray
+    }
+
     customIcon.value = getCustomIconBasedOnCopyrightCategory(props.copyrightCategory)
+    secondaryIcons.value = getSecondaryCopyrightIcons()
 
      watch(() => props.copyrightCategory, (category: String) => {
       customIcon.value = getCustomIconBasedOnCopyrightCategory(category)
-      console.log('foo')
-      console.log(customIcon)
+    })
+
+    watch(() => props.copyrightStatement, (statement: String) => {
+      secondaryIcons.value = getSecondaryCopyrightIcons()
     })
 
     const toggleCCTab = () => {
@@ -79,7 +107,8 @@ export default defineComponent({
       toggleCCTab,
       openTab,
       openCCModal,
-      customIcon
+      customIcon,
+      secondaryIcons
     }
   },
 })
