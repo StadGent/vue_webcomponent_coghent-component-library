@@ -17,14 +17,14 @@
         class="absolute right-0 w-0 z-30 transform scale-90"
         :class="{ [`-mt-10`]: openTab }"
         customStyle="cc-round-black"
-        :customIcon="copyrightCategory == 'In Copyright' ? 'copyrightCategoryRS' : copyrightCategory == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'"
+        :customIcon="customIcon"
         :iconShown="true"
         :onClick="toggleCCTab"
       />
     </div>
 
     <div class="top-0 right-0 absolute z-30 bg-background-light mt-2 rounded-full mr-3 cursor-pointer lg:hidden">
-      <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" :customIcon="copyrightCategory == 'In Copyright' ? 'copyrightCategoryRS' : copyrightCategory == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'" :iconShown="true" :onClick="openCCModal" />
+      <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" :customIcon="customIcon" :iconShown="true" :onClick="openCCModal" />
     </div>
   </div>
 </template>
@@ -51,9 +51,10 @@ export default defineComponent({
   emits: ['openingCcmodal'],
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false)
+    const customIcon = ref<String>()
 
     watch(() => props.copyrightCategory, (category: String) => {
-      console.log(category)
+      customIcon.value = props.copyrightCategory == 'In Copyright' ? 'copyrightCategoryRS' : props.copyrightCategory == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
     })
 
     const toggleCCTab = () => {
@@ -68,7 +69,8 @@ export default defineComponent({
     return {
       toggleCCTab,
       openTab,
-      openCCModal
+      openCCModal,
+      customIcon
     }
   },
 })
