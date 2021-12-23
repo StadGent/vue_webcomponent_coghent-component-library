@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="top-0 right-0 hidden z-30 bg-background-light mt-2 rounded-full mr-3 cursor-pointer absolute lg:block">
+    <div class="top-0 right-0 hidden z-30 bg-neutral-0 mt-2 rounded-full mr-3 cursor-pointer absolute lg:block">
       <div class="static">
-        <div v-show="openTab" @click="openCCModal" class="flex bg-background-light inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8 divide-x divide-neutral-80">
+        <div v-show="openTab" @click="openCCModal" class="flex bg-neutral-0 inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8 divide-x divide-neutral-80">
           <div class="flex">
           <base-icon v-for="icon in secondaryIcons" v-bind:key="icon" class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" :icon="icon" />
           </div>
@@ -20,7 +20,7 @@
       />
     </div>
 
-    <div class="top-0 right-0 absolute z-30 bg-background-light mt-2 rounded-full mr-3 cursor-pointer lg:hidden">
+    <div class="top-0 right-0 absolute z-30 bg-neutral-0 mt-2 rounded-full mr-3 cursor-pointer lg:hidden">
       <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" :customIcon="customIcon" :iconShown="true" :onClick="openCCModal" />
     </div>
   </div>
@@ -65,8 +65,12 @@ export default defineComponent({
       const iconArray: Array<String> = []
       switch (copyrightStatement){
         case 'CC0':
+           iconArray.push('copyrightCategoryCC', 'copyrightCategoryZero')
+           break
+        case 'CC BY-NC':
+           iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC')
         case'CC-BY-NC-ND 4.0':
-          iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC', 'copyrightCategoryND', 'copyrightCategoryZero')
+          iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC', 'copyrightCategoryND')
           break
         case'In Copyright':
           iconArray.push('copyrightCategoryIC')
