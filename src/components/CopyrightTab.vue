@@ -42,14 +42,6 @@ export default defineComponent({
     selectedIndex: {
       type: Number
     },
-    // copyrightCategory: {
-    //   type: String,
-    //   required: true
-    // },
-    // copyrightStatement:{
-    //   type: String,
-    //   required: true,
-    // }
   },
   components: {
     BaseIcon,
@@ -77,6 +69,8 @@ export default defineComponent({
         }
 
     }
+    console.log({localMediaFiles})
+    console.log({selectedIndex})
 
     if (localMediaFiles && selectedIndex){
       copyrightStatement.value = localMediaFiles[selectedIndex.value].metadata[0].value
