@@ -36,14 +36,20 @@ export default defineComponent({
       type: String,
       required: true
     },
-    copyrightCategory: {
-      type: String,
-      required: true
+    mediafiles: {
+      type: Array
     },
-    copyrightStatement:{
-      type: String,
-      required: true,
-    }
+    selectedIndex: {
+      type: Number
+    },
+    // copyrightCategory: {
+    //   type: String,
+    //   required: true
+    // },
+    // copyrightStatement:{
+    //   type: String,
+    //   required: true,
+    // }
   },
   components: {
     BaseIcon,
@@ -52,18 +58,48 @@ export default defineComponent({
   emits: ['openingCcmodal'],
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false)
-    const customIcon = ref<String>()
-    const secondaryIcons = ref<Array<String>>()
+    const customIcon = ref<string>()
+    const secondaryIcons = ref<string[]>()
+    const localMediaFiles: any[] | undefined = props.mediafiles
+    const selectedIndex = ref<number>(props.selectedIndex||0)
+    let selectedImageRightsCategory = ref<string>()
+    let copyrightStatement = ref<string>()
 
-    const getCustomIconBasedOnCopyrightCategory = (category: String) => {
+    const getRightsCategory = (metadata: string) => {
+      if (metadata && metadata.toLowerCase().includes('in copyright')){
+          selectedImageRightsCategory.value = "In Copyright"
+        }
+        else if (metadata && metadata.toLowerCase().includes('cc')){
+          selectedImageRightsCategory.value = "CC"
+        }
+        else{
+          selectedImageRightsCategory.value = "Public Domain"
+        }
+
+    }
+
+    if (localMediaFiles && selectedIndex){
+      copyrightStatement.value = localMediaFiles[selectedIndex.value].metadata[0].value
+      getRightsCategory(localMediaFiles[selectedIndex.value].metadata[0].value)
+    }
+
+    watch(() => props.selectedIndex ,(index) =>{
+      if (localMediaFiles && index){
+        copyrightStatement.value = localMediaFiles[index].metadata[0].value
+        if (copyrightStatement.value){
+        getRightsCategory(copyrightStatement.value)
+        }
+        }
+      })
+
+    const getCustomIconBasedOnCopyrightCategory = (category: string) => {
       const icon = category == 'In Copyright' ? 'copyrightCategoryRS' : category == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
       return icon
     }
 
     const getSecondaryCopyrightIcons = () => {
-      const copyrightStatement = props.copyrightStatement
-      const iconArray: Array<String> = []
-      switch (copyrightStatement){
+      const iconArray: string[] = []
+      switch (copyrightStatement.value){
         case 'CC0':
            iconArray.push('copyrightCategoryCC', 'copyrightCategoryZero')
            break
@@ -87,18 +123,21 @@ export default defineComponent({
         default:
           break
       }
-      console.log(iconArray)
       return iconArray
     }
 
-    customIcon.value = getCustomIconBasedOnCopyrightCategory(props.copyrightCategory)
+    if (selectedImageRightsCategory.value){
+    customIcon.value = getCustomIconBasedOnCopyrightCategory(selectedImageRightsCategory.value)
     secondaryIcons.value = getSecondaryCopyrightIcons()
+    }
 
-     watch(() => props.copyrightCategory, (category: String) => {
-      customIcon.value = getCustomIconBasedOnCopyrightCategory(category)
+     watch(() => selectedImageRightsCategory.value, (category) => {
+       if (category){
+         customIcon.value = getCustomIconBasedOnCopyrightCategory(category)
+       }
     })
 
-    watch(() => props.copyrightStatement, (statement: String) => {
+    watch(() => copyrightStatement.value, () => {
       secondaryIcons.value = getSecondaryCopyrightIcons()
     })
 
