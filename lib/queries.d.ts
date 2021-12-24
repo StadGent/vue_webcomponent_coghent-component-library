@@ -48,6 +48,7 @@ export declare type Entity = {
     frames?: Maybe<Array<Maybe<Entity>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     primary_mediafile?: Maybe<Scalars['String']>;
+    qrCode?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -130,11 +131,15 @@ export declare type MetadataInput = {
 export declare type Mutation = {
     __typename?: 'Mutation';
     replaceMetadata: Array<Metadata>;
-    CreateBoxVisiter?: Maybe<Entity>;
+    AddFrameToVisiter: Array<Maybe<Relation>>;
 };
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
     metadata: Array<MetadataInput>;
+};
+export declare type MutationAddFrameToVisiterArgs = {
+    visiterId: Scalars['String'];
+    frameId: Scalars['String'];
 };
 export declare type Position = {
     __typename?: 'Position';
@@ -145,10 +150,15 @@ export declare type Position = {
 export declare type Query = {
     __typename?: 'Query';
     BoxVisitors?: Maybe<EntitiesResults>;
+    BoxVisitorByCode: Entity;
+    Stories?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
+};
+export declare type QueryBoxVisitorByCodeArgs = {
+    code: Scalars['String'];
 };
 export declare type QueryEntityArgs = {
     id: Scalars['String'];
@@ -178,6 +188,7 @@ export declare type Relation = {
     scale?: Maybe<Scalars['Float']>;
     audioFile?: Maybe<Scalars['String']>;
     subtitleFile?: Maybe<Scalars['String']>;
+    date?: Maybe<Scalars['String']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -552,13 +563,11 @@ export declare type GetRelationsQuery = {
     }>;
 };
 export declare type GetStoriesQueryVariables = Exact<{
-    limit?: Maybe<Scalars['Int']>;
-    skip?: Maybe<Scalars['Int']>;
-    searchValue: SearchFilter;
+    [key: string]: never;
 }>;
 export declare type GetStoriesQuery = {
     __typename?: 'Query';
-    Entities?: Maybe<{
+    Stories?: Maybe<{
         __typename?: 'EntitiesResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
@@ -617,23 +626,36 @@ export declare type GetBoxVisitersQuery = {
         limit?: Maybe<number>;
         results?: Maybe<Array<Maybe<{
             __typename?: 'Entity';
+            id: string;
             type: string;
-            metadata: Array<Maybe<{
-                __typename?: 'Metadata';
-                key: MetaKey;
-                value: string;
-            }>>;
+            qrCode?: Maybe<string>;
         }>>>;
     }>;
 };
-export declare type CreationOfBoxVisitorMutationVariables = Exact<{
-    [key: string]: never;
+export declare type GetBoxVisiterByCodeQueryVariables = Exact<{
+    code: Scalars['String'];
 }>;
-export declare type CreationOfBoxVisitorMutation = {
-    __typename?: 'Mutation';
-    CreateBoxVisiter?: Maybe<({
+export declare type GetBoxVisiterByCodeQuery = {
+    __typename?: 'Query';
+    BoxVisitorByCode: {
         __typename?: 'Entity';
-    } & FullEntityFragment)>;
+        id: string;
+        type: string;
+        qrCode?: Maybe<string>;
+    };
+};
+export declare type AddFrameToVisiterMutationVariables = Exact<{
+    visiterId: Scalars['String'];
+    frameId: Scalars['String'];
+}>;
+export declare type AddFrameToVisiterMutation = {
+    __typename?: 'Mutation';
+    AddFrameToVisiter: Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        date?: Maybe<string>;
+    }>>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
@@ -663,9 +685,7 @@ export declare const GetRelationsDocument: DocumentNode<GetRelationsQuery, Exact
     searchValue: SearchFilter;
 }>>;
 export declare const GetStoriesDocument: DocumentNode<GetStoriesQuery, Exact<{
-    limit?: number | null | undefined;
-    skip?: number | null | undefined;
-    searchValue: SearchFilter;
+    [key: string]: never;
 }>>;
 export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, Exact<{
     enumName: Scalars['String'];
@@ -673,6 +693,10 @@ export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, E
 export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
     [key: string]: never;
 }>>;
-export declare const CreationOfBoxVisitorDocument: DocumentNode<CreationOfBoxVisitorMutation, Exact<{
-    [key: string]: never;
+export declare const GetBoxVisiterByCodeDocument: DocumentNode<GetBoxVisiterByCodeQuery, Exact<{
+    code: Scalars['String'];
+}>>;
+export declare const AddFrameToVisiterDocument: DocumentNode<AddFrameToVisiterMutation, Exact<{
+    visiterId: Scalars['String'];
+    frameId: Scalars['String'];
 }>>;

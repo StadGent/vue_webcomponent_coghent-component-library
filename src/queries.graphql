@@ -211,8 +211,8 @@ query getRelations($searchValue: SearchFilter!) {
   }
 }
 
-query getStories($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
-  Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
+query getStories {
+  Stories {
     count
     limit
     results {
@@ -259,10 +259,23 @@ query getBoxVisiters{
     results {
       id
       type
-      metadata(key: [QRCode]) {
-        key
-        value
-      }
+      qrCode
     }
+  }
+}
+
+query getBoxVisiterByCode($code: String!){
+  BoxVisitorByCode(code: $code) {
+    id
+    type
+    qrCode
+  }
+}
+
+mutation addFrameToVisiter($visiterId: String!, $frameId: String!){
+  AddFrameToVisiter(visiterId: $visiterId, frameId: $frameId){
+    key
+    type
+    date
   }
 }

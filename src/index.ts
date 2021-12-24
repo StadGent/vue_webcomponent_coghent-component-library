@@ -18,6 +18,8 @@ import {
   GetStoriesDocument,
   GetEnumsByNameDocument,
   GetBoxVisitersDocument,
+  GetBoxVisiterByCodeDocument,
+  AddFrameToVisiterDocument,
 } from "./queries"
 import BaseButton from "./components/BaseButton.vue"
 import BaseSearch from "./components/BaseSearch.vue"
@@ -35,7 +37,9 @@ import LazyLoadImage from "./components/LazyLoadImage.vue"
 import BaseMetaData from "./components/BaseMetaData.vue"
 
 export {
+  AddFrameToVisiterDocument,
   GetBoxVisitersDocument,
+  GetBoxVisiterByCodeDocument,
   GetEntitiesDocument,
   GetStoriesDocument,
   GetEnumsByNameDocument,
