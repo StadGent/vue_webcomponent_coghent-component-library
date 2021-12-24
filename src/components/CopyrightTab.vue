@@ -69,8 +69,6 @@ export default defineComponent({
         }
 
     }
-    console.log({localMediaFiles})
-    console.log({selectedIndex})
 
     if (localMediaFiles && selectedIndex){
       copyrightStatement.value = localMediaFiles[selectedIndex.value].metadata[0].value
