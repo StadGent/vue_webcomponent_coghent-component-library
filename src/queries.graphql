@@ -253,7 +253,7 @@ query getEnumsByName($enumName: String!) {
 }
 
 query getBoxVisiters{
-  BoxVisitors {
+  BoxVisiters {
     count
     limit
     results {
@@ -265,7 +265,7 @@ query getBoxVisiters{
 }
 
 query getBoxVisiterByCode($code: String!){
-  BoxVisitorByCode(code: $code) {
+  BoxVisiterByCode(code: $code) {
     id
     type
     qrCode

@@ -149,15 +149,15 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
-    BoxVisitors?: Maybe<EntitiesResults>;
-    BoxVisitorByCode: Entity;
+    BoxVisiters?: Maybe<EntitiesResults>;
+    BoxVisiterByCode: Entity;
     Stories?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
 };
-export declare type QueryBoxVisitorByCodeArgs = {
+export declare type QueryBoxVisiterByCodeArgs = {
     code: Scalars['String'];
 };
 export declare type QueryEntityArgs = {
@@ -456,11 +456,6 @@ export declare type StoryEntityFragment = {
         __typename?: 'MediaFile';
         original_file_location?: Maybe<string>;
         filename?: Maybe<string>;
-        mediainfo?: Maybe<{
-            __typename?: 'MediaInfo';
-            width: string;
-            height: string;
-        }>;
     }>>>;
 };
 export declare type FullUserFragment = {
@@ -620,7 +615,7 @@ export declare type GetBoxVisitersQueryVariables = Exact<{
 }>;
 export declare type GetBoxVisitersQuery = {
     __typename?: 'Query';
-    BoxVisitors?: Maybe<{
+    BoxVisiters?: Maybe<{
         __typename?: 'EntitiesResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
@@ -637,7 +632,7 @@ export declare type GetBoxVisiterByCodeQueryVariables = Exact<{
 }>;
 export declare type GetBoxVisiterByCodeQuery = {
     __typename?: 'Query';
-    BoxVisitorByCode: {
+    BoxVisiterByCode: {
         __typename?: 'Entity';
         id: string;
         type: string;
