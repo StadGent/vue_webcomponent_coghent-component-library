@@ -1,7 +1,7 @@
 <template>
 <div class="flex w-full pb-10">
-    <div v-for="(tab, index) in tabNames" :key="index" class="w-auto flex flex-col items-center pr-10 cursor-pointer">
-        <h3 @click="setSelectedIndex(index)" :class="selectedIndex == index ? 'font-bold' : ''">{{tab}}</h3>
+    <div v-for="(tab, index) in tabNames" :key="index" @click="setSelectedIndex(index)" class="w-auto flex flex-col items-center pr-10 cursor-pointer">
+        <h3 :class="selectedIndex == index ? 'font-bold' : ''">{{tab}}</h3>
         <div v-show="selectedIndex == index" class="w-3 h-3 rounded-full bg-accent-purple"></div>
     </div>
 </div>

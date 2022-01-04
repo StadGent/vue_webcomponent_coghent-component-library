@@ -105,6 +105,30 @@ fragment fullEntity on Entity {
   }
 }
 
+fragment creator on Entity {
+  id
+  type
+  metadata(key: [material, type, collection, unMapped]) {
+    key
+    value
+    unMappedKey
+  }
+  mediafiles {
+    _id
+    original_file_location
+    filename
+    metadata {
+      key
+      value
+    }
+  }
+  relations {
+    key
+    type
+    label
+  }
+}
+
 fragment storyEntity on Entity {
   id
   type
@@ -195,6 +219,12 @@ query getEntityById($id: String!) {
   }
 }
 
+query getCreatorById($id: String!) {
+  Entity(id: $id) {
+    ...creator
+  }
+}
+
 query getMe {
   User {
     ...fullUser
@@ -252,7 +282,7 @@ query getEnumsByName($enumName: String!) {
   }
 }
 
-query getBoxVisiters{
+query getBoxVisiters {
   BoxVisiters {
     count
     limit
@@ -264,7 +294,7 @@ query getBoxVisiters{
   }
 }
 
-query getBoxVisiterByCode($code: String!){
+query getBoxVisiterByCode($code: String!) {
   BoxVisiterByCode(code: $code) {
     id
     type
@@ -272,8 +302,8 @@ query getBoxVisiterByCode($code: String!){
   }
 }
 
-mutation addFrameToVisiter($visiterId: String!, $frameId: String!){
-  AddFrameToVisiter(visiterId: $visiterId, frameId: $frameId){
+mutation addFrameToVisiter($visiterId: String!, $frameId: String!) {
+  AddFrameToVisiter(visiterId: $visiterId, frameId: $frameId) {
     key
     type
     date
