@@ -38,6 +38,7 @@ type ButtonTypes =
   | "ghost-red"
   | "secondary-round"
   | "cc-round-black"
+  | "details-black"
 const buttonstyles: Record<ButtonTypes, string> = {
   primary: "text-text-white bg-accent-purple rounded-full shadow-lg px-10 py-3",
   secondary:
@@ -49,6 +50,7 @@ const buttonstyles: Record<ButtonTypes, string> = {
     "text-accent-purple bg-text-white rounded-full shadow-lg px-4 py-2",
   "cc-round-black":
     "text-text-black bg-text-white rounded-full shadow-lg px-4 pr-6 py-2 stroke-0",
+    "details-black": "text-text-dark py-3",
 }
 type iconTypes = "sm" | "default"
 const iconstyles: Record<iconTypes, string> = {

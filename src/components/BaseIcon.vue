@@ -22,6 +22,7 @@ type CustomIcon =
   | "talk"
   | "arrowRight"
   | "arrowRightLine"
+  | "arrowLeftLine"
   | "creativeCommonsCC"
   | "creativeCommonsSA"
   | "creativeCommonsBY"
@@ -157,6 +158,12 @@ const icons: Record<CustomIcon, string> = {
 <path d="M6.5 12.5L11 8L6.5 3.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `,
+arrowLeftLine: `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+<style type="text/css">
+	.st0{fill:none;}
+</style>
+<path class="st0" d="M11,3.5L6.5,8l4.5,4.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
   surprise: `<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.5 13C9.32843 13 10 12.3284 10 11.5C10 10.6716 9.32843 10 8.5 10C7.67157 10 7 10.6716 7 11.5C7 12.3284 7.67157 13 8.5 13Z" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M15.9339 9.5C15.6934 11.3012 14.8071 12.9537 13.4398 14.1506C12.0724 15.3475 10.3171 16.0072 8.49992 16.0072C6.68276 16.0072 4.9274 15.3475 3.56008 14.1506C2.19275 12.9537 1.30646 11.3012 1.06592 9.5" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
