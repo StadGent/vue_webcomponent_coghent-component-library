@@ -20,6 +20,7 @@ import {
   GetBoxVisitersDocument,
   GetBoxVisiterByCodeDocument,
   AddFrameToVisiterDocument,
+  GetCreatorByIdDocument,
 } from "./queries";
 import BaseButton from "./components/BaseButton.vue";
 import BaseSearch from "./components/BaseSearch.vue";
@@ -47,6 +48,7 @@ export {
   EntitiesResults,
   GetFullEntitiesDocument,
   GetEntityByIdDocument,
+  GetCreatorByIdDocument,
   BaseButton,
   BaseSearch,
   BaseIcon,

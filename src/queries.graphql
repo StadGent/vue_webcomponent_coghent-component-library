@@ -106,21 +106,10 @@ fragment fullEntity on Entity {
 }
 
 fragment creator on Entity {
-  id
   type
-  metadata(key: [material, type, collection, unMapped]) {
+  metadata(key: [fullName, date_of_birth, date_of_death]) {
     key
     value
-    unMappedKey
-  }
-  mediafiles {
-    _id
-    original_file_location
-    filename
-    metadata {
-      key
-      value
-    }
   }
   relations {
     key
