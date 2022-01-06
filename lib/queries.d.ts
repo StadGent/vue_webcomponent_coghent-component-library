@@ -105,7 +105,12 @@ export declare enum MetaKey {
     UnMapped = "unMapped",
     ObjectNumber = "object_number",
     ObjectName = "object_name",
-    QrCode = "QRCode"
+    QrCode = "QRCode",
+    FullName = "fullName",
+    DateOfBirth = "date_of_birth",
+    PlaceOfBirth = "place_of_birth",
+    DateOfDeath = "date_of_death",
+    PlaceOfDeath = "place_of_death"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -438,6 +443,21 @@ export declare type FullEntityFragment = {
         value?: Maybe<string>;
     }>>>;
 };
+export declare type CreatorFragment = {
+    __typename?: 'Entity';
+    type: string;
+    metadata: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+    }>>>;
+};
 export declare type StoryEntityFragment = {
     __typename?: 'Entity';
     id: string;
@@ -456,6 +476,11 @@ export declare type StoryEntityFragment = {
         __typename?: 'MediaFile';
         original_file_location?: Maybe<string>;
         filename?: Maybe<string>;
+        mediainfo?: Maybe<{
+            __typename?: 'MediaInfo';
+            width: string;
+            height: string;
+        }>;
     }>>>;
 };
 export declare type FullUserFragment = {
@@ -533,6 +558,15 @@ export declare type GetEntityByIdQuery = {
     Entity?: Maybe<({
         __typename?: 'Entity';
     } & FullEntityFragment)>;
+};
+export declare type GetCreatorByIdQueryVariables = Exact<{
+    id: Scalars['String'];
+}>;
+export declare type GetCreatorByIdQuery = {
+    __typename?: 'Query';
+    Entity?: Maybe<({
+        __typename?: 'Entity';
+    } & CreatorFragment)>;
 };
 export declare type GetMeQueryVariables = Exact<{
     [key: string]: never;
@@ -655,6 +689,7 @@ export declare type AddFrameToVisiterMutation = {
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
+export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
@@ -671,6 +706,9 @@ export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery,
     fetchPolicy?: string | null | undefined;
 }>>;
 export declare const GetEntityByIdDocument: DocumentNode<GetEntityByIdQuery, Exact<{
+    id: Scalars['String'];
+}>>;
+export declare const GetCreatorByIdDocument: DocumentNode<GetCreatorByIdQuery, Exact<{
     id: Scalars['String'];
 }>>;
 export declare const GetMeDocument: DocumentNode<GetMeQuery, Exact<{

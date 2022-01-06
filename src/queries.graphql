@@ -132,10 +132,10 @@ fragment storyEntity on Entity {
   mediafiles {
     original_file_location
     filename
-    # mediainfo {
-    #   width
-    #   height
-    # }
+    mediainfo {
+      width
+      height
+    }
   }
 }
 
