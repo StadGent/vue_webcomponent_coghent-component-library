@@ -1,5 +1,5 @@
 <template>
-<div class="flex w-max-full overflow-x-scroll pb-10 no-scrollbar">
+<div v-if="!hidden" class="flex w-max-full overflow-x-scroll pb-10 no-scrollbar">
     <div v-for="(tab, index) in tabNames" :key="index" @click="setSelectedIndex(index)" class="w-auto flex flex-col items-center pr-10 cursor-pointer">
         <h3 :class="selectedIndex == index ? 'font-bold whitespace-nowrap' : 'whitespace-nowrap'">{{tab}}</h3>
         <div v-show="selectedIndex == index" class="w-3 h-3 rounded-full bg-accent-purple"></div>
@@ -15,6 +15,10 @@ export default defineComponent({
       type: Array,
       required: true,
     },
+    hidden:{
+      type: Boolean,
+      required: false
+    }
   },
   setup(props) {
     const selectedIndex = ref<number>(0)

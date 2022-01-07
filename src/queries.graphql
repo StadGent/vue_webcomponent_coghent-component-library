@@ -107,7 +107,7 @@ fragment fullEntity on Entity {
 
 fragment creator on Entity {
   type
-  metadata(key: [fullName, date_of_birth, date_of_death]) {
+  metadata(key: [fullname, firstname, lastname, nationality]) {
     key
     value
   }
