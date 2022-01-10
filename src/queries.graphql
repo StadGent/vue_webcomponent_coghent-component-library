@@ -167,6 +167,7 @@ fragment assetMetadata on Relation {
     z
   }
   scale
+  audioFile
 }
 
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
