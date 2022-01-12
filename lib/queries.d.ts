@@ -106,11 +106,10 @@ export declare enum MetaKey {
     ObjectNumber = "object_number",
     ObjectName = "object_name",
     QrCode = "QRCode",
-    FullName = "fullName",
-    DateOfBirth = "date_of_birth",
-    PlaceOfBirth = "place_of_birth",
-    DateOfDeath = "date_of_death",
-    PlaceOfDeath = "place_of_death"
+    Fullname = "fullname",
+    Firstname = "firstname",
+    Lastname = "lastname",
+    Nationality = "nationality"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -507,6 +506,7 @@ export declare type AssetMetadataFragment = {
     timestamp_end?: Maybe<number>;
     timestamp_zoom?: Maybe<number>;
     scale?: Maybe<number>;
+    audioFile?: Maybe<string>;
     position?: Maybe<{
         __typename?: 'Position';
         x?: Maybe<number>;
