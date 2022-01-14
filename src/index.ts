@@ -21,6 +21,7 @@ import {
   GetBoxVisiterByCodeDocument,
   AddFrameToVisiterDocument,
   GetCreatorByIdDocument,
+  GetTouchTableEntityDocument,
 } from "./queries";
 import BaseButton from "./components/BaseButton.vue";
 import BaseSearch from "./components/BaseSearch.vue";
@@ -49,6 +50,7 @@ export {
   GetFullEntitiesDocument,
   GetEntityByIdDocument,
   GetCreatorByIdDocument,
+  GetTouchTableEntityDocument,
   BaseButton,
   BaseSearch,
   BaseIcon,

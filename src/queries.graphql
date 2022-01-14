@@ -12,6 +12,26 @@ fragment minimalEntity on Entity {
   primary_mediafile
 }
 
+fragment touchTableEntity on Entity {
+  id
+  type
+  title: metadata(key: [title]) {
+    key
+    value
+  }
+  description: metadata(key: [description]) {
+    key
+    value
+  }
+  primary_mediafile
+  relations {
+    key
+    type
+    label
+    value
+  }
+}
+
 fragment nestedEntity on Entity {
   id
   type
@@ -289,6 +309,16 @@ query getBoxVisiterByCode($code: String!) {
     id
     type
     qrCode
+  }
+}
+
+query getTouchTableEntity($limit: Int, $searchValue: SearchFilter!) {
+  Entities(limit: $limit, searchValue: $searchValue) {
+    count
+    limit
+    results {
+      ...touchTableEntity
+    }
   }
 }
 

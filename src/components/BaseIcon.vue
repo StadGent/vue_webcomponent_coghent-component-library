@@ -23,6 +23,7 @@ type CustomIcon =
   | "arrowRight"
   | "arrowRightLine"
   | "arrowLeftLine"
+  | "downwardArrows"
   | "creativeCommonsCC"
   | "creativeCommonsSA"
   | "creativeCommonsBY"
@@ -163,6 +164,10 @@ arrowLeftLine: `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" v
 	.st0{fill:none;}
 </style>
 <path class="st0" d="M11,3.5L6.5,8l4.5,4.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+downwardArrows:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.25 14.75L12 21.5L18.75 14.75" stroke="#212121" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.25 4L12 10.75L18.75 4" stroke="#212121" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
   surprise: `<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.5 13C9.32843 13 10 12.3284 10 11.5C10 10.6716 9.32843 10 8.5 10C7.67157 10 7 10.6716 7 11.5C7 12.3284 7.67157 13 8.5 13Z" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
