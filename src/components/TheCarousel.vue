@@ -2,7 +2,7 @@
   <!--Fullscreen modal-->
   <base-modal :showHeader="false" v-model:isShow="openIIIFModal" class="z-50">
     <section class="h-large flex relative w-full">
-      <IIIFViewer :imageUrl="source[selectedIndex]" />
+      <IIIFViewer :imageUrl="source[selectedIndex].infoJson" />
     </section>
   </base-modal>
   <!--Carousel -->
@@ -29,7 +29,10 @@
         :selectedIndex="selectedIndex"
         @openingCcmodal="openCCModal"
       />
-      <lazy-load-image extraClass="z-10" :url="source[selectedIndex]" />
+      <lazy-load-image
+        extraClass="z-10"
+        :url="source[selectedIndex].imageUrl"
+      />
       <div
         class="
           flex
@@ -75,7 +78,9 @@
           v-for="photo in source"
           :key="photo"
           class="w-2 h-2 rounded-full bg-text-dark mx-1"
-          :class="{ [`opacity-40`]: photo !== source[selectedIndex] }"
+          :class="{
+            [`opacity-40`]: photo.imageUrl !== source[selectedIndex].imageUrl,
+          }"
         ></div>
         <svg
           v-show="source.length > 1"
@@ -114,13 +119,18 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, SetupContext, watch } from "vue"
+import { defineComponent, PropType, ref, SetupContext, watch } from "vue"
 import BaseButton from "./BaseButton.vue"
 import BaseModal from "./BaseModal.vue"
 import BaseIcon from "./BaseIcon.vue"
 import IIIFViewer from "./IIIFViewer.vue"
 import CopyrightTab from "./CopyrightTab.vue"
 import LazyLoadImage from "./LazyLoadImage.vue"
+
+type ImageSource = {
+  imageUrl: string
+  infoJson: string
+}
 
 export default defineComponent({
   props: {
@@ -129,12 +139,12 @@ export default defineComponent({
       required: true,
     },
     source: {
-      type: Array,
+      type: Array as PropType<ImageSource[]>,
       required: true,
     },
     mediafiles: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   components: {
     BaseButton,

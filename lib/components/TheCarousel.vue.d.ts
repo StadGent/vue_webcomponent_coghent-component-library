@@ -1,10 +1,15 @@
+import { PropType } from "vue";
+declare type ImageSource = {
+    imageUrl: string;
+    infoJson: string;
+};
 declare const _default: import("vue").DefineComponent<{
     infotext: {
         type: StringConstructor;
         required: true;
     };
     source: {
-        type: ArrayConstructor;
+        type: PropType<ImageSource[]>;
         required: true;
     };
     mediafiles: {
@@ -26,7 +31,7 @@ declare const _default: import("vue").DefineComponent<{
     mediafiles?: unknown;
 } & {
     infotext: string;
-    source: unknown[];
+    source: ImageSource[];
 } & {
     mediafiles?: unknown[] | undefined;
 }> & {}) | (Readonly<{
@@ -35,7 +40,7 @@ declare const _default: import("vue").DefineComponent<{
     mediafiles?: unknown;
 } & {
     infotext: string;
-    source: unknown[];
+    source: ImageSource[];
 } & {
     mediafiles?: unknown[] | undefined;
 }> & {}), {}>;

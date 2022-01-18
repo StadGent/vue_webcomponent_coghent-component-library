@@ -1,4 +1,5 @@
 <template>
+  <div>test</div>
   <div class="relative w-full h-full">
     <div ref="OpenSeadragon-toolbar" class="hidden" />
     <ViewerToolbar
@@ -38,10 +39,8 @@ export default defineComponent({
         prefixUrl: "/static/openseadragon/images/",
         // @ts-ignore
         toolbar: document.getElementById("OpenSeadragon-toolbar"),
-        tileSources: {
-          type: "image",
-          url: props.imageUrl,
-        },
+        // @ts-ignore
+        tileSources: props.imageUrl,
       }
 
       if (zoomInDiv.value !== null) {
