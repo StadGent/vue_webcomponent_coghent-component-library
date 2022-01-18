@@ -1,5 +1,4 @@
 <template>
-  <div>test</div>
   <div class="relative w-full h-full">
     <div ref="OpenSeadragon-toolbar" class="hidden" />
     <ViewerToolbar
@@ -8,12 +7,27 @@
       v-model:fullPage="fullPageButtonDiv"
       v-model:home="homeDiv"
     />
+    <div
+      v-show="loading"
+      class="
+        absolute
+        flex
+        h-full
+        items-center
+        justify-center
+        text-center
+        w-full
+        z-40
+      "
+    >
+      Loading ...
+    </div>
     <div ref="OpenSeadragonDiv" class="w-full h-full z-0 checkboard" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue"
+import { defineComponent, onMounted, ref, watch } from "vue"
 import OpenSeadragon from "openseadragon"
 import ViewerToolbar from "./ViewerToolbar.vue"
 
@@ -32,6 +46,8 @@ export default defineComponent({
     const zoomOutDiv = ref<string | undefined>(undefined)
     const fullPageButtonDiv = ref<string | undefined>(undefined)
     const homeDiv = ref<string | undefined>(undefined)
+    let viewer: any = undefined
+    const loading = ref<boolean>(true)
 
     onMounted(() => {
       const dragonOption: OpenSeadragon.Options = {
@@ -56,7 +72,21 @@ export default defineComponent({
         dragonOption.homeButton = homeDiv.value
       }
 
-      OpenSeadragon(dragonOption)
+      viewer = OpenSeadragon(dragonOption)
+
+      watch(
+        () => props.imageUrl,
+        (value: string) => {
+          if (value) {
+            loading.value = true
+            viewer.open(value)
+          }
+        }
+      )
+
+      viewer.addHandler("tile-drawn", () => {
+        loading.value = false
+      })
     })
 
     return {
@@ -65,6 +95,7 @@ export default defineComponent({
       zoomOutDiv,
       fullPageButtonDiv,
       homeDiv,
+      loading,
     }
   },
 })

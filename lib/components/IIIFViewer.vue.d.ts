@@ -9,6 +9,7 @@ declare const _default: import("vue").DefineComponent<{
     zoomOutDiv: import("vue").Ref<string | undefined>;
     fullPageButtonDiv: import("vue").Ref<string | undefined>;
     homeDiv: import("vue").Ref<string | undefined>;
+    loading: import("vue").Ref<boolean>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     imageUrl?: unknown;
 } & {
