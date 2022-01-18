@@ -338,6 +338,29 @@ export declare type MinimalEntityFragment = {
         value?: Maybe<string>;
     }>>;
 };
+export declare type TouchTableEntityFragment = {
+    __typename?: 'Entity';
+    id: string;
+    type: string;
+    primary_mediafile?: Maybe<string>;
+    title: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    description: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        value?: Maybe<string>;
+    }>>>;
+};
 export declare type NestedEntityFragment = {
     __typename?: 'Entity';
     id: string;
@@ -673,6 +696,21 @@ export declare type GetBoxVisiterByCodeQuery = {
         qrCode?: Maybe<string>;
     };
 };
+export declare type GetTouchTableEntityQueryVariables = Exact<{
+    limit?: Maybe<Scalars['Int']>;
+    searchValue: SearchFilter;
+}>;
+export declare type GetTouchTableEntityQuery = {
+    __typename?: 'Query';
+    Entities?: Maybe<{
+        __typename?: 'EntitiesResults';
+        count?: Maybe<number>;
+        limit?: Maybe<number>;
+        results?: Maybe<Array<Maybe<({
+            __typename?: 'Entity';
+        } & TouchTableEntityFragment)>>>;
+    }>;
+};
 export declare type AddFrameToVisiterMutationVariables = Exact<{
     visiterId: Scalars['String'];
     frameId: Scalars['String'];
@@ -687,6 +725,7 @@ export declare type AddFrameToVisiterMutation = {
     }>>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
+export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
@@ -728,6 +767,10 @@ export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, E
 }>>;
 export declare const GetBoxVisiterByCodeDocument: DocumentNode<GetBoxVisiterByCodeQuery, Exact<{
     code: Scalars['String'];
+}>>;
+export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEntityQuery, Exact<{
+    limit?: number | null | undefined;
+    searchValue: SearchFilter;
 }>>;
 export declare const AddFrameToVisiterDocument: DocumentNode<AddFrameToVisiterMutation, Exact<{
     visiterId: Scalars['String'];
