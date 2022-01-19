@@ -1,10 +1,19 @@
 <template>
   <div class="grid grid-flow-col-dense auto-cols-fr">
-    <strong
+    <span
       class="col-start-1 w-full inline-block overflow-hidden break-words"
-      >{{ keyWord }}</strong
+      :class="strongLabel ? 'font-bold' : 'font-medium'"
+      >{{ keyWord }}</span
     >
-    <span v-if="type != ''" :class="keyWord == 'vervaardiger' ? 'col-start-2 mr-10 cursor-pointer' : 'col-start-2 mr-10'">{{ type }} </span>
+    <span
+      v-if="type != ''"
+      :class="
+        keyWord == 'vervaardiger'
+          ? 'col-start-2 mr-10 cursor-pointer'
+          : 'col-start-2 mr-10'
+      "
+      >{{ type }}
+    </span>
     <span v-if="type == ''" class="text-text-red col-start-2 mr-10">{{
       errorText
     }}</span>
@@ -27,8 +36,12 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    strongLabel: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
-  setup(props) {
-  },
+  setup(props) {},
 })
 </script>
