@@ -10,7 +10,7 @@
     <div class="z-0 mt-24 w-1/4 transform -translate-x-1/4">
       <lazy-load-image
         extraClass="opacity-70"
-        :url="source[getPrevImage()]"
+        :url="source[getPrevImage()].imageUrl"
         v-if="source.length > 2"
       />
     </div>
@@ -112,7 +112,7 @@
     <div class="z-0 mt-24 w-1/4 transform translate-x-1/4">
       <lazy-load-image
         extraClass="opacity-70"
-        :url="source[getNextImage()]"
+        :url="source[getNextImage()].imageUrl"
         v-if="source.length > 1"
       />
     </div>
