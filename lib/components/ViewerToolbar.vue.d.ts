@@ -1,4 +1,4 @@
-import { PropType } from 'vue';
+import { PropType } from "vue";
 declare const _default: import("vue").DefineComponent<{
     zoomIn: {
         type: PropType<string | HTMLDivElement | null>;

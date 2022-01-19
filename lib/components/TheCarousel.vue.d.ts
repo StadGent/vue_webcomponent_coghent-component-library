@@ -22,6 +22,7 @@ declare const _default: import("vue").DefineComponent<{
     getNextImage: () => number;
     getPrevImage: () => number;
     openFullscreenModal: () => void;
+    closeFullscreenModal: () => void;
     openIIIFModal: import("vue").Ref<boolean>;
     openTab: import("vue").Ref<boolean>;
     openCCModal: () => void;

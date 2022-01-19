@@ -108,19 +108,19 @@ export default defineComponent({
   background-position: 0 0, 30px 30px;
   background-image: linear-gradient(
       45deg,
-      #f4f5f7 25%,
+      #f6f5f1 25%,
       transparent 25%,
       transparent 75%,
-      #f4f5f7 75%,
-      #f4f5f7
+      #f6f5f1 75%,
+      #f6f5f1
     ),
     linear-gradient(
       45deg,
-      #f4f5f7 25%,
+      #f6f5f1 25%,
       transparent 25%,
       transparent 75%,
-      #f4f5f7 75%,
-      #f4f5f7
+      #f6f5f1 75%,
+      #f6f5f1
     );
 }
 </style>

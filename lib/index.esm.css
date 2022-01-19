@@ -132334,25 +132334,37 @@ video {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
+a.absolute[data-v-1b863089]{
+  position: absolute!important;
+}
+
+.top-second[data-v-1b863089]{
+  top: 52px;
+}
+
+.top-third[data-v-1b863089]{
+  top: 96px;
+}
+
 .checkboard[data-v-6b12653f] {
   background-color: #fff;
   background-size: 60px 60px;
   background-position: 0 0, 30px 30px;
   background-image: linear-gradient(
       45deg,
-      #f4f5f7 25%,
+      #f6f5f1 25%,
       transparent 25%,
       transparent 75%,
-      #f4f5f7 75%,
-      #f4f5f7
+      #f6f5f1 75%,
+      #f6f5f1
     ),
     linear-gradient(
       45deg,
-      #f4f5f7 25%,
+      #f6f5f1 25%,
       transparent 25%,
       transparent 75%,
-      #f4f5f7 75%,
-      #f4f5f7
+      #f6f5f1 75%,
+      #f6f5f1
     );
 }
 

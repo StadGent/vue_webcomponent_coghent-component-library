@@ -1,7 +1,31 @@
 <template>
   <!--Fullscreen modal-->
-  <base-modal :showHeader="false" v-model:isShow="openIIIFModal" class="z-50">
+  <base-modal :showHeader="true" v-model:isShow="openIIIFModal" class="z-50">
     <section class="h-large flex relative w-full">
+      <a
+        @click="closeFullscreenModal"
+        class="
+          right-2
+          top-2
+          absolute
+          bg-neutral-0
+          cursor-pointer
+          hover:bg-accent-yellow
+          ml-2
+          mr-2
+          p-2
+          rounded-full
+          shadow-xl
+          text-accent-purple
+          z-50
+          hover:text-neutral-0
+        "
+      >
+        <base-icon
+          icon="close"
+          class="h-5 w-5 ml-0.5 stroke-current fill-current stroke-2"
+        />
+      </a>
       <IIIFViewer :imageUrl="source[selectedIndex].infoJson" />
     </section>
   </base-modal>
@@ -194,6 +218,10 @@ export default defineComponent({
       openIIIFModal.value = true
     }
 
+    const closeFullscreenModal = () => {
+      openIIIFModal.value = false
+    }
+
     // const toggleCCTab = () => {
     //   openTab.value = !openTab.value
     // }
@@ -209,6 +237,7 @@ export default defineComponent({
       getNextImage,
       getPrevImage,
       openFullscreenModal,
+      closeFullscreenModal,
       openIIIFModal,
       openTab,
       // toggleCCTab,
