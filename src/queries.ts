@@ -31,6 +31,7 @@ export type EntitiesResults = {
 
 export type Entity = {
   __typename?: 'Entity';
+  _key?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   type: Scalars['String'];
   metadata: Array<Maybe<Metadata>>;
