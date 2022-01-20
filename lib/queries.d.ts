@@ -33,6 +33,7 @@ export declare type EntitiesResults = {
 };
 export declare type Entity = {
     __typename?: 'Entity';
+    _key?: Maybe<Scalars['String']>;
     id: Scalars['String'];
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
@@ -582,6 +583,15 @@ export declare type GetEntityByIdQuery = {
         __typename?: 'Entity';
     } & FullEntityFragment)>;
 };
+export declare type GetTouchTableEntityByIdQueryVariables = Exact<{
+    id: Scalars['String'];
+}>;
+export declare type GetTouchTableEntityByIdQuery = {
+    __typename?: 'Query';
+    Entity?: Maybe<({
+        __typename?: 'Entity';
+    } & TouchTableEntityFragment)>;
+};
 export declare type GetCreatorByIdQueryVariables = Exact<{
     id: Scalars['String'];
 }>;
@@ -745,6 +755,9 @@ export declare const GetFullEntitiesDocument: DocumentNode<GetFullEntitiesQuery,
     fetchPolicy?: string | null | undefined;
 }>>;
 export declare const GetEntityByIdDocument: DocumentNode<GetEntityByIdQuery, Exact<{
+    id: Scalars['String'];
+}>>;
+export declare const GetTouchTableEntityByIdDocument: DocumentNode<GetTouchTableEntityByIdQuery, Exact<{
     id: Scalars['String'];
 }>>;
 export declare const GetCreatorByIdDocument: DocumentNode<GetCreatorByIdQuery, Exact<{

@@ -229,6 +229,12 @@ query getEntityById($id: String!) {
   }
 }
 
+query getTouchTableEntityById($id: String!) {
+  Entity(id: $id) {
+    ...touchTableEntity
+  }
+}
+
 query getCreatorById($id: String!) {
   Entity(id: $id) {
     ...creator
