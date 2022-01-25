@@ -110,7 +110,8 @@ export declare enum MetaKey {
     Fullname = "fullname",
     Firstname = "firstname",
     Lastname = "lastname",
-    Nationality = "nationality"
+    Nationality = "nationality",
+    ScopeNote = "scopeNote"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
