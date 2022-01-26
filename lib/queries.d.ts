@@ -35,6 +35,7 @@ export declare type Entity = {
     __typename?: 'Entity';
     _key?: Maybe<Scalars['String']>;
     id: Scalars['String'];
+    object_id: Scalars['String'];
     type: Scalars['String'];
     metadata: Array<Maybe<Metadata>>;
     metadataByLabel: Array<Maybe<Metadata>>;
@@ -327,6 +328,7 @@ export declare type __EnumValue = {
 export declare type MinimalEntityFragment = {
     __typename?: 'Entity';
     id: string;
+    object_id: string;
     type: string;
     primary_mediafile?: Maybe<string>;
     title: Array<Maybe<{

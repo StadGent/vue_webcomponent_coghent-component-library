@@ -1,5 +1,6 @@
 fragment minimalEntity on Entity {
   id
+  object_id
   type
   title: metadata(key: [title]) {
     key
