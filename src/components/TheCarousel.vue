@@ -35,6 +35,7 @@
       <lazy-load-image
         extraClass="opacity-70"
         :url="source[getPrevImage()].imageUrl"
+        :fallBackUrl="source[getPrevImage()].fallBackUrl"
         v-if="source.length > 2"
       />
     </div>
@@ -56,6 +57,7 @@
       <lazy-load-image
         extraClass="z-10"
         :url="source[selectedIndex].imageUrl"
+        :fallBackUrl="source[selectedIndex].fallBackUrl"
       />
       <div
         class="
@@ -137,6 +139,7 @@
       <lazy-load-image
         extraClass="opacity-70"
         :url="source[getNextImage()].imageUrl"
+        :fallBackUrl="source[getNextImage()].fallBackUrl"
         v-if="source.length > 1"
       />
     </div>
@@ -154,6 +157,7 @@ import LazyLoadImage from "./LazyLoadImage.vue"
 type ImageSource = {
   imageUrl: string
   infoJson: string
+  fallBackUrl: string
 }
 
 export default defineComponent({

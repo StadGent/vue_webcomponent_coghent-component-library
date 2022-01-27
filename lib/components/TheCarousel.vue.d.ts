@@ -2,6 +2,7 @@ import { PropType } from "vue";
 declare type ImageSource = {
     imageUrl: string;
     infoJson: string;
+    fallBackUrl: string;
 };
 declare const _default: import("vue").DefineComponent<{
     infotext: {

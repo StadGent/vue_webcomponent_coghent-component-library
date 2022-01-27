@@ -10,9 +10,10 @@
   <img
     v-if="url"
     v-show="imageLoaded"
-    :src="url"
+    :src="imageUrl"
     :class="`${extraClass} flex w-full rounded-md shadow`"
     @load="finalImageLoaded"
+    @error="setFallback"
   />
 </template>
 
@@ -37,10 +38,15 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    fallBackUrl: {
+      type: String,
+      required: false,
+    },
   },
   emits: ["loaded"],
   setup: (props, { emit }) => {
     const imageLoaded = ref<boolean>(false)
+    const imageUrl = ref<string | undefined>(props.url)
 
     const rendered = () => {
       emit("loaded")
@@ -56,12 +62,23 @@ export default defineComponent({
       (value: string | undefined) => {
         if (!value) {
           imageLoaded.value = false
+        } else {
+          imageUrl.value = value
         }
       }
     )
 
+    const setFallback = () => {
+      console.log("setFallback")
+      if (props.fallBackUrl) {
+        imageUrl.value = props.fallBackUrl
+      }
+    }
+
     return {
+      setFallback,
       imageLoaded,
+      imageUrl,
       finalImageLoaded,
       rendered,
     }
