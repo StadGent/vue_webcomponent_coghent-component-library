@@ -1,6 +1,11 @@
 <template>
   <!--Fullscreen modal-->
-  <base-modal :showHeader="true" v-model:isShow="openIIIFModal" class="z-50">
+  <base-modal
+    :modalState="openIIIFModal"
+    :large="true"
+    class="z-50"
+    @hide-modal="closeFullscreenModal"
+  >
     <section class="h-large flex relative w-full">
       <a
         @click="closeFullscreenModal"
@@ -146,19 +151,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, SetupContext, watch } from "vue"
+import { defineComponent, PropType, ref, SetupContext } from "vue"
 import BaseButton from "./BaseButton.vue"
 import BaseModal from "./BaseModal.vue"
 import BaseIcon from "./BaseIcon.vue"
 import IIIFViewer from "./IIIFViewer.vue"
 import CopyrightTab from "./CopyrightTab.vue"
 import LazyLoadImage from "./LazyLoadImage.vue"
-
-type ImageSource = {
-  imageUrl: string
-  infoJson: string
-  fallBackUrl: string
-}
+import { ImageSource, ModalState } from "@/types"
 
 export default defineComponent({
   props: {
@@ -187,7 +187,7 @@ export default defineComponent({
     const selectedIndex = ref<number>(0)
     const nextIndex = ref<number>(0)
     const prevIndex = ref<number>(0)
-    const openIIIFModal = ref<boolean>(false)
+    const openIIIFModal = ref<ModalState>("hide")
     const openTab = ref<boolean>(false)
 
     const nextImage = () => {
@@ -219,11 +219,11 @@ export default defineComponent({
     }
 
     const openFullscreenModal = () => {
-      openIIIFModal.value = true
+      openIIIFModal.value = "show"
     }
 
     const closeFullscreenModal = () => {
-      openIIIFModal.value = false
+      openIIIFModal.value = "hide"
     }
 
     // const toggleCCTab = () => {

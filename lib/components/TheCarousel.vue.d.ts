@@ -1,9 +1,5 @@
 import { PropType } from "vue";
-declare type ImageSource = {
-    imageUrl: string;
-    infoJson: string;
-    fallBackUrl: string;
-};
+import { ImageSource, ModalState } from "@/types";
 declare const _default: import("vue").DefineComponent<{
     infotext: {
         type: StringConstructor;
@@ -24,7 +20,7 @@ declare const _default: import("vue").DefineComponent<{
     getPrevImage: () => number;
     openFullscreenModal: () => void;
     closeFullscreenModal: () => void;
-    openIIIFModal: import("vue").Ref<boolean>;
+    openIIIFModal: import("vue").Ref<ModalState>;
     openTab: import("vue").Ref<boolean>;
     openCCModal: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, "openingCcmodal" | "currentCarouselPicture", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, (Readonly<{

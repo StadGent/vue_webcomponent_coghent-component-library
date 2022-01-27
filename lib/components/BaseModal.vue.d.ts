@@ -1,26 +1,37 @@
+import { ModalState } from "@/types";
+import { PropType } from "vue";
 declare const _default: import("vue").DefineComponent<{
-    isShow: {
-        type: BooleanConstructor;
+    modalState: {
+        type: PropType<ModalState>;
         required: true;
+        default: string;
+    };
+    large: {
+        type: BooleanConstructor;
+        required: false;
         default: boolean;
     };
-    showHeader: {
+    scroll: {
         type: BooleanConstructor;
         required: false;
         default: boolean;
     };
 }, {
-    show: import("vue").Ref<boolean>;
-    closeModal: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:isShow"[], "update:isShow", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    isShow?: unknown;
-    showHeader?: unknown;
+    hideModal: () => void;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modalState" | "hideModal")[], "update:modalState" | "hideModal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    modalState?: unknown;
+    large?: unknown;
+    scroll?: unknown;
 } & {
-    isShow: boolean;
-    showHeader: boolean;
+    modalState: ModalState;
+    large: boolean;
+    scroll: boolean;
 } & {}> & {
-    "onUpdate:isShow"?: ((...args: any[]) => any) | undefined;
+    "onUpdate:modalState"?: ((...args: any[]) => any) | undefined;
+    onHideModal?: ((...args: any[]) => any) | undefined;
 }, {
-    showHeader: boolean;
+    modalState: ModalState;
+    large: boolean;
+    scroll: boolean;
 }>;
 export default _default;
