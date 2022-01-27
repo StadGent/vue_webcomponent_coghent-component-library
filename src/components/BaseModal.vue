@@ -1,7 +1,32 @@
 <template>
+  <div v-show="modalState === 'small'" class="fixed right-0 top-0 z-40">
+    <!-- Advise -->
+    <div
+      class="
+        fixed
+        right-0
+        top-0
+        sm:right-4 sm:top-4
+        rounded-lg
+        bg-neutral-0
+        shadow-2xl
+        w-full
+        sm:w-1/2
+        xl:w-1/4
+        max-w-[450px]
+        overflow-hidden
+      "
+    >
+      <slot name="small"></slot>
+    </div>
+  </div>
   <div
     v-show="modalState === 'show' || modalState === 'loading'"
-    class="fixed z-50 inset-0 m-4"
+    :class="
+      modalState === 'small'
+        ? 'fixed z-50 inset-0 m-4 w-64 h-64'
+        : 'fixed z-50 inset-0 m-4'
+    "
   >
     <div
       class="
@@ -19,6 +44,7 @@
         class="fixed inset-0 bg-neutral-80 bg-opacity-75 transition-opacity"
         aria-hidden="true"
         @click="hideModal"
+        v-show="modalState !== 'small'"
       ></div>
       <span
         class="hidden sm:inline-block sm:align-middle h-screen"
@@ -95,7 +121,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ["update:modalState", "hideModal"],
+  emits: ["update:modalState", "hideModal", "showModal"],
   setup(props, { emit }) {
     const hideModal: () => void = () => {
       emit("update:modalState", "hide")
@@ -112,8 +138,13 @@ export default defineComponent({
       }
     })
 
+    const growModal: () => void = () => {
+      emit("showModal", "show")
+    }
+
     return {
       hideModal,
+      growModal,
     }
   },
 })

@@ -3,4 +3,4 @@ export declare type ImageSource = {
     infoJson: string;
     fallBackUrl: string;
 };
-export declare type ModalState = "show" | "hide" | "loading";
+export declare type ModalState = "show" | "hide" | "loading" | "small";

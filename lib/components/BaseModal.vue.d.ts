@@ -18,7 +18,8 @@ declare const _default: import("vue").DefineComponent<{
     };
 }, {
     hideModal: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modalState" | "hideModal")[], "update:modalState" | "hideModal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    growModal: () => void;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modalState" | "hideModal" | "showModal")[], "update:modalState" | "hideModal" | "showModal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     modalState?: unknown;
     large?: unknown;
     scroll?: unknown;
@@ -29,6 +30,7 @@ declare const _default: import("vue").DefineComponent<{
 } & {}> & {
     "onUpdate:modalState"?: ((...args: any[]) => any) | undefined;
     onHideModal?: ((...args: any[]) => any) | undefined;
+    onShowModal?: ((...args: any[]) => any) | undefined;
 }, {
     modalState: ModalState;
     large: boolean;

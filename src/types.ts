@@ -4,4 +4,4 @@ export type ImageSource = {
   fallBackUrl: string
 }
 
-export type ModalState = "show" | "hide" | "loading"
+export type ModalState = "show" | "hide" | "loading" | "small"
