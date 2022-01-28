@@ -8,8 +8,8 @@
     <span
       v-if="type != ''"
       :class="
-        keyWord == 'vervaardiger'
-          ? 'col-start-2 mr-10 cursor-pointer'
+        clickable
+          ? 'col-start-2 mr-10 cursor-pointer underline'
           : 'col-start-2 mr-10'
       "
       >{{ type }}
@@ -41,6 +41,10 @@ export default defineComponent({
       required: false,
       default: true,
     },
+    clickable: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props) {},
 })
