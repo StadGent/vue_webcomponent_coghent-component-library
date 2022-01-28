@@ -384,10 +384,6 @@ export declare type NestedEntityFragment = {
         key: MetaKey;
         value?: Maybe<string>;
     }>>;
-    objectName: Array<Maybe<{
-        __typename?: 'Metadata';
-        value?: Maybe<string>;
-    }>>;
     metadataCollection?: Maybe<Array<Maybe<{
         __typename?: 'MetadataCollection';
         label: string;
@@ -430,10 +426,6 @@ export declare type FullEntityFragment = {
     objectNumber: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
-        value?: Maybe<string>;
-    }>>;
-    objectName: Array<Maybe<{
-        __typename?: 'Metadata';
         value?: Maybe<string>;
     }>>;
     metadataCollection?: Maybe<Array<Maybe<{

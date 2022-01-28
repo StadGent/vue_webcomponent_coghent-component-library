@@ -48,12 +48,9 @@ fragment nestedEntity on Entity {
     key
     value
   }
-  objectName: metadataByLabel(key: ["objectnaam"]) {
-    value
-  }
   metadataCollection(
     key: [title, description, object_number, scopeNote]
-    label: ["objectnaam", "objectnummer"]
+    label: ["objectnummer"]
   ) {
     label
     nested
@@ -91,12 +88,9 @@ fragment fullEntity on Entity {
     key
     value
   }
-  objectName: metadataByLabel(key: ["objectnaam"]) {
-    value
-  }
   metadataCollection(
     key: [title, description, object_number, scopeNote]
-    label: ["objectnaam"]
+    label: []
   ) {
     label
     nested
