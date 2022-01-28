@@ -88,7 +88,7 @@ type Entity {
   frames: [Entity]
   mediafiles: [MediaFile]
   primary_mediafile: String
-  qrCode: String
+  primary_mediafile_location: String
 }
 
 type MediaInfo {
@@ -165,8 +165,8 @@ type User {
 }
 
 type Query {
-  BoxVisiters: EntitiesResults
-  BoxVisiterByCode(code: String!): Entity!
+  BoxVisiters: EntitiesResults!
+  BoxVisiterById(id: String!): Entity
   Stories: EntitiesResults
   Entity(id: String!): Entity
   Entities(

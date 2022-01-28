@@ -18,7 +18,7 @@ import {
   GetStoriesDocument,
   GetEnumsByNameDocument,
   GetBoxVisitersDocument,
-  GetBoxVisiterByCodeDocument,
+  GetBoxVisiterByIdDocument,
   AddFrameToVisiterDocument,
   GetCreatorByIdDocument,
   GetTouchTableEntityDocument,
@@ -44,7 +44,7 @@ import { ModalState, ImageSource } from "./types"
 export {
   AddFrameToVisiterDocument,
   GetBoxVisitersDocument,
-  GetBoxVisiterByCodeDocument,
+  GetBoxVisiterByIdDocument,
   GetEntitiesDocument,
   GetStoriesDocument,
   GetEnumsByNameDocument,

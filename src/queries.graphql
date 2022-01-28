@@ -152,6 +152,7 @@ fragment storyEntity on Entity {
       height
     }
   }
+  primary_mediafile_location
 }
 
 fragment fullUser on User {
@@ -300,16 +301,14 @@ query getBoxVisiters {
     results {
       id
       type
-      qrCode
     }
   }
 }
 
-query getBoxVisiterByCode($code: String!) {
-  BoxVisiterByCode(code: $code) {
+query getBoxVisiterById($id: String!) {
+  BoxVisiterById(id: $id) {
     id
     type
-    qrCode
   }
 }
 
