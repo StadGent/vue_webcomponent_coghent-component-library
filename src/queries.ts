@@ -171,9 +171,9 @@ export type MutationAddFrameToVisiterArgs = {
 
 export type Position = {
   __typename?: 'Position';
-  x?: Maybe<Scalars['Int']>;
-  y?: Maybe<Scalars['Int']>;
-  z?: Maybe<Scalars['Int']>;
+  x?: Maybe<Scalars['Float']>;
+  y?: Maybe<Scalars['Float']>;
+  z?: Maybe<Scalars['Float']>;
 };
 
 export type Query = {
