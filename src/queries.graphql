@@ -184,6 +184,7 @@ fragment assetMetadata on Relation {
   }
   scale
   audioFile
+  subtitleFile
 }
 
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
@@ -271,10 +272,6 @@ query getStories {
         }
         assets {
           ...storyEntity
-          relations {
-            key
-            audioFile
-          }
           collections: metadata(key: [collection]) {
             key
             value
