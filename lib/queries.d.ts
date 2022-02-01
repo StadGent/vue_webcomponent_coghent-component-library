@@ -50,7 +50,7 @@ export declare type Entity = {
     frames?: Maybe<Array<Maybe<Entity>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     primary_mediafile?: Maybe<Scalars['String']>;
-    qrCode?: Maybe<Scalars['String']>;
+    primary_mediafile_location?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -156,16 +156,16 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
-    BoxVisiters?: Maybe<EntitiesResults>;
-    BoxVisiterByCode: Entity;
+    BoxVisiters: EntitiesResults;
+    BoxVisiterById?: Maybe<Entity>;
     Stories?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
 };
-export declare type QueryBoxVisiterByCodeArgs = {
-    code: Scalars['String'];
+export declare type QueryBoxVisiterByIdArgs = {
+    id: Scalars['String'];
 };
 export declare type QueryEntityArgs = {
     id: Scalars['String'];
@@ -480,6 +480,7 @@ export declare type StoryEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
+    primary_mediafile_location?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -677,7 +678,7 @@ export declare type GetBoxVisitersQueryVariables = Exact<{
 }>;
 export declare type GetBoxVisitersQuery = {
     __typename?: 'Query';
-    BoxVisiters?: Maybe<{
+    BoxVisiters: {
         __typename?: 'EntitiesResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
@@ -685,21 +686,19 @@ export declare type GetBoxVisitersQuery = {
             __typename?: 'Entity';
             id: string;
             type: string;
-            qrCode?: Maybe<string>;
         }>>>;
-    }>;
+    };
 };
-export declare type GetBoxVisiterByCodeQueryVariables = Exact<{
-    code: Scalars['String'];
+export declare type GetBoxVisiterByIdQueryVariables = Exact<{
+    id: Scalars['String'];
 }>;
-export declare type GetBoxVisiterByCodeQuery = {
+export declare type GetBoxVisiterByIdQuery = {
     __typename?: 'Query';
-    BoxVisiterByCode: {
+    BoxVisiterById?: Maybe<{
         __typename?: 'Entity';
         id: string;
         type: string;
-        qrCode?: Maybe<string>;
-    };
+    }>;
 };
 export declare type GetTouchTableEntityQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
@@ -773,8 +772,8 @@ export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, E
 export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
     [key: string]: never;
 }>>;
-export declare const GetBoxVisiterByCodeDocument: DocumentNode<GetBoxVisiterByCodeQuery, Exact<{
-    code: Scalars['String'];
+export declare const GetBoxVisiterByIdDocument: DocumentNode<GetBoxVisiterByIdQuery, Exact<{
+    id: Scalars['String'];
 }>>;
 export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEntityQuery, Exact<{
     limit?: number | null | undefined;

@@ -16,6 +16,11 @@ declare const _default: import("vue").DefineComponent<{
         required: false;
         default: boolean;
     };
+    customStyles: {
+        type: StringConstructor;
+        required: false;
+        default: string;
+    };
 }, {
     hideModal: () => void;
     growModal: () => void;
@@ -23,10 +28,12 @@ declare const _default: import("vue").DefineComponent<{
     modalState?: unknown;
     large?: unknown;
     scroll?: unknown;
+    customStyles?: unknown;
 } & {
     modalState: ModalState;
     large: boolean;
     scroll: boolean;
+    customStyles: string;
 } & {}> & {
     "onUpdate:modalState"?: ((...args: any[]) => any) | undefined;
     onHideModal?: ((...args: any[]) => any) | undefined;
@@ -35,5 +42,6 @@ declare const _default: import("vue").DefineComponent<{
     modalState: ModalState;
     large: boolean;
     scroll: boolean;
+    customStyles: string;
 }>;
 export default _default;

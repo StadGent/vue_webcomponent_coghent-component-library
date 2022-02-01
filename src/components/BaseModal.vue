@@ -1,5 +1,5 @@
 <template>
-  <div v-show="modalState === 'small'" class="fixed right-0 top-0 z-40">
+  <div v-show="modalState === 'small'" :class="'fixed right-0 top-0 z-40 ' + customStyles">
     <!-- Advise -->
     <div
       class="
@@ -24,8 +24,8 @@
     v-show="modalState === 'show' || modalState === 'loading'"
     :class="
       modalState === 'small'
-        ? 'fixed z-50 inset-0 m-4 w-64 h-64'
-        : 'fixed z-50 inset-0 m-4'
+        ? 'fixed z-40 inset-0 m-4 w-64 h-64 ' + customStyles 
+        : 'fixed z-40 inset-0 m-4 ' + customStyles
     "
   >
     <div
@@ -120,6 +120,11 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    customStyles: {
+      type: String,
+      required: false,
+      default: '',
+    }
   },
   emits: ["update:modalState", "hideModal", "showModal"],
   setup(props, { emit }) {
