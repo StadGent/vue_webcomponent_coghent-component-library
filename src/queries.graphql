@@ -25,6 +25,9 @@ fragment touchTableEntity on Entity {
     value
   }
   primary_mediafile
+  mediafiles {
+    filename
+  }
   relations {
     key
     type
