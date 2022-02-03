@@ -6,8 +6,7 @@
         fixed
         right-0
         top-0
-        sm:right-4 sm:top-4
-        rounded-lg
+        rounded-bl-lg
         bg-neutral-0
         shadow-2xl
         w-full

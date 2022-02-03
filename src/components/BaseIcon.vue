@@ -12,6 +12,7 @@ type CustomIcon =
   | "user"
   | "close"
   | "info"
+  | "bigInfo"
   | "link"
   | "check"
   | "fullscreen"
@@ -67,6 +68,10 @@ const icons: Record<CustomIcon, string> = {
     <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M14 3L3 14M3 3l11 11"/>
 </svg>`,
   info: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <path d="M8 5.5c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"/>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M8 15c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM8 12V8"/>
+</svg>`,
+bigInfo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 16 16">
     <path d="M8 5.5c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"/>
     <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M8 15c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM8 12V8"/>
 </svg>`,
