@@ -83,6 +83,10 @@ fragment fullEntity on Entity {
     key
     value
   }
+  scopeNote: metadata(key: [scopeNote]) {
+    key
+    value
+  }
   description: metadata(key: [description]) {
     key
     value

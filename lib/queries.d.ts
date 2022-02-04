@@ -41,6 +41,7 @@ export declare type Entity = {
     metadataByLabel: Array<Maybe<Metadata>>;
     metadataCollection?: Maybe<Array<Maybe<MetadataCollection>>>;
     title: Array<Maybe<Metadata>>;
+    scopeNote: Array<Maybe<Metadata>>;
     collections: Array<Maybe<Metadata>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     relationMetadata?: Maybe<Array<Maybe<Relation>>>;
@@ -150,9 +151,9 @@ export declare type MutationAddFrameToVisiterArgs = {
 };
 export declare type Position = {
     __typename?: 'Position';
-    x?: Maybe<Scalars['Int']>;
-    y?: Maybe<Scalars['Int']>;
-    z?: Maybe<Scalars['Int']>;
+    x?: Maybe<Scalars['Float']>;
+    y?: Maybe<Scalars['Float']>;
+    z?: Maybe<Scalars['Float']>;
 };
 export declare type Query = {
     __typename?: 'Query';
@@ -418,6 +419,11 @@ export declare type FullEntityFragment = {
         key: MetaKey;
         value?: Maybe<string>;
     }>>;
+    scopeNote: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
     description: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -527,6 +533,7 @@ export declare type AssetMetadataFragment = {
     timestamp_zoom?: Maybe<number>;
     scale?: Maybe<number>;
     audioFile?: Maybe<string>;
+    subtitleFile?: Maybe<string>;
     position?: Maybe<{
         __typename?: 'Position';
         x?: Maybe<number>;
@@ -644,11 +651,6 @@ export declare type GetStoriesQuery = {
                 } & AssetMetadataFragment)>>>;
                 assets?: Maybe<Array<Maybe<({
                     __typename?: 'Entity';
-                    relations?: Maybe<Array<Maybe<{
-                        __typename?: 'Relation';
-                        key: string;
-                        audioFile?: Maybe<string>;
-                    }>>>;
                     collections: Array<Maybe<{
                         __typename?: 'Metadata';
                         key: MetaKey;

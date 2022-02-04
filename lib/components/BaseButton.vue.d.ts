@@ -1,6 +1,6 @@
 import { PropType } from "vue";
 declare type CustomIcon = "storybox" | "globe" | "delete" | "edit" | "logout" | "user" | "surprise";
-declare type ButtonTypes = "primary" | "secondary" | "ghost-black" | "ghost-purple" | "ghost-red" | "secondary-round" | "cc-round-black" | "details-black";
+declare type ButtonTypes = "primary" | "secondary" | "ghost-black" | "ghost-purple" | "ghost-red" | "secondary-round" | "cc-round-black" | "round-white" | "details-black";
 declare type iconTypes = "sm" | "default";
 declare const _default: import("vue").DefineComponent<{
     text: {
