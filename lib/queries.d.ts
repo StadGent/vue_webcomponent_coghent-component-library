@@ -52,6 +52,7 @@ export declare type Entity = {
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     primary_mediafile?: Maybe<Scalars['String']>;
     primary_mediafile_location?: Maybe<Scalars['String']>;
+    qrCode?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -157,8 +158,8 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
-    BoxVisiters: EntitiesResults;
-    BoxVisiterById?: Maybe<Entity>;
+    BoxVisiters?: Maybe<EntitiesResults>;
+    BoxVisiterById: Entity;
     Stories?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
@@ -222,6 +223,7 @@ export declare type SearchFilter = {
     randomize?: Maybe<Scalars['Boolean']>;
     seed?: Maybe<Scalars['String']>;
     has_mediafile?: Maybe<Scalars['Boolean']>;
+    skip_relations?: Maybe<Scalars['Boolean']>;
 };
 export declare type User = {
     __typename?: 'User';
@@ -358,6 +360,10 @@ export declare type TouchTableEntityFragment = {
         key: MetaKey;
         value?: Maybe<string>;
     }>>;
+    mediafiles?: Maybe<Array<Maybe<{
+        __typename?: 'MediaFile';
+        filename?: Maybe<string>;
+    }>>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';
         key: string;
@@ -680,7 +686,7 @@ export declare type GetBoxVisitersQueryVariables = Exact<{
 }>;
 export declare type GetBoxVisitersQuery = {
     __typename?: 'Query';
-    BoxVisiters: {
+    BoxVisiters?: Maybe<{
         __typename?: 'EntitiesResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
@@ -689,18 +695,18 @@ export declare type GetBoxVisitersQuery = {
             id: string;
             type: string;
         }>>>;
-    };
+    }>;
 };
 export declare type GetBoxVisiterByIdQueryVariables = Exact<{
     id: Scalars['String'];
 }>;
 export declare type GetBoxVisiterByIdQuery = {
     __typename?: 'Query';
-    BoxVisiterById?: Maybe<{
+    BoxVisiterById: {
         __typename?: 'Entity';
         id: string;
         type: string;
-    }>;
+    };
 };
 export declare type GetTouchTableEntityQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
