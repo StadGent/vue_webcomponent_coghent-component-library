@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-flow-col-dense auto-cols-fr">
     <span
-      class="col-start-1 w-full inline-block overflow-hidden break-words"
+      class="col-start-1 w-full inline-block overflow-hidden break-word"
       :class="strongLabel ? 'font-bold' : 'font-medium'"
       >{{ keyWord }}</span
     >
@@ -9,8 +9,8 @@
       v-if="type != ''"
       :class="
         clickable
-          ? 'col-start-2 mr-10 cursor-pointer underline'
-          : 'col-start-2 mr-10'
+          ? 'col-start-2 mr-10 cursor-pointer underline break-word'
+          : 'col-start-2 mr-10 break-word'
       "
       >{{ type }}
     </span>
@@ -49,3 +49,9 @@ export default defineComponent({
   setup(props) {},
 })
 </script>
+
+<style>
+.break-word {
+word-wrap: break-word;
+}
+</style>
