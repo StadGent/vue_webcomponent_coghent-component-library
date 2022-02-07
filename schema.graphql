@@ -90,6 +90,7 @@ type Entity {
   mediafiles: [MediaFile]
   primary_mediafile: String
   primary_mediafile_location: String
+  qrCode: String
 }
 
 type MediaInfo {
@@ -154,6 +155,7 @@ input SearchFilter {
   randomize: Boolean
   seed: String
   has_mediafile: Boolean
+  skip_relations: Boolean
 }
 
 type User {
@@ -166,8 +168,8 @@ type User {
 }
 
 type Query {
-  BoxVisiters: EntitiesResults!
-  BoxVisiterById(id: String!): Entity
+  BoxVisiters: EntitiesResults
+  BoxVisiterById(id: String!): Entity!
   Stories: EntitiesResults
   Entity(id: String!): Entity
   Entities(
