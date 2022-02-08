@@ -36,7 +36,63 @@ fragment touchTableEntity on Entity {
   }
 }
 
-fragment nestedEntity on Entity {
+fragment MetadataCollectionFields on MetadataCollection {
+  label
+  nested
+  data {
+    value
+    unMappedKey
+    label
+    nestedMetaData {
+      ...NestedEntity
+      metadataCollection(
+        key: [title, description, object_number, scopeNote]
+        label: ["objectnummer"]
+      ) {
+        label
+        nested
+        data {
+          value
+          unMappedKey
+          label
+          nestedMetaData {
+            ...nestedEndEntity
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment NestedEntity on Entity {
+  id
+  type
+  title: metadata(key: [title]) {
+    key
+    value
+  }
+  description: metadata(key: [description]) {
+    key
+    value
+  }
+  objectNumber: metadata(key: [object_number]) {
+    key
+    value
+  }
+  mediafiles {
+    _id
+    original_file_location
+    filename
+  }
+  relations {
+    key
+    type
+    label
+    value
+  }
+}
+
+fragment nestedEndEntity on Entity {
   id
   type
   title: metadata(key: [title]) {
@@ -99,16 +155,7 @@ fragment fullEntity on Entity {
     key: [title, description, object_number, scopeNote]
     label: []
   ) {
-    label
-    nested
-    data {
-      value
-      unMappedKey
-      label
-      nestedMetaData {
-        ...nestedEntity
-      }
-    }
+    ...MetadataCollectionFields
   }
   mediafiles {
     _id
