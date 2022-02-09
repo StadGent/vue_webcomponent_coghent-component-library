@@ -17,6 +17,10 @@ declare const _default: import("vue").DefineComponent<{
         type: NumberConstructor;
         default: number;
     };
+    loading: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
 }, {
     inputValue: import("vue").Ref<string>;
     onClick: () => void;
@@ -26,10 +30,12 @@ declare const _default: import("vue").DefineComponent<{
     modelValue?: unknown;
     debounce?: unknown;
     debounceWait?: unknown;
+    loading?: unknown;
 } & {
     modelValue: string;
     debounce: boolean;
     debounceWait: number;
+    loading: boolean;
 } & {
     label?: string | undefined;
     searchLabel?: string | undefined;
@@ -40,5 +46,6 @@ declare const _default: import("vue").DefineComponent<{
     modelValue: string;
     debounce: boolean;
     debounceWait: number;
+    loading: boolean;
 }>;
 export default _default;
