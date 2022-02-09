@@ -132376,6 +132376,10 @@ a.absolute[data-v-1b863089]{
     );
 }
 
+.break-word {
+  word-wrap: break-word;
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

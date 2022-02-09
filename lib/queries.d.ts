@@ -378,7 +378,68 @@ export declare type TouchTableEntityFragment = {
         value?: Maybe<string>;
     }>>>;
 };
+export declare type MetadataCollectionFieldsFragment = {
+    __typename?: 'MetadataCollection';
+    label: string;
+    nested?: Maybe<boolean>;
+    data?: Maybe<Array<Maybe<{
+        __typename?: 'Metadata';
+        value?: Maybe<string>;
+        unMappedKey?: Maybe<string>;
+        label?: Maybe<string>;
+        nestedMetaData?: Maybe<({
+            __typename?: 'Entity';
+            metadataCollection?: Maybe<Array<Maybe<{
+                __typename?: 'MetadataCollection';
+                label: string;
+                nested?: Maybe<boolean>;
+                data?: Maybe<Array<Maybe<{
+                    __typename?: 'Metadata';
+                    value?: Maybe<string>;
+                    unMappedKey?: Maybe<string>;
+                    label?: Maybe<string>;
+                    nestedMetaData?: Maybe<({
+                        __typename?: 'Entity';
+                    } & NestedEndEntityFragment)>;
+                }>>>;
+            }>>>;
+        } & NestedEntityFragment)>;
+    }>>>;
+};
 export declare type NestedEntityFragment = {
+    __typename?: 'Entity';
+    id: string;
+    type: string;
+    title: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    description: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    objectNumber: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    mediafiles?: Maybe<Array<Maybe<{
+        __typename?: 'MediaFile';
+        _id: string;
+        original_file_location?: Maybe<string>;
+        filename?: Maybe<string>;
+    }>>>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        value?: Maybe<string>;
+    }>>>;
+};
+export declare type NestedEndEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
@@ -446,20 +507,9 @@ export declare type FullEntityFragment = {
         key: MetaKey;
         value?: Maybe<string>;
     }>>;
-    metadataCollection?: Maybe<Array<Maybe<{
+    metadataCollection?: Maybe<Array<Maybe<({
         __typename?: 'MetadataCollection';
-        label: string;
-        nested?: Maybe<boolean>;
-        data?: Maybe<Array<Maybe<{
-            __typename?: 'Metadata';
-            value?: Maybe<string>;
-            unMappedKey?: Maybe<string>;
-            label?: Maybe<string>;
-            nestedMetaData?: Maybe<({
-                __typename?: 'Entity';
-            } & NestedEntityFragment)>;
-        }>>>;
-    }>>>;
+    } & MetadataCollectionFieldsFragment)>>>;
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
         _id: string;
@@ -745,6 +795,8 @@ export declare type AddFrameToVisiterMutation = {
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
+export declare const NestedEndEntityFragmentDoc: DocumentNode<NestedEndEntityFragment, unknown>;
+export declare const MetadataCollectionFieldsFragmentDoc: DocumentNode<MetadataCollectionFieldsFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
