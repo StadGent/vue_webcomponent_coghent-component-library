@@ -11,6 +11,10 @@ fragment minimalEntity on Entity {
     value
   }
   primary_mediafile
+  primary_mediafile_info {
+    width
+    height
+  }
 }
 
 fragment touchTableEntity on Entity {

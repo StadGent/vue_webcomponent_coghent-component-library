@@ -51,6 +51,7 @@ export declare type Entity = {
     frames?: Maybe<Array<Maybe<Entity>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     primary_mediafile?: Maybe<Scalars['String']>;
+    primary_mediafile_info?: Maybe<MediaInfo>;
     primary_mediafile_location?: Maybe<Scalars['String']>;
     qrCode?: Maybe<Scalars['String']>;
 };
@@ -344,6 +345,11 @@ export declare type MinimalEntityFragment = {
         key: MetaKey;
         value?: Maybe<string>;
     }>>;
+    primary_mediafile_info?: Maybe<{
+        __typename?: 'MediaInfo';
+        width: string;
+        height: string;
+    }>;
 };
 export declare type TouchTableEntityFragment = {
     __typename?: 'Entity';
