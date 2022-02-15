@@ -70,7 +70,7 @@ export default defineComponent({
 
     }
 
-    if (localMediaFiles && selectedIndex){
+    if (localMediaFiles && selectedIndex && localMediaFiles[selectedIndex.value]){
       copyrightStatement.value = localMediaFiles[selectedIndex.value].metadata[0].value
       getRightsCategory(localMediaFiles[selectedIndex.value].metadata[0].value)
     }
