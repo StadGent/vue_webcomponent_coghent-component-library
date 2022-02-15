@@ -17,6 +17,7 @@ import {
   RelationsResults,
   GetStoriesDocument,
   GetEnumsByNameDocument,
+  GetActiveBoxDocument,
   GetBoxVisitersDocument,
   GetBoxVisiterByIdDocument,
   AddFrameToVisiterDocument,
@@ -42,6 +43,7 @@ import BaseMetaDataTab from "./components/BaseMetaDataTab.vue"
 import { ModalState, ImageSource } from "./types"
 
 export {
+  GetActiveBoxDocument,
   AddFrameToVisiterDocument,
   GetBoxVisitersDocument,
   GetBoxVisiterByIdDocument,

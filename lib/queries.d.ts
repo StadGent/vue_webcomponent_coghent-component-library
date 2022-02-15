@@ -159,6 +159,7 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
+    ActiveBox: Array<Maybe<Relation>>;
     BoxVisiters?: Maybe<EntitiesResults>;
     BoxVisiterById: Entity;
     Stories?: Maybe<EntitiesResults>;
@@ -199,6 +200,7 @@ export declare type Relation = {
     audioFile?: Maybe<Scalars['String']>;
     subtitleFile?: Maybe<Scalars['String']>;
     date?: Maybe<Scalars['String']>;
+    active?: Maybe<Scalars['Boolean']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -737,6 +739,20 @@ export declare type GetEnumsByNameQuery = {
         }>>;
     }>;
 };
+export declare type GetActiveBoxQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type GetActiveBoxQuery = {
+    __typename?: 'Query';
+    ActiveBox: Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        value?: Maybe<string>;
+        active?: Maybe<boolean>;
+    }>>;
+};
 export declare type GetBoxVisitersQueryVariables = Exact<{
     [key: string]: never;
 }>;
@@ -834,6 +850,9 @@ export declare const GetStoriesDocument: DocumentNode<GetStoriesQuery, Exact<{
 }>>;
 export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, Exact<{
     enumName: Scalars['String'];
+}>>;
+export declare const GetActiveBoxDocument: DocumentNode<GetActiveBoxQuery, Exact<{
+    [key: string]: never;
 }>>;
 export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
     [key: string]: never;

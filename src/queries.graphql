@@ -349,6 +349,16 @@ query getEnumsByName($enumName: String!) {
   }
 }
 
+query getActiveBox {
+  ActiveBox{
+    key
+    type
+    label
+    value
+    active
+  }
+}
+
 query getBoxVisiters {
   BoxVisiters {
     count

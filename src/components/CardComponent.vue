@@ -3,7 +3,7 @@
     <div :class="backgroundColor + ' w-full h-14 flex items-center justify-between overflow-hidden'" v-show="large && !sideStrip">
       <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-10 lg:ml-6 md:ml-6 sm:ml-4 ml-10'"></div>
       <div :class="roundsColor + ' rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-4'"></div>
-      <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 sm:ml-16 ml-16 ring-8 ring-accent-green'"></div>
+      <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 sm:ml-16 ml-16 ring-8 ' + ringColor"></div>
       <div :class="roundsColor + ' rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 ml-12 sm:ml-16'"></div>
       <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:ml-4 ml-6'"></div>
       <div :class="roundsColor + ' rounded-full w-9 h-4 flex-shrink-0 shadow-inner 2xl:ml-24 lg:ml-16 md:ml-8 ml-24'"></div>
@@ -14,7 +14,7 @@
     <div :class="backgroundColor + ' h-full w-14 flex flex-col items-center justify-between overflow-hidden'" v-show="sideStrip && large">
       <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:mb-10 lg:mb-6 md:mb-6 sm:mb-4 mb-10 mt-4'"></div>
       <div :class="roundsColor + ' rounded-full w-4 h-9 flex-shrink-0 shadow-inner 2xl:mb-4 mb-4'"></div>
-      <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:mb-24 sm:mb-16 mb-16 ring-8 ring-accent-green'"></div>
+      <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:mb-24 sm:mb-16 mb-16 ring-8 ' + ringColor"></div>
       <div :class="roundsColor + ' rounded-full w-4 h-9 flex-shrink-0 shadow-inner 2xl:mb-24 mb-12 sm:mb-16'"></div>
       <div :class="roundsColor + ' rounded-full w-4 h-4 flex-shrink-0 shadow-inner 2xl:mb-4 mb-6'"></div>
       <div :class="roundsColor + ' rounded-full w-4 h-9 flex-shrink-0 shadow-inner 2xl:mb-24 lg:mb-16 md:mb-8 mb-24'"></div>
@@ -60,14 +60,27 @@ export default defineComponent({
     sideStrip: {
       type: Boolean,
       required: false,
-    }
+    },
+    backgroundColor: {
+      type: String,
+      required: false,
+    },
+    ringColor: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
-    const backgroundColor = !props.reverseColors ? 'bg-background-medium' : 'bg-text-white'
-    const roundsColor = !props.reverseColors ? 'bg-text-white' : 'bg-background-medium'
+    const bgColor = props.backgroundColor?props.backgroundColor: 'bg-background-medium'
+    const ringColor = props.ringColor?props.ringColor: 'ring-accent-green'
+    const backgroundColor = !props.reverseColors ? bgColor : 'bg-text-white'
+    const roundsColor = !props.reverseColors ? 'bg-text-white' : bgColor
 
-    return {backgroundColor,
-    roundsColor}
+    return {
+      backgroundColor,
+      roundsColor,
+      ringColor
+    }
   },
 });
 </script>

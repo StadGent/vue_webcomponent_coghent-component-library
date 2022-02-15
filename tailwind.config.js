@@ -47,6 +47,12 @@ module.exports = {
         neutral: "#e0dfdf",
         selected: "#2d242a",
       },
+      stories: {
+        pink: "#B65099CC",
+        yellow: "#FDC20B",
+        green: "#02A77FCC",
+        blue: "#9fcdd9",
+      }
     },
     extend: {
       fontSize: {
