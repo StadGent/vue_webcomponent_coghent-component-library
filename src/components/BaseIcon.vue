@@ -21,6 +21,7 @@ type CustomIcon =
   | "zoomOut"
   | "chest"
   | "talk"
+  | "door"
   | "arrowRight"
   | "arrowRightLine"
   | "arrowLeftLine"
@@ -91,6 +92,9 @@ bigInfo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="n
 		c-0.552,0-1,0.448-1,1c0,0.554,0.448,1,1,1h15.625c0.552,0,1-0.446,1-1c0-0.552-0.448-1-1-1h-6.75v-7.75h21.499
 		c2.113,0,3.834-1.72,3.834-3.835V6.959C52.666,4.846,50.945,3.125,48.832,3.125z M50.666,35.957c0,1.012-0.822,1.835-1.834,1.835
 		H3.834C2.822,37.792,2,36.968,2,35.957V6.959c0-1.012,0.822-1.835,1.834-1.835h44.998c1.012,0,1.834,0.823,1.834,1.835V35.957z"/>
+</svg>`,
+door: `<svg width="17" height="24" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.5 4.5V0.5H0.5V11.5L5.5 15.5V5.5L0.5 0.5" stroke="#212121" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
   zoomOut: `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 227.406 227.406" style="enable-background:new 0 0 227.406 227.406;" xml:space="preserve">
