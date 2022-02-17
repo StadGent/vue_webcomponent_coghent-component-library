@@ -103,6 +103,7 @@ export default defineComponent({
         case'In Copyright':
           iconArray.push('copyrightCategoryIC')
           break
+        case'In Copyright - unknown rightsholder':
         case'In Copyright -  unknown rightsholder':
           iconArray.push('copyrightCategoryICUR')
           break
