@@ -19,8 +19,6 @@ import {
   GetEnumsByNameDocument,
   GetActiveBoxDocument,
   GetBoxVisitersDocument,
-  GetBoxVisiterByIdDocument,
-  AddFrameToVisiterDocument,
   GetCreatorByIdDocument,
   GetTouchTableEntityDocument,
   GetTouchTableEntityByIdDocument,
@@ -41,12 +39,14 @@ import LazyLoadImage from "./components/LazyLoadImage.vue"
 import BaseMetaData from "./components/BaseMetaData.vue"
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue"
 import { ModalState, ImageSource } from "./types"
+import { useBoxVisiter, boxVisiter, UseBoxVisiter } from "@/composables/useBoxVisiter"
 
 export {
+  useBoxVisiter,
+  UseBoxVisiter,
+  boxVisiter,
   GetActiveBoxDocument,
-  AddFrameToVisiterDocument,
   GetBoxVisitersDocument,
-  GetBoxVisiterByIdDocument,
   GetEntitiesDocument,
   GetStoriesDocument,
   GetEnumsByNameDocument,
