@@ -40,6 +40,25 @@ fragment touchTableEntity on Entity {
   }
 }
 
+fragment fullBoxVisiter on BoxVisiter {
+  id
+  type
+  code
+  frames_seen_last_visit
+  start_time
+  touch_table_time
+  relations{
+      key
+      type
+      active
+      last_frame
+      seen_frames{
+          id
+          date
+      }
+  }
+}
+
 fragment MetadataCollectionFields on MetadataCollection {
   label
   nested
@@ -359,22 +378,38 @@ query getActiveBox {
   }
 }
 
-query getBoxVisiters {
-  BoxVisiters {
-    count
-    limit
-    results {
-      id
-      type
+query getBoxVisiters{
+    BoxVisiters{
+        results {
+            ...fullBoxVisiter
+        },
+        count
+        limit
     }
-  }
 }
 
-query getBoxVisiterById($id: String!) {
-  BoxVisiterById(id: $id) {
-    id
-    type
-  }
+query getBoxVisiterByCode($code: String!){
+    BoxVisiterByCode(code: $code){
+        ...fullBoxVisiter
+    }
+}
+
+query createBoxVisiter($storyId: String!){
+    CreateBoxVisiter(storyId: $storyId){
+        ...fullBoxVisiter
+    }
+}
+
+mutation addStoryToBoxVisiter($code: String!, $story: StoryInput!){
+    AddStoryToBoxVisiter(code: $code, story: $story){
+        ...fullBoxVisiter
+    }
+}
+
+mutation addFrameToStoryBoxVisiter($code: String!,$frameInput: FrameInput!){
+    AddFrameToStoryBoxVisiter(code: $code, frameInput: $frameInput){
+        ...fullBoxVisiter
+    }
 }
 
 query getTouchTableEntity($limit: Int, $searchValue: SearchFilter!) {
@@ -384,13 +419,5 @@ query getTouchTableEntity($limit: Int, $searchValue: SearchFilter!) {
     results {
       ...touchTableEntity
     }
-  }
-}
-
-mutation addFrameToVisiter($visiterId: String!, $frameId: String!) {
-  AddFrameToVisiter(visiterId: $visiterId, frameId: $frameId) {
-    key
-    type
-    date
   }
 }

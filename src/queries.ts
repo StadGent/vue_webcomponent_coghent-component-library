@@ -16,6 +16,40 @@ export type Scalars = {
   Void: void;
 };
 
+export type BoxVisiter = {
+  __typename?: 'BoxVisiter';
+  _key?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  type: Scalars['String'];
+  metadata: Array<Maybe<Metadata>>;
+  metadataByLabel: Array<Maybe<Metadata>>;
+  collections: Array<Maybe<Metadata>>;
+  relations?: Maybe<Array<Maybe<Relation>>>;
+  relationMetadata?: Maybe<Array<Maybe<Relation>>>;
+  frames_seen_last_visit?: Maybe<Scalars['Int']>;
+  code: Scalars['String'];
+  start_time?: Maybe<Scalars['String']>;
+  touch_table_time?: Maybe<Scalars['String']>;
+};
+
+
+export type BoxVisiterMetadataArgs = {
+  key?: Maybe<Array<Maybe<MetaKey>>>;
+};
+
+
+export type BoxVisiterMetadataByLabelArgs = {
+  key?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type BoxVisitersResults = {
+  __typename?: 'BoxVisitersResults';
+  results?: Maybe<Array<Maybe<BoxVisiter>>>;
+  relations?: Maybe<Array<Maybe<Relation>>>;
+  count?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
 export enum ComponentType {
   Frame = 'frame',
   Audio = 'audio'
@@ -51,7 +85,6 @@ export type Entity = {
   primary_mediafile?: Maybe<Scalars['String']>;
   primary_mediafile_info?: Maybe<MediaInfo>;
   primary_mediafile_location?: Maybe<Scalars['String']>;
-  qrCode?: Maybe<Scalars['String']>;
 };
 
 
@@ -73,6 +106,17 @@ export type EntityMetadataCollectionArgs = {
 
 export type EntityComponentsOfTypeArgs = {
   key?: Maybe<Scalars['String']>;
+};
+
+export type FrameInput = {
+  storyId: Scalars['String'];
+  frameId: Scalars['String'];
+};
+
+export type FrameSeen = {
+  __typename?: 'FrameSeen';
+  id: Scalars['String'];
+  date: Scalars['String'];
 };
 
 export type JsPatch = {
@@ -157,7 +201,8 @@ export type MetadataInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   replaceMetadata: Array<Metadata>;
-  AddFrameToVisiter: Array<Maybe<Relation>>;
+  AddStoryToBoxVisiter: BoxVisiter;
+  AddFrameToStoryBoxVisiter: BoxVisiter;
 };
 
 
@@ -167,9 +212,15 @@ export type MutationReplaceMetadataArgs = {
 };
 
 
-export type MutationAddFrameToVisiterArgs = {
-  visiterId: Scalars['String'];
-  frameId: Scalars['String'];
+export type MutationAddStoryToBoxVisiterArgs = {
+  code: Scalars['String'];
+  story: StoryInput;
+};
+
+
+export type MutationAddFrameToStoryBoxVisiterArgs = {
+  code: Scalars['String'];
+  frameInput: FrameInput;
 };
 
 export type Position = {
@@ -182,8 +233,9 @@ export type Position = {
 export type Query = {
   __typename?: 'Query';
   ActiveBox: Array<Maybe<Relation>>;
-  BoxVisiters?: Maybe<EntitiesResults>;
-  BoxVisiterById: Entity;
+  BoxVisiters?: Maybe<BoxVisitersResults>;
+  BoxVisiterByCode?: Maybe<BoxVisiter>;
+  CreateBoxVisiter?: Maybe<BoxVisiter>;
   Stories?: Maybe<EntitiesResults>;
   Entity?: Maybe<Entity>;
   Entities?: Maybe<EntitiesResults>;
@@ -192,8 +244,13 @@ export type Query = {
 };
 
 
-export type QueryBoxVisiterByIdArgs = {
-  id: Scalars['String'];
+export type QueryBoxVisiterByCodeArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryCreateBoxVisiterArgs = {
+  storyId: Scalars['String'];
 };
 
 
@@ -232,6 +289,8 @@ export type Relation = {
   subtitleFile?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['String']>;
   active?: Maybe<Scalars['Boolean']>;
+  last_frame?: Maybe<Scalars['String']>;
+  seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
 };
 
 export enum RelationType {
@@ -261,6 +320,12 @@ export type SearchFilter = {
   seed?: Maybe<Scalars['String']>;
   has_mediafile?: Maybe<Scalars['Boolean']>;
   skip_relations?: Maybe<Scalars['Boolean']>;
+};
+
+export type StoryInput = {
+  key: Scalars['String'];
+  active: Scalars['Boolean'];
+  last_frame?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -384,6 +449,8 @@ export type __EnumValue = {
 export type MinimalEntityFragment = { __typename?: 'Entity', id: string, object_id: string, type: string, primary_mediafile?: Maybe<string>, title: Array<Maybe<{ __typename?: 'Metadata', key: MetaKey, value?: Maybe<string> }>>, description: Array<Maybe<{ __typename?: 'Metadata', key: MetaKey, value?: Maybe<string> }>>, primary_mediafile_info?: Maybe<{ __typename?: 'MediaInfo', width: string, height: string }> };
 
 export type TouchTableEntityFragment = { __typename?: 'Entity', id: string, type: string, primary_mediafile?: Maybe<string>, title: Array<Maybe<{ __typename?: 'Metadata', key: MetaKey, value?: Maybe<string> }>>, description: Array<Maybe<{ __typename?: 'Metadata', key: MetaKey, value?: Maybe<string> }>>, mediafiles?: Maybe<Array<Maybe<{ __typename?: 'MediaFile', filename?: Maybe<string> }>>>, relations?: Maybe<Array<Maybe<{ __typename?: 'Relation', key: string, type: RelationType, label?: Maybe<string>, value?: Maybe<string> }>>> };
+
+export type FullBoxVisiterFragment = { __typename?: 'BoxVisiter', id: string, type: string, code: string, frames_seen_last_visit?: Maybe<number>, start_time?: Maybe<string>, touch_table_time?: Maybe<string>, relations?: Maybe<Array<Maybe<{ __typename?: 'Relation', key: string, type: RelationType, active?: Maybe<boolean>, last_frame?: Maybe<string>, seen_frames?: Maybe<Array<Maybe<{ __typename?: 'FrameSeen', id: string, date: string }>>> }>>> };
 
 export type MetadataCollectionFieldsFragment = { __typename?: 'MetadataCollection', label: string, nested?: Maybe<boolean>, data?: Maybe<Array<Maybe<{ __typename?: 'Metadata', value?: Maybe<string>, unMappedKey?: Maybe<string>, label?: Maybe<string>, nestedMetaData?: Maybe<(
       { __typename?: 'Entity', metadataCollection?: Maybe<Array<Maybe<{ __typename?: 'MetadataCollection', label: string, nested?: Maybe<boolean>, data?: Maybe<Array<Maybe<{ __typename?: 'Metadata', value?: Maybe<string>, unMappedKey?: Maybe<string>, label?: Maybe<string>, nestedMetaData?: Maybe<(
@@ -520,14 +587,52 @@ export type GetActiveBoxQuery = { __typename?: 'Query', ActiveBox: Array<Maybe<{
 export type GetBoxVisitersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetBoxVisitersQuery = { __typename?: 'Query', BoxVisiters?: Maybe<{ __typename?: 'EntitiesResults', count?: Maybe<number>, limit?: Maybe<number>, results?: Maybe<Array<Maybe<{ __typename?: 'Entity', id: string, type: string }>>> }> };
+export type GetBoxVisitersQuery = { __typename?: 'Query', BoxVisiters?: Maybe<{ __typename?: 'BoxVisitersResults', count?: Maybe<number>, limit?: Maybe<number>, results?: Maybe<Array<Maybe<(
+      { __typename?: 'BoxVisiter' }
+      & FullBoxVisiterFragment
+    )>>> }> };
 
-export type GetBoxVisiterByIdQueryVariables = Exact<{
-  id: Scalars['String'];
+export type GetBoxVisiterByCodeQueryVariables = Exact<{
+  code: Scalars['String'];
 }>;
 
 
-export type GetBoxVisiterByIdQuery = { __typename?: 'Query', BoxVisiterById: { __typename?: 'Entity', id: string, type: string } };
+export type GetBoxVisiterByCodeQuery = { __typename?: 'Query', BoxVisiterByCode?: Maybe<(
+    { __typename?: 'BoxVisiter' }
+    & FullBoxVisiterFragment
+  )> };
+
+export type CreateBoxVisiterQueryVariables = Exact<{
+  storyId: Scalars['String'];
+}>;
+
+
+export type CreateBoxVisiterQuery = { __typename?: 'Query', CreateBoxVisiter?: Maybe<(
+    { __typename?: 'BoxVisiter' }
+    & FullBoxVisiterFragment
+  )> };
+
+export type AddStoryToBoxVisiterMutationVariables = Exact<{
+  code: Scalars['String'];
+  story: StoryInput;
+}>;
+
+
+export type AddStoryToBoxVisiterMutation = { __typename?: 'Mutation', AddStoryToBoxVisiter: (
+    { __typename?: 'BoxVisiter' }
+    & FullBoxVisiterFragment
+  ) };
+
+export type AddFrameToStoryBoxVisiterMutationVariables = Exact<{
+  code: Scalars['String'];
+  frameInput: FrameInput;
+}>;
+
+
+export type AddFrameToStoryBoxVisiterMutation = { __typename?: 'Mutation', AddFrameToStoryBoxVisiter: (
+    { __typename?: 'BoxVisiter' }
+    & FullBoxVisiterFragment
+  ) };
 
 export type GetTouchTableEntityQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
@@ -540,16 +645,9 @@ export type GetTouchTableEntityQuery = { __typename?: 'Query', Entities?: Maybe<
       & TouchTableEntityFragment
     )>>> }> };
 
-export type AddFrameToVisiterMutationVariables = Exact<{
-  visiterId: Scalars['String'];
-  frameId: Scalars['String'];
-}>;
-
-
-export type AddFrameToVisiterMutation = { __typename?: 'Mutation', AddFrameToVisiter: Array<Maybe<{ __typename?: 'Relation', key: string, type: RelationType, date?: Maybe<string> }>> };
-
 export const MinimalEntityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"minimalEntity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"object_id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"description"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile"}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile_info"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]}}]} as unknown as DocumentNode<MinimalEntityFragment, unknown>;
 export const TouchTableEntityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"touchTableEntity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"description"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile"}},{"kind":"Field","name":{"kind":"Name","value":"mediafiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"filename"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode<TouchTableEntityFragment, unknown>;
+export const FullBoxVisiterFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"fullBoxVisiter"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BoxVisiter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"frames_seen_last_visit"}},{"kind":"Field","name":{"kind":"Name","value":"start_time"}},{"kind":"Field","name":{"kind":"Name","value":"touch_table_time"}},{"kind":"Field","name":{"kind":"Name","value":"relations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"last_frame"}},{"kind":"Field","name":{"kind":"Name","value":"seen_frames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]}}]} as unknown as DocumentNode<FullBoxVisiterFragment, unknown>;
 export const NestedEntityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NestedEntity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"description"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"objectNumber"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"object_number"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mediafiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"original_file_location"}},{"kind":"Field","name":{"kind":"Name","value":"filename"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode<NestedEntityFragment, unknown>;
 export const NestedEndEntityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"nestedEndEntity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"description"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"objectNumber"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"object_number"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadataCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"},{"kind":"EnumValue","value":"description"},{"kind":"EnumValue","value":"object_number"},{"kind":"EnumValue","value":"scopeNote"}]}},{"kind":"Argument","name":{"kind":"Name","value":"label"},"value":{"kind":"ListValue","values":[{"kind":"StringValue","value":"objectnummer","block":false}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"nested"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"unMappedKey"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"mediafiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"original_file_location"}},{"kind":"Field","name":{"kind":"Name","value":"filename"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode<NestedEndEntityFragment, unknown>;
 export const MetadataCollectionFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataCollectionFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataCollection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"nested"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"unMappedKey"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"nestedMetaData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NestedEntity"}},{"kind":"Field","name":{"kind":"Name","value":"metadataCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"},{"kind":"EnumValue","value":"description"},{"kind":"EnumValue","value":"object_number"},{"kind":"EnumValue","value":"scopeNote"}]}},{"kind":"Argument","name":{"kind":"Name","value":"label"},"value":{"kind":"ListValue","values":[{"kind":"StringValue","value":"objectnummer","block":false}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"nested"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"unMappedKey"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"nestedMetaData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"nestedEndEntity"}}]}}]}}]}}]}}]}}]}},...NestedEntityFragmentDoc.definitions,...NestedEndEntityFragmentDoc.definitions]} as unknown as DocumentNode<MetadataCollectionFieldsFragment, unknown>;
@@ -569,7 +667,9 @@ export const GetRelationsDocument = {"kind":"Document","definitions":[{"kind":"O
 export const GetStoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getStories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Stories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"storyEntity"}},{"kind":"Field","name":{"kind":"Name","value":"relationMetadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"audioFile"}},{"kind":"Field","name":{"kind":"Name","value":"subtitleFile"}}]}},{"kind":"Field","name":{"kind":"Name","value":"frames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"storyEntity"}},{"kind":"Field","name":{"kind":"Name","value":"relationMetadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"assetMetadata"}}]}},{"kind":"Field","name":{"kind":"Name","value":"assets"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"storyEntity"}},{"kind":"Field","alias":{"kind":"Name","value":"collections"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"collection"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}}]}}]}}]}},...StoryEntityFragmentDoc.definitions,...AssetMetadataFragmentDoc.definitions]} as unknown as DocumentNode<GetStoriesQuery, GetStoriesQueryVariables>;
 export const GetEnumsByNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getEnumsByName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"enumName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__type"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"enumName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"enumValues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetEnumsByNameQuery, GetEnumsByNameQueryVariables>;
 export const GetActiveBoxDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getActiveBox"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ActiveBox"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"active"}}]}}]}}]} as unknown as DocumentNode<GetActiveBoxQuery, GetActiveBoxQueryVariables>;
-export const GetBoxVisitersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getBoxVisiters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BoxVisiters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]}}]} as unknown as DocumentNode<GetBoxVisitersQuery, GetBoxVisitersQueryVariables>;
-export const GetBoxVisiterByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getBoxVisiterById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BoxVisiterById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode<GetBoxVisiterByIdQuery, GetBoxVisiterByIdQueryVariables>;
+export const GetBoxVisitersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getBoxVisiters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BoxVisiters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fullBoxVisiter"}}]}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}}]}}]}},...FullBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<GetBoxVisitersQuery, GetBoxVisitersQueryVariables>;
+export const GetBoxVisiterByCodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getBoxVisiterByCode"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BoxVisiterByCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fullBoxVisiter"}}]}}]}},...FullBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<GetBoxVisiterByCodeQuery, GetBoxVisiterByCodeQueryVariables>;
+export const CreateBoxVisiterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"createBoxVisiter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"storyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CreateBoxVisiter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"storyId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"storyId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fullBoxVisiter"}}]}}]}},...FullBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<CreateBoxVisiterQuery, CreateBoxVisiterQueryVariables>;
+export const AddStoryToBoxVisiterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addStoryToBoxVisiter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"story"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"StoryInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AddStoryToBoxVisiter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}},{"kind":"Argument","name":{"kind":"Name","value":"story"},"value":{"kind":"Variable","name":{"kind":"Name","value":"story"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fullBoxVisiter"}}]}}]}},...FullBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<AddStoryToBoxVisiterMutation, AddStoryToBoxVisiterMutationVariables>;
+export const AddFrameToStoryBoxVisiterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addFrameToStoryBoxVisiter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"frameInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FrameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AddFrameToStoryBoxVisiter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}},{"kind":"Argument","name":{"kind":"Name","value":"frameInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"frameInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fullBoxVisiter"}}]}}]}},...FullBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<AddFrameToStoryBoxVisiterMutation, AddFrameToStoryBoxVisiterMutationVariables>;
 export const GetTouchTableEntityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTouchTableEntity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"searchValue"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SearchFilter"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Entities"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"searchValue"},"value":{"kind":"Variable","name":{"kind":"Name","value":"searchValue"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"touchTableEntity"}}]}}]}}]}},...TouchTableEntityFragmentDoc.definitions]} as unknown as DocumentNode<GetTouchTableEntityQuery, GetTouchTableEntityQueryVariables>;
-export const AddFrameToVisiterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addFrameToVisiter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"visiterId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"frameId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AddFrameToVisiter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"visiterId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"visiterId"}}},{"kind":"Argument","name":{"kind":"Name","value":"frameId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"frameId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<AddFrameToVisiterMutation, AddFrameToVisiterMutationVariables>;

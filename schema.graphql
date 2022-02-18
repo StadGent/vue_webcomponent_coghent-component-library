@@ -48,6 +48,22 @@ input JSPatch {
   value: String!
 }
 
+input StoryInput {
+  key: String!
+  active: Boolean!
+  last_frame: String
+}
+
+input FrameInput {
+  storyId: String!
+  frameId: String!
+}
+
+type FrameSeen {
+  id: String!
+  date: String!  
+}
+
 type Metadata {
   key: MetaKey!
   value: String
@@ -91,7 +107,6 @@ type Entity {
   primary_mediafile: String
   primary_mediafile_info: MediaInfo
   primary_mediafile_location: String
-  qrCode: String
 }
 
 type MediaInfo {
@@ -134,10 +149,19 @@ type Relation {
   subtitleFile: String
   date: String
   active: Boolean
+  last_frame: String
+  seen_frames: [FrameSeen]
 }
 
 type EntitiesResults {
   results: [Entity]
+  relations: [Relation]
+  count: Int
+  limit: Int
+}
+
+type BoxVisitersResults {
+  results: [BoxVisiter]
   relations: [Relation]
   count: Int
   limit: Int
@@ -169,10 +193,26 @@ type User {
   preferred_username: String!
 }
 
+type BoxVisiter {
+  _key: String
+  id: String!
+  type: String!
+  metadata(key: [MetaKey]): [Metadata]!
+  metadataByLabel(key: [String]): [Metadata]!
+  collections: [Metadata]!
+  relations: [Relation]
+  relationMetadata: [Relation]
+  frames_seen_last_visit: Int
+  code: String!
+  start_time: String
+  touch_table_time: String
+}
+
 type Query {
   ActiveBox: [Relation]!
-  BoxVisiters: EntitiesResults
-  BoxVisiterById(id: String!): Entity!
+  BoxVisiters: BoxVisitersResults
+  BoxVisiterByCode(code: String!):BoxVisiter
+  CreateBoxVisiter(storyId: String!):BoxVisiter
   Stories: EntitiesResults
   Entity(id: String!): Entity
   Entities(
@@ -189,5 +229,6 @@ type Query {
 
 type Mutation {
   replaceMetadata(id: String!, metadata: [MetadataInput!]!): [Metadata!]!
-  AddFrameToVisiter(visiterId: String!, frameId: String!): [Relation]!
+  AddStoryToBoxVisiter(code: String!, story: StoryInput!): BoxVisiter!
+  AddFrameToStoryBoxVisiter(code: String!, frameInput: FrameInput!): BoxVisiter!
 }
