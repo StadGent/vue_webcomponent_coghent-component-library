@@ -22,6 +22,8 @@ import {
   GetCreatorByIdDocument,
   GetTouchTableEntityDocument,
   GetTouchTableEntityByIdDocument,
+  AddAssetToBoxVisiterDocument,
+  GetBoxVisiterRelationsByTypeDocument,
   FrameInput,
   StoryInput,
   BoxVisiter
@@ -45,6 +47,8 @@ import { ModalState, ImageSource } from "./types"
 import { useBoxVisiter, boxVisiter, UseBoxVisiter } from "@/composables/useBoxVisiter"
 
 export {
+  GetBoxVisiterRelationsByTypeDocument,
+  AddAssetToBoxVisiterDocument,
   FrameInput,
   StoryInput,
   BoxVisiter,

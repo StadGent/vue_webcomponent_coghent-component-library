@@ -50,6 +50,8 @@ fragment fullBoxVisiter on BoxVisiter {
   relations{
       key
       type
+      order
+      label
       active
       last_frame
       seen_frames{
@@ -246,6 +248,7 @@ fragment fullRelation on Relation {
   type
   label
   value
+  order
 }
 
 fragment assetMetadata on Relation {
@@ -394,6 +397,12 @@ query getBoxVisiterByCode($code: String!){
     }
 }
 
+query getBoxVisiterRelationsByType($code: String!, $type: RelationType!){
+    BoxVisiterRelationsByType(code: $code, type: $type){
+        ...fullRelation
+    }
+}
+
 query createBoxVisiter($storyId: String!){
     CreateBoxVisiter(storyId: $storyId){
         ...fullBoxVisiter
@@ -409,6 +418,15 @@ mutation addStoryToBoxVisiter($code: String!, $story: StoryInput!){
 mutation addFrameToStoryBoxVisiter($code: String!,$frameInput: FrameInput!){
     AddFrameToStoryBoxVisiter(code: $code, frameInput: $frameInput){
         ...fullBoxVisiter
+    }
+}
+
+mutation addAssetToBoxVisiter($code: String!, $assetId: String!, $type: RelationType!){
+    AddAssetToBoxVisiter(code: $code, assetId: $assetId, type: $type){
+        key
+        type
+        label
+        order
     }
 }
 
