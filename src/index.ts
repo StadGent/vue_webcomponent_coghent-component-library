@@ -22,6 +22,9 @@ import {
   GetCreatorByIdDocument,
   GetTouchTableEntityDocument,
   GetTouchTableEntityByIdDocument,
+  FrameInput,
+  StoryInput,
+  BoxVisiter
 } from "./queries"
 import BaseButton from "./components/BaseButton.vue"
 import BaseSearch from "./components/BaseSearch.vue"
@@ -42,6 +45,9 @@ import { ModalState, ImageSource } from "./types"
 import { useBoxVisiter, boxVisiter, UseBoxVisiter } from "@/composables/useBoxVisiter"
 
 export {
+  FrameInput,
+  StoryInput,
+  BoxVisiter,
   useBoxVisiter,
   UseBoxVisiter,
   boxVisiter,
