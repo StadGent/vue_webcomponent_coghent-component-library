@@ -61,6 +61,28 @@ fragment fullBoxVisiter on BoxVisiter {
   }
 }
 
+fragment fullStory on Entity {
+  ...storyEntity
+  relationMetadata {
+    key
+    audioFile
+    subtitleFile
+  }
+  frames {
+    ...storyEntity
+    relationMetadata {
+      ...assetMetadata
+    }
+    assets {
+      ...storyEntity
+      collections: metadata(key: [collection]) {
+        key
+        value
+      }
+    }
+  }
+}
+
 fragment MetadataCollectionFields on MetadataCollection {
   label
   nested
@@ -339,25 +361,7 @@ query getStories {
     count
     limit
     results {
-      ...storyEntity
-      relationMetadata {
-        key
-        audioFile
-        subtitleFile
-      }
-      frames {
-        ...storyEntity
-        relationMetadata {
-          ...assetMetadata
-        }
-        assets {
-          ...storyEntity
-          collections: metadata(key: [collection]) {
-            key
-            value
-          }
-        }
-      }
+      ...fullStory
     }
   }
 }
@@ -373,11 +377,11 @@ query getEnumsByName($enumName: String!) {
 
 query getActiveBox {
   ActiveBox{
-    key
-    type
-    label
-    value
-    active
+   count
+    limit
+    results {
+      ...fullStory
+    }
   }
 }
 

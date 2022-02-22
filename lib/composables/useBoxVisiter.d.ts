@@ -37,7 +37,7 @@ declare const boxVisiter: {
         seen_frames?: ({
             __typename?: "FrameSeen" | undefined;
             id: string;
-            date: string;
+            date: number;
         } | null)[] | null | undefined;
         order?: number | null | undefined;
     } | null)[] | null | undefined;
@@ -65,7 +65,7 @@ declare const boxVisiter: {
         seen_frames?: ({
             __typename?: "FrameSeen" | undefined;
             id: string;
-            date: string;
+            date: number;
         } | null)[] | null | undefined;
         order?: number | null | undefined;
     } | null)[] | null | undefined;

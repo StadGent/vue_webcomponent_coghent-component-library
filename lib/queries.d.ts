@@ -20,6 +20,28 @@ export declare type Scalars = {
     Float: number;
     Void: void;
 };
+export declare type BoxVisiter = {
+    __typename?: 'BoxVisiter';
+    _key?: Maybe<Scalars['String']>;
+    id: Scalars['String'];
+    type: Scalars['String'];
+    relations?: Maybe<Array<Maybe<Relation>>>;
+    relationByType?: Maybe<Array<Maybe<Relation>>>;
+    frames_seen_last_visit?: Maybe<Scalars['Int']>;
+    code: Scalars['String'];
+    start_time?: Maybe<Scalars['String']>;
+    touch_table_time?: Maybe<Scalars['String']>;
+};
+export declare type BoxVisiterRelationByTypeArgs = {
+    type: RelationType;
+};
+export declare type BoxVisitersResults = {
+    __typename?: 'BoxVisitersResults';
+    results?: Maybe<Array<Maybe<BoxVisiter>>>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
+    count?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+};
 export declare enum ComponentType {
     Frame = "frame",
     Audio = "audio"
@@ -53,7 +75,6 @@ export declare type Entity = {
     primary_mediafile?: Maybe<Scalars['String']>;
     primary_mediafile_info?: Maybe<MediaInfo>;
     primary_mediafile_location?: Maybe<Scalars['String']>;
-    qrCode?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -67,6 +88,15 @@ export declare type EntityMetadataCollectionArgs = {
 };
 export declare type EntityComponentsOfTypeArgs = {
     key?: Maybe<Scalars['String']>;
+};
+export declare type FrameInput = {
+    storyId: Scalars['String'];
+    frameId: Scalars['String'];
+};
+export declare type FrameSeen = {
+    __typename?: 'FrameSeen';
+    id: Scalars['String'];
+    date: Scalars['Int'];
 };
 export declare type JsPatch = {
     op: JsPatchOp;
@@ -141,15 +171,26 @@ export declare type MetadataInput = {
 export declare type Mutation = {
     __typename?: 'Mutation';
     replaceMetadata: Array<Metadata>;
-    AddFrameToVisiter: Array<Maybe<Relation>>;
+    AddStoryToBoxVisiter: BoxVisiter;
+    AddFrameToStoryBoxVisiter: BoxVisiter;
+    AddAssetToBoxVisiter: Array<Maybe<Relation>>;
 };
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
     metadata: Array<MetadataInput>;
 };
-export declare type MutationAddFrameToVisiterArgs = {
-    visiterId: Scalars['String'];
-    frameId: Scalars['String'];
+export declare type MutationAddStoryToBoxVisiterArgs = {
+    code: Scalars['String'];
+    story: StoryInput;
+};
+export declare type MutationAddFrameToStoryBoxVisiterArgs = {
+    code: Scalars['String'];
+    frameInput: FrameInput;
+};
+export declare type MutationAddAssetToBoxVisiterArgs = {
+    code: Scalars['String'];
+    assetId: Scalars['String'];
+    type: RelationType;
 };
 export declare type Position = {
     __typename?: 'Position';
@@ -159,17 +200,26 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
-    ActiveBox: Array<Maybe<Relation>>;
-    BoxVisiters?: Maybe<EntitiesResults>;
-    BoxVisiterById: Entity;
+    ActiveBox: EntitiesResults;
+    BoxVisiters?: Maybe<BoxVisitersResults>;
+    BoxVisiterByCode?: Maybe<BoxVisiter>;
+    BoxVisiterRelationsByType?: Maybe<Array<Maybe<Relation>>>;
+    CreateBoxVisiter?: Maybe<BoxVisiter>;
     Stories?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
 };
-export declare type QueryBoxVisiterByIdArgs = {
-    id: Scalars['String'];
+export declare type QueryBoxVisiterByCodeArgs = {
+    code: Scalars['String'];
+};
+export declare type QueryBoxVisiterRelationsByTypeArgs = {
+    code: Scalars['String'];
+    type: RelationType;
+};
+export declare type QueryCreateBoxVisiterArgs = {
+    storyId: Scalars['String'];
 };
 export declare type QueryEntityArgs = {
     id: Scalars['String'];
@@ -201,6 +251,9 @@ export declare type Relation = {
     subtitleFile?: Maybe<Scalars['String']>;
     date?: Maybe<Scalars['String']>;
     active?: Maybe<Scalars['Boolean']>;
+    last_frame?: Maybe<Scalars['String']>;
+    seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
+    order?: Maybe<Scalars['Int']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -210,7 +263,10 @@ export declare enum RelationType {
     IsUsedIn = "isUsedIn",
     Components = "components",
     Parent = "parent",
-    CarriedOutBy = "carriedOutBy"
+    CarriedOutBy = "carriedOutBy",
+    Visited = "visited",
+    InBasket = "inBasket",
+    Frames = "frames"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
@@ -227,6 +283,11 @@ export declare type SearchFilter = {
     seed?: Maybe<Scalars['String']>;
     has_mediafile?: Maybe<Scalars['Boolean']>;
     skip_relations?: Maybe<Scalars['Boolean']>;
+};
+export declare type StoryInput = {
+    key: Scalars['String'];
+    active: Scalars['Boolean'];
+    last_frame?: Maybe<Scalars['String']>;
 };
 export declare type User = {
     __typename?: 'User';
@@ -380,6 +441,52 @@ export declare type TouchTableEntityFragment = {
         value?: Maybe<string>;
     }>>>;
 };
+export declare type FullBoxVisiterFragment = {
+    __typename?: 'BoxVisiter';
+    id: string;
+    type: string;
+    code: string;
+    frames_seen_last_visit?: Maybe<number>;
+    start_time?: Maybe<string>;
+    touch_table_time?: Maybe<string>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        order?: Maybe<number>;
+        label?: Maybe<string>;
+        active?: Maybe<boolean>;
+        last_frame?: Maybe<string>;
+        seen_frames?: Maybe<Array<Maybe<{
+            __typename?: 'FrameSeen';
+            id: string;
+            date: number;
+        }>>>;
+    }>>>;
+};
+export declare type FullStoryFragment = ({
+    __typename?: 'Entity';
+    relationMetadata?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        audioFile?: Maybe<string>;
+        subtitleFile?: Maybe<string>;
+    }>>>;
+    frames?: Maybe<Array<Maybe<({
+        __typename?: 'Entity';
+        relationMetadata?: Maybe<Array<Maybe<({
+            __typename?: 'Relation';
+        } & AssetMetadataFragment)>>>;
+        assets?: Maybe<Array<Maybe<({
+            __typename?: 'Entity';
+            collections: Array<Maybe<{
+                __typename?: 'Metadata';
+                key: MetaKey;
+                value?: Maybe<string>;
+            }>>;
+        } & StoryEntityFragment)>>>;
+    } & StoryEntityFragment)>>>;
+} & StoryEntityFragment);
 export declare type MetadataCollectionFieldsFragment = {
     __typename?: 'MetadataCollection';
     label: string;
@@ -587,6 +694,7 @@ export declare type FullRelationFragment = {
     type: RelationType;
     label?: Maybe<string>;
     value?: Maybe<string>;
+    order?: Maybe<number>;
 };
 export declare type AssetMetadataFragment = {
     __typename?: 'Relation';
@@ -702,27 +810,7 @@ export declare type GetStoriesQuery = {
         limit?: Maybe<number>;
         results?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
-            relationMetadata?: Maybe<Array<Maybe<{
-                __typename?: 'Relation';
-                key: string;
-                audioFile?: Maybe<string>;
-                subtitleFile?: Maybe<string>;
-            }>>>;
-            frames?: Maybe<Array<Maybe<({
-                __typename?: 'Entity';
-                relationMetadata?: Maybe<Array<Maybe<({
-                    __typename?: 'Relation';
-                } & AssetMetadataFragment)>>>;
-                assets?: Maybe<Array<Maybe<({
-                    __typename?: 'Entity';
-                    collections: Array<Maybe<{
-                        __typename?: 'Metadata';
-                        key: MetaKey;
-                        value?: Maybe<string>;
-                    }>>;
-                } & StoryEntityFragment)>>>;
-            } & StoryEntityFragment)>>>;
-        } & StoryEntityFragment)>>>;
+        } & FullStoryFragment)>>>;
     }>;
 };
 export declare type GetEnumsByNameQueryVariables = Exact<{
@@ -744,14 +832,14 @@ export declare type GetActiveBoxQueryVariables = Exact<{
 }>;
 export declare type GetActiveBoxQuery = {
     __typename?: 'Query';
-    ActiveBox: Array<Maybe<{
-        __typename?: 'Relation';
-        key: string;
-        type: RelationType;
-        label?: Maybe<string>;
-        value?: Maybe<string>;
-        active?: Maybe<boolean>;
-    }>>;
+    ActiveBox: {
+        __typename?: 'EntitiesResults';
+        count?: Maybe<number>;
+        limit?: Maybe<number>;
+        results?: Maybe<Array<Maybe<({
+            __typename?: 'Entity';
+        } & FullStoryFragment)>>>;
+    };
 };
 export declare type GetBoxVisitersQueryVariables = Exact<{
     [key: string]: never;
@@ -759,26 +847,76 @@ export declare type GetBoxVisitersQueryVariables = Exact<{
 export declare type GetBoxVisitersQuery = {
     __typename?: 'Query';
     BoxVisiters?: Maybe<{
-        __typename?: 'EntitiesResults';
+        __typename?: 'BoxVisitersResults';
         count?: Maybe<number>;
         limit?: Maybe<number>;
-        results?: Maybe<Array<Maybe<{
-            __typename?: 'Entity';
-            id: string;
-            type: string;
-        }>>>;
+        results?: Maybe<Array<Maybe<({
+            __typename?: 'BoxVisiter';
+        } & FullBoxVisiterFragment)>>>;
     }>;
 };
-export declare type GetBoxVisiterByIdQueryVariables = Exact<{
-    id: Scalars['String'];
+export declare type GetBoxVisiterByCodeQueryVariables = Exact<{
+    code: Scalars['String'];
 }>;
-export declare type GetBoxVisiterByIdQuery = {
+export declare type GetBoxVisiterByCodeQuery = {
     __typename?: 'Query';
-    BoxVisiterById: {
-        __typename?: 'Entity';
-        id: string;
-        type: string;
-    };
+    BoxVisiterByCode?: Maybe<({
+        __typename?: 'BoxVisiter';
+    } & FullBoxVisiterFragment)>;
+};
+export declare type GetBoxVisiterRelationsByTypeQueryVariables = Exact<{
+    code: Scalars['String'];
+    type: RelationType;
+}>;
+export declare type GetBoxVisiterRelationsByTypeQuery = {
+    __typename?: 'Query';
+    BoxVisiterRelationsByType?: Maybe<Array<Maybe<({
+        __typename?: 'Relation';
+    } & FullRelationFragment)>>>;
+};
+export declare type CreateBoxVisiterQueryVariables = Exact<{
+    storyId: Scalars['String'];
+}>;
+export declare type CreateBoxVisiterQuery = {
+    __typename?: 'Query';
+    CreateBoxVisiter?: Maybe<({
+        __typename?: 'BoxVisiter';
+    } & FullBoxVisiterFragment)>;
+};
+export declare type AddStoryToBoxVisiterMutationVariables = Exact<{
+    code: Scalars['String'];
+    story: StoryInput;
+}>;
+export declare type AddStoryToBoxVisiterMutation = {
+    __typename?: 'Mutation';
+    AddStoryToBoxVisiter: ({
+        __typename?: 'BoxVisiter';
+    } & FullBoxVisiterFragment);
+};
+export declare type AddFrameToStoryBoxVisiterMutationVariables = Exact<{
+    code: Scalars['String'];
+    frameInput: FrameInput;
+}>;
+export declare type AddFrameToStoryBoxVisiterMutation = {
+    __typename?: 'Mutation';
+    AddFrameToStoryBoxVisiter: ({
+        __typename?: 'BoxVisiter';
+    } & FullBoxVisiterFragment);
+};
+export declare type AddAssetToBoxVisiterMutationVariables = Exact<{
+    code: Scalars['String'];
+    assetId: Scalars['String'];
+    type: RelationType;
+}>;
+export declare type AddAssetToBoxVisiterMutation = {
+    __typename?: 'Mutation';
+    AddAssetToBoxVisiter: Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        order?: Maybe<number>;
+    }>>;
 };
 export declare type GetTouchTableEntityQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
@@ -795,30 +933,19 @@ export declare type GetTouchTableEntityQuery = {
         } & TouchTableEntityFragment)>>>;
     }>;
 };
-export declare type AddFrameToVisiterMutationVariables = Exact<{
-    visiterId: Scalars['String'];
-    frameId: Scalars['String'];
-}>;
-export declare type AddFrameToVisiterMutation = {
-    __typename?: 'Mutation';
-    AddFrameToVisiter: Array<Maybe<{
-        __typename?: 'Relation';
-        key: string;
-        type: RelationType;
-        date?: Maybe<string>;
-    }>>;
-};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
+export declare const FullBoxVisiterFragmentDoc: DocumentNode<FullBoxVisiterFragment, unknown>;
+export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
+export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
+export declare const FullStoryFragmentDoc: DocumentNode<FullStoryFragment, unknown>;
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
 export declare const NestedEndEntityFragmentDoc: DocumentNode<NestedEndEntityFragment, unknown>;
 export declare const MetadataCollectionFieldsFragmentDoc: DocumentNode<MetadataCollectionFieldsFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
-export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
-export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
@@ -857,14 +984,30 @@ export declare const GetActiveBoxDocument: DocumentNode<GetActiveBoxQuery, Exact
 export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
     [key: string]: never;
 }>>;
-export declare const GetBoxVisiterByIdDocument: DocumentNode<GetBoxVisiterByIdQuery, Exact<{
-    id: Scalars['String'];
+export declare const GetBoxVisiterByCodeDocument: DocumentNode<GetBoxVisiterByCodeQuery, Exact<{
+    code: Scalars['String'];
+}>>;
+export declare const GetBoxVisiterRelationsByTypeDocument: DocumentNode<GetBoxVisiterRelationsByTypeQuery, Exact<{
+    code: Scalars['String'];
+    type: RelationType;
+}>>;
+export declare const CreateBoxVisiterDocument: DocumentNode<CreateBoxVisiterQuery, Exact<{
+    storyId: Scalars['String'];
+}>>;
+export declare const AddStoryToBoxVisiterDocument: DocumentNode<AddStoryToBoxVisiterMutation, Exact<{
+    code: Scalars['String'];
+    story: StoryInput;
+}>>;
+export declare const AddFrameToStoryBoxVisiterDocument: DocumentNode<AddFrameToStoryBoxVisiterMutation, Exact<{
+    code: Scalars['String'];
+    frameInput: FrameInput;
+}>>;
+export declare const AddAssetToBoxVisiterDocument: DocumentNode<AddAssetToBoxVisiterMutation, Exact<{
+    code: Scalars['String'];
+    assetId: Scalars['String'];
+    type: RelationType;
 }>>;
 export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEntityQuery, Exact<{
     limit?: number | null | undefined;
     searchValue: SearchFilter;
-}>>;
-export declare const AddFrameToVisiterDocument: DocumentNode<AddFrameToVisiterMutation, Exact<{
-    visiterId: Scalars['String'];
-    frameId: Scalars['String'];
 }>>;
