@@ -311,7 +311,8 @@ export enum RelationType {
   Parent = 'parent',
   CarriedOutBy = 'carriedOutBy',
   Visited = 'visited',
-  InBasket = 'inBasket'
+  InBasket = 'inBasket',
+  Frames = 'frames'
 }
 
 export type RelationsResults = {
