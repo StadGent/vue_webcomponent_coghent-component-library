@@ -22,6 +22,7 @@ type CustomIcon =
   | "chest"
   | "talk"
   | "door"
+  | "archiveDrawer"
   | "arrowRight"
   | "arrowRightLine"
   | "arrowLeftLine"
@@ -95,6 +96,11 @@ bigInfo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="n
 </svg>`,
 door: `<svg width="17" height="24" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.5 4.5V0.5H0.5V11.5L5.5 15.5V5.5L0.5 0.5" stroke="#212121" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+archiveDrawer: `<svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.5 0.5H13.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.5 6.5V8.5H4.5V6.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.5 3.5H0.5V14.5H15.5V3.5Z" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
   zoomOut: `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 227.406 227.406" style="enable-background:new 0 0 227.406 227.406;" xml:space="preserve">
