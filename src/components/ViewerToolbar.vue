@@ -44,7 +44,7 @@
   >
     <base-icon
       icon="zoomIn"
-      class="h-5 w-5 stroke-current fill-current stroke-2"
+      class="h-5 w-5 stroke-current fill-current stroke-1"
     />
   </a>
   <a
