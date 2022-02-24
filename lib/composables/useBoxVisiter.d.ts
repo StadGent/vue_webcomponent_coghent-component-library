@@ -1,23 +1,23 @@
-import { BoxVisiter, FrameInput, RelationType, StoryInput } from '@/queries';
+import { BoxVisiter, FrameInput, Relation, RelationType, StoryInput } from '@/queries';
 import { Ref } from 'vue';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-import { Entity } from '..';
 export declare type UseBoxVisiter = {
     create: (_storyId: string) => Promise<BoxVisiter>;
-    getByCode: (code: string) => Promise<void>;
-    getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>;
-    addStoryToVisiter: (_code: string, _storyInput: StoryInput) => Promise<void>;
-    addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<void>;
-    addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>;
-    selectedStory: Ref<Entity | undefined>;
-    setSelectedStory: (input: Entity) => void;
+    getByCode: (code: string) => Promise<BoxVisiter | null>;
+    getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
+    addStoryToVisiter: (_code: string, _storyInput: StoryInput) => Promise<BoxVisiter | null>;
+    addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<BoxVisiter | null>;
+    addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
+    selectedStory: Ref<StorySelected | undefined>;
+    setSelectedStory: (input: StorySelected) => void;
+    resetBoxVister: () => null;
 };
 export declare type StorySelected = {
     id: string;
     color: string;
     title: string;
 };
-declare const boxVisiter: {
+declare const boxVisiter: Ref<{
     __typename?: "BoxVisiter" | undefined;
     _key?: string | null | undefined;
     id: string;
@@ -82,6 +82,6 @@ declare const boxVisiter: {
     code: string;
     start_time?: string | null | undefined;
     touch_table_time?: string | null | undefined;
-};
+} | null>;
 declare const useBoxVisiter: (_client: ApolloClient<NormalizedCacheObject>) => UseBoxVisiter;
 export { useBoxVisiter, boxVisiter };
