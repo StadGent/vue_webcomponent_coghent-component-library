@@ -1,30 +1,40 @@
 import { AddAssetToBoxVisiterDocument, AddFrameToStoryBoxVisiterDocument, AddStoryToBoxVisiterDocument, BoxVisiter, CreateBoxVisiterDocument, FrameInput, GetBoxVisiterByCodeDocument, RelationType, StoryInput } from '@/queries';
 import { provideApolloClient, useQuery, useMutation } from '@vue/apollo-composable';
-import { reactive } from 'vue';
+import { reactive, Ref, ref } from 'vue';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-import { GetBoxVisiterRelationsByTypeDocument } from '..';
+import { Entity, GetBoxVisiterRelationsByTypeDocument } from '..';
 
 
-type UseBoxVisiter = {
-  create: (_storyId: string) => Promise<void>
+export type UseBoxVisiter = {
+  create: (_storyId: string) => Promise<BoxVisiter>
   getByCode: (code: string) => Promise<void>
   getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>
   addStoryToVisiter: (_code: string, _storyInput: StoryInput) => Promise<void>
   addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<void>
-  addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>
+  addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>,
+  selectedStory: Ref<Entity | undefined>,
+  setSelectedStory: (input: Entity) => void
 }
 
+export type StorySelected = {
+  id: string,
+  color: string,
+  title: string
+}
+const selectedStory = ref<Entity| undefined>()
 const boxVisiter = reactive<BoxVisiter>({} as BoxVisiter)
 
 const useBoxVisiter = (_client: ApolloClient<NormalizedCacheObject>): UseBoxVisiter => {
   const apolloProvider = provideApolloClient(_client)
 
   const create = async (_storyId: string) => {
-    const { onResult } = apolloProvider(() => useQuery(CreateBoxVisiterDocument, { storyId: _storyId }))
-    onResult((value) => {
-      Object.assign(boxVisiter, value.data.CreateBoxVisiter)
-      Promise.resolve()
+    const { fetchMore } = apolloProvider(() => useQuery(CreateBoxVisiterDocument, { storyId: _storyId }, {enabled: true}))
+    const created = await fetchMore({
+      variables: {
+        storyId: _storyId
+      }
     })
+    return created?.data.CreateBoxVisiter as BoxVisiter
   }
   const getByCode = async (_code: string) => {
     const { onResult } = apolloProvider(() => useQuery(GetBoxVisiterByCodeDocument, { code: _code }, {}))
@@ -65,14 +75,20 @@ const useBoxVisiter = (_client: ApolloClient<NormalizedCacheObject>): UseBoxVisi
     })
   }
 
+  const setSelectedStory = (input: Entity) => {
+    selectedStory.value = input
+  }
+
   return {
     create,
     getByCode,
     getRelationsByType,
     addStoryToVisiter,
     addFrameToStory,
+    selectedStory,
+    setSelectedStory,
     addAssetToBoxVisiter,
   }
 };
 
-export { useBoxVisiter, boxVisiter, UseBoxVisiter }
+export { useBoxVisiter, boxVisiter }

@@ -26,7 +26,8 @@ import {
   GetBoxVisiterRelationsByTypeDocument,
   FrameInput,
   StoryInput,
-  BoxVisiter
+  BoxVisiter,
+  Entity,
 } from "./queries"
 import BaseButton from "./components/BaseButton.vue"
 import BaseSearch from "./components/BaseSearch.vue"
@@ -44,9 +45,11 @@ import LazyLoadImage from "./components/LazyLoadImage.vue"
 import BaseMetaData from "./components/BaseMetaData.vue"
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue"
 import { ModalState, ImageSource } from "./types"
-import { useBoxVisiter, boxVisiter, UseBoxVisiter } from "@/composables/useBoxVisiter"
+import { boxVisiter, useBoxVisiter,StorySelected, UseBoxVisiter} from "@/composables/useBoxVisiter"
 
 export {
+  StorySelected,
+  Entity,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
   FrameInput,

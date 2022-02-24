@@ -1,12 +1,21 @@
-import { FrameInput, RelationType, StoryInput } from '@/queries';
+import { BoxVisiter, FrameInput, RelationType, StoryInput } from '@/queries';
+import { Ref } from 'vue';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-declare type UseBoxVisiter = {
-    create: (_storyId: string) => Promise<void>;
+import { Entity } from '..';
+export declare type UseBoxVisiter = {
+    create: (_storyId: string) => Promise<BoxVisiter>;
     getByCode: (code: string) => Promise<void>;
     getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>;
     addStoryToVisiter: (_code: string, _storyInput: StoryInput) => Promise<void>;
     addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<void>;
     addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<void>;
+    selectedStory: Ref<Entity | undefined>;
+    setSelectedStory: (input: Entity) => void;
+};
+export declare type StorySelected = {
+    id: string;
+    color: string;
+    title: string;
 };
 declare const boxVisiter: {
     __typename?: "BoxVisiter" | undefined;
@@ -75,4 +84,4 @@ declare const boxVisiter: {
     touch_table_time?: string | null | undefined;
 };
 declare const useBoxVisiter: (_client: ApolloClient<NormalizedCacheObject>) => UseBoxVisiter;
-export { useBoxVisiter, boxVisiter, UseBoxVisiter };
+export { useBoxVisiter, boxVisiter };
