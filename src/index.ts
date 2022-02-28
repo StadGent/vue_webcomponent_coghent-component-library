@@ -28,7 +28,8 @@ import {
   StoryInput,
   BoxVisiter,
   Entity,
-  RelationType
+  RelationType,
+  Relation
 } from "./queries"
 import BaseButton from "./components/BaseButton.vue"
 import BaseSearch from "./components/BaseSearch.vue"
@@ -49,6 +50,7 @@ import { ModalState, ImageSource } from "./types"
 import { boxVisiter, useBoxVisiter,StorySelected, UseBoxVisiter} from "@/composables/useBoxVisiter"
 
 export {
+  Relation,
   RelationType,
   StorySelected,
   Entity,

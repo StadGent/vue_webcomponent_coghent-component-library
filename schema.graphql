@@ -32,6 +32,7 @@ enum RelationType {
   visited
   inBasket
   frames
+  stories
 }
 
 enum ComponentType {
@@ -52,9 +53,16 @@ input JSPatch {
 }
 
 input StoryInput {
-  key: String!
-  active: Boolean!
+  id: String
   last_frame: String
+  total_frames: Int
+}
+
+type Story {
+  key: String!
+  active: Boolean
+  last_frame: String
+  total_frames: Int
 }
 
 input FrameInput {
@@ -155,6 +163,7 @@ type Relation {
   last_frame: String
   seen_frames: [FrameSeen]
   order: Int
+  total_frames: Int
 }
 
 type EntitiesResults {

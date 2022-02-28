@@ -8,7 +8,7 @@ import { Entity, GetBoxVisiterRelationsByTypeDocument } from '..';
 export type UseBoxVisiter = {
   create: (_storyId: string) => Promise<BoxVisiter>
   getByCode: (code: string) => Promise<BoxVisiter | null>
-  getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>
+  getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories) => Promise<Array<Relation>>
   addStoryToVisiter: (_code: string, _storyInput: StoryInput) => Promise<BoxVisiter | null>
   addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<BoxVisiter | null>
   addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>,
@@ -43,7 +43,7 @@ const useBoxVisiter = (_client: ApolloClient<NormalizedCacheObject>): UseBoxVisi
     boxVisiter.value = visiter?.data.BoxVisiterByCode as BoxVisiter
     return boxVisiter.value
   }
-  const getRelationsByType = async (_code: string, _type: RelationType.Visited | RelationType.InBasket) => {
+  const getRelationsByType = async (_code: string, _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories) => {
     const { fetchMore } = apolloProvider(() => useQuery(GetBoxVisiterRelationsByTypeDocument, { code: _code, type: _type }))
     const relations = await fetchMore({ variables: { code: _code, type: _type } })
     return relations?.data.BoxVisiterRelationsByType as Array<Relation>

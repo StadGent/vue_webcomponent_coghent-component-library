@@ -4,7 +4,7 @@ import { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
 export declare type UseBoxVisiter = {
     create: (_storyId: string) => Promise<BoxVisiter>;
     getByCode: (code: string) => Promise<BoxVisiter | null>;
-    getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
+    getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories) => Promise<Array<Relation>>;
     addStoryToVisiter: (_code: string, _storyInput: StoryInput) => Promise<BoxVisiter | null>;
     addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<BoxVisiter | null>;
     addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
@@ -49,6 +49,7 @@ declare const boxVisiter: Ref<{
             date: number;
         } | null)[] | null | undefined;
         order?: number | null | undefined;
+        total_frames?: number | null | undefined;
     } | null)[] | null | undefined;
     relationByType?: ({
         __typename?: "Relation" | undefined;
@@ -77,6 +78,7 @@ declare const boxVisiter: Ref<{
             date: number;
         } | null)[] | null | undefined;
         order?: number | null | undefined;
+        total_frames?: number | null | undefined;
     } | null)[] | null | undefined;
     frames_seen_last_visit?: number | null | undefined;
     code: string;

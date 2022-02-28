@@ -299,6 +299,7 @@ export type Relation = {
   last_frame?: Maybe<Scalars['String']>;
   seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
   order?: Maybe<Scalars['Int']>;
+  total_frames?: Maybe<Scalars['Int']>;
 };
 
 export enum RelationType {
@@ -312,7 +313,8 @@ export enum RelationType {
   CarriedOutBy = 'carriedOutBy',
   Visited = 'visited',
   InBasket = 'inBasket',
-  Frames = 'frames'
+  Frames = 'frames',
+  Stories = 'stories'
 }
 
 export type RelationsResults = {
@@ -333,10 +335,18 @@ export type SearchFilter = {
   skip_relations?: Maybe<Scalars['Boolean']>;
 };
 
-export type StoryInput = {
+export type Story = {
+  __typename?: 'Story';
   key: Scalars['String'];
-  active: Scalars['Boolean'];
+  active?: Maybe<Scalars['Boolean']>;
   last_frame?: Maybe<Scalars['String']>;
+  total_frames?: Maybe<Scalars['Int']>;
+};
+
+export type StoryInput = {
+  id?: Maybe<Scalars['String']>;
+  last_frame?: Maybe<Scalars['String']>;
+  total_frames?: Maybe<Scalars['Int']>;
 };
 
 export type User = {

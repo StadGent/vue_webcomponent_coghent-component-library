@@ -254,6 +254,7 @@ export declare type Relation = {
     last_frame?: Maybe<Scalars['String']>;
     seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
     order?: Maybe<Scalars['Int']>;
+    total_frames?: Maybe<Scalars['Int']>;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -266,7 +267,8 @@ export declare enum RelationType {
     CarriedOutBy = "carriedOutBy",
     Visited = "visited",
     InBasket = "inBasket",
-    Frames = "frames"
+    Frames = "frames",
+    Stories = "stories"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
@@ -284,10 +286,17 @@ export declare type SearchFilter = {
     has_mediafile?: Maybe<Scalars['Boolean']>;
     skip_relations?: Maybe<Scalars['Boolean']>;
 };
-export declare type StoryInput = {
+export declare type Story = {
+    __typename?: 'Story';
     key: Scalars['String'];
-    active: Scalars['Boolean'];
+    active?: Maybe<Scalars['Boolean']>;
     last_frame?: Maybe<Scalars['String']>;
+    total_frames?: Maybe<Scalars['Int']>;
+};
+export declare type StoryInput = {
+    id?: Maybe<Scalars['String']>;
+    last_frame?: Maybe<Scalars['String']>;
+    total_frames?: Maybe<Scalars['Int']>;
 };
 export declare type User = {
     __typename?: 'User';
