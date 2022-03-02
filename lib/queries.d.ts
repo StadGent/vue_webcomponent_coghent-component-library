@@ -705,6 +705,19 @@ export declare type FullRelationFragment = {
     value?: Maybe<string>;
     order?: Maybe<number>;
 };
+export declare type BoxRelationFragment = {
+    __typename?: 'Relation';
+    key: string;
+    type: RelationType;
+    active?: Maybe<boolean>;
+    order?: Maybe<number>;
+    last_frame?: Maybe<string>;
+    seen_frames?: Maybe<Array<Maybe<{
+        __typename?: 'FrameSeen';
+        id: string;
+        date: number;
+    }>>>;
+};
 export declare type AssetMetadataFragment = {
     __typename?: 'Relation';
     key: string;
@@ -881,7 +894,7 @@ export declare type GetBoxVisiterRelationsByTypeQuery = {
     __typename?: 'Query';
     BoxVisiterRelationsByType?: Maybe<Array<Maybe<({
         __typename?: 'Relation';
-    } & FullRelationFragment)>>>;
+    } & BoxRelationFragment)>>>;
 };
 export declare type CreateBoxVisiterQueryVariables = Exact<{
     storyId: Scalars['String'];
@@ -955,6 +968,7 @@ export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unk
 export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
+export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;

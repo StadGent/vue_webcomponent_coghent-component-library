@@ -47,7 +47,7 @@ import LazyLoadImage from "./components/LazyLoadImage.vue"
 import BaseMetaData from "./components/BaseMetaData.vue"
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue"
 import { ModalState, ImageSource } from "./types"
-import { boxVisiter, useBoxVisiter,StorySelected, UseBoxVisiter} from "@/composables/useBoxVisiter"
+import { boxVisiter, useBoxVisiter,StorySelected, UseBoxVisiter} from "./composables/useBoxVisiter"
 
 export {
   Relation,

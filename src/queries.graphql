@@ -273,6 +273,18 @@ fragment fullRelation on Relation {
   order
 }
 
+fragment boxRelation on Relation {
+  key
+  type
+  active
+  order
+  last_frame
+  seen_frames{
+    id
+    date
+  }
+}
+
 fragment assetMetadata on Relation {
   key
   label
@@ -403,7 +415,7 @@ query getBoxVisiterByCode($code: String!){
 
 query getBoxVisiterRelationsByType($code: String!, $type: RelationType!){
     BoxVisiterRelationsByType(code: $code, type: $type){
-        ...fullRelation
+        ...boxRelation
     }
 }
 

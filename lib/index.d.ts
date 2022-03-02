@@ -16,5 +16,5 @@ import LazyLoadImage from "./components/LazyLoadImage.vue";
 import BaseMetaData from "./components/BaseMetaData.vue";
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue";
 import { ModalState, ImageSource } from "./types";
-import { boxVisiter, useBoxVisiter, StorySelected, UseBoxVisiter } from "@/composables/useBoxVisiter";
+import { boxVisiter, useBoxVisiter, StorySelected, UseBoxVisiter } from "./composables/useBoxVisiter";
 export { Relation, RelationType, StorySelected, Entity, GetBoxVisiterRelationsByTypeDocument, AddAssetToBoxVisiterDocument, FrameInput, StoryInput, BoxVisiter, useBoxVisiter, UseBoxVisiter, boxVisiter, GetActiveBoxDocument, GetBoxVisitersDocument, GetEntitiesDocument, GetStoriesDocument, GetEnumsByNameDocument, EntitiesResults, GetFullEntitiesDocument, GetEntityByIdDocument, GetCreatorByIdDocument, GetTouchTableEntityByIdDocument, GetTouchTableEntityDocument, BaseButton, BaseSearch, BaseIcon, BaseInput, BaseModal, BaseMetaData, BaseMetaDataTab, CardComponent, CopyrightTab, FilterTag, LanguageSelector, GetFullEntitiesQuery, GetFullEntitiesQueryVariables, TheCarousel, ViewerToolbar, IIIFViewer, GetMeQuery, GetMeDocument, User, FullRelationFragment, GetRelationsDocument, RelationsResults, GetEntitiesQuery, GetEntitiesQueryVariables, LazyLoadImage, ModalState, ImageSource, };
