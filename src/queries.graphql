@@ -47,17 +47,17 @@ fragment fullBoxVisiter on BoxVisiter {
   frames_seen_last_visit
   start_time
   touch_table_time
-  relations{
-      key
-      type
-      order
-      label
-      active
-      last_frame
-      seen_frames{
-          id
-          date
-      }
+  relations {
+    key
+    type
+    order
+    label
+    active
+    last_frame
+    seen_frames {
+      id
+      date
+    }
   }
 }
 
@@ -279,7 +279,7 @@ fragment boxRelation on Relation {
   active
   order
   last_frame
-  seen_frames{
+  seen_frames {
     id
     date
   }
@@ -378,6 +378,12 @@ query getStories {
   }
 }
 
+query getStoryById($id: String!) {
+  Entity(id: $id) {
+    ...fullStory
+  }
+}
+
 query getEnumsByName($enumName: String!) {
   __type(name: $enumName) {
     name
@@ -388,8 +394,8 @@ query getEnumsByName($enumName: String!) {
 }
 
 query getActiveBox {
-  ActiveBox{
-   count
+  ActiveBox {
+    count
     limit
     results {
       ...fullStory
@@ -397,53 +403,57 @@ query getActiveBox {
   }
 }
 
-query getBoxVisiters{
-    BoxVisiters{
-        results {
-            ...fullBoxVisiter
-        },
-        count
-        limit
+query getBoxVisiters {
+  BoxVisiters {
+    results {
+      ...fullBoxVisiter
     }
+    count
+    limit
+  }
 }
 
-query getBoxVisiterByCode($code: String!){
-    BoxVisiterByCode(code: $code){
-        ...fullBoxVisiter
-    }
+query getBoxVisiterByCode($code: String!) {
+  BoxVisiterByCode(code: $code) {
+    ...fullBoxVisiter
+  }
 }
 
-query getBoxVisiterRelationsByType($code: String!, $type: RelationType!){
-    BoxVisiterRelationsByType(code: $code, type: $type){
-        ...boxRelation
-    }
+query getBoxVisiterRelationsByType($code: String!, $type: RelationType!) {
+  BoxVisiterRelationsByType(code: $code, type: $type) {
+    ...boxRelation
+  }
 }
 
-query createBoxVisiter($storyId: String!){
-    CreateBoxVisiter(storyId: $storyId){
-        ...fullBoxVisiter
-    }
+query createBoxVisiter($storyId: String!) {
+  CreateBoxVisiter(storyId: $storyId) {
+    ...fullBoxVisiter
+  }
 }
 
-mutation addStoryToBoxVisiter($code: String!, $story: StoryInput!){
-    AddStoryToBoxVisiter(code: $code, story: $story){
-        ...fullBoxVisiter
-    }
+mutation addStoryToBoxVisiter($code: String!, $story: StoryInput!) {
+  AddStoryToBoxVisiter(code: $code, story: $story) {
+    ...fullBoxVisiter
+  }
 }
 
-mutation addFrameToStoryBoxVisiter($code: String!,$frameInput: FrameInput!){
-    AddFrameToStoryBoxVisiter(code: $code, frameInput: $frameInput){
-        ...fullBoxVisiter
-    }
+mutation addFrameToStoryBoxVisiter($code: String!, $frameInput: FrameInput!) {
+  AddFrameToStoryBoxVisiter(code: $code, frameInput: $frameInput) {
+    ...fullBoxVisiter
+  }
 }
 
-mutation addAssetToBoxVisiter($code: String!, $assetId: String!, $type: RelationType!){
-    AddAssetToBoxVisiter(code: $code, assetId: $assetId, type: $type){
-        key
-        type
-        label
-        order
-    }
+mutation addAssetToBoxVisiter(
+  $code: String!
+  $assetId: String!
+  $type: RelationType!
+) {
+  AddAssetToBoxVisiter(code: $code, assetId: $assetId, type: $type) {
+    key
+    type
+    label
+    order
+  }
 }
 
 query getTouchTableEntity($limit: Int, $searchValue: SearchFilter!) {

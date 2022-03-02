@@ -33,6 +33,7 @@ enum RelationType {
   inBasket
   frames
   stories
+  box
 }
 
 enum ComponentType {
@@ -72,7 +73,7 @@ input FrameInput {
 
 type FrameSeen {
   id: String!
-  date: Int!  
+  date: Int!
 }
 
 type Metadata {
@@ -221,9 +222,9 @@ type BoxVisiter {
 type Query {
   ActiveBox: EntitiesResults!
   BoxVisiters: BoxVisitersResults
-  BoxVisiterByCode(code: String!):BoxVisiter
-  BoxVisiterRelationsByType(code: String!, type: RelationType!):[Relation]
-  CreateBoxVisiter(storyId: String!):BoxVisiter
+  BoxVisiterByCode(code: String!): BoxVisiter
+  BoxVisiterRelationsByType(code: String!, type: RelationType!): [Relation]
+  CreateBoxVisiter(storyId: String!): BoxVisiter
   Stories: EntitiesResults
   Entity(id: String!): Entity
   Entities(
@@ -242,5 +243,9 @@ type Mutation {
   replaceMetadata(id: String!, metadata: [MetadataInput!]!): [Metadata!]!
   AddStoryToBoxVisiter(code: String!, story: StoryInput!): BoxVisiter!
   AddFrameToStoryBoxVisiter(code: String!, frameInput: FrameInput!): BoxVisiter!
-  AddAssetToBoxVisiter(code: String!, assetId: String!, type: RelationType!): [Relation]!
+  AddAssetToBoxVisiter(
+    code: String!
+    assetId: String!
+    type: RelationType!
+  ): [Relation]!
 }

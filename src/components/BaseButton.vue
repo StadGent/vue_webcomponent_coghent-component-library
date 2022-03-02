@@ -20,8 +20,8 @@
   </span>
 </template>
 <script lang="ts">
-import { defineComponent, ref, PropType } from "vue"
-import BaseIcon from "./BaseIcon.vue"
+import { defineComponent, ref, PropType } from "vue";
+import BaseIcon from "./BaseIcon.vue";
 type CustomIcon =
   | "storybox"
   | "globe"
@@ -29,7 +29,7 @@ type CustomIcon =
   | "edit"
   | "logout"
   | "user"
-  | "surprise"
+  | "surprise";
 type ButtonTypes =
   | "primary"
   | "secondary"
@@ -43,7 +43,7 @@ type ButtonTypes =
   | "touchtable-white-round"
   | "touchtable-green-round"
   | "touchtable-purple"
-  | "touchtable-black"
+  | "touchtable-black";
 const buttonstyles: Record<ButtonTypes, string> = {
   primary: "text-text-white bg-accent-purple rounded-full shadow-lg px-10 py-3",
   secondary:
@@ -55,18 +55,20 @@ const buttonstyles: Record<ButtonTypes, string> = {
     "text-accent-purple bg-text-white rounded-full shadow-lg px-4 py-2",
   "cc-round-black":
     "text-text-black bg-text-white rounded-full shadow-lg px-4 pr-6 py-2 stroke-0",
-    "round-white": "text-text-white px-2 py-2",
-    "details-black": "text-text-dark py-3",
-    "touchtable-white-round": "text-text-dark px-10 py-10 bg-text-white rounded-full text-3xl",
-    "touchtable-green-round": "text-text-white px-10 py-10 bg-accent-green rounded-full text-3xl",
-    "touchtable-purple": "text-accent-purple text-3xl py-4",
-    "touchtable-black": "text-text-dark text-3xl py-4"
-}
-type iconTypes = "sm" | "default"
+  "round-white": "text-text-white px-2 py-2",
+  "details-black": "text-text-dark py-3",
+  "touchtable-white-round":
+    "text-text-dark px-10 py-10 bg-text-white rounded-full",
+  "touchtable-green-round":
+    "text-text-white px-10 py-10 bg-accent-green rounded-full",
+  "touchtable-purple": "text-accent-purple py-4",
+  "touchtable-black": "text-text-dark py-4",
+};
+type iconTypes = "sm" | "default";
 const iconstyles: Record<iconTypes, string> = {
   sm: "w-3 h-3",
   default: "",
-}
+};
 
 export default defineComponent({
   components: { BaseIcon },
@@ -103,8 +105,8 @@ export default defineComponent({
     return {
       buttonstyles,
       iconstyles,
-    }
+    };
   },
-})
+});
 </script>
 <style scoped></style>

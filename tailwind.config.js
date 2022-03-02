@@ -36,6 +36,7 @@ module.exports = {
         yellow: "#fdc20b",
         green: "#02a77f",
         purple: "#b65099",
+        blue: "#9FCDD9",
       },
       text: {
         white: "#ffffff",
@@ -52,6 +53,9 @@ module.exports = {
         yellow: "#FDC20B",
         green: "#02A77FCC",
         blue: "#9fcdd9",
+      },
+      touchtable: {
+        dark: "#2D242A"
       }
     },
     extend: {

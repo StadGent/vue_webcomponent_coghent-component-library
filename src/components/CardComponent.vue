@@ -69,12 +69,16 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    roundsColor: {
+      type: String,
+      required: false,
+    }
   },
   setup(props) {
     const bgColor = props.backgroundColor?props.backgroundColor: 'bg-background-medium'
     const ringColor = props.ringColor?props.ringColor: 'ring-accent-green'
     const backgroundColor = !props.reverseColors ? bgColor : 'bg-text-white'
-    const roundsColor = !props.reverseColors ? 'bg-text-white' : bgColor
+    const roundsColor = props.roundsColor ? props.roundsColor : !props.reverseColors ? 'bg-text-white' : bgColor
 
     return {
       backgroundColor,
