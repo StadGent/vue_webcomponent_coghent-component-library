@@ -47,6 +47,7 @@ import CopyrightTab from "./components/CopyrightTab.vue";
 import LazyLoadImage from "./components/LazyLoadImage.vue";
 import BaseMetaData from "./components/BaseMetaData.vue";
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue";
+import TheMasonry from "./components/TheMasonry.vue";
 import { ModalState, ImageSource } from "./types";
 import {
   boxVisiter,
@@ -60,6 +61,7 @@ export {
   RelationType,
   StorySelected,
   Entity,
+  TheMasonry,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
   FrameInput,
