@@ -219,7 +219,13 @@ type BoxVisiter {
   touch_table_time: String
 }
 
+type Ticket {
+  code: String!
+  body: String!
+}
+
 type Query {
+  PrintBoxTicket(code: String!): Ticket!
   ActiveBox: EntitiesResults!
   BoxVisiters: BoxVisitersResults
   BoxVisiterByCode(code: String!): BoxVisiter
@@ -241,7 +247,7 @@ type Query {
 
 type Mutation {
   replaceMetadata(id: String!, metadata: [MetadataInput!]!): [Metadata!]!
-  AddStoryToBoxVisiter(code: String!, story: StoryInput!): BoxVisiter!
+  AddStoryToBoxVisiter(code: String!, storyId: String!): BoxVisiter!
   AddFrameToStoryBoxVisiter(code: String!, frameInput: FrameInput!): BoxVisiter!
   AddAssetToBoxVisiter(
     code: String!

@@ -28,7 +28,7 @@ export type UseBoxVisiter = {
   ) => Promise<Array<Relation>>
   addStoryToVisiter: (
     _code: string,
-    _storyInput: StoryInput
+    _storyId: string
   ) => Promise<BoxVisiter | null>
   addFrameToStory: (
     _code: string,
@@ -92,11 +92,11 @@ const useBoxVisiter = (
     })
     return relations?.data.BoxVisiterRelationsByType as Array<Relation>
   }
-  const addStoryToVisiter = async (_code: string, _storyInput: StoryInput) => {
+  const addStoryToVisiter = async (_code: string, _storyId: string) => {
     const { mutate } = apolloProvider(() =>
       useMutation(AddStoryToBoxVisiterDocument)
     )
-    const updated = await mutate({ code: _code, story: _storyInput })
+    const updated = await mutate({ code: _code, storyId: _storyId })
     boxVisiter.value = updated?.data?.AddStoryToBoxVisiter as BoxVisiter
     return boxVisiter.value
   }

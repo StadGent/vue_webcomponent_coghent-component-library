@@ -181,7 +181,7 @@ export declare type MutationReplaceMetadataArgs = {
 };
 export declare type MutationAddStoryToBoxVisiterArgs = {
     code: Scalars['String'];
-    story: StoryInput;
+    storyId: Scalars['String'];
 };
 export declare type MutationAddFrameToStoryBoxVisiterArgs = {
     code: Scalars['String'];
@@ -200,6 +200,7 @@ export declare type Position = {
 };
 export declare type Query = {
     __typename?: 'Query';
+    PrintBoxTicket: Ticket;
     ActiveBox: EntitiesResults;
     BoxVisiters?: Maybe<BoxVisitersResults>;
     BoxVisiterByCode?: Maybe<BoxVisiter>;
@@ -210,6 +211,9 @@ export declare type Query = {
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
+};
+export declare type QueryPrintBoxTicketArgs = {
+    code: Scalars['String'];
 };
 export declare type QueryBoxVisiterByCodeArgs = {
     code: Scalars['String'];
@@ -268,8 +272,7 @@ export declare enum RelationType {
     Visited = "visited",
     InBasket = "inBasket",
     Frames = "frames",
-    Stories = "stories",
-    Box = "box"
+    Stories = "stories"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
@@ -298,6 +301,11 @@ export declare type StoryInput = {
     id?: Maybe<Scalars['String']>;
     last_frame?: Maybe<Scalars['String']>;
     total_frames?: Maybe<Scalars['Int']>;
+};
+export declare type Ticket = {
+    __typename?: 'Ticket';
+    code: Scalars['String'];
+    body: Scalars['String'];
 };
 export declare type User = {
     __typename?: 'User';
@@ -459,20 +467,9 @@ export declare type FullBoxVisiterFragment = {
     frames_seen_last_visit?: Maybe<number>;
     start_time?: Maybe<string>;
     touch_table_time?: Maybe<string>;
-    relations?: Maybe<Array<Maybe<{
+    relations?: Maybe<Array<Maybe<({
         __typename?: 'Relation';
-        key: string;
-        type: RelationType;
-        order?: Maybe<number>;
-        label?: Maybe<string>;
-        active?: Maybe<boolean>;
-        last_frame?: Maybe<string>;
-        seen_frames?: Maybe<Array<Maybe<{
-            __typename?: 'FrameSeen';
-            id: string;
-            date: number;
-        }>>>;
-    }>>>;
+    } & BoxRelationFragment)>>>;
 };
 export declare type FullStoryFragment = ({
     __typename?: 'Entity';
@@ -606,7 +603,6 @@ export declare type FullEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
-    primary_mediafile?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -714,6 +710,7 @@ export declare type BoxRelationFragment = {
     active?: Maybe<boolean>;
     order?: Maybe<number>;
     last_frame?: Maybe<string>;
+    total_frames?: Maybe<number>;
     seen_frames?: Maybe<Array<Maybe<{
         __typename?: 'FrameSeen';
         id: string;
@@ -837,15 +834,6 @@ export declare type GetStoriesQuery = {
         } & FullStoryFragment)>>>;
     }>;
 };
-export declare type GetStoryByIdQueryVariables = Exact<{
-    id: Scalars['String'];
-}>;
-export declare type GetStoryByIdQuery = {
-    __typename?: 'Query';
-    Entity?: Maybe<({
-        __typename?: 'Entity';
-    } & FullStoryFragment)>;
-};
 export declare type GetEnumsByNameQueryVariables = Exact<{
     enumName: Scalars['String'];
 }>;
@@ -888,6 +876,17 @@ export declare type GetBoxVisitersQuery = {
         } & FullBoxVisiterFragment)>>>;
     }>;
 };
+export declare type PrintBoxTicketQueryVariables = Exact<{
+    code: Scalars['String'];
+}>;
+export declare type PrintBoxTicketQuery = {
+    __typename?: 'Query';
+    PrintBoxTicket: {
+        __typename?: 'Ticket';
+        code: string;
+        body: string;
+    };
+};
 export declare type GetBoxVisiterByCodeQueryVariables = Exact<{
     code: Scalars['String'];
 }>;
@@ -918,7 +917,7 @@ export declare type CreateBoxVisiterQuery = {
 };
 export declare type AddStoryToBoxVisiterMutationVariables = Exact<{
     code: Scalars['String'];
-    story: StoryInput;
+    storyId: Scalars['String'];
 }>;
 export declare type AddStoryToBoxVisiterMutation = {
     __typename?: 'Mutation';
@@ -968,6 +967,7 @@ export declare type GetTouchTableEntityQuery = {
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
+export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const FullBoxVisiterFragmentDoc: DocumentNode<FullBoxVisiterFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
@@ -979,7 +979,6 @@ export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unk
 export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
-export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
@@ -1009,9 +1008,6 @@ export declare const GetRelationsDocument: DocumentNode<GetRelationsQuery, Exact
 export declare const GetStoriesDocument: DocumentNode<GetStoriesQuery, Exact<{
     [key: string]: never;
 }>>;
-export declare const GetStoryByIdDocument: DocumentNode<GetStoryByIdQuery, Exact<{
-    id: Scalars['String'];
-}>>;
 export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, Exact<{
     enumName: Scalars['String'];
 }>>;
@@ -1020,6 +1016,9 @@ export declare const GetActiveBoxDocument: DocumentNode<GetActiveBoxQuery, Exact
 }>>;
 export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
     [key: string]: never;
+}>>;
+export declare const PrintBoxTicketDocument: DocumentNode<PrintBoxTicketQuery, Exact<{
+    code: Scalars['String'];
 }>>;
 export declare const GetBoxVisiterByCodeDocument: DocumentNode<GetBoxVisiterByCodeQuery, Exact<{
     code: Scalars['String'];
@@ -1033,7 +1032,7 @@ export declare const CreateBoxVisiterDocument: DocumentNode<CreateBoxVisiterQuer
 }>>;
 export declare const AddStoryToBoxVisiterDocument: DocumentNode<AddStoryToBoxVisiterMutation, Exact<{
     code: Scalars['String'];
-    story: StoryInput;
+    storyId: Scalars['String'];
 }>>;
 export declare const AddFrameToStoryBoxVisiterDocument: DocumentNode<AddFrameToStoryBoxVisiterMutation, Exact<{
     code: Scalars['String'];

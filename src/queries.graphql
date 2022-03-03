@@ -414,6 +414,13 @@ query getBoxVisiters {
   }
 }
 
+query printBoxTicket($code: String!){
+    PrintBoxTicket(code: $code){
+        code
+        body        
+    }
+}
+
 query getBoxVisiterByCode($code: String!) {
   BoxVisiterByCode(code: $code) {
     ...fullBoxVisiter
@@ -432,8 +439,8 @@ query createBoxVisiter($storyId: String!) {
   }
 }
 
-mutation addStoryToBoxVisiter($code: String!, $story: StoryInput!) {
-  AddStoryToBoxVisiter(code: $code, story: $story) {
+mutation addStoryToBoxVisiter($code: String!, $storyId: String!) {
+  AddStoryToBoxVisiter(code: $code, storyId: $storyId) {
     ...fullBoxVisiter
   }
 }
