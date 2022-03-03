@@ -204,6 +204,7 @@ fragment fullEntity on Entity {
   ) {
     ...MetadataCollectionFields
   }
+  primary_mediafile
   mediafiles {
     _id
     original_file_location

@@ -407,6 +407,17 @@ export default defineComponent({
           entity.primary_mediafile,
           tiletype === "SingleImage" ? "full" : "full"
         );
+      } else if (entity && entity !== "placeholder") {
+        if (
+          entity.mediafiles &&
+          entity.mediafiles[0] &&
+          entity.mediafiles[0].filename
+        ) {
+          return generateUrl(
+            entity.mediafiles[0].filename,
+            tiletype === "SingleImage" ? "full" : "full"
+          );
+        }
       }
       if (entity === "placeholder") {
         return undefined;
