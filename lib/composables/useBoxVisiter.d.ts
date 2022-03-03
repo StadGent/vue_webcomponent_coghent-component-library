@@ -1,6 +1,6 @@
-import { BoxVisiter, FrameInput, Relation, RelationType, StoryInput } from '@/queries';
-import { Ref } from 'vue';
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
+import { BoxVisiter, FrameInput, Relation, RelationType, StoryInput } from "@/queries";
+import { Ref } from "vue";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client/core";
 export declare type UseBoxVisiter = {
     create: (_storyId: string) => Promise<BoxVisiter>;
     getByCode: (code: string) => Promise<BoxVisiter | null>;
@@ -11,6 +11,7 @@ export declare type UseBoxVisiter = {
     selectedStory: Ref<StorySelected | undefined>;
     setSelectedStory: (input: StorySelected) => void;
     resetBoxVister: () => null;
+    boxVisiter: Ref<BoxVisiter | null>;
 };
 export declare type StorySelected = {
     id: string;

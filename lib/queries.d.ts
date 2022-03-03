@@ -268,7 +268,8 @@ export declare enum RelationType {
     Visited = "visited",
     InBasket = "inBasket",
     Frames = "frames",
-    Stories = "stories"
+    Stories = "stories",
+    Box = "box"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
@@ -605,6 +606,7 @@ export declare type FullEntityFragment = {
     __typename?: 'Entity';
     id: string;
     type: string;
+    primary_mediafile?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -835,6 +837,15 @@ export declare type GetStoriesQuery = {
         } & FullStoryFragment)>>>;
     }>;
 };
+export declare type GetStoryByIdQueryVariables = Exact<{
+    id: Scalars['String'];
+}>;
+export declare type GetStoryByIdQuery = {
+    __typename?: 'Query';
+    Entity?: Maybe<({
+        __typename?: 'Entity';
+    } & FullStoryFragment)>;
+};
 export declare type GetEnumsByNameQueryVariables = Exact<{
     enumName: Scalars['String'];
 }>;
@@ -997,6 +1008,9 @@ export declare const GetRelationsDocument: DocumentNode<GetRelationsQuery, Exact
 }>>;
 export declare const GetStoriesDocument: DocumentNode<GetStoriesQuery, Exact<{
     [key: string]: never;
+}>>;
+export declare const GetStoryByIdDocument: DocumentNode<GetStoryByIdQuery, Exact<{
+    id: Scalars['String'];
 }>>;
 export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, Exact<{
     enumName: Scalars['String'];
