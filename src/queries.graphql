@@ -48,16 +48,7 @@ fragment fullBoxVisiter on BoxVisiter {
   start_time
   touch_table_time
   relations {
-    key
-    type
-    order
-    label
-    active
-    last_frame
-    seen_frames {
-      id
-      date
-    }
+    ...boxRelation
   }
 }
 
@@ -280,6 +271,7 @@ fragment boxRelation on Relation {
   active
   order
   last_frame
+  total_frames
   seen_frames {
     id
     date
