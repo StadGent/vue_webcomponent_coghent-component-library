@@ -25,6 +25,7 @@ import {
   GetTouchTableEntityByIdDocument,
   AddAssetToBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
+  PrintBoxTicketDocument,
   FrameInput,
   StoryInput,
   BoxVisiter,
@@ -57,6 +58,7 @@ import {
 } from "./composables/useBoxVisiter";
 
 export {
+  PrintBoxTicketDocument,
   Relation,
   RelationType,
   StorySelected,

@@ -50,10 +50,15 @@ declare const _default: import("vue").DefineComponent<{
         required: false;
         default: boolean;
     };
-    makeUrl: {
+    useRouterNavigation: {
         type: FunctionConstructor;
+        default: undefined;
         required: false;
-        default: (entity: Entity) => string | undefined;
+    };
+    hasCustomImageOverlay: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
     };
 }, {
     loadMore: () => void;
@@ -233,7 +238,8 @@ declare const _default: import("vue").DefineComponent<{
     generateUrl?: unknown;
     noImageUrl?: unknown;
     showLoadMore?: unknown;
-    makeUrl?: unknown;
+    useRouterNavigation?: unknown;
+    hasCustomImageOverlay?: unknown;
 } & {
     entities: Record<string, any>;
     loading: boolean;
@@ -243,14 +249,17 @@ declare const _default: import("vue").DefineComponent<{
     generateUrl: Function;
     noImageUrl: string;
     showLoadMore: boolean;
-    makeUrl: Function;
-} & {}> & {
+    hasCustomImageOverlay: boolean;
+} & {
+    useRouterNavigation?: Function | undefined;
+}> & {
     onLoadMore?: ((...args: any[]) => any) | undefined;
 }, {
     small: boolean;
     itemsEachLoad: number;
     endOfData: boolean;
     showLoadMore: boolean;
-    makeUrl: Function;
+    useRouterNavigation: Function;
+    hasCustomImageOverlay: boolean;
 }>;
 export default _default;
