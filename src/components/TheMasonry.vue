@@ -31,7 +31,7 @@
             "
             @click="
               useRouterNavigation && entity.id
-                ? useRouterNavigation.push('/touchtable/' + entity.id)
+                ? emitForRouterNavigation(entity)
                 : undefined
             "
           >
@@ -220,8 +220,8 @@ export default defineComponent({
       default: false,
     },
     useRouterNavigation: {
-      type: Function,
-      default: undefined,
+      type: Boolean,
+      default: false,
       required: false,
     },
     hasCustomImageOverlay: {
@@ -230,7 +230,7 @@ export default defineComponent({
       required: false,
     },
   },
-  emits: ["loadMore"],
+  emits: ["loadMore", "navigateWithRouter"],
   setup: (props, { emit }) => {
     const masonryTiles = ref<Array<BaseTile>>([]);
     const { toClipboard } = useClipboard();
@@ -318,6 +318,10 @@ export default defineComponent({
           }
         }
       }
+    };
+
+    const emitForRouterNavigation = (entity: Entity) => {
+      emit("navigateWithRouter", entity);
     };
 
     onMounted(() => {
@@ -466,6 +470,7 @@ export default defineComponent({
       masonryTiles,
       contructTiles,
       getFallBackImageUrl,
+      emitForRouterNavigation,
     };
   },
 });

@@ -9,74 +9,77 @@ import {
   Relation,
   RelationType,
   StoryInput,
-} from "@/queries"
+} from "@/queries";
 import {
   provideApolloClient,
   useQuery,
   useMutation,
-} from "@vue/apollo-composable"
-import { reactive, Ref, ref } from "vue"
-import { ApolloClient, NormalizedCacheObject } from "@apollo/client/core"
-import { Entity, GetBoxVisiterRelationsByTypeDocument } from ".."
+} from "@vue/apollo-composable";
+import { reactive, Ref, ref } from "vue";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client/core";
+import { Entity, GetBoxVisiterRelationsByTypeDocument } from "..";
 
 export type UseBoxVisiter = {
-  create: (_storyId: string) => Promise<BoxVisiter>
-  getByCode: (code: string) => Promise<BoxVisiter | null>
+  create: (_storyId: string) => Promise<BoxVisiter>;
+  getByCode: (code: string) => Promise<BoxVisiter | null>;
   getRelationsByType: (
     code: string,
     _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories
-  ) => Promise<Array<Relation>>
+  ) => Promise<Array<Relation>>;
   addStoryToVisiter: (
     _code: string,
     _storyId: string
-  ) => Promise<BoxVisiter | null>
+  ) => Promise<BoxVisiter | null>;
   addFrameToStory: (
     _code: string,
     _frameInput: FrameInput
-  ) => Promise<BoxVisiter | null>
+  ) => Promise<BoxVisiter | null>;
   addAssetToBoxVisiter: (
     _code: string,
     _assetId: string,
     _type: RelationType.Visited | RelationType.InBasket
-  ) => Promise<Array<Relation>>
-  selectedStory: Ref<StorySelected | undefined>
-  setSelectedStory: (input: StorySelected) => void
-  resetBoxVister: () => null
-  boxVisiter: Ref<BoxVisiter | null>
-}
+  ) => Promise<Array<Relation>>;
+  selectedStory: Ref<StorySelected | undefined>;
+  setSelectedStory: (input: StorySelected) => void;
+  setStartAsset: (input: Entity) => void;
+  resetBoxVister: () => null;
+  boxVisiter: Ref<BoxVisiter | null>;
+};
 
 export type StorySelected = {
-  id: string
-  color: string
-  title: string
-}
-const selectedStory = ref<StorySelected | undefined>()
-const boxVisiter = ref<BoxVisiter | null>(null)
+  id: string;
+  color: string;
+  title: string;
+};
+
+const selectedStory = ref<StorySelected | undefined>();
+const boxVisiter = ref<BoxVisiter | null>(null);
+const startAsset = ref<Entity | undefined>();
 
 const useBoxVisiter = (
   _client: ApolloClient<NormalizedCacheObject>
 ): UseBoxVisiter => {
-  const apolloProvider = provideApolloClient(_client)
+  const apolloProvider = provideApolloClient(_client);
 
   const create = async (_storyId: string) => {
     const { fetchMore } = apolloProvider(() =>
       useQuery(CreateBoxVisiterDocument, { storyId: _storyId })
-    )
+    );
     const created = await fetchMore({
       variables: {
         storyId: _storyId,
       },
-    })
-    return created?.data.CreateBoxVisiter as BoxVisiter
-  }
+    });
+    return created?.data.CreateBoxVisiter as BoxVisiter;
+  };
   const getByCode = async (_code: string) => {
     const { fetchMore } = apolloProvider(() =>
       useQuery(GetBoxVisiterByCodeDocument, { code: _code })
-    )
-    const visiter = await fetchMore({ variables: { code: _code } })
-    boxVisiter.value = visiter?.data.BoxVisiterByCode as BoxVisiter
-    return boxVisiter.value
-  }
+    );
+    const visiter = await fetchMore({ variables: { code: _code } });
+    boxVisiter.value = visiter?.data.BoxVisiterByCode as BoxVisiter;
+    return boxVisiter.value;
+  };
   const getRelationsByType = async (
     _code: string,
     _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories
@@ -86,55 +89,59 @@ const useBoxVisiter = (
         code: _code,
         type: _type,
       })
-    )
+    );
     const relations = await fetchMore({
       variables: { code: _code, type: _type },
-    })
-    return relations?.data.BoxVisiterRelationsByType as Array<Relation>
-  }
+    });
+    return relations?.data.BoxVisiterRelationsByType as Array<Relation>;
+  };
   const addStoryToVisiter = async (_code: string, _storyId: string) => {
     const { mutate } = apolloProvider(() =>
       useMutation(AddStoryToBoxVisiterDocument)
-    )
-    const updated = await mutate({ code: _code, storyId: _storyId })
-    boxVisiter.value = updated?.data?.AddStoryToBoxVisiter as BoxVisiter
-    return boxVisiter.value
-  }
+    );
+    const updated = await mutate({ code: _code, storyId: _storyId });
+    boxVisiter.value = updated?.data?.AddStoryToBoxVisiter as BoxVisiter;
+    return boxVisiter.value;
+  };
   const addFrameToStory = async (_code: string, _frameInput: FrameInput) => {
     const { mutate } = apolloProvider(() =>
       useMutation(AddFrameToStoryBoxVisiterDocument)
-    )
-    const updated = await mutate({ code: _code, frameInput: _frameInput })
-    boxVisiter.value = updated?.data?.AddFrameToStoryBoxVisiter as BoxVisiter
-    return boxVisiter.value
-  }
+    );
+    const updated = await mutate({ code: _code, frameInput: _frameInput });
+    boxVisiter.value = updated?.data?.AddFrameToStoryBoxVisiter as BoxVisiter;
+    return boxVisiter.value;
+  };
   const addAssetToBoxVisiter = async (
     _code: string,
     _assetId: string,
     _type: RelationType.Visited | RelationType.InBasket
   ) => {
-    let relations: Array<Relation>
+    let relations: Array<Relation>;
     const { mutate } = apolloProvider(() =>
       useMutation(AddAssetToBoxVisiterDocument)
-    )
+    );
     const updated = await mutate({
       code: _code,
       assetId: _assetId,
       type: _type,
-    })
-    relations = updated?.data?.AddAssetToBoxVisiter as Array<Relation>
-    console.log({ relations })
-    return relations
-  }
+    });
+    relations = updated?.data?.AddAssetToBoxVisiter as Array<Relation>;
+    console.log({ relations });
+    return relations;
+  };
 
   const resetBoxVister = () => {
-    boxVisiter.value = null
-    return boxVisiter.value
-  }
+    boxVisiter.value = null;
+    return boxVisiter.value;
+  };
 
   const setSelectedStory = (input: StorySelected) => {
-    selectedStory.value = input
-  }
+    selectedStory.value = input;
+  };
+
+  const setStartAsset = (input: Entity) => {
+    startAsset.value = input;
+  };
 
   return {
     create,
@@ -147,7 +154,8 @@ const useBoxVisiter = (
     setSelectedStory,
     addAssetToBoxVisiter,
     resetBoxVister,
-  }
-}
+    setStartAsset,
+  };
+};
 
-export { useBoxVisiter, boxVisiter }
+export { useBoxVisiter, boxVisiter };
