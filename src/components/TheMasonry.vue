@@ -23,8 +23,17 @@
           <a
             v-for="(entity, key2) in tile.mediafiles"
             :key="key2"
-            class="relative group block bg-background-medium"
-            :href="makeUrl(entity)"
+            class="relative group block bg-background-medium cursor-pointer"
+            :href="
+              !useRouterNavigation && entity.object_id
+                ? '/entity/' + entity.object_id
+                : undefined
+            "
+            @click="
+              useRouterNavigation && entity.id
+                ? useRouterNavigation.push('/touchtable/' + entity.id)
+                : undefined
+            "
           >
             <span
               v-show="tile.mediafiles[0] !== 'placeholder'"
@@ -138,34 +147,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onMounted } from "vue"
-import BaseButton from "./BaseButton.vue"
-import LazyLoadImage from "./LazyLoadImage.vue"
-import useClipboard from "vue-clipboard3"
-import { Entity } from "../../lib/queries"
-import { randomizer } from "../helpers"
+import { defineComponent, ref, watch, onMounted } from "vue";
+import BaseButton from "./BaseButton.vue";
+import LazyLoadImage from "./LazyLoadImage.vue";
+import useClipboard from "vue-clipboard3";
+import { Entity } from "../../lib/queries";
+import { randomizer } from "../helpers";
 
-type MasonryImage = "placeholder" | Entity
+type MasonryImage = "placeholder" | Entity;
 
 type MasonryTileConfig = {
   SingleImage: {
-    mediafiles: [MasonryImage]
-    probability: number | "*"
-  }
+    mediafiles: [MasonryImage];
+    probability: number | "*";
+  };
   TwoImages: {
-    mediafiles: [MasonryImage, MasonryImage]
-    probability: number | "*"
-  }
+    mediafiles: [MasonryImage, MasonryImage];
+    probability: number | "*";
+  };
   FourImages: {
-    mediafiles: [MasonryImage, MasonryImage, MasonryImage, MasonryImage]
-    probability: number | "*"
-  }
-}
+    mediafiles: [MasonryImage, MasonryImage, MasonryImage, MasonryImage];
+    probability: number | "*";
+  };
+};
 
 type BaseTile = {
-  type: keyof MasonryTileConfig
-  mediafiles: MasonryImage[]
-}
+  type: keyof MasonryTileConfig;
+  mediafiles: MasonryImage[];
+};
 
 export default defineComponent({
   name: "TheMasonry",
@@ -208,24 +217,27 @@ export default defineComponent({
     showLoadMore: {
       type: Boolean,
       required: false,
-      default: true,
+      default: false,
     },
-    makeUrl: {
+    useRouterNavigation: {
       type: Function,
+      default: undefined,
       required: false,
-      default: (entity: Entity) => {
-        return entity.object_id ? "/entity/" + entity.object_id : undefined
-      },
+    },
+    hasCustomImageOverlay: {
+      type: Boolean,
+      default: false,
+      required: false,
     },
   },
   emits: ["loadMore"],
   setup: (props, { emit }) => {
-    const masonryTiles = ref<Array<BaseTile>>([])
-    const { toClipboard } = useClipboard()
-    const loadMore = () => emit("loadMore")
-    const renderCount = ref<number>(0)
-    const generateUrl = props.generateUrl
-    const noImageUrl = props.noImageUrl
+    const masonryTiles = ref<Array<BaseTile>>([]);
+    const { toClipboard } = useClipboard();
+    const loadMore = () => emit("loadMore");
+    const renderCount = ref<number>(0);
+    const generateUrl = props.generateUrl;
+    const noImageUrl = props.noImageUrl;
 
     const tiles: MasonryTileConfig = {
       SingleImage: {
@@ -245,7 +257,7 @@ export default defineComponent({
         ],
         probability: 0.1,
       },
-    }
+    };
 
     const resizeMasonryItem = (item: any) => {
       let grid = document.getElementsByClassName("masonry")[0],
@@ -254,36 +266,36 @@ export default defineComponent({
         ),
         rowHeight = parseInt(
           window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-        )
+        );
       let rowSpan = Math.ceil(
         (item.querySelector(".card-content").getBoundingClientRect().height +
           rowGap) /
           (rowHeight + rowGap)
-      )
+      );
 
-      item.style.gridRowEnd = "span " + rowSpan
-    }
+      item.style.gridRowEnd = "span " + rowSpan;
+    };
 
     const contructTiles = (numberOfTiles = 20, reset = false) => {
       if (reset) {
-        masonryTiles.value = []
+        masonryTiles.value = [];
       }
 
-      let numberOfEntities = 0
+      let numberOfEntities = 0;
       while (numberOfEntities <= numberOfTiles) {
-        let randomTile = randomizer<keyof MasonryTileConfig>(tiles)
+        let randomTile = randomizer<keyof MasonryTileConfig>(tiles);
         if (randomTile) {
           randomTile =
-            numberOfTiles - numberOfEntities < 4 ? "SingleImage" : randomTile
+            numberOfTiles - numberOfEntities < 4 ? "SingleImage" : randomTile;
 
           switch (randomTile) {
             case "TwoImages":
               masonryTiles.value.push({
                 type: "TwoImages",
                 mediafiles: ["placeholder", "placeholder"],
-              })
-              numberOfEntities = numberOfEntities + 2
-              break
+              });
+              numberOfEntities = numberOfEntities + 2;
+              break;
             case "FourImages":
               masonryTiles.value.push({
                 type: "FourImages",
@@ -293,37 +305,37 @@ export default defineComponent({
                   "placeholder",
                   "placeholder",
                 ],
-              })
-              numberOfEntities = numberOfEntities + 4
-              break
+              });
+              numberOfEntities = numberOfEntities + 4;
+              break;
             default:
               masonryTiles.value.push({
                 type: "SingleImage",
                 mediafiles: ["placeholder"],
-              })
-              numberOfEntities = numberOfEntities + 1
-              break
+              });
+              numberOfEntities = numberOfEntities + 1;
+              break;
           }
         }
       }
-    }
+    };
 
     onMounted(() => {
-      let masonryEvents = ["load", "resize"]
+      let masonryEvents = ["load", "resize"];
       masonryEvents.forEach(function (event) {
-        window.addEventListener(event, resizeAllMasonryItems)
-      })
+        window.addEventListener(event, resizeAllMasonryItems);
+      });
 
-      contructTiles(props.itemsEachLoad)
+      contructTiles(props.itemsEachLoad);
 
       watch(
         () => props.entities.results,
         (value) => {
           if (value) {
-            const filterdValue: Entity[] = value
-            const numberOfResult = filterdValue.length
-            let entityIndex = 0
-            let lastIndex = 0
+            const filterdValue: Entity[] = value;
+            const numberOfResult = filterdValue.length;
+            let entityIndex = 0;
+            let lastIndex = 0;
 
             masonryTiles.value.forEach((tile: BaseTile, index) => {
               if (entityIndex <= numberOfResult) {
@@ -332,85 +344,85 @@ export default defineComponent({
                     masonryTiles.value[index].mediafiles = filterdValue.slice(
                       entityIndex,
                       entityIndex + 2
-                    )
-                    entityIndex = entityIndex + 2
-                    lastIndex = index
-                    break
+                    );
+                    entityIndex = entityIndex + 2;
+                    lastIndex = index;
+                    break;
                   case "FourImages":
                     masonryTiles.value[index].mediafiles = filterdValue.slice(
                       entityIndex,
                       entityIndex + 4
-                    )
-                    entityIndex = entityIndex + 4
-                    lastIndex = index
-                    break
+                    );
+                    entityIndex = entityIndex + 4;
+                    lastIndex = index;
+                    break;
                   default:
                     masonryTiles.value[index].mediafiles = filterdValue.slice(
                       entityIndex,
                       entityIndex + 1
-                    )
-                    entityIndex = entityIndex + 1
-                    lastIndex = index
-                    break
+                    );
+                    entityIndex = entityIndex + 1;
+                    lastIndex = index;
+                    break;
                 }
               }
-            })
-            masonryTiles.value.splice(lastIndex + 1, masonryTiles.value.length)
+            });
+            masonryTiles.value.splice(lastIndex + 1, masonryTiles.value.length);
           }
         },
         { immediate: true }
-      )
-    })
+      );
+    });
 
     const resizeAllMasonryItems = () => {
-      let allItems = document.getElementsByClassName("card")
+      let allItems = document.getElementsByClassName("card");
       for (let i = 0; i < allItems.length; i++) {
-        resizeMasonryItem(allItems[i])
+        resizeMasonryItem(allItems[i]);
       }
-    }
+    };
 
     const copyUrl = async (id: string) => {
       try {
-        var suffix = "/entity/" + id
+        var suffix = "/entity/" + id;
         var splitted = window.location.href.substring(
           0,
           window.location.href.lastIndexOf("/")
-        )
-        var url = splitted + suffix
-        await toClipboard(url)
+        );
+        var url = splitted + suffix;
+        await toClipboard(url);
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    };
 
     const checkForOverflow = () => {
       const element = document.getElementsByClassName(
         "masonry"
-      )[0] as HTMLElement
+      )[0] as HTMLElement;
 
       if (
         element.offsetHeight < element.scrollHeight ||
         element.offsetWidth < element.scrollWidth
       ) {
-        console.log("overflowing masonry")
-        resizeAllMasonryItems()
+        console.log("overflowing masonry");
+        resizeAllMasonryItems();
       }
-    }
+    };
 
     const rendered = () => {
-      resizeAllMasonryItems()
-    }
+      resizeAllMasonryItems();
+    };
 
     const getImageUrl = (
       entity: Entity | "placeholder",
       tiletype: keyof MasonryTileConfig
     ): string | undefined => {
-      console.log({ entity })
+      console.log({ entity });
       if (entity !== "placeholder" && entity.primary_mediafile) {
         return generateUrl(
           entity.primary_mediafile,
           tiletype === "SingleImage" ? "full" : "full"
-        )
+        );
       } else if (entity && entity !== "placeholder") {
         if (
           entity.mediafiles &&
@@ -420,14 +432,14 @@ export default defineComponent({
           return generateUrl(
             entity.mediafiles[0].filename,
             tiletype === "SingleImage" ? "full" : "full"
-          )
+          );
         }
       }
       if (entity === "placeholder") {
-        return undefined
+        return undefined;
       }
-      return noImageUrl
-    }
+      return noImageUrl;
+    };
 
     const getFallBackImageUrl = (
       entity: Entity | "placeholder",
@@ -438,13 +450,13 @@ export default defineComponent({
           entity.primary_mediafile,
           tiletype === "SingleImage" ? "full" : "full",
           "max"
-        )
+        );
       }
       if (entity === "placeholder") {
-        return undefined
+        return undefined;
       }
-      return noImageUrl
-    }
+      return noImageUrl;
+    };
 
     return {
       loadMore,
@@ -454,9 +466,9 @@ export default defineComponent({
       masonryTiles,
       contructTiles,
       getFallBackImageUrl,
-    }
+    };
   },
-})
+});
 </script>
 
 <style scoped>
