@@ -1,6 +1,7 @@
 import { BoxVisiter, FrameInput, Relation, RelationType } from "@/queries";
 import { Ref } from "vue";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client/core";
+import { Entity } from "..";
 export declare type UseBoxVisiter = {
     create: (_storyId: string) => Promise<BoxVisiter>;
     getByCode: (code: string) => Promise<BoxVisiter | null>;
@@ -10,7 +11,9 @@ export declare type UseBoxVisiter = {
     addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
     selectedStory: Ref<StorySelected | undefined>;
     setSelectedStory: (input: StorySelected) => void;
+    setStartAsset: (input: Entity) => void;
     resetBoxVister: () => null;
+    getTouchTableHistory: () => Array<Relation>;
     boxVisiter: Ref<BoxVisiter | null>;
 };
 export declare type StorySelected = {
@@ -86,5 +89,6 @@ declare const boxVisiter: Ref<{
     start_time?: string | null | undefined;
     touch_table_time?: string | null | undefined;
 } | null>;
+declare const startAsset: Ref<Entity | undefined>;
 declare const useBoxVisiter: (_client: ApolloClient<NormalizedCacheObject>) => UseBoxVisiter;
-export { useBoxVisiter, boxVisiter };
+export { useBoxVisiter, boxVisiter, startAsset };

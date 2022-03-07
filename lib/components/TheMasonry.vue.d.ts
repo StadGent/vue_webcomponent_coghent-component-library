@@ -51,8 +51,8 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
     useRouterNavigation: {
-        type: FunctionConstructor;
-        default: undefined;
+        type: BooleanConstructor;
+        default: boolean;
         required: false;
     };
     hasCustomImageOverlay: {
@@ -229,7 +229,8 @@ declare const _default: import("vue").DefineComponent<{
     }[]>;
     contructTiles: (numberOfTiles?: number, reset?: boolean) => void;
     getFallBackImageUrl: (entity: Entity | "placeholder", tiletype: keyof MasonryTileConfig) => string | undefined;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "loadMore"[], "loadMore", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    emitForRouterNavigation: (entity: Entity) => void;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("loadMore" | "navigateWithRouter")[], "loadMore" | "navigateWithRouter", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     entities?: unknown;
     loading?: unknown;
     small?: unknown;
@@ -249,17 +250,17 @@ declare const _default: import("vue").DefineComponent<{
     generateUrl: Function;
     noImageUrl: string;
     showLoadMore: boolean;
+    useRouterNavigation: boolean;
     hasCustomImageOverlay: boolean;
-} & {
-    useRouterNavigation?: Function | undefined;
-}> & {
+} & {}> & {
     onLoadMore?: ((...args: any[]) => any) | undefined;
+    onNavigateWithRouter?: ((...args: any[]) => any) | undefined;
 }, {
     small: boolean;
     itemsEachLoad: number;
     endOfData: boolean;
     showLoadMore: boolean;
-    useRouterNavigation: Function;
+    useRouterNavigation: boolean;
     hasCustomImageOverlay: boolean;
 }>;
 export default _default;

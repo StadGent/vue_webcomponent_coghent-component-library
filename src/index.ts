@@ -56,8 +56,10 @@ import {
   StorySelected,
   UseBoxVisiter,
 } from "./composables/useBoxVisiter";
+import { useIIIF } from './composables/useIIIF';
 
 export {
+  useIIIF,
   PrintBoxTicketDocument,
   Relation,
   RelationType,
