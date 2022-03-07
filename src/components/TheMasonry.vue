@@ -35,79 +35,82 @@
                 : undefined
             "
           >
-            <span
-              v-show="tile.mediafiles[0] !== 'placeholder'"
-              class="
-                w-full
-                bg-text-dark
-                h-full
-                left-0
-                top-0
-                group-hover:opacity-50
-                opacity-0
-                absolute
-                rounded-md
-              "
-            >
-            </span>
-
-            <span
-              v-show="!small && tile.mediafiles[0] !== 'placeholder'"
-              class="
-                absolute
-                w-full
-                h-full
-                left-0
-                top-0
-                group-hover:opacity-100
-                opacity-0
-              "
-            >
-              <div
+            <div v-if="!hasCustomImageOverlay">
+              <span
+                v-show="tile.mediafiles[0] !== 'placeholder'"
                 class="
                   w-full
+                  bg-text-dark
                   h-full
-                  flex flex-col
-                  items-center
-                  justify-center
-                  text-center text-text-white
+                  left-0
+                  top-0
+                  group-hover:opacity-50
+                  opacity-0
+                  absolute
+                  rounded-md
                 "
               >
-                <p
-                  v-if="entity.title && entity.title[0]"
-                  class="opacity-100 mb-2 px-10 font-bold"
-                >
-                  {{ entity.title[0].value }}
-                </p>
-                <p
-                  v-if="
-                    entity.description &&
-                    entity.description[0] &&
-                    tile.type === 'SingleImage'
-                  "
-                  id="description"
-                  class="opacity-100 px-10 overflow-ellipsis break-words"
-                >
-                  {{ entity.description[0].value }}
-                </p>
-                <base-button
-                  text="Lees meer"
-                  custom-style="ghost-white"
-                  :icon-shown="true"
-                  :icon-left="false"
-                  custom-icon="arrowRightLine"
-                />
+              </span>
 
-                <div @click.prevent="() => copyUrl(entity.id)">
+              <span
+                v-show="!small && tile.mediafiles[0] !== 'placeholder'"
+                class="
+                  absolute
+                  w-full
+                  h-full
+                  left-0
+                  top-0
+                  group-hover:opacity-100
+                  opacity-0
+                "
+              >
+                <div
+                  class="
+                    w-full
+                    h-full
+                    flex flex-col
+                    items-center
+                    justify-center
+                    text-center text-text-white
+                  "
+                >
+                  <p
+                    v-if="entity.title && entity.title[0]"
+                    class="opacity-100 mb-2 px-10 font-bold"
+                  >
+                    {{ entity.title[0].value }}
+                  </p>
+                  <p
+                    v-if="
+                      entity.description &&
+                      entity.description[0] &&
+                      tile.type === 'SingleImage'
+                    "
+                    id="description"
+                    class="opacity-100 px-10 overflow-ellipsis break-words"
+                  >
+                    {{ entity.description[0].value }}
+                  </p>
                   <base-button
-                    class="z-10 w-0 mt-3 ml-3"
-                    custom-style="secondary-round"
+                    text="Lees meer"
+                    custom-style="ghost-white"
                     :icon-shown="true"
-                    custom-icon="link"
+                    :icon-left="false"
+                    custom-icon="arrowRightLine"
                   />
+
+                  <div @click.prevent="() => copyUrl(entity.id)">
+                    <base-button
+                      class="z-10 w-0 mt-3 ml-3"
+                      custom-style="secondary-round"
+                      :icon-shown="true"
+                      custom-icon="link"
+                    />
+                  </div>
                 </div>
-              </div>
-            </span>
+              </span>
+            </div>
+            <slot v-else name="tile" v-bind="entity"></slot>
             <LazyLoadImage
               :url="getImageUrl(entity, tile.type)"
               :width="
