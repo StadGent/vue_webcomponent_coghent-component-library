@@ -7,7 +7,7 @@ const useIIIF = (_url: string) => {
     format: 'square' | 'full',
     size: number | 'max' = 1000,
   ) => {
-    return `${_url}iiif/3/${filename}/${format}/${size === 'max' ? size : size + ','
+    return `${_url}iiif/3/${filename}/${format}/${size === 'max' ? '^' + size : size + ','
       }/0/default.jpg`;
   };
 
