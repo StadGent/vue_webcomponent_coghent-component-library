@@ -55,6 +55,7 @@ import {
   useBoxVisiter,
   StorySelected,
   UseBoxVisiter,
+  startAsset,
 } from "./composables/useBoxVisiter";
 import { useIIIF } from './composables/useIIIF';
 
@@ -74,6 +75,7 @@ export {
   useBoxVisiter,
   UseBoxVisiter,
   boxVisiter,
+  startAsset,
   GetStoryByIdDocument,
   GetActiveBoxDocument,
   GetBoxVisitersDocument,
