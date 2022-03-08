@@ -220,7 +220,7 @@ export default defineComponent({
     showLoadMore: {
       type: Boolean,
       required: false,
-      default: false,
+      default: true,
     },
     useRouterNavigation: {
       type: Boolean,
@@ -424,7 +424,6 @@ export default defineComponent({
       entity: Entity | "placeholder",
       tiletype: keyof MasonryTileConfig
     ): string | undefined => {
-      console.log({ entity });
       if (entity !== "placeholder" && entity.primary_mediafile) {
         return generateUrl(
           entity.primary_mediafile,
