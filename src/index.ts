@@ -49,6 +49,7 @@ import LazyLoadImage from "./components/LazyLoadImage.vue";
 import BaseMetaData from "./components/BaseMetaData.vue";
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue";
 import TheMasonry from "./components/TheMasonry.vue";
+import BaseOverlay from "./components/BaseOverlay.vue";
 import { ModalState, ImageSource } from "./types";
 import {
   boxVisiter,
@@ -57,7 +58,7 @@ import {
   UseBoxVisiter,
   startAsset,
 } from "./composables/useBoxVisiter";
-import { useIIIF } from './composables/useIIIF';
+import { useIIIF } from "./composables/useIIIF";
 
 export {
   useIIIF,
@@ -67,6 +68,7 @@ export {
   StorySelected,
   Entity,
   TheMasonry,
+  BaseOverlay,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
   FrameInput,
