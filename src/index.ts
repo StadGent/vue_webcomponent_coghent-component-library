@@ -57,6 +57,7 @@ import {
   StorySelected,
   UseBoxVisiter,
   startAsset,
+  selectedStory,
 } from "./composables/useBoxVisiter";
 import { useIIIF } from "./composables/useIIIF";
 
@@ -66,6 +67,7 @@ export {
   Relation,
   RelationType,
   StorySelected,
+  selectedStory,
   Entity,
   TheMasonry,
   BaseOverlay,
