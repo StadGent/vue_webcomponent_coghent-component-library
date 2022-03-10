@@ -1,14 +1,15 @@
 const useIIIF = (_url: string) => {
-
-  const noImageUrl = '/no-image.png';
+  const noImageUrl = "/no-image.png";
 
   const generateUrl = (
     filename: string,
-    format: 'square' | 'full',
-    size: number | 'max' = 1000,
+    format: "square" | "full",
+    width: string | "max" = "1000",
+    height: number | undefined = undefined
   ) => {
-    return `${_url}iiif/3/${filename}/${format}/${size === 'max' ? size : `^${size},`
-      }/0/default.jpg`;
+    return `${_url}iiif/3/${filename}/${format}/${
+      width === "max" ? width : `^${width},${height ? height : ""}`
+    }/0/default.jpg`;
   };
 
   const generateInfoUrl = (filename: string) => {

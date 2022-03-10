@@ -46,6 +46,7 @@ export type UseBoxVisiter = {
   getTouchTableHistory: () => Array<Relation>;
   getTouchTableBasket: () => Array<Relation>;
   boxVisiter: Ref<BoxVisiter | null>;
+  startAsset: Ref<Entity | undefined>;
 };
 
 export type StorySelected = {
@@ -165,6 +166,7 @@ const useBoxVisiter = (
     addStoryToVisiter,
     addFrameToStory,
     selectedStory,
+    startAsset,
     setSelectedStory,
     addAssetToBoxVisiter,
     resetBoxVister,
