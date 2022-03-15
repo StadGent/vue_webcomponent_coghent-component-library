@@ -42,7 +42,7 @@ export type UseBoxVisiter = {
   selectedStory: Ref<StorySelected | undefined>;
   setSelectedStory: (input: StorySelected) => void;
   setStartAsset: (input: Entity) => void;
-  resetBoxVister: () => null;
+  resetBoxVisiter: () => null;
   getTouchTableHistory: () => Array<Relation>;
   getTouchTableBasket: () => Array<Relation>;
   boxVisiter: Ref<BoxVisiter | null>;
@@ -133,7 +133,7 @@ const useBoxVisiter = (
     return relations;
   };
 
-  const resetBoxVister = () => {
+  const resetBoxVisiter = () => {
     boxVisiter.value = null;
     return boxVisiter.value;
   };
@@ -169,7 +169,7 @@ const useBoxVisiter = (
     startAsset,
     setSelectedStory,
     addAssetToBoxVisiter,
-    resetBoxVister,
+    resetBoxVisiter,
     setStartAsset,
     getTouchTableHistory,
     getTouchTableBasket,
