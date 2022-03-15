@@ -406,11 +406,11 @@ query getBoxVisiters {
   }
 }
 
-query printBoxTicket($code: String!){
-    PrintBoxTicket(code: $code){
-        code
-        body        
-    }
+query printBoxTicket($code: String!) {
+  PrintBoxTicket(code: $code) {
+    code
+    body
+  }
 }
 
 query getBoxVisiterByCode($code: String!) {
@@ -440,6 +440,12 @@ mutation addStoryToBoxVisiter($code: String!, $storyId: String!) {
 mutation addFrameToStoryBoxVisiter($code: String!, $frameInput: FrameInput!) {
   AddFrameToStoryBoxVisiter(code: $code, frameInput: $frameInput) {
     ...fullBoxVisiter
+  }
+}
+
+mutation addTouchTableTimeToBoxVisiter($code: String!, $time: String!) {
+  addTouchTableTimeToBoxVisiter(code: $code, time: $time) {
+    touch_table_time
   }
 }
 
