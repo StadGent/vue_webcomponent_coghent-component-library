@@ -6,6 +6,7 @@
       v-model:zoomOut="zoomOutDiv"
       v-model:fullPage="fullPageButtonDiv"
       v-model:home="homeDiv"
+      :canGoFullScreen="canGoFullScreen"
     />
     <div
       v-show="loading"
@@ -27,9 +28,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from "vue"
-import OpenSeadragon from "openseadragon"
-import ViewerToolbar from "./ViewerToolbar.vue"
+import { defineComponent, onMounted, ref, watch } from "vue";
+import OpenSeadragon from "openseadragon";
+import ViewerToolbar from "./ViewerToolbar.vue";
 
 export default defineComponent({
   name: "IIIFViewer",
@@ -38,16 +39,17 @@ export default defineComponent({
   },
   props: {
     imageUrl: { type: String, default: "" },
+    canGoFullScreen: { type: Boolean, default: true, required: false },
   },
   setup: (props) => {
-    const OpenSeadragonDiv = ref<HTMLDivElement | undefined>(undefined)
+    const OpenSeadragonDiv = ref<HTMLDivElement | undefined>(undefined);
 
-    const zoomInDiv = ref<string | undefined>(undefined)
-    const zoomOutDiv = ref<string | undefined>(undefined)
-    const fullPageButtonDiv = ref<string | undefined>(undefined)
-    const homeDiv = ref<string | undefined>(undefined)
-    let viewer: any = undefined
-    const loading = ref<boolean>(true)
+    const zoomInDiv = ref<string | undefined>(undefined);
+    const zoomOutDiv = ref<string | undefined>(undefined);
+    const fullPageButtonDiv = ref<string | undefined>(undefined);
+    const homeDiv = ref<string | undefined>(undefined);
+    let viewer: any = undefined;
+    const loading = ref<boolean>(true);
 
     onMounted(() => {
       const dragonOption: OpenSeadragon.Options = {
@@ -57,37 +59,37 @@ export default defineComponent({
         toolbar: document.getElementById("OpenSeadragon-toolbar"),
         // @ts-ignore
         tileSources: props.imageUrl,
-      }
+      };
 
       if (zoomInDiv.value !== null) {
-        dragonOption.zoomInButton = zoomInDiv.value
+        dragonOption.zoomInButton = zoomInDiv.value;
       }
       if (zoomOutDiv.value !== null) {
-        dragonOption.zoomOutButton = zoomOutDiv.value
+        dragonOption.zoomOutButton = zoomOutDiv.value;
       }
       if (fullPageButtonDiv.value !== null) {
-        dragonOption.fullPageButton = fullPageButtonDiv.value
+        dragonOption.fullPageButton = fullPageButtonDiv.value;
       }
       if (homeDiv.value !== null) {
-        dragonOption.homeButton = homeDiv.value
+        dragonOption.homeButton = homeDiv.value;
       }
 
-      viewer = OpenSeadragon(dragonOption)
+      viewer = OpenSeadragon(dragonOption);
 
       watch(
         () => props.imageUrl,
         (value: string) => {
           if (value) {
-            loading.value = true
-            viewer.open(value)
+            loading.value = true;
+            viewer.open(value);
           }
         }
-      )
+      );
 
       viewer.addHandler("tile-drawn", () => {
-        loading.value = false
-      })
-    })
+        loading.value = false;
+      });
+    });
 
     return {
       OpenSeadragonDiv,
@@ -96,9 +98,9 @@ export default defineComponent({
       fullPageButtonDiv,
       homeDiv,
       loading,
-    }
+    };
   },
-})
+});
 </script>
 
 <style scoped>

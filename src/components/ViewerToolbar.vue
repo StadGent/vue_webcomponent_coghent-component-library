@@ -1,5 +1,6 @@
 <template>
   <a
+    v-if="canGoFullScreen"
     ref="fullPageRef"
     class="
       left-2
@@ -74,8 +75,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, PropType } from "vue"
-import BaseIcon from "./BaseIcon.vue"
+import { defineComponent, onMounted, ref, PropType } from "vue";
+import BaseIcon from "./BaseIcon.vue";
 
 export default defineComponent({
   name: "ViewerToolbar",
@@ -99,29 +100,36 @@ export default defineComponent({
       type: Object as PropType<HTMLDivElement | string | null>,
       default: null,
     },
+    canGoFullScreen: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   emits: ["update:zoomIn", "update:zoomOut", "update:fullPage", "update:home"],
   setup: (_props, { emit }) => {
-    const zoomInRef = ref<HTMLDivElement | undefined>(undefined)
-    const zoomOutRef = ref<HTMLDivElement | undefined>(undefined)
-    const fullPageRef = ref<HTMLDivElement | undefined>(undefined)
-    const homeRef = ref<HTMLDivElement | undefined>(undefined)
+    const zoomInRef = ref<HTMLDivElement | undefined>(undefined);
+    const zoomOutRef = ref<HTMLDivElement | undefined>(undefined);
+    const fullPageRef = ref<HTMLDivElement | undefined>(undefined);
+    const homeRef = ref<HTMLDivElement | undefined>(undefined);
+
+    console.log(_props.canGoFullScreen);
 
     onMounted(() => {
-      emit("update:zoomIn", zoomInRef.value)
-      emit("update:zoomOut", zoomOutRef.value)
-      emit("update:fullPage", fullPageRef.value)
-      emit("update:home", homeRef.value)
-    })
+      emit("update:zoomIn", zoomInRef.value);
+      emit("update:zoomOut", zoomOutRef.value);
+      emit("update:fullPage", fullPageRef.value);
+      emit("update:home", homeRef.value);
+    });
 
     return {
       zoomInRef,
       zoomOutRef,
       fullPageRef,
       homeRef,
-    }
+    };
   },
-})
+});
 </script>
 <style lang="style" scoped>
 a.absolute{
