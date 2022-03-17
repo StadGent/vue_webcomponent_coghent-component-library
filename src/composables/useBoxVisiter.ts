@@ -42,11 +42,13 @@ export type UseBoxVisiter = {
   selectedStory: Ref<StorySelected | undefined>;
   setSelectedStory: (input: StorySelected) => void;
   setStartAsset: (input: Entity) => void;
+  setHistoryAsset: (input: Entity) => void;
   resetBoxVisiter: () => null;
   getTouchTableHistory: () => Array<Relation>;
   getTouchTableBasket: () => Array<Relation>;
   boxVisiter: Ref<BoxVisiter | null>;
   startAsset: Ref<Entity | undefined>;
+  historyAsset: Ref<Entity | undefined>;
 };
 
 export type StorySelected = {
@@ -58,6 +60,7 @@ export type StorySelected = {
 const selectedStory = ref<StorySelected | undefined>();
 const boxVisiter = ref<BoxVisiter | null>(null);
 const startAsset = ref<Entity | undefined>();
+const historyAsset = ref<Entity | undefined>();
 
 const useBoxVisiter = (
   _client: ApolloClient<NormalizedCacheObject>
@@ -135,6 +138,8 @@ const useBoxVisiter = (
 
   const resetBoxVisiter = () => {
     boxVisiter.value = null;
+    startAsset.value = undefined;
+    historyAsset.value = undefined;
     return boxVisiter.value;
   };
 
@@ -144,6 +149,10 @@ const useBoxVisiter = (
 
   const setStartAsset = (input: Entity) => {
     startAsset.value = input;
+  };
+
+  const setHistoryAsset = (input: Entity) => {
+    historyAsset.value = input;
   };
 
   const getTouchTableHistory = () => {
@@ -167,13 +176,15 @@ const useBoxVisiter = (
     addFrameToStory,
     selectedStory,
     startAsset,
+    historyAsset,
     setSelectedStory,
     addAssetToBoxVisiter,
     resetBoxVisiter,
     setStartAsset,
     getTouchTableHistory,
     getTouchTableBasket,
+    setHistoryAsset,
   };
 };
 
-export { useBoxVisiter, boxVisiter, startAsset, selectedStory };
+export { useBoxVisiter, boxVisiter, startAsset, selectedStory, historyAsset };
