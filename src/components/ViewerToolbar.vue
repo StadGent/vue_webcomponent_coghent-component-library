@@ -113,8 +113,6 @@ export default defineComponent({
     const fullPageRef = ref<HTMLDivElement | undefined>(undefined);
     const homeRef = ref<HTMLDivElement | undefined>(undefined);
 
-    console.log(_props.canGoFullScreen);
-
     onMounted(() => {
       emit("update:zoomIn", zoomInRef.value);
       emit("update:zoomOut", zoomOutRef.value);

@@ -42,13 +42,14 @@ export type UseBoxVisiter = {
   selectedStory: Ref<StorySelected | undefined>;
   setSelectedStory: (input: StorySelected) => void;
   setStartAsset: (input: Entity) => void;
-  setHistoryAsset: (input: Entity) => void;
+  addHistoryAsset: (input: Entity) => void;
   resetBoxVisiter: () => null;
   getTouchTableHistory: () => Array<Relation>;
   getTouchTableBasket: () => Array<Relation>;
   boxVisiter: Ref<BoxVisiter | null>;
   startAsset: Ref<Entity | undefined>;
-  historyAsset: Ref<Entity | undefined>;
+  historyAssets: Ref<Entity[]>;
+  clearHistoryAssets: () => void;
 };
 
 export type StorySelected = {
@@ -60,7 +61,7 @@ export type StorySelected = {
 const selectedStory = ref<StorySelected | undefined>();
 const boxVisiter = ref<BoxVisiter | null>(null);
 const startAsset = ref<Entity | undefined>();
-const historyAsset = ref<Entity | undefined>();
+const historyAssets = ref<Entity[]>([]);
 
 const useBoxVisiter = (
   _client: ApolloClient<NormalizedCacheObject>
@@ -139,7 +140,7 @@ const useBoxVisiter = (
   const resetBoxVisiter = () => {
     boxVisiter.value = null;
     startAsset.value = undefined;
-    historyAsset.value = undefined;
+    historyAssets.value = [];
     return boxVisiter.value;
   };
 
@@ -151,8 +152,12 @@ const useBoxVisiter = (
     startAsset.value = input;
   };
 
-  const setHistoryAsset = (input: Entity) => {
-    historyAsset.value = input;
+  const addHistoryAsset = (input: Entity) => {
+    historyAssets.value.unshift(input);
+  };
+
+  const clearHistoryAssets = () => {
+    historyAssets.value = [];
   };
 
   const getTouchTableHistory = () => {
@@ -176,15 +181,16 @@ const useBoxVisiter = (
     addFrameToStory,
     selectedStory,
     startAsset,
-    historyAsset,
+    historyAssets,
     setSelectedStory,
     addAssetToBoxVisiter,
     resetBoxVisiter,
     setStartAsset,
     getTouchTableHistory,
     getTouchTableBasket,
-    setHistoryAsset,
+    addHistoryAsset,
+    clearHistoryAssets,
   };
 };
 
-export { useBoxVisiter, boxVisiter, startAsset, selectedStory, historyAsset };
+export { useBoxVisiter, boxVisiter, startAsset, selectedStory, historyAssets };
