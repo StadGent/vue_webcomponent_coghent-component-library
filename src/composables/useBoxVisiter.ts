@@ -44,8 +44,6 @@ export type UseBoxVisiter = {
   setStartAsset: (input: Entity) => void;
   addHistoryAsset: (input: Entity) => void;
   resetBoxVisiter: () => null;
-  getTouchTableHistory: () => Array<Relation>;
-  getTouchTableBasket: () => Array<Relation>;
   boxVisiter: Ref<BoxVisiter | null>;
   startAsset: Ref<Entity | undefined>;
   historyAssets: Ref<Entity[]>;
@@ -160,18 +158,6 @@ const useBoxVisiter = (
     historyAssets.value = [];
   };
 
-  const getTouchTableHistory = () => {
-    return boxVisiter.value?.relations?.filter(
-      (relation: any) => relation.type == "visited"
-    ) as Array<Relation>;
-  };
-
-  const getTouchTableBasket = () => {
-    return boxVisiter.value?.relations?.filter(
-      (relation: any) => relation.type == "inBasket"
-    ) as Array<Relation>;
-  };
-
   return {
     create,
     getByCode,
@@ -186,8 +172,6 @@ const useBoxVisiter = (
     addAssetToBoxVisiter,
     resetBoxVisiter,
     setStartAsset,
-    getTouchTableHistory,
-    getTouchTableBasket,
     addHistoryAsset,
     clearHistoryAssets,
   };
