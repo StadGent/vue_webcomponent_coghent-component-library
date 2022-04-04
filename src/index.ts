@@ -61,8 +61,13 @@ import {
   historyAssets,
 } from "./composables/useBoxVisiter";
 import { useIIIF } from "./composables/useIIIF";
+import { MIMETYPES, VideoMIME, AudioMIME, ImageMIME, } from './composables/mimetype';
 
 export {
+  ImageMIME,
+  AudioMIME,
+  VideoMIME,
+  MIMETYPES,
   useIIIF,
   PrintBoxTicketDocument,
   Relation,
