@@ -244,6 +244,12 @@ fragment storyEntity on Entity {
       width
       height
     }
+    mediatype{
+      type
+      mime
+      audio
+      video
+    }
   }
   primary_mediafile_location
 }

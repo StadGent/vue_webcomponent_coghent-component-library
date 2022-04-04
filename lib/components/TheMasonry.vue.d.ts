@@ -217,6 +217,15 @@ declare const _default: import("vue").DefineComponent<{
                     key?: string | null | undefined;
                     value?: string | null | undefined;
                 } | null)[] | null | undefined;
+                mediatype?: {
+                    __typename?: "MimeType" | undefined;
+                    type?: string | null | undefined;
+                    mime?: import("../../lib/queries").Mime | null | undefined;
+                    audio?: boolean | null | undefined;
+                    video?: boolean | null | undefined;
+                    image?: boolean | null | undefined;
+                } | null | undefined;
+                mimetype?: string | null | undefined;
             } | null)[] | null | undefined;
             primary_mediafile?: string | null | undefined;
             primary_mediafile_info?: {

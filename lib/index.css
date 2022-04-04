@@ -138467,3 +138467,13 @@ html[data-v-7e4054c4] {
 .card-content[data-v-7e4054c4] {
   gap: 15px;
 }
+
+.v-enter-active[data-v-6664bebf],
+.v-leave-active[data-v-6664bebf] {
+  transition: transform 0.5s ease;
+}
+
+.v-enter-from[data-v-6664bebf],
+.v-leave-to[data-v-6664bebf] {
+  transform: translateY(-100%);
+}

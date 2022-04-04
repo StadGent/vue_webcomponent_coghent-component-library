@@ -3,6 +3,11 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    canGoFullScreen: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
+    };
 }, {
     OpenSeadragonDiv: import("vue").Ref<HTMLDivElement | undefined>;
     zoomInDiv: import("vue").Ref<string | undefined>;
@@ -12,9 +17,12 @@ declare const _default: import("vue").DefineComponent<{
     loading: import("vue").Ref<boolean>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     imageUrl?: unknown;
+    canGoFullScreen?: unknown;
 } & {
     imageUrl: string;
+    canGoFullScreen: boolean;
 } & {}> & {}, {
     imageUrl: string;
+    canGoFullScreen: boolean;
 }>;
 export default _default;

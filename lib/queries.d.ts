@@ -108,6 +108,15 @@ export declare enum JsPatchOp {
     Replace = "replace",
     Remove = "remove"
 }
+export declare enum Mime {
+    Audiompeg = "AUDIOMPEG",
+    Imgjpg = "IMGJPG",
+    Imgtiff = "IMGTIFF",
+    Imgpng = "IMGPNG",
+    Videomp4 = "VIDEOMP4",
+    Videowav = "VIDEOWAV",
+    Textplain = "TEXTPLAIN"
+}
 export declare type MediaFile = {
     __typename?: 'MediaFile';
     _id: Scalars['String'];
@@ -117,6 +126,8 @@ export declare type MediaFile = {
     entities?: Maybe<Array<Maybe<Scalars['String']>>>;
     mediainfo?: Maybe<MediaInfo>;
     metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
+    mediatype?: Maybe<MimeType>;
+    mimetype?: Maybe<Scalars['String']>;
 };
 export declare type MediaFileMetadata = {
     __typename?: 'MediaFileMetadata';
@@ -168,11 +179,20 @@ export declare type MetadataInput = {
     value: Scalars['String'];
     lang?: Maybe<Scalars['String']>;
 };
+export declare type MimeType = {
+    __typename?: 'MimeType';
+    type?: Maybe<Scalars['String']>;
+    mime?: Maybe<Mime>;
+    audio?: Maybe<Scalars['Boolean']>;
+    video?: Maybe<Scalars['Boolean']>;
+    image?: Maybe<Scalars['Boolean']>;
+};
 export declare type Mutation = {
     __typename?: 'Mutation';
     replaceMetadata: Array<Metadata>;
     AddStoryToBoxVisiter: BoxVisiter;
     AddFrameToStoryBoxVisiter: BoxVisiter;
+    addTouchTableTimeToBoxVisiter: BoxVisiter;
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
 };
 export declare type MutationReplaceMetadataArgs = {
@@ -186,6 +206,10 @@ export declare type MutationAddStoryToBoxVisiterArgs = {
 export declare type MutationAddFrameToStoryBoxVisiterArgs = {
     code: Scalars['String'];
     frameInput: FrameInput;
+};
+export declare type MutationAddTouchTableTimeToBoxVisiterArgs = {
+    code: Scalars['String'];
+    time: Scalars['String'];
 };
 export declare type MutationAddAssetToBoxVisiterArgs = {
     code: Scalars['String'];
@@ -686,6 +710,13 @@ export declare type StoryEntityFragment = {
             width: string;
             height: string;
         }>;
+        mediatype?: Maybe<{
+            __typename?: 'MimeType';
+            type?: Maybe<string>;
+            mime?: Maybe<Mime>;
+            audio?: Maybe<boolean>;
+            video?: Maybe<boolean>;
+        }>;
     }>>>;
 };
 export declare type FullUserFragment = {
@@ -946,6 +977,17 @@ export declare type AddFrameToStoryBoxVisiterMutation = {
         __typename?: 'BoxVisiter';
     } & FullBoxVisiterFragment);
 };
+export declare type AddTouchTableTimeToBoxVisiterMutationVariables = Exact<{
+    code: Scalars['String'];
+    time: Scalars['String'];
+}>;
+export declare type AddTouchTableTimeToBoxVisiterMutation = {
+    __typename?: 'Mutation';
+    addTouchTableTimeToBoxVisiter: {
+        __typename?: 'BoxVisiter';
+        touch_table_time?: Maybe<string>;
+    };
+};
 export declare type AddAssetToBoxVisiterMutationVariables = Exact<{
     code: Scalars['String'];
     assetId: Scalars['String'];
@@ -1051,6 +1093,10 @@ export declare const AddStoryToBoxVisiterDocument: DocumentNode<AddStoryToBoxVis
 export declare const AddFrameToStoryBoxVisiterDocument: DocumentNode<AddFrameToStoryBoxVisiterMutation, Exact<{
     code: Scalars['String'];
     frameInput: FrameInput;
+}>>;
+export declare const AddTouchTableTimeToBoxVisiterDocument: DocumentNode<AddTouchTableTimeToBoxVisiterMutation, Exact<{
+    code: Scalars['String'];
+    time: Scalars['String'];
 }>>;
 export declare const AddAssetToBoxVisiterDocument: DocumentNode<AddAssetToBoxVisiterMutation, Exact<{
     code: Scalars['String'];

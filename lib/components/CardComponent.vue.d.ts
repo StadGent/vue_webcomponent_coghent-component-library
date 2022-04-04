@@ -24,6 +24,11 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         required: false;
     };
+    scroll: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
+    };
 }, {
     backgroundColor: string;
     roundsColor: string;
@@ -35,10 +40,12 @@ declare const _default: import("vue").DefineComponent<{
     backgroundColor?: unknown;
     ringColor?: unknown;
     roundsColor?: unknown;
+    scroll?: unknown;
 } & {
     large: boolean;
     reverseColors: boolean;
     sideStrip: boolean;
+    scroll: boolean;
 } & {
     backgroundColor?: string | undefined;
     ringColor?: string | undefined;
@@ -46,5 +53,6 @@ declare const _default: import("vue").DefineComponent<{
 }> & {}, {
     reverseColors: boolean;
     sideStrip: boolean;
+    scroll: boolean;
 }>;
 export default _default;

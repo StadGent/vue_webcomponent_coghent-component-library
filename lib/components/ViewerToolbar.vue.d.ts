@@ -16,6 +16,11 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<string | HTMLDivElement | null>;
         default: null;
     };
+    canGoFullScreen: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
 }, {
     zoomInRef: import("vue").Ref<HTMLDivElement | undefined>;
     zoomOutRef: import("vue").Ref<HTMLDivElement | undefined>;
@@ -26,11 +31,13 @@ declare const _default: import("vue").DefineComponent<{
     zoomOut?: unknown;
     fullPage?: unknown;
     home?: unknown;
+    canGoFullScreen?: unknown;
 } & {
     zoomIn: string | HTMLDivElement | null;
     zoomOut: string | HTMLDivElement | null;
     fullPage: string | HTMLDivElement | null;
     home: string | HTMLDivElement | null;
+    canGoFullScreen: boolean;
 } & {}> & {
     "onUpdate:zoomIn"?: ((...args: any[]) => any) | undefined;
     "onUpdate:zoomOut"?: ((...args: any[]) => any) | undefined;
@@ -41,5 +48,6 @@ declare const _default: import("vue").DefineComponent<{
     zoomOut: string | HTMLDivElement | null;
     fullPage: string | HTMLDivElement | null;
     home: string | HTMLDivElement | null;
+    canGoFullScreen: boolean;
 }>;
 export default _default;
