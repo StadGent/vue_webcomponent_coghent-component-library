@@ -75,6 +75,8 @@ export declare type Entity = {
     primary_mediafile?: Maybe<Scalars['String']>;
     primary_mediafile_info?: Maybe<MediaInfo>;
     primary_mediafile_location?: Maybe<Scalars['String']>;
+    primary_width?: Maybe<Scalars['String']>;
+    primary_height?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -128,6 +130,8 @@ export declare type MediaFile = {
     metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
     mediatype?: Maybe<MimeType>;
     mimetype?: Maybe<Scalars['String']>;
+    img_width?: Maybe<Scalars['String']>;
+    img_height?: Maybe<Scalars['String']>;
 };
 export declare type MediaFileMetadata = {
     __typename?: 'MediaFileMetadata';
@@ -686,11 +690,17 @@ export declare type CreatorFragment = {
         label?: Maybe<string>;
     }>>>;
 };
-export declare type StoryEntityFragment = {
+export declare type PrimaryMediafileInfoFragment = {
+    __typename?: 'Entity';
+    primary_width?: Maybe<string>;
+    primary_height?: Maybe<string>;
+    primary_mediafile?: Maybe<string>;
+    primary_mediafile_location?: Maybe<string>;
+};
+export declare type StoryEntityFragment = ({
     __typename?: 'Entity';
     id: string;
     type: string;
-    primary_mediafile_location?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -718,7 +728,7 @@ export declare type StoryEntityFragment = {
             video?: Maybe<boolean>;
         }>;
     }>>>;
-};
+} & PrimaryMediafileInfoFragment);
 export declare type FullUserFragment = {
     __typename?: 'User';
     id: string;
@@ -1022,6 +1032,7 @@ export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragmen
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
 export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const FullBoxVisiterFragmentDoc: DocumentNode<FullBoxVisiterFragment, unknown>;
+export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
 export declare const FullStoryFragmentDoc: DocumentNode<FullStoryFragment, unknown>;

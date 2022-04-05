@@ -226,6 +226,13 @@ fragment creator on Entity {
   }
 }
 
+fragment primaryMediafileInfo on Entity {
+  primary_width
+  primary_height
+  primary_mediafile
+  primary_mediafile_location
+}
+
 fragment storyEntity on Entity {
   id
   type
@@ -251,7 +258,7 @@ fragment storyEntity on Entity {
       video
     }
   }
-  primary_mediafile_location
+  ...primaryMediafileInfo
 }
 
 fragment fullUser on User {

@@ -226,6 +226,8 @@ declare const _default: import("vue").DefineComponent<{
                     image?: boolean | null | undefined;
                 } | null | undefined;
                 mimetype?: string | null | undefined;
+                img_width?: string | null | undefined;
+                img_height?: string | null | undefined;
             } | null)[] | null | undefined;
             primary_mediafile?: string | null | undefined;
             primary_mediafile_info?: {
@@ -234,6 +236,8 @@ declare const _default: import("vue").DefineComponent<{
                 height: string;
             } | null | undefined;
             primary_mediafile_location?: string | null | undefined;
+            primary_width?: string | null | undefined;
+            primary_height?: string | null | undefined;
         })[];
     }[]>;
     contructTiles: (numberOfTiles?: number, reset?: boolean) => void;

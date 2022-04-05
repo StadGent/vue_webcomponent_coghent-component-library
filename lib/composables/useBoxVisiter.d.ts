@@ -253,6 +253,8 @@ declare const historyAssets: Ref<{
             image?: boolean | null | undefined;
         } | null | undefined;
         mimetype?: string | null | undefined;
+        img_width?: string | null | undefined;
+        img_height?: string | null | undefined;
     } | null)[] | null | undefined;
     primary_mediafile?: string | null | undefined;
     primary_mediafile_info?: {
@@ -261,6 +263,8 @@ declare const historyAssets: Ref<{
         height: string;
     } | null | undefined;
     primary_mediafile_location?: string | null | undefined;
+    primary_width?: string | null | undefined;
+    primary_height?: string | null | undefined;
 }[]>;
 declare const useBoxVisiter: (_client: ApolloClient<NormalizedCacheObject>) => UseBoxVisiter;
 export { useBoxVisiter, boxVisiter, startAsset, selectedStory, historyAssets };
