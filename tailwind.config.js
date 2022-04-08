@@ -49,10 +49,10 @@ module.exports = {
         selected: "#2d242a",
       },
       stories: {
-        pink: "#B65099CC",
-        yellow: "#FDC20B",
-        green: "#02A77FCC",
-        blue: "#9fcdd9",
+        blue: "#3596DB",
+        pink: "#92407A",
+        yellow: "#CA9B09",
+        green: "#028666",
       },
       touchtable: {
         dark: "#2D242A"
