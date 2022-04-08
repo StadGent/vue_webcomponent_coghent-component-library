@@ -237,6 +237,7 @@ fragment primaryMediafileInfo on Entity {
   primary_width
   primary_height
   primary_mediafile
+  primary_transcode
   primary_mediafile_location
 }
 
@@ -254,6 +255,7 @@ fragment storyEntity on Entity {
   mediafiles {
     original_file_location
     filename
+    transcode_filename
     mediainfo {
       width
       height
