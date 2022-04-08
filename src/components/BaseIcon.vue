@@ -7,6 +7,7 @@ type CustomIcon =
   | "storybox"
   | "globe"
   | "delete"
+  | "wasteBasket"
   | "edit"
   | "logout"
   | "user"
@@ -57,6 +58,13 @@ const icons: Record<CustomIcon, string> = {
 </svg>`,
   delete: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="none" viewBox="0 0 16 17">
     <path stroke-linecap="round" stroke-linejoin="round" d="M2 6v8c0 .53.21 1.04.586 1.414C2.96 15.79 3.47 16 4 16h7c.53 0 1.04-.21 1.414-.586C12.79 15.04 13 14.53 13 14V6M1 4h13M5 4V1h5v3M5 13l5-5M10 13L5 8"/>
+</svg>`,
+  wasteBasket: `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 6V14C2 14.5304 2.21071 15.0391 2.58579 15.4142C2.96086 15.7893 3.46957 16 4 16H11C11.5304 16 12.0391 15.7893 12.4142 15.4142C12.7893 15.0391 13 14.5304 13 14V6" stroke="#2D242A" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1 4H14" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5 4V1H10V4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5 13L10 8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10 13L5 8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
   edit: `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 17 17">
     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 7.5l-4-4M6 15l-5 1 1-5L12 1l4 4L6 15z"/>

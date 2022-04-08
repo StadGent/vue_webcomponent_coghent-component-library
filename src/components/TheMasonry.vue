@@ -424,9 +424,12 @@ export default defineComponent({
       entity: Entity | "placeholder",
       tiletype: keyof MasonryTileConfig
     ): string | undefined => {
-      if (entity !== "placeholder" && entity.primary_mediafile) {
+      if (
+        entity !== "placeholder" &&
+        (entity.primary_transcode || entity.primary_mediafile)
+      ) {
         return generateUrl(
-          entity.primary_mediafile,
+          entity.primary_transcode || entity.primary_mediafile,
           tiletype === "SingleImage" ? "full" : "full"
         );
       } else if (entity && entity !== "placeholder") {
@@ -451,7 +454,15 @@ export default defineComponent({
       entity: Entity | "placeholder",
       tiletype: keyof MasonryTileConfig
     ): string | undefined => {
-      if (entity !== "placeholder" && entity.primary_mediafile) {
+      if (
+        entity !== "placeholder" &&
+        (entity.primary_transcode || entity.primary_mediafile)
+      ) {
+        return generateUrl(
+          entity.primary_transcode || entity.primary_mediafile,
+          tiletype === "SingleImage" ? "full" : "full"
+        );
+      } else if (entity !== "placeholder" && entity.primary_mediafile) {
         return generateUrl(
           entity.primary_mediafile,
           tiletype === "SingleImage" ? "full" : "full",

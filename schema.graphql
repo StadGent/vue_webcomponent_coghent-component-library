@@ -127,6 +127,7 @@ type Entity {
   frames: [Entity]
   mediafiles: [MediaFile]
   primary_mediafile: String
+  primary_transcode: String
   primary_mediafile_info: MediaInfo
   primary_mediafile_location: String
   primary_width: String
@@ -146,7 +147,7 @@ type MediaFileMetadata {
 type MimeType {
   type: String
   mime: MIME
-  audio: Boolean,
+  audio: Boolean
   video: Boolean
   image: Boolean
 }

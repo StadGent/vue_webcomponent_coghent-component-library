@@ -11,6 +11,7 @@ fragment minimalEntity on Entity {
     value
   }
   primary_mediafile
+  primary_transcode
   primary_mediafile_info {
     width
     height
@@ -196,6 +197,7 @@ fragment fullEntity on Entity {
     ...MetadataCollectionFields
   }
   primary_mediafile
+  primary_transcode
   mediafiles {
     _id
     original_file_location
@@ -251,7 +253,7 @@ fragment storyEntity on Entity {
       width
       height
     }
-    mediatype{
+    mediatype {
       type
       mime
       audio
