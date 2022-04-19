@@ -24,16 +24,7 @@
             v-for="(entity, key2) in tile.mediafiles"
             :key="key2"
             class="relative group block bg-background-medium cursor-pointer"
-            :href="
-              !useRouterNavigation && entity.object_id
-                ? '/entity/' + entity.object_id
-                : undefined
-            "
-            @click="
-              useRouterNavigation && entity.id
-                ? emitForRouterNavigation(entity)
-                : undefined
-            "
+            @click="entity.id ? emitForRouterNavigation(entity) : undefined"
           >
             <div v-if="!hasCustomImageOverlay">
               <span
@@ -221,11 +212,6 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true,
-    },
-    useRouterNavigation: {
-      type: Boolean,
-      default: false,
-      required: false,
     },
     hasCustomImageOverlay: {
       type: Boolean,
