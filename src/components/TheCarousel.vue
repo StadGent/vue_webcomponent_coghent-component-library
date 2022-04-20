@@ -31,7 +31,10 @@
           class="h-5 w-5 ml-0.5 stroke-current fill-current stroke-2"
         />
       </a>
-      <IIIFViewer :imageUrl="source[selectedIndex].infoJson" />
+      <IIIFViewer
+        :canGoFullScreen="isTouch ? false : true"
+        :imageUrl="source[selectedIndex].infoJson"
+      />
     </section>
   </base-modal>
   <!--Carousel -->
@@ -151,14 +154,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, SetupContext } from "vue"
-import BaseButton from "./BaseButton.vue"
-import BaseModal from "./BaseModal.vue"
-import BaseIcon from "./BaseIcon.vue"
-import IIIFViewer from "./IIIFViewer.vue"
-import CopyrightTab from "./CopyrightTab.vue"
-import LazyLoadImage from "./LazyLoadImage.vue"
-import { ImageSource, ModalState } from "@/types"
+import { defineComponent, PropType, ref, SetupContext } from "vue";
+import BaseButton from "./BaseButton.vue";
+import BaseModal from "./BaseModal.vue";
+import BaseIcon from "./BaseIcon.vue";
+import IIIFViewer from "./IIIFViewer.vue";
+import CopyrightTab from "./CopyrightTab.vue";
+import LazyLoadImage from "./LazyLoadImage.vue";
+import { ImageSource, ModalState } from "@/types";
 
 export default defineComponent({
   props: {
@@ -173,6 +176,11 @@ export default defineComponent({
     mediafiles: {
       type: Array,
     },
+    isTouch: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
   components: {
     BaseButton,
@@ -184,55 +192,55 @@ export default defineComponent({
   },
   emits: ["openingCcmodal", "currentCarouselPicture"],
   setup(props, { emit }: SetupContext) {
-    const selectedIndex = ref<number>(0)
-    const nextIndex = ref<number>(0)
-    const prevIndex = ref<number>(0)
-    const openIIIFModal = ref<ModalState>("hide")
-    const openTab = ref<boolean>(false)
+    const selectedIndex = ref<number>(0);
+    const nextIndex = ref<number>(0);
+    const prevIndex = ref<number>(0);
+    const openIIIFModal = ref<ModalState>("hide");
+    const openTab = ref<boolean>(false);
 
     const nextImage = () => {
       selectedIndex.value =
         selectedIndex.value < props.source.length - 1
           ? selectedIndex.value + 1
-          : 0
-    }
+          : 0;
+    };
 
     const prevImage = () => {
       selectedIndex.value =
         selectedIndex.value === 0
           ? props.source.length - 1
-          : selectedIndex.value - 1
-    }
+          : selectedIndex.value - 1;
+    };
 
     const getNextImage = () => {
       return (nextIndex.value =
         selectedIndex.value < props.source.length - 1
           ? selectedIndex.value + 1
-          : 0)
-    }
+          : 0);
+    };
 
     const getPrevImage = () => {
       return (prevIndex.value =
         selectedIndex.value === 0
           ? props.source.length - 1
-          : selectedIndex.value - 1)
-    }
+          : selectedIndex.value - 1);
+    };
 
     const openFullscreenModal = () => {
-      openIIIFModal.value = "show"
-    }
+      openIIIFModal.value = "show";
+    };
 
     const closeFullscreenModal = () => {
-      openIIIFModal.value = "hide"
-    }
+      openIIIFModal.value = "hide";
+    };
 
     // const toggleCCTab = () => {
     //   openTab.value = !openTab.value
     // }
 
     const openCCModal = () => {
-      emit("openingCcmodal", true)
-    }
+      emit("openingCcmodal", true);
+    };
 
     return {
       selectedIndex,
@@ -246,8 +254,8 @@ export default defineComponent({
       openTab,
       // toggleCCTab,
       openCCModal,
-    }
+    };
   },
-})
+});
 </script>
 <style scoped></style>
