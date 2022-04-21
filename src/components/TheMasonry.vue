@@ -90,7 +90,7 @@
                     custom-icon="arrowRightLine"
                   />
 
-                  <div @click.prevent="() => copyUrl(entity.id)">
+                  <div v-if="!noCopy" @click.prevent="() => copyUrl(entity.id)">
                     <base-button
                       class="z-10 w-0 mt-3 ml-3"
                       custom-style="secondary-round"
@@ -207,6 +207,11 @@ export default defineComponent({
     noImageUrl: {
       type: String,
       required: true,
+    },
+    noCopy: {
+      type: Boolean,
+      default: false,
+      required: false,
     },
     showLoadMore: {
       type: Boolean,
