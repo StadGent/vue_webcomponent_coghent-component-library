@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="w-max">
     <div
       class="
-        top-0
+        top-1
         right-0
         hidden
         z-30
@@ -15,11 +15,12 @@
         lg:block
       "
     >
-      <div class="static">
+      <div class="static w-full">
         <div
           v-show="openTab"
           @click="openCCModal"
           class="
+            w-full
             bg-neutral-0
             inline-block
             rounded-md
@@ -32,7 +33,7 @@
             divide-y divide-neutral-80
           "
         >
-          <div v-if="copyrightInfo" class="">
+          <div v-if="copyrightInfo" class="text-xxs">
             <div v-if="copyrightInfo.rights" class="pb-2">
               <h5 class="font-bold">Licentie</h5>
               <p>{{ copyrightInfo.rights }}</p>
@@ -47,7 +48,7 @@
             </div>
           </div>
           <!-- <div class="border-r-2 border-solid h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" /> -->
-          <p class="text-xs w-full text-accent-purple">
+          <p class="text-xxs w-full text-accent-purple">
             {{ infotext }}
           </p>
         </div>
