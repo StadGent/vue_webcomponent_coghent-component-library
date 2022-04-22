@@ -12,6 +12,11 @@ declare const _default: import("vue").DefineComponent<{
     mediafiles: {
         type: ArrayConstructor;
     };
+    isTouch: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
+    };
 }, {
     selectedIndex: import("vue").Ref<number>;
     prevImage: () => void;
@@ -27,19 +32,25 @@ declare const _default: import("vue").DefineComponent<{
     infotext?: unknown;
     source?: unknown;
     mediafiles?: unknown;
+    isTouch?: unknown;
 } & {
     infotext: string;
     source: ImageSource[];
+    isTouch: boolean;
 } & {
     mediafiles?: unknown[] | undefined;
 }> & {}) | (Readonly<{
     infotext?: unknown;
     source?: unknown;
     mediafiles?: unknown;
+    isTouch?: unknown;
 } & {
     infotext: string;
     source: ImageSource[];
+    isTouch: boolean;
 } & {
     mediafiles?: unknown[] | undefined;
-}> & {}), {}>;
+}> & {}), {
+    isTouch: boolean;
+}>;
 export default _default;

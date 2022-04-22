@@ -64,7 +64,7 @@ export declare type Entity = {
     metadataCollection?: Maybe<Array<Maybe<MetadataCollection>>>;
     title: Array<Maybe<Metadata>>;
     scopeNote: Array<Maybe<Metadata>>;
-    collections: Array<Maybe<Metadata>>;
+    collections: Array<Maybe<Relation>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     relationMetadata?: Maybe<Array<Maybe<Relation>>>;
     components?: Maybe<Array<Maybe<Entity>>>;
@@ -73,6 +73,7 @@ export declare type Entity = {
     frames?: Maybe<Array<Maybe<Entity>>>;
     mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     primary_mediafile?: Maybe<Scalars['String']>;
+    primary_transcode?: Maybe<Scalars['String']>;
     primary_mediafile_info?: Maybe<MediaInfo>;
     primary_mediafile_location?: Maybe<Scalars['String']>;
     primary_width?: Maybe<Scalars['String']>;
@@ -125,6 +126,7 @@ export declare type MediaFile = {
     original_file_location?: Maybe<Scalars['String']>;
     thumbnail_file_location?: Maybe<Scalars['String']>;
     filename?: Maybe<Scalars['String']>;
+    transcode_filename?: Maybe<Scalars['String']>;
     entities?: Maybe<Array<Maybe<Scalars['String']>>>;
     mediainfo?: Maybe<MediaInfo>;
     metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
@@ -194,8 +196,8 @@ export declare type MimeType = {
 export declare type Mutation = {
     __typename?: 'Mutation';
     replaceMetadata: Array<Metadata>;
-    AddStoryToBoxVisiter: BoxVisiter;
-    AddFrameToStoryBoxVisiter: BoxVisiter;
+    AddStoryToBoxVisiter?: Maybe<BoxVisiter>;
+    AddFrameToStoryBoxVisiter?: Maybe<BoxVisiter>;
     addTouchTableTimeToBoxVisiter: BoxVisiter;
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
 };
@@ -272,6 +274,7 @@ export declare type Relation = {
     __typename?: 'Relation';
     key: Scalars['String'];
     type: RelationType;
+    order?: Maybe<Scalars['Int']>;
     label?: Maybe<Scalars['String']>;
     value?: Maybe<Scalars['String']>;
     timestamp_start?: Maybe<Scalars['Float']>;
@@ -285,7 +288,6 @@ export declare type Relation = {
     active?: Maybe<Scalars['Boolean']>;
     last_frame?: Maybe<Scalars['String']>;
     seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
-    order?: Maybe<Scalars['Int']>;
     total_frames?: Maybe<Scalars['Int']>;
 };
 export declare enum RelationType {
@@ -297,10 +299,11 @@ export declare enum RelationType {
     Components = "components",
     Parent = "parent",
     CarriedOutBy = "carriedOutBy",
+    Stories = "stories",
     Visited = "visited",
     InBasket = "inBasket",
     Frames = "frames",
-    Stories = "stories",
+    BoxStories = "box_stories",
     Box = "box"
 }
 export declare type RelationsResults = {
@@ -445,6 +448,7 @@ export declare type MinimalEntityFragment = {
     object_id: string;
     type: string;
     primary_mediafile?: Maybe<string>;
+    primary_transcode?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -466,6 +470,7 @@ export declare type TouchTableEntityFragment = {
     id: string;
     type: string;
     primary_mediafile?: Maybe<string>;
+    primary_transcode?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -479,6 +484,7 @@ export declare type TouchTableEntityFragment = {
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
         filename?: Maybe<string>;
+        transcode_filename?: Maybe<string>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';
@@ -516,8 +522,8 @@ export declare type FullStoryFragment = ({
         assets?: Maybe<Array<Maybe<({
             __typename?: 'Entity';
             collections: Array<Maybe<{
-                __typename?: 'Metadata';
-                key: MetaKey;
+                __typename?: 'Relation';
+                key: string;
                 value?: Maybe<string>;
             }>>;
         } & StoryEntityFragment)>>>;
@@ -574,6 +580,7 @@ export declare type NestedEntityFragment = {
         __typename?: 'MediaFile';
         _id: string;
         original_file_location?: Maybe<string>;
+        transcode_filename?: Maybe<string>;
         filename?: Maybe<string>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
@@ -618,6 +625,7 @@ export declare type NestedEndEntityFragment = {
         __typename?: 'MediaFile';
         _id: string;
         original_file_location?: Maybe<string>;
+        transcode_filename?: Maybe<string>;
         filename?: Maybe<string>;
     }>>>;
     relations?: Maybe<Array<Maybe<{
@@ -633,6 +641,7 @@ export declare type FullEntityFragment = {
     id: string;
     type: string;
     primary_mediafile?: Maybe<string>;
+    primary_transcode?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -660,6 +669,7 @@ export declare type FullEntityFragment = {
         __typename?: 'MediaFile';
         _id: string;
         original_file_location?: Maybe<string>;
+        transcode_filename?: Maybe<string>;
         filename?: Maybe<string>;
         metadata?: Maybe<Array<Maybe<{
             __typename?: 'MediaFileMetadata';
@@ -695,6 +705,7 @@ export declare type PrimaryMediafileInfoFragment = {
     primary_width?: Maybe<string>;
     primary_height?: Maybe<string>;
     primary_mediafile?: Maybe<string>;
+    primary_transcode?: Maybe<string>;
     primary_mediafile_location?: Maybe<string>;
 };
 export declare type StoryEntityFragment = ({
@@ -715,6 +726,7 @@ export declare type StoryEntityFragment = ({
         __typename?: 'MediaFile';
         original_file_location?: Maybe<string>;
         filename?: Maybe<string>;
+        transcode_filename?: Maybe<string>;
         mediainfo?: Maybe<{
             __typename?: 'MediaInfo';
             width: string;
@@ -973,9 +985,9 @@ export declare type AddStoryToBoxVisiterMutationVariables = Exact<{
 }>;
 export declare type AddStoryToBoxVisiterMutation = {
     __typename?: 'Mutation';
-    AddStoryToBoxVisiter: ({
+    AddStoryToBoxVisiter?: Maybe<({
         __typename?: 'BoxVisiter';
-    } & FullBoxVisiterFragment);
+    } & FullBoxVisiterFragment)>;
 };
 export declare type AddFrameToStoryBoxVisiterMutationVariables = Exact<{
     code: Scalars['String'];
@@ -983,9 +995,9 @@ export declare type AddFrameToStoryBoxVisiterMutationVariables = Exact<{
 }>;
 export declare type AddFrameToStoryBoxVisiterMutation = {
     __typename?: 'Mutation';
-    AddFrameToStoryBoxVisiter: ({
+    AddFrameToStoryBoxVisiter?: Maybe<({
         __typename?: 'BoxVisiter';
-    } & FullBoxVisiterFragment);
+    } & FullBoxVisiterFragment)>;
 };
 export declare type AddTouchTableTimeToBoxVisiterMutationVariables = Exact<{
     code: Scalars['String'];

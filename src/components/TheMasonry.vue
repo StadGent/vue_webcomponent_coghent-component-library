@@ -145,8 +145,8 @@ import { defineComponent, ref, watch, onMounted } from "vue";
 import BaseButton from "./BaseButton.vue";
 import LazyLoadImage from "./LazyLoadImage.vue";
 import useClipboard from "vue-clipboard3";
-import { Entity } from "../../lib/queries";
 import { randomizer } from "../helpers";
+import { Entity } from '@/queries';
 
 type MasonryImage = "placeholder" | Entity;
 

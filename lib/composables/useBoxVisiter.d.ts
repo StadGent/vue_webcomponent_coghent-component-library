@@ -34,6 +34,7 @@ declare const boxVisiter: Ref<{
         __typename?: "Relation" | undefined;
         key: string;
         type: RelationType;
+        order?: number | null | undefined;
         label?: string | null | undefined;
         value?: string | null | undefined;
         timestamp_start?: number | null | undefined;
@@ -56,13 +57,13 @@ declare const boxVisiter: Ref<{
             id: string;
             date: number;
         } | null)[] | null | undefined;
-        order?: number | null | undefined;
         total_frames?: number | null | undefined;
     } | null)[] | null | undefined;
     relationByType?: ({
         __typename?: "Relation" | undefined;
         key: string;
         type: RelationType;
+        order?: number | null | undefined;
         label?: string | null | undefined;
         value?: string | null | undefined;
         timestamp_start?: number | null | undefined;
@@ -85,7 +86,6 @@ declare const boxVisiter: Ref<{
             id: string;
             date: number;
         } | null)[] | null | undefined;
-        order?: number | null | undefined;
         total_frames?: number | null | undefined;
     } | null)[] | null | undefined;
     frames_seen_last_visit?: number | null | undefined;
@@ -156,19 +156,10 @@ declare const historyAssets: Ref<{
         type?: RelationType | null | undefined;
     } | null)[];
     collections: ({
-        __typename?: "Metadata" | undefined;
-        key: import("../queries").MetaKey;
-        value?: string | null | undefined;
-        nestedMetaData?: any | null | undefined;
-        lang?: string | null | undefined;
-        unMappedKey?: string | null | undefined;
-        label?: string | null | undefined;
-        type?: RelationType | null | undefined;
-    } | null)[];
-    relations?: ({
         __typename?: "Relation" | undefined;
         key: string;
         type: RelationType;
+        order?: number | null | undefined;
         label?: string | null | undefined;
         value?: string | null | undefined;
         timestamp_start?: number | null | undefined;
@@ -191,13 +182,42 @@ declare const historyAssets: Ref<{
             id: string;
             date: number;
         } | null)[] | null | undefined;
+        total_frames?: number | null | undefined;
+    } | null)[];
+    relations?: ({
+        __typename?: "Relation" | undefined;
+        key: string;
+        type: RelationType;
         order?: number | null | undefined;
+        label?: string | null | undefined;
+        value?: string | null | undefined;
+        timestamp_start?: number | null | undefined;
+        timestamp_end?: number | null | undefined;
+        timestamp_zoom?: number | null | undefined;
+        position?: {
+            __typename?: "Position" | undefined;
+            x?: number | null | undefined;
+            y?: number | null | undefined;
+            z?: number | null | undefined;
+        } | null | undefined;
+        scale?: number | null | undefined;
+        audioFile?: string | null | undefined;
+        subtitleFile?: string | null | undefined;
+        date?: string | null | undefined;
+        active?: boolean | null | undefined;
+        last_frame?: string | null | undefined;
+        seen_frames?: ({
+            __typename?: "FrameSeen" | undefined;
+            id: string;
+            date: number;
+        } | null)[] | null | undefined;
         total_frames?: number | null | undefined;
     } | null)[] | null | undefined;
     relationMetadata?: ({
         __typename?: "Relation" | undefined;
         key: string;
         type: RelationType;
+        order?: number | null | undefined;
         label?: string | null | undefined;
         value?: string | null | undefined;
         timestamp_start?: number | null | undefined;
@@ -220,7 +240,6 @@ declare const historyAssets: Ref<{
             id: string;
             date: number;
         } | null)[] | null | undefined;
-        order?: number | null | undefined;
         total_frames?: number | null | undefined;
     } | null)[] | null | undefined;
     components?: (any | null)[] | null | undefined;
@@ -233,7 +252,8 @@ declare const historyAssets: Ref<{
         original_file_location?: string | null | undefined;
         thumbnail_file_location?: string | null | undefined;
         filename?: string | null | undefined;
-        entities?: (string | null)[] | null | undefined;
+        transcode_filename?: string | null | undefined;
+        entities?: import("../queries").Maybe<string>[] | null | undefined;
         mediainfo?: {
             __typename?: "MediaInfo" | undefined;
             width: string;
@@ -257,6 +277,7 @@ declare const historyAssets: Ref<{
         img_height?: string | null | undefined;
     } | null)[] | null | undefined;
     primary_mediafile?: string | null | undefined;
+    primary_transcode?: string | null | undefined;
     primary_mediafile_info?: {
         __typename?: "MediaInfo" | undefined;
         width: string;

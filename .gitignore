@@ -2,6 +2,7 @@
 node_modules
 /dist
 .npmrc
+/lib
 
 # local env files
 .env.local
