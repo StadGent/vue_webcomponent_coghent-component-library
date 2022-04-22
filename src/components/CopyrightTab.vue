@@ -1,155 +1,172 @@
 <template>
   <div>
-    <div class="top-0 right-0 hidden z-30 bg-neutral-0 mt-2 rounded-full mr-3 cursor-pointer absolute lg:block">
+    <div
+      class="
+        top-0
+        right-0
+        hidden
+        z-30
+        bg-neutral-0
+        mt-2
+        rounded-full
+        mr-3
+        cursor-pointer
+        absolute
+        lg:block
+      "
+    >
       <div class="static">
-        <div v-show="openTab" @click="openCCModal" class="flex bg-neutral-0 inline-block rounded-full items-center w-min shadow px-5 z-20 pr-8 divide-x divide-neutral-80">
-          <div class="flex">
-          <base-icon v-for="icon in secondaryIcons" v-bind:key="icon" class="flex mr-3 -ml-2 stroke-current text-text-dark py-2 stroke-0" :icon="icon" />
+        <div
+          v-show="openTab"
+          @click="openCCModal"
+          class="
+            bg-neutral-0
+            inline-block
+            rounded-md
+            items-center
+            w-min
+            shadow
+            p-4
+            z-20
+            pr-8
+            divide-y divide-neutral-80
+          "
+        >
+          <div v-if="copyrightInfo" class="">
+            <div v-if="copyrightInfo.rights" class="pb-2">
+              <h5 class="font-bold">Licentie</h5>
+              <p>{{ copyrightInfo.rights }}</p>
+            </div>
+            <div v-if="copyrightInfo.source" class="pb-2">
+              <h5 class="font-bold">Rechtenhouder</h5>
+              <p>{{ copyrightInfo.source }}</p>
+            </div>
+            <div v-if="copyrightInfo.photographer" class="pb-2">
+              <h5 class="font-bold">Fotograaf</h5>
+              <p>{{ copyrightInfo.photographer }}</p>
+            </div>
           </div>
           <!-- <div class="border-r-2 border-solid h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" /> -->
-          <p class="text-xxs w-max mr-3 pl-3 text-accent-purple">{{infotext}}</p>
+          <p class="text-xs w-full text-accent-purple">
+            {{ infotext }}
+          </p>
         </div>
       </div>
       <base-button
-        class="absolute right-0 w-0 z-30 transform scale-90"
-        :class="{ [`-mt-10`]: openTab }"
+        class="absolute flex items-center justify-center right-0 top-0 z-30"
         customStyle="cc-round-black"
-        :customIcon="customIcon"
+        customIcon="info"
         :iconShown="true"
         :onClick="toggleCCTab"
+        :noMargin="true"
       />
     </div>
 
-    <div class="top-0 right-0 absolute z-30 bg-neutral-0 mt-2 rounded-full mr-3 cursor-pointer lg:hidden">
-      <base-button class="absolute right-0 w-0 z-30 transform scale-90" customStyle="cc-round-black" :customIcon="customIcon" :iconShown="true" :onClick="openCCModal" />
+    <div
+      class="
+        top-0
+        right-0
+        absolute
+        z-30
+        mt-2
+        mr-3
+        bg-neutral-0
+        rounded-full
+        cursor-pointer
+        lg:hidden
+      "
+    >
+      <base-button
+        class="absolute flex items-center justify-center right-0 z-30"
+        customStyle="cc-round-black"
+        customIcon="info"
+        :iconShown="true"
+        :noMargin="true"
+        :onClick="openCCModal"
+      />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, SetupContext, watch } from 'vue'
-import BaseIcon from './BaseIcon.vue'
-import BaseButton from './BaseButton.vue'
+import { defineComponent, ref, SetupContext, watch } from "vue";
+import BaseIcon from "./BaseIcon.vue";
+import BaseButton from "./BaseButton.vue";
+
+type CopyrightTabInfo = {
+  rights: string;
+  source: string;
+  publicationStatus: string;
+};
 
 export default defineComponent({
-  props:{
-    infotext:{
+  props: {
+    infotext: {
       type: String,
-      required: true
+      required: true,
     },
     mediafiles: {
-      type: Array
+      type: Array,
     },
     selectedIndex: {
-      type: Number
+      type: Number,
     },
   },
   components: {
     BaseIcon,
-    BaseButton
+    BaseButton,
   },
-  emits: ['openingCcmodal'],
+  emits: ["openingCcmodal"],
   setup(props, { emit }: SetupContext) {
-    const openTab = ref<boolean>(false)
-    const customIcon = ref<string>()
-    const secondaryIcons = ref<string[]>()
-    const localMediaFiles: any[] | undefined = props.mediafiles
-    const selectedIndex = ref<number>(props.selectedIndex||0)
-    let selectedImageRightsCategory = ref<string>()
-    let copyrightStatement = ref<string>()
+    const openTab = ref<boolean>(false);
+    const secondaryIcons = ref<string[]>();
+    const localMediaFiles: any[] | undefined = props.mediafiles;
+    const selectedIndex = ref<number>(props.selectedIndex || 0);
+    const copyrightInfo = ref<CopyrightTabInfo>();
 
-    const getRightsCategory = (metadata: string) => {
-      if (metadata && metadata.toLowerCase().includes('in copyright')){
-          selectedImageRightsCategory.value = "In Copyright"
+    const createObjectFromInfo = (info: any[]): CopyrightTabInfo => {
+      const tabInfoObject = {
+        rights: info.find((infoItem: any) => infoItem.key == "rights")?.value,
+        source: info.find((infoItem: any) => infoItem.key == "source")?.value,
+        publicationStatus: info.find(
+          (infoItem: any) => infoItem.key == "publication_status"
+        )?.value,
+        photographer: info.find(
+          (infoItem: any) => infoItem.key == "photographer"
+        )?.value,
+      };
+      return tabInfoObject as CopyrightTabInfo;
+    };
+
+    watch(
+      () => selectedIndex.value,
+      (index) => {
+        if (localMediaFiles && index != undefined) {
+          const infoObject = createObjectFromInfo(
+            localMediaFiles[index].metadata
+          );
+          console.log({ infoObject });
+          copyrightInfo.value = infoObject;
         }
-        else if (metadata && metadata.toLowerCase().includes('cc')){
-          selectedImageRightsCategory.value = "CC"
-        }
-        else{
-          selectedImageRightsCategory.value = "Public Domain"
-        }
-
-    }
-
-    if (localMediaFiles && selectedIndex && localMediaFiles[selectedIndex.value]){
-      copyrightStatement.value = localMediaFiles[selectedIndex.value].metadata[0].value
-      getRightsCategory(localMediaFiles[selectedIndex.value].metadata[0].value)
-    }
-
-    watch(() => props.selectedIndex ,(index) =>{
-      if (localMediaFiles && index){
-        copyrightStatement.value = localMediaFiles[index].metadata[0].value
-        if (copyrightStatement.value){
-        getRightsCategory(copyrightStatement.value)
-        }
-        }
-      })
-
-    const getCustomIconBasedOnCopyrightCategory = (category: string) => {
-      const icon = category == 'In Copyright' ? 'copyrightCategoryRS' : category == 'CC' ? 'copyrightCategoryCC' : 'copyrightCategoryPDM'
-      return icon
-    }
-
-    const getSecondaryCopyrightIcons = () => {
-      const iconArray: string[] = []
-      switch (copyrightStatement.value){
-        case 'CC0':
-           iconArray.push('copyrightCategoryCC', 'copyrightCategoryZero')
-           break
-        case 'CC BY-NC':
-           iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC')
-        case'CC-BY-NC-ND 4.0':
-          iconArray.push('copyrightCategoryCC', 'copyrightCategoryBY', 'copyrightCategoryNC', 'copyrightCategoryND')
-          break
-        case'In Copyright':
-          iconArray.push('copyrightCategoryIC')
-          break
-        case'In Copyright - unknown rightsholder':
-        case'In Copyright -  unknown rightsholder':
-          iconArray.push('copyrightCategoryICUR')
-          break
-        case'In Copyright - non-commercial use permitted':
-          iconArray.push('copyrightCategoryICNC')
-          break
-        case 'Public Domain Mark 1.0':
-          iconArray.push('copyrightCategoryPDM')
-          break
-        default:
-          break
-      }
-      return iconArray
-    }
-
-    if (selectedImageRightsCategory.value){
-    customIcon.value = getCustomIconBasedOnCopyrightCategory(selectedImageRightsCategory.value)
-    secondaryIcons.value = getSecondaryCopyrightIcons()
-    }
-
-     watch(() => selectedImageRightsCategory.value, (category) => {
-       if (category){
-         customIcon.value = getCustomIconBasedOnCopyrightCategory(category)
-       }
-    })
-
-    watch(() => copyrightStatement.value, () => {
-      secondaryIcons.value = getSecondaryCopyrightIcons()
-    })
+      },
+      { immediate: true }
+    );
 
     const toggleCCTab = () => {
-      openTab.value = !openTab.value
-    }
+      openTab.value = !openTab.value;
+    };
 
     const openCCModal = () => {
-      emit('openingCcmodal', true)
+      emit("openingCcmodal", true);
       openTab.value = false;
-    }
+    };
 
     return {
       toggleCCTab,
       openTab,
       openCCModal,
-      customIcon,
-      secondaryIcons
-    }
+      secondaryIcons,
+      copyrightInfo,
+    };
   },
-})
+});
 </script>

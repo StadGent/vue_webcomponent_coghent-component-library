@@ -6,15 +6,19 @@
   >
     <base-icon
       v-if="iconShown && iconLeft"
-      class="flex mr-3 -ml-2 stroke-current"
-      :class="iconstyles[customIconStyle]"
+      :class="
+        `flex ${noMargin ? '' : 'mr-3 -ml-2'} stroke-current ` +
+        iconstyles[customIconStyle]
+      "
       :icon="customIcon"
     />
     {{ text }}
     <base-icon
       v-if="iconShown && !iconLeft"
-      class="flex ml-2 -mr-2 stroke-current"
-      :class="iconstyles[customIconStyle]"
+      :class="
+        `flex ${noMargin ? '' : 'mr-3 -ml-2'} stroke-current ` +
+        iconstyles[customIconStyle]
+      "
       :icon="customIcon"
     />
   </span>
@@ -25,6 +29,7 @@ import BaseIcon from "./BaseIcon.vue";
 type CustomIcon =
   | "storybox"
   | "globe"
+  | "info"
   | "delete"
   | "edit"
   | "logout"
@@ -54,7 +59,7 @@ const buttonstyles: Record<ButtonTypes, string> = {
   "secondary-round":
     "text-accent-purple bg-text-white rounded-full shadow-lg px-4 py-2",
   "cc-round-black":
-    "text-text-black bg-text-white rounded-full shadow-lg px-4 pr-6 py-2 stroke-0",
+    "text-text-black bg-text-white rounded-full shadow-lg stroke-3 px-2 py-2",
   "round-white": "text-text-white px-2 py-2",
   "details-black": "text-text-dark py-3",
   "touchtable-white-round": "text-text-dark p-8 bg-text-white rounded-full",
@@ -96,6 +101,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true,
+    },
+    noMargin: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   emits: [],
