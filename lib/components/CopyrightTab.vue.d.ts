@@ -1,3 +1,8 @@
+declare type CopyrightTabInfo = {
+    rights: string;
+    source: string;
+    publicationStatus: string;
+};
 declare const _default: import("vue").DefineComponent<{
     infotext: {
         type: StringConstructor;
@@ -13,8 +18,8 @@ declare const _default: import("vue").DefineComponent<{
     toggleCCTab: () => void;
     openTab: import("vue").Ref<boolean>;
     openCCModal: () => void;
-    customIcon: import("vue").Ref<string | undefined>;
     secondaryIcons: import("vue").Ref<string[] | undefined>;
+    copyrightInfo: import("vue").Ref<CopyrightTabInfo | undefined>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, "openingCcmodal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, (Readonly<{
     infotext?: unknown;
     mediafiles?: unknown;

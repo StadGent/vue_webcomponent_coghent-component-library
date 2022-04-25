@@ -31,10 +31,9 @@
           class="h-5 w-5 ml-0.5 stroke-current fill-current stroke-2"
         />
       </a>
-      <IIIFViewer
-        :canGoFullScreen="isTouch ? false : true"
-        :imageUrl="source[selectedIndex].infoJson"
-      />
+      <IIIFViewer v-if="!mediafiles[selectedIndex].filename.includes('.mp3') && !mediafiles[selectedIndex].filename.includes('.mp4') && !mediafiles[selectedIndex].filename.includes('.pdf')" :imageUrl="source[selectedIndex].infoJson" />
+
+      <video-player class="pb-6" v-if="mediafiles[selectedIndex].filename.includes('.mp4')" :uri="mediafiles[selectedIndex].filename" />
     </section>
   </base-modal>
   <!--Carousel -->
@@ -162,6 +161,7 @@ import IIIFViewer from "./IIIFViewer.vue";
 import CopyrightTab from "./CopyrightTab.vue";
 import LazyLoadImage from "./LazyLoadImage.vue";
 import { ImageSource, ModalState } from "@/types";
+import VideoPlayer from "./VideoPlayer.vue";
 
 export default defineComponent({
   props: {
@@ -189,6 +189,7 @@ export default defineComponent({
     BaseIcon,
     CopyrightTab,
     LazyLoadImage,
+    VideoPlayer,
   },
   emits: ["openingCcmodal", "currentCarouselPicture"],
   setup(props, { emit }: SetupContext) {
