@@ -31,9 +31,21 @@
           class="h-5 w-5 ml-0.5 stroke-current fill-current stroke-2"
         />
       </a>
-      <IIIFViewer v-if="!mediafiles[selectedIndex].filename.includes('.mp3') && !mediafiles[selectedIndex].filename.includes('.mp4') && !mediafiles[selectedIndex].filename.includes('.pdf')" :imageUrl="source[selectedIndex].infoJson" />
+      <IIIFViewer
+        v-if="
+          !mediafiles[selectedIndex].filename.includes('.mp3') &&
+          !mediafiles[selectedIndex].filename.includes('.mp4') &&
+          !mediafiles[selectedIndex].filename.includes('.pdf')
+        "
+        :canGoFullScreen="isTouch ? false : true"
+        :imageUrl="source[selectedIndex].infoJson"
+      />
 
-      <video-player class="pb-6" v-if="mediafiles[selectedIndex].filename.includes('.mp4')" :uri="mediafiles[selectedIndex].filename" />
+      <video-player
+        class="pb-6"
+        v-if="mediafiles[selectedIndex].filename.includes('.mp4')"
+        :uri="mediafiles[selectedIndex].filename"
+      />
     </section>
   </base-modal>
   <!--Carousel -->
@@ -60,6 +72,7 @@
         :mediafiles="mediafiles"
         :selectedIndex="selectedIndex"
         @openingCcmodal="openCCModal"
+        :showMoreInfo="!isTouch"
       />
       <lazy-load-image
         extraClass="z-10"
@@ -153,7 +166,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, SetupContext } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  PropType,
+  ref,
+  SetupContext,
+  watch,
+} from "vue";
 import BaseButton from "./BaseButton.vue";
 import BaseModal from "./BaseModal.vue";
 import BaseIcon from "./BaseIcon.vue";

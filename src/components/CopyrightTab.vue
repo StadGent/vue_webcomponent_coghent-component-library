@@ -48,7 +48,7 @@
             </div>
           </div>
           <!-- <div class="border-r-2 border-solid h-auto border-background-dark border-opacity-70 mr-2 invisible sm:invisible" /> -->
-          <p class="text-xxs w-full text-accent-purple">
+          <p v-if="showMoreInfo" class="text-xxs w-full text-accent-purple">
             {{ infotext }}
           </p>
         </div>
@@ -110,6 +110,11 @@ export default defineComponent({
     },
     selectedIndex: {
       type: Number,
+    },
+    showMoreInfo: {
+      type: Boolean,
+      default: true,
+      required: false,
     },
   },
   components: {
