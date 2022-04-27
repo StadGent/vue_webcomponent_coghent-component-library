@@ -1,5 +1,5 @@
 <template>
-  <video class="w-full h-full" controls>
+  <video class="w-full h-full" controls controlsList="nodownload">
     <source
       :src="'https://api.collectie.gent/storage/v1/download/' + props.uri"
       type="video/mp4"
@@ -7,18 +7,18 @@
   </video>
 </template>
 <script>
-  import { defineComponent } from 'vue';
-  export default defineComponent({
-    name: 'VideoPlayer',
-    props: {
-      uri: {
-        type: String,
-        required: false,
-        default: '',
-      },
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "VideoPlayer",
+  props: {
+    uri: {
+      type: String,
+      required: false,
+      default: "",
     },
-    setup(props) {
-      return { props };
-    },
-  });
+  },
+  setup(props) {
+    return { props };
+  },
+});
 </script>
