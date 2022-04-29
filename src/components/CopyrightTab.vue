@@ -38,9 +38,9 @@
               <h5 class="font-bold">Licentie</h5>
               <p>{{ copyrightInfo.rights }}</p>
             </div>
-            <div v-if="copyrightInfo.source" class="pb-2">
+            <div v-if="copyrightInfo.copyright" class="pb-2">
               <h5 class="font-bold">Rechtenhouder</h5>
-              <p>{{ copyrightInfo.source }}</p>
+              <p>{{ copyrightInfo.copyright }}</p>
             </div>
             <div v-if="copyrightInfo.photographer" class="pb-2">
               <h5 class="font-bold">Fotograaf</h5>
@@ -132,6 +132,8 @@ export default defineComponent({
     const createObjectFromInfo = (info: any[]): CopyrightTabInfo => {
       const tabInfoObject = {
         rights: info.find((infoItem: any) => infoItem.key == "rights")?.value,
+        copyright: info.find((infoItem: any) => infoItem.key == "copyright")
+          ?.value,
         source: info.find((infoItem: any) => infoItem.key == "source")?.value,
         publicationStatus: info.find(
           (infoItem: any) => infoItem.key == "publication_status"
