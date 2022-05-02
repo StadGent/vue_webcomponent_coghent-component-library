@@ -6,7 +6,7 @@
       >{{ keyWord }}</span
     >
     <span
-      v-if="type != ''"
+      v-if="type"
       :class="
         clickable
           ? 'col-start-2 mr-10 cursor-pointer underline break-word'
@@ -14,13 +14,13 @@
       "
       >{{ type }}
     </span>
-    <span v-if="type == ''" class="text-text-red col-start-2 mr-10">{{
+    <span v-if="!type" class="text-text-red col-start-2 mr-10 break-word">{{
       errorText
     }}</span>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
@@ -44,14 +44,14 @@ export default defineComponent({
     clickable: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   setup(props) {},
-})
+});
 </script>
 
 <style>
 .break-word {
-word-wrap: break-word;
+  word-wrap: break-word;
 }
 </style>
