@@ -32,19 +32,23 @@
         />
       </a>
       <IIIFViewer
-        v-if="
-          !mediafiles[selectedIndex].filename.includes('.mp3') &&
-          !mediafiles[selectedIndex].filename.includes('.mp4') &&
-          !mediafiles[selectedIndex].filename.includes('.pdf')
-        "
+        v-if="mediafiles[selectedIndex]?.mimetype.includes('image')"
         :canGoFullScreen="isTouch ? false : true"
         :imageUrl="source[selectedIndex].infoJson"
       />
 
-      <video-player
+      <VideoPlayer
         class="pb-6"
-        v-if="mediafiles[selectedIndex].filename.includes('.mp4')"
-        :uri="mediafiles[selectedIndex].filename"
+        v-if="mediafiles[selectedIndex]?.mimetype.includes('video')"
+        :MediaFile="mediafiles[selectedIndex]"
+      />
+      <AudioPlayer
+        v-if="mediafiles[selectedIndex]?.mimetype.includes('audio')"
+        :MediaFile="mediafiles[selectedIndex]"
+      />
+      <PDFFViewer
+        v-if="mediafiles[selectedIndex]?.mimetype.includes('pdf')"
+        :MediaFile="mediafiles[selectedIndex]"
       />
     </section>
   </base-modal>

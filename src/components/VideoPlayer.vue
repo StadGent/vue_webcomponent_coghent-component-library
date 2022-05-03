@@ -1,18 +1,21 @@
 <template>
   <video class="w-full h-full" controls controlsList="nodownload">
     <source
-      :src="'https://api.collectie.gent/storage/v1/download/' + props.uri"
-      type="video/mp4"
+      :src="
+        'https://api.collectie.gent/storage/v1/download/' + MediaFile?.filename
+      "
+      :type="MediaFile?.mimetype"
     />
   </video>
 </template>
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import { MediaFile } from "@/queries";
 export default defineComponent({
   name: "VideoPlayer",
   props: {
-    uri: {
-      type: String,
+    MediaFile: {
+      type: Array as PropType<MediaFile[]>,
       required: false,
       default: "",
     },
