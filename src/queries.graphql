@@ -34,6 +34,7 @@ fragment touchTableEntity on Entity {
   mediafiles {
     filename
     transcode_filename
+    mimetype
   }
   relations {
     key
@@ -206,6 +207,8 @@ fragment fullEntity on Entity {
     _id
     original_file_location
     transcode_filename
+    thumbnail_file_location
+    mimetype
     filename
     metadata {
       key
@@ -481,6 +484,12 @@ mutation addAssetToBoxVisiter(
     type
     label
     order
+  }
+}
+
+mutation deleteRelationFromBoxVisiter($code: String!, $relationId: String!) {
+  DeleteBoxVisiterRelation(code: $code, relationId: $relationId) {
+    ...fullRelation
   }
 }
 
