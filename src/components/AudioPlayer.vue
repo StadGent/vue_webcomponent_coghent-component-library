@@ -4,9 +4,9 @@
       <source
         :src="
           'https://coghent-api-dev.inuits.dev/storage/v1/download/' +
-          MediaFile?.filename
+          mediaFile.filename
         "
-        :type="MediaFile?.mimetype"
+        :type="mediaFile.mimetype"
       />
       Your browser does not support the audio element.
     </audio>
@@ -19,7 +19,7 @@ import { defineComponent, PropType } from "vue";
 export default defineComponent({
   name: "AudioPlayer",
   props: {
-    MediaFile: {
+    mediaFile: {
       type: Array as PropType<MediaFile[]>,
       required: true,
     },

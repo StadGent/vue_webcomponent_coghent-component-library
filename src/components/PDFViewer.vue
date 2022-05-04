@@ -3,9 +3,9 @@
     controlsList="nodownload"
     class="h-full w-full object-contain"
     :data="
-      'http://storage-api.dams.localhost:8100/download/' + MediaFile?.filename
+      'http://storage-api.dams.localhost:8100/download/' + mediaFile.filename
     "
-    :type="MediaFile?.mimetype"
+    :type="mediaFile.mimetype"
   ></object>
 </template>
 
@@ -25,7 +25,7 @@ export default defineComponent({
   name: "PdfViewer",
   components: {},
   props: {
-    MediaFile: {
+    mediaFile: {
       type: Array as PropType<MediaFile[]>,
       required: true,
     },

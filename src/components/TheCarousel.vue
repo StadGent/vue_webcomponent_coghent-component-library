@@ -32,23 +32,23 @@
         />
       </a>
       <IIIFViewer
-        v-if="mediafiles[selectedIndex]?.mimetype.includes('image')"
+        v-if="mediafiles[selectedIndex].mimetype.includes('image')"
         :canGoFullScreen="isTouch ? false : true"
         :imageUrl="source[selectedIndex].infoJson"
       />
 
       <VideoPlayer
         class="pb-6"
-        v-if="mediafiles[selectedIndex]?.mimetype.includes('video')"
-        :MediaFile="mediafiles[selectedIndex]"
+        v-if="mediafiles[selectedIndex].mimetype.includes('video')"
+        :mediaFile="mediafiles[selectedIndex]"
       />
       <AudioPlayer
-        v-if="mediafiles[selectedIndex]?.mimetype.includes('audio')"
-        :MediaFile="mediafiles[selectedIndex]"
+        v-if="mediafiles[selectedIndex].mimetype.includes('audio')"
+        :mediaFile="mediafiles[selectedIndex]"
       />
       <PDFFViewer
-        v-if="mediafiles[selectedIndex]?.mimetype.includes('pdf')"
-        :MediaFile="mediafiles[selectedIndex]"
+        v-if="mediafiles[selectedIndex].mimetype.includes('pdf')"
+        :mediaFile="mediafiles[selectedIndex]"
       />
     </section>
   </base-modal>
