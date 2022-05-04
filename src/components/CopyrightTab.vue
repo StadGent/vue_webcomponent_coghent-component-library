@@ -35,7 +35,7 @@
         >
           <div v-if="copyrightInfo" class="text-xxs">
             <div v-if="copyrightInfo.rights" class="pb-2">
-              <h5 class="font-bold">Licentie</h5>
+              <h5 class="font-bold">Rechtenstatus</h5>
               <p>{{ copyrightInfo.rights }}</p>
             </div>
             <div v-if="copyrightInfo.copyright" class="pb-2">
