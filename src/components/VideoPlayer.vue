@@ -1,14 +1,6 @@
 <template>
-  <video class="w-full h-full" controls controlsList="nodownload">
-
-    <source
-      :src="
-        mediaFile.original_file_location
-      "
-      :type="mediaFile.mimetype"
-    />
-    <source :src="MediaFile.original_file_location" :type="MediaFile.mimetype" />
-
+  <video class="w-full h-full" controls controlsList="nodownload" autoplay>
+    <source :src="mediaFile.original_file_location" :type="mediaFile.mimetype" />
   </video>
 </template>
 <script lang="ts">
@@ -20,7 +12,7 @@ export default defineComponent({
     mediaFile: {
       type: Array as PropType<MediaFile[]>,
       required: false,
-      default: '',
+      default: [],
     },
   },
   setup(props) {

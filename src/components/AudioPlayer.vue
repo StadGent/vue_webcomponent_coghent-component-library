@@ -1,14 +1,7 @@
 <template>
   <div class="flex w-full h-full justify-center items-center">
     <audio controls class="w-full" controlsList="nodownload">
-
-      <source
-        :src="
-         
-          mediaFile.original_file_location
-        "
-        :type="mediaFile.mimetype"
-      />
+      <source :src="mediaFile.original_file_location" :type="mediaFile.mimetype" />
 
       <source :src="MediaFile.original_file_location" :type="MediaFile.mimetype" />
       Your browser does not support the audio element.

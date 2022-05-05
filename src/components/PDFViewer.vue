@@ -1,12 +1,5 @@
 <template>
-  <object
-    controlsList="nodownload"
-    class="h-full w-full object-contain"
-    :data="
-      mediaFile.original_file_location 
-    "
-    :type="mediaFile.mimetype"
-  ></object>
+  <object controlsList="nodownload" class="h-full w-full object-contain" :data="mediaFile.original_file_location" :type="mediaFile.mimetype"></object>
 </template>
 
 <script lang="ts">
