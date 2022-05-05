@@ -1,6 +1,7 @@
 <template>
   <div class="flex w-full h-full justify-center items-center">
     <audio controls class="w-full" controlsList="nodownload">
+<<<<<<< HEAD
       <source
         :src="
           'https://coghent-api-dev.inuits.dev/storage/v1/download/' +
@@ -8,16 +9,19 @@
         "
         :type="mediaFile.mimetype"
       />
+=======
+      <source :src="MediaFile.original_file_location" :type="MediaFile.mimetype" />
+>>>>>>> a9ab2bf (players/viewers updated link)
       Your browser does not support the audio element.
     </audio>
   </div>
 </template>
 <script lang="ts">
-import { MediaFileMetadata, MediaFile } from "@/queries";
-import { defineComponent, PropType } from "vue";
+import { MediaFileMetadata, MediaFile } from '@/queries'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: "AudioPlayer",
+  name: 'AudioPlayer',
   props: {
     mediaFile: {
       type: Array as PropType<MediaFile[]>,
@@ -25,7 +29,7 @@ export default defineComponent({
     },
   },
   setup() {
-    return {};
+    return {}
   },
-});
+})
 </script>

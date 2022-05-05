@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <object
     controlsList="nodownload"
     class="h-full w-full object-contain"
@@ -7,22 +8,25 @@
     "
     :type="mediaFile.mimetype"
   ></object>
+=======
+  <object controlsList="nodownload" class="h-full w-full object-contain" :data="MediaFile.original_file_location" :type="MediaFile.mimetype"></object>
+>>>>>>> a9ab2bf (players/viewers updated link)
 </template>
 
 <script lang="ts">
 // @ts-nocheck
-import { defineComponent, onMounted, watch, ref, PropType, toRefs } from "vue";
+import { defineComponent, onMounted, watch, ref, PropType, toRefs } from 'vue'
 
 //PDFJS imports
-import * as pdfjsLibImport from "pdfjs-dist";
-const pdfjsLib: typeof import("pdfjs-dist") = pdfjsLibImport;
-import "pdfjs-dist/build/pdf.worker.entry";
-import { PDFViewer, EventBus } from "pdfjs-dist/web/pdf_viewer.js";
-import { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
-import { MediaFile } from "@/queries";
+import * as pdfjsLibImport from 'pdfjs-dist'
+const pdfjsLib: typeof import('pdfjs-dist') = pdfjsLibImport
+import 'pdfjs-dist/build/pdf.worker.entry'
+import { PDFViewer, EventBus } from 'pdfjs-dist/web/pdf_viewer.js'
+import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
+import { MediaFile } from '@/queries'
 
 export default defineComponent({
-  name: "PdfViewer",
+  name: 'PdfViewer',
   components: {},
   props: {
     mediaFile: {
@@ -31,21 +35,21 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const loading = ref<boolean>(true);
+    const loading = ref<boolean>(true)
     const pdfViewer = ref<
       | {
-          setDocument: (input: PDFDocumentProxy) => void;
-          currentScaleValue: number;
+          setDocument: (input: PDFDocumentProxy) => void
+          currentScaleValue: number
         }
       | undefined
-    >();
-    const zoomLevel = ref<number>(0.5);
-    const container = ref<HTMLDivElement | undefined>(undefined);
+    >()
+    const zoomLevel = ref<number>(0.5)
+    const container = ref<HTMLDivElement | undefined>(undefined)
 
-    const { source } = toRefs(props);
+    const { source } = toRefs(props)
 
     watch(source, (newSrc: source[] | undefined) => {
-      loading.value = true;
+      loading.value = true
       if (pdfViewer.value && newSrc?.content) {
         pdfjsLib
           .getDocument({
@@ -53,50 +57,50 @@ export default defineComponent({
           })
           .promise.then((pdfDocument: PDFDocumentProxy) => {
             if (pdfViewer.value) {
-              pdfViewer.value.setDocument(pdfDocument);
+              pdfViewer.value.setDocument(pdfDocument)
             }
-          });
+          })
       }
-    });
+    })
 
     onMounted(async () => {
       // Init viewer with event-bus
-      var eventBus = new EventBus();
+      var eventBus = new EventBus()
       pdfViewer.value = new PDFViewer({
         container: container.value,
         eventBus,
-      });
+      })
 
-      eventBus.on("pagesinit", function () {
+      eventBus.on('pagesinit', function () {
         if (pdfViewer.value) {
-          pdfViewer.value.currentScaleValue = zoomLevel.value;
-          loading.value = false;
+          pdfViewer.value.currentScaleValue = zoomLevel.value
+          loading.value = false
         }
-      });
-    });
+      })
+    })
 
     const zoomIn = () => {
       if (pdfViewer.value) {
-        zoomLevel.value = zoomLevel.value + 0.5;
-        pdfViewer.value.currentScaleValue = zoomLevel.value;
+        zoomLevel.value = zoomLevel.value + 0.5
+        pdfViewer.value.currentScaleValue = zoomLevel.value
       }
-    };
+    }
 
     const zoomOut = () => {
       if (pdfViewer.value && zoomLevel.value != 0.5) {
-        zoomLevel.value = zoomLevel.value - 0.5;
-        pdfViewer.value.currentScaleValue = zoomLevel.value;
+        zoomLevel.value = zoomLevel.value - 0.5
+        pdfViewer.value.currentScaleValue = zoomLevel.value
       }
-    };
+    }
 
     return {
       zoomIn,
       zoomOut,
       loading,
       container,
-    };
+    }
   },
-});
+})
 </script>
 <style>
 .h-screen-90 {
