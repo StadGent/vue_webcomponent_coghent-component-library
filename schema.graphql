@@ -2,12 +2,22 @@ scalar Void
 
 enum MIME {
   AUDIOMPEG
+  AUDIOMP3
+  AUDIOAAC
+  AUDIOOGG
+  AUDIOOPUS
+  AUDIOWAV
   IMGJPG
+  IMGJPEG
   IMGTIFF
   IMGPNG
+  IMGAVIF
+  IMGBMP
+  IMGWEBM
   VIDEOMP4
   VIDEOWAV
   TEXTPLAIN
+  APPLICATIONPDF
 }
 
 enum MetaKey {
@@ -260,14 +270,7 @@ type Query {
   CreateBoxVisiter(storyId: String!): BoxVisiter
   Stories: EntitiesResults
   Entity(id: String!): Entity
-  Entities(
-    limit: Int
-    skip: Int
-    searchValue: SearchFilter!
-    fetchPolicy: String
-    randomization: Boolean
-    seed: String
-  ): EntitiesResults
+  Entities(limit: Int, skip: Int, searchValue: SearchFilter!, fetchPolicy: String, randomization: Boolean, seed: String): EntitiesResults
   Relations(searchValue: SearchFilter!, fetchPolicy: String): RelationsResults
   User: User
 }
@@ -278,9 +281,5 @@ type Mutation {
   AddFrameToStoryBoxVisiter(code: String!, frameInput: FrameInput!): BoxVisiter
   addTouchTableTimeToBoxVisiter(code: String!, time: String!): BoxVisiter!
   DeleteBoxVisiterRelation(code: String!, relationId: String!): [Relation]!
-  AddAssetToBoxVisiter(
-    code: String!
-    assetId: String!
-    type: RelationType!
-  ): [Relation]!
+  AddAssetToBoxVisiter(code: String!, assetId: String!, type: RelationType!): [Relation]!
 }

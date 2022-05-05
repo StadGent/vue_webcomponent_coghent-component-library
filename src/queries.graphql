@@ -87,10 +87,7 @@ fragment MetadataCollectionFields on MetadataCollection {
     label
     nestedMetaData {
       ...NestedEntity
-      metadataCollection(
-        key: [title, description, object_number, scopeNote]
-        label: ["objectnummer"]
-      ) {
+      metadataCollection(key: [title, description, object_number, scopeNote], label: ["objectnummer"]) {
         label
         nested
         data {
@@ -126,6 +123,8 @@ fragment NestedEntity on Entity {
     original_file_location
     transcode_filename
     filename
+    mimetype
+    mediatype
   }
   relations {
     key
@@ -150,10 +149,7 @@ fragment nestedEndEntity on Entity {
     key
     value
   }
-  metadataCollection(
-    key: [title, description, object_number, scopeNote]
-    label: ["objectnummer"]
-  ) {
+  metadataCollection(key: [title, description, object_number, scopeNote], label: ["objectnummer"]) {
     label
     nested
     data {
@@ -167,6 +163,8 @@ fragment nestedEndEntity on Entity {
     original_file_location
     transcode_filename
     filename
+    mimetype
+    mediatype
   }
   relations {
     key
@@ -195,10 +193,7 @@ fragment fullEntity on Entity {
     key
     value
   }
-  metadataCollection(
-    key: [title, description, object_number, scopeNote]
-    label: []
-  ) {
+  metadataCollection(key: [title, description, object_number, scopeNote], label: []) {
     ...MetadataCollectionFields
   }
   primary_mediafile
@@ -209,6 +204,7 @@ fragment fullEntity on Entity {
     transcode_filename
     thumbnail_file_location
     mimetype
+    mediatype
     filename
     metadata {
       key
@@ -258,6 +254,8 @@ fragment storyEntity on Entity {
   mediafiles {
     original_file_location
     filename
+    mimetype
+    mediatype
     transcode_filename
     mediainfo {
       width
@@ -332,18 +330,8 @@ query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
   }
 }
 
-query getFullEntities(
-  $limit: Int
-  $skip: Int
-  $searchValue: SearchFilter!
-  $fetchPolicy: String
-) {
-  Entities(
-    limit: $limit
-    skip: $skip
-    searchValue: $searchValue
-    fetchPolicy: $fetchPolicy
-  ) {
+query getFullEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!, $fetchPolicy: String) {
+  Entities(limit: $limit, skip: $skip, searchValue: $searchValue, fetchPolicy: $fetchPolicy) {
     count
     limit
     results {
@@ -474,11 +462,7 @@ mutation addTouchTableTimeToBoxVisiter($code: String!, $time: String!) {
   }
 }
 
-mutation addAssetToBoxVisiter(
-  $code: String!
-  $assetId: String!
-  $type: RelationType!
-) {
+mutation addAssetToBoxVisiter($code: String!, $assetId: String!, $type: RelationType!) {
   AddAssetToBoxVisiter(code: $code, assetId: $assetId, type: $type) {
     key
     type
