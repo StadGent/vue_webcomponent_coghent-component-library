@@ -1,16 +1,12 @@
 <template>
-<<<<<<< HEAD
   <object
     controlsList="nodownload"
     class="h-full w-full object-contain"
     :data="
-      'http://storage-api.dams.localhost:8100/download/' + mediaFile.filename
+      mediaFile.original_file_location 
     "
     :type="mediaFile.mimetype"
   ></object>
-=======
-  <object controlsList="nodownload" class="h-full w-full object-contain" :data="MediaFile.original_file_location" :type="MediaFile.mimetype"></object>
->>>>>>> a9ab2bf (players/viewers updated link)
 </template>
 
 <script lang="ts">

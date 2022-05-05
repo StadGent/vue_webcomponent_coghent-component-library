@@ -8,33 +8,16 @@
       >
         <base-icon icon="close" class="h-5 w-5 ml-0.5 stroke-current fill-current stroke-2" />
       </a>
-<<<<<<< HEAD
-      <IIIFViewer
-        v-if="mediafiles[selectedIndex].mimetype.includes('image')"
-        :canGoFullScreen="isTouch ? false : true"
-        :imageUrl="source[selectedIndex].infoJson"
-      />
 
-      <VideoPlayer
-        class="pb-6"
-        v-if="mediafiles[selectedIndex].mimetype.includes('video')"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
-      <AudioPlayer
-        v-if="mediafiles[selectedIndex].mimetype.includes('audio')"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
-      <PDFFViewer
-        v-if="mediafiles[selectedIndex].mimetype.includes('pdf')"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
-=======
+      <VideoPlayer class="pb-6" v-if="mediafiles[selectedIndex].mimetype.includes('video')" :mediaFile="mediafiles[selectedIndex]" />
+      <AudioPlayer v-if="mediafiles[selectedIndex].mimetype.includes('audio')" :mediaFile="mediafiles[selectedIndex]" />
+      <PDFFViewer v-if="mediafiles[selectedIndex].mimetype.includes('pdf')" :mediaFile="mediafiles[selectedIndex]" />
+
       <IIIFViewer v-if="mediafiles[selectedIndex].mimetype.includes('image')" :canGoFullScreen="isTouch ? false : true" :imageUrl="source[selectedIndex].infoJson" />
 
       <VideoPlayer class="pb-6" v-if="mediafiles[selectedIndex].mimetype.includes('video')" :MediaFile="mediafiles[selectedIndex]" />
       <AudioPlayer v-if="mediafiles[selectedIndex].mimetype.includes('audio')" :MediaFile="mediafiles[selectedIndex]" />
       <PDFFViewer v-if="mediafiles[selectedIndex].mimetype.includes('pdf')" :MediaFile="mediafiles[selectedIndex]" />
->>>>>>> a9ab2bf (players/viewers updated link)
     </section>
   </base-modal>
   <!--Carousel -->

@@ -1,15 +1,14 @@
 <template>
   <video class="w-full h-full" controls controlsList="nodownload">
-<<<<<<< HEAD
+
     <source
       :src="
-        'https://api.collectie.gent/storage/v1/download/' + mediaFile.filename
+        mediaFile.original_file_location
       "
       :type="mediaFile.mimetype"
     />
-=======
     <source :src="MediaFile.original_file_location" :type="MediaFile.mimetype" />
->>>>>>> a9ab2bf (players/viewers updated link)
+
   </video>
 </template>
 <script lang="ts">

@@ -1,17 +1,16 @@
 <template>
   <div class="flex w-full h-full justify-center items-center">
     <audio controls class="w-full" controlsList="nodownload">
-<<<<<<< HEAD
+
       <source
         :src="
-          'https://coghent-api-dev.inuits.dev/storage/v1/download/' +
-          mediaFile.filename
+         
+          mediaFile.original_file_location
         "
         :type="mediaFile.mimetype"
       />
-=======
+
       <source :src="MediaFile.original_file_location" :type="MediaFile.mimetype" />
->>>>>>> a9ab2bf (players/viewers updated link)
       Your browser does not support the audio element.
     </audio>
   </div>
