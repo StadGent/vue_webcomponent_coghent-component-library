@@ -22,14 +22,17 @@ export const getSimpleFileTypeByMimeType = (
   mimeType: string
 ): string | undefined => {
   let simpleFileType = undefined;
+  console.log(mimeType);
   switch (mimeType) {
     case "video/mp4":
     case "video/wav":
       simpleFileType = "video";
+      break;
     case "image/jpeg":
     case "image/tiff":
     case "image/png":
       simpleFileType = "image";
+      break;
   }
   return simpleFileType;
 };
