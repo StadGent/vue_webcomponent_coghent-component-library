@@ -131,7 +131,11 @@ const useBoxVisiter = (
       type: _type,
     });
     relations = updated?.data?.AddAssetToBoxVisiter as Array<Relation>;
-    console.log({ relations });
+    if (boxVisiter.value?.relations) {
+      const boxVisiterClone = { ...boxVisiter.value };
+      boxVisiterClone.relations = relations;
+      boxVisiter.value = boxVisiterClone;
+    }
     return relations;
   };
 
