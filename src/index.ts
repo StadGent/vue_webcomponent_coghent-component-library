@@ -25,6 +25,7 @@ import {
   GetTouchTableEntityByIdDocument,
   AddAssetToBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
+  DeleteRelationFromBoxVisiterDocument,
   PrintBoxTicketDocument,
   FrameInput,
   StoryInput,
@@ -42,6 +43,7 @@ import LanguageSelector from "./components/LanguageSelector.vue";
 import CardComponent from "./components/CardComponent.vue";
 import TheCarousel from "./components/TheCarousel.vue";
 import BaseModal from "./components/BaseModal.vue";
+import VideoPlayer from "./components/VideoPlayer.vue";
 import ViewerToolbar from "./components/ViewerToolbar.vue";
 import IIIFViewer from "./components/IIIFViewer.vue";
 import CopyrightTab from "./components/CopyrightTab.vue";
@@ -88,8 +90,10 @@ export {
   Entity,
   TheMasonry,
   BaseOverlay,
+  DeleteRelationFromBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
+  VideoPlayer,
   FrameInput,
   StoryInput,
   BoxVisiter,
