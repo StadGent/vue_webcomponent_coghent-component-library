@@ -14,6 +14,11 @@ declare const _default: import("vue").DefineComponent<{
     selectedIndex: {
         type: NumberConstructor;
     };
+    showMoreInfo: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
+    };
 }, {
     toggleCCTab: () => void;
     openTab: import("vue").Ref<boolean>;
@@ -24,8 +29,10 @@ declare const _default: import("vue").DefineComponent<{
     infotext?: unknown;
     mediafiles?: unknown;
     selectedIndex?: unknown;
+    showMoreInfo?: unknown;
 } & {
     infotext: string;
+    showMoreInfo: boolean;
 } & {
     mediafiles?: unknown[] | undefined;
     selectedIndex?: number | undefined;
@@ -33,10 +40,14 @@ declare const _default: import("vue").DefineComponent<{
     infotext?: unknown;
     mediafiles?: unknown;
     selectedIndex?: unknown;
+    showMoreInfo?: unknown;
 } & {
     infotext: string;
+    showMoreInfo: boolean;
 } & {
     mediafiles?: unknown[] | undefined;
     selectedIndex?: number | undefined;
-}> & {}), {}>;
+}> & {}), {
+    showMoreInfo: boolean;
+}>;
 export default _default;

@@ -32,25 +32,11 @@
         />
       </a>
 
-      <IIIFViewer
-        v-if="mediafiles[selectedIndex].mimetype.includes('image')"
-        :canGoFullScreen="isTouch ? false : true"
-        :imageUrl="source[selectedIndex].infoJson"
-      />
+      <IIIFViewer v-if="mediafiles[selectedIndex].mediatype.image" :canGoFullScreen="isTouch ? false : true" :imageUrl="source[selectedIndex].infoJson" />
 
-      <VideoPlayer
-        class="pb-6"
-        v-if="mediafiles[selectedIndex].mimetype.includes('video')"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
-      <AudioPlayer
-        v-if="mediafiles[selectedIndex].mimetype.includes('audio')"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
-      <PDFFViewer
-        v-if="mediafiles[selectedIndex].mimetype.includes('pdf')"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
+      <VideoPlayer class="pb-6" v-if="mediafiles[selectedIndex].mediatype.video" :mediaFile="mediafiles[selectedIndex]" />
+      <AudioPlayer v-if="mediafiles[selectedIndex].mediatype.audio || mediafiles[selectedIndex].filename.includes('.mp3', '.wav')" :mediaFile="mediafiles[selectedIndex]" />
+      <PDFViewer v-if="mediafiles[selectedIndex].mediatype.pdf" :mediaFile="mediafiles[selectedIndex]" />
     </section>
   </base-modal>
   <!--Carousel -->
@@ -171,6 +157,7 @@
   </div>
 </template>
 <script lang="ts">
+<<<<<<< HEAD
 import {
   defineComponent,
   onMounted,
@@ -187,6 +174,19 @@ import CopyrightTab from "./CopyrightTab.vue";
 import LazyLoadImage from "./LazyLoadImage.vue";
 import { ImageSource, ModalState } from "@/types";
 import VideoPlayer from "./VideoPlayer.vue";
+=======
+import { defineComponent, onMounted, PropType, ref, SetupContext, watch } from 'vue'
+import BaseButton from './BaseButton.vue'
+import BaseModal from './BaseModal.vue'
+import BaseIcon from './BaseIcon.vue'
+import IIIFViewer from './IIIFViewer.vue'
+import CopyrightTab from './CopyrightTab.vue'
+import LazyLoadImage from './LazyLoadImage.vue'
+import { ImageSource, ModalState } from '@/types'
+import VideoPlayer from './VideoPlayer.vue'
+import AudioPlayer from './AudioPlayer.vue'
+//import PDFViewer from './PDFViewer.vue'
+>>>>>>> 9bcd82f (final mime changes)
 
 export default defineComponent({
   props: {
@@ -215,6 +215,8 @@ export default defineComponent({
     CopyrightTab,
     LazyLoadImage,
     VideoPlayer,
+    AudioPlayer,
+    //PDFViewer,
   },
   emits: ["openingCcmodal", "currentCarouselPicture"],
   setup(props, { emit }: SetupContext) {

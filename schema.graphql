@@ -5,6 +5,7 @@ enum MIME {
   AUDIOMP3
   AUDIOAAC
   AUDIOOGG
+  AUDIOOCTET
   AUDIOOPUS
   AUDIOWAV
   IMGJPG
@@ -13,7 +14,7 @@ enum MIME {
   IMGPNG
   IMGAVIF
   IMGBMP
-  IMGWEBM
+  IMGWEBP
   VIDEOMP4
   VIDEOWAV
   TEXTPLAIN
@@ -129,7 +130,7 @@ type Entity {
   metadataCollection(key: [MetaKey], label: [String]): [MetadataCollection]
   title: [Metadata]!
   scopeNote: [Metadata]!
-  collections: [Relation]!
+  collections: [Relation ]!
   relations: [Relation]
   relationMetadata: [Relation]
   components: [Entity]
@@ -139,6 +140,7 @@ type Entity {
   mediafiles: [MediaFile]
   primary_mediafile: String
   primary_transcode: String
+  primary_transcode_location: String
   primary_mediafile_info: MediaInfo
   primary_mediafile_location: String
   primary_width: String
@@ -161,6 +163,7 @@ type MimeType {
   audio: Boolean
   video: Boolean
   image: Boolean
+  pdf: Boolean
 }
 
 type MediaFile {
@@ -169,6 +172,7 @@ type MediaFile {
   thumbnail_file_location: String
   filename: String
   transcode_filename: String
+  primary_transcode_location: String
   entities: [String]
   mediainfo: MediaInfo
   metadata: [MediaFileMetadata]
@@ -202,6 +206,7 @@ type Relation {
   last_frame: String
   seen_frames: [FrameSeen]
   total_frames: Int
+  setMediafile: Int
 }
 
 type EntitiesResults {

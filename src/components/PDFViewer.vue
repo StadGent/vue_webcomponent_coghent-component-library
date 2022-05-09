@@ -1,3 +1,4 @@
+'
 <template>
   <object controlsList="nodownload" class="h-full w-full object-contain" :data="mediaFile.original_file_location" :type="mediaFile.mimetype"></object>
 </template>
@@ -7,12 +8,12 @@
 import { defineComponent, onMounted, watch, ref, PropType, toRefs } from 'vue'
 
 //PDFJS imports
-import * as pdfjsLibImport from 'pdfjs-dist'
-const pdfjsLib: typeof import('pdfjs-dist') = pdfjsLibImport
-import 'pdfjs-dist/build/pdf.worker.entry'
-import { PDFViewer, EventBus } from 'pdfjs-dist/web/pdf_viewer.js'
-import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
-import { MediaFile } from '@/queries'
+//import * as pdfjsLibImport from 'pdfjs-dist'
+//const pdfjsLib: typeof import('pdfjs-dist') = pdfjsLibImport
+//import 'pdfjs-dist/build/pdf.worker.entry'
+//import { PDFViewer, EventBus } from 'pdfjs-dist/web/pdf_viewer.js'
+//import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
+//import { MediaFile } from '@/queries'
 
 export default defineComponent({
   name: 'PdfViewer',
