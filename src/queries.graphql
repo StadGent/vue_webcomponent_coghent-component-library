@@ -38,6 +38,7 @@ fragment touchTableEntity on Entity {
     mediatype {
       type
       mime
+      image
       audio
       video
       pdf
@@ -137,6 +138,7 @@ fragment NestedEntity on Entity {
     mediatype {
       type
       mime
+      image
       audio
       video
       pdf
@@ -186,6 +188,7 @@ fragment nestedEndEntity on Entity {
     mediatype {
       type
       mime
+      image
       audio
       video
       pdf
@@ -232,6 +235,14 @@ fragment fullEntity on Entity {
     transcode_filename
     thumbnail_file_location
     mimetype
+    mediatype {
+      type
+      mime
+      image
+      audio
+      video
+      pdf
+    }
     filename
     metadata {
       key
@@ -290,6 +301,7 @@ fragment storyEntity on Entity {
     mediatype {
       type
       mime
+      image
       audio
       video
       pdf
