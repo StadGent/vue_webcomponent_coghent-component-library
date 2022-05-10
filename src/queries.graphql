@@ -35,12 +35,11 @@ fragment touchTableEntity on Entity {
     filename
     transcode_filename
     mimetype
-    mediatype{
+    mediatype {
       type
       mime
       audio
       video
-      image
       pdf
     }
   }
@@ -95,7 +94,10 @@ fragment MetadataCollectionFields on MetadataCollection {
     label
     nestedMetaData {
       ...NestedEntity
-      metadataCollection(key: [title, description, object_number, scopeNote], label: ["objectnummer"]) {
+      metadataCollection(
+        key: [title, description, object_number, scopeNote]
+        label: ["objectnummer"]
+      ) {
         label
         nested
         data {
@@ -132,12 +134,11 @@ fragment NestedEntity on Entity {
     transcode_filename
     filename
     mimetype
-    mediatype{
-       type
+    mediatype {
+      type
       mime
       audio
       video
-      image
       pdf
     }
   }
@@ -164,7 +165,10 @@ fragment nestedEndEntity on Entity {
     key
     value
   }
-  metadataCollection(key: [title, description, object_number, scopeNote], label: ["objectnummer"]) {
+  metadataCollection(
+    key: [title, description, object_number, scopeNote]
+    label: ["objectnummer"]
+  ) {
     label
     nested
     data {
@@ -179,12 +183,11 @@ fragment nestedEndEntity on Entity {
     transcode_filename
     filename
     mimetype
-    mediatype{
-       type
+    mediatype {
+      type
       mime
       audio
       video
-      image
       pdf
     }
   }
@@ -215,7 +218,10 @@ fragment fullEntity on Entity {
     key
     value
   }
-  metadataCollection(key: [title, description, object_number, scopeNote], label: []) {
+  metadataCollection(
+    key: [title, description, object_number, scopeNote]
+    label: []
+  ) {
     ...MetadataCollectionFields
   }
   primary_mediafile
@@ -226,14 +232,6 @@ fragment fullEntity on Entity {
     transcode_filename
     thumbnail_file_location
     mimetype
-    mediatype{
-       type
-      mime
-      audio
-      video
-      image
-      pdf
-    }
     filename
     metadata {
       key
@@ -359,8 +357,18 @@ query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
   }
 }
 
-query getFullEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!, $fetchPolicy: String) {
-  Entities(limit: $limit, skip: $skip, searchValue: $searchValue, fetchPolicy: $fetchPolicy) {
+query getFullEntities(
+  $limit: Int
+  $skip: Int
+  $searchValue: SearchFilter!
+  $fetchPolicy: String
+) {
+  Entities(
+    limit: $limit
+    skip: $skip
+    searchValue: $searchValue
+    fetchPolicy: $fetchPolicy
+  ) {
     count
     limit
     results {
@@ -485,13 +493,11 @@ mutation addFrameToStoryBoxVisiter($code: String!, $frameInput: FrameInput!) {
   }
 }
 
-mutation addTouchTableTimeToBoxVisiter($code: String!, $time: String!) {
-  addTouchTableTimeToBoxVisiter(code: $code, time: $time) {
-    touch_table_time
-  }
-}
-
-mutation addAssetToBoxVisiter($code: String!, $assetId: String!, $type: RelationType!) {
+mutation addAssetToBoxVisiter(
+  $code: String!
+  $assetId: String!
+  $type: RelationType!
+) {
   AddAssetToBoxVisiter(code: $code, assetId: $assetId, type: $type) {
     key
     type
@@ -503,6 +509,15 @@ mutation addAssetToBoxVisiter($code: String!, $assetId: String!, $type: Relation
 mutation deleteRelationFromBoxVisiter($code: String!, $relationId: String!) {
   DeleteBoxVisiterRelation(code: $code, relationId: $relationId) {
     ...fullRelation
+  }
+}
+
+mutation updateBoxVisiterTouchtableTime(
+  $code: String!
+  $touchTableTime: String!
+) {
+  UpdateBoxVisiterTouchtableTime(code: $code, touchTableTime: $touchTableTime) {
+    ...fullBoxVisiter
   }
 }
 
