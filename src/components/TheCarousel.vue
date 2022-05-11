@@ -40,14 +40,20 @@
 
       <VideoPlayer
         class="pb-6"
-        v-if="mediafiles[selectedIndex].mediatype.video"
+        v-if="
+          mediafiles[selectedIndex].mediatype.video ||
+          checkOnFileExtension(
+            ['.wmv', '.avi', '.mp4', '.mov', '.webm', '.mkv', '.flv'],
+            mediafiles[selectedIndex].filename
+          )
+        "
         :mediaFile="mediafiles[selectedIndex]"
       />
       <AudioPlayer
         v-if="
           mediafiles[selectedIndex].mediatype.audio ||
           checkOnFileExtension(
-            ['.mp3', '.wav'],
+            ['.mp3', '.wav', '.m4a', '.wma', '.ogg'],
             mediafiles[selectedIndex].filename
           )
         "
