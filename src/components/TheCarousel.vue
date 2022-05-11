@@ -277,7 +277,7 @@ export default defineComponent({
     const checkOnFileExtension = (
       extensionList: string[],
       filename: string
-    ) => {
+    ): boolean => {
       let testList: boolean[] = [];
       extensionList.forEach((extension: string) => {
         if (filename.toLowerCase().includes(extension)) {
@@ -286,7 +286,7 @@ export default defineComponent({
           testList.push(false);
         }
       });
-      return testList.find((testItem: any) => testItem === true) ? true : false;
+      return testList.find((testItem: any) => testItem === true) as boolean;
     };
 
     const openCCModal = () => {
