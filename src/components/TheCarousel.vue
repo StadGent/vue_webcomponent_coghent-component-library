@@ -46,7 +46,10 @@
       <AudioPlayer
         v-if="
           mediafiles[selectedIndex].mediatype.audio ||
-          mediafiles[selectedIndex].filename.includes('.wav' || '.mp3')
+          checkOnFileExtension(
+            ['.mp3', '.wav'],
+            mediafiles[selectedIndex].filename
+          )
         "
         :mediaFile="mediafiles[selectedIndex]"
       />
@@ -271,6 +274,21 @@ export default defineComponent({
     //   openTab.value = !openTab.value
     // }
 
+    const checkOnFileExtension = (
+      extensionList: string[],
+      filename: string
+    ) => {
+      let testList: boolean[] = [];
+      extensionList.forEach((extension: string) => {
+        if (filename.toLowerCase().includes(extension)) {
+          testList.push(true);
+        } else {
+          testList.push(false);
+        }
+      });
+      return testList.find((testItem: any) => testItem === true) ? true : false;
+    };
+
     const openCCModal = () => {
       emit("openingCcmodal", true);
     };
@@ -287,6 +305,7 @@ export default defineComponent({
       openTab,
       // toggleCCTab,
       openCCModal,
+      checkOnFileExtension,
     };
   },
 });
