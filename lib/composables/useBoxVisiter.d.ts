@@ -58,6 +58,7 @@ declare const boxVisiter: Ref<{
             date: number;
         } | null)[] | null | undefined;
         total_frames?: number | null | undefined;
+        setMediafile?: number | null | undefined;
     } | null)[] | null | undefined;
     relationByType?: ({
         __typename?: "Relation" | undefined;
@@ -87,6 +88,7 @@ declare const boxVisiter: Ref<{
             date: number;
         } | null)[] | null | undefined;
         total_frames?: number | null | undefined;
+        setMediafile?: number | null | undefined;
     } | null)[] | null | undefined;
     frames_seen_last_visit?: number | null | undefined;
     code: string;
@@ -183,6 +185,7 @@ declare const historyAssets: Ref<{
             date: number;
         } | null)[] | null | undefined;
         total_frames?: number | null | undefined;
+        setMediafile?: number | null | undefined;
     } | null)[];
     relations?: ({
         __typename?: "Relation" | undefined;
@@ -212,6 +215,7 @@ declare const historyAssets: Ref<{
             date: number;
         } | null)[] | null | undefined;
         total_frames?: number | null | undefined;
+        setMediafile?: number | null | undefined;
     } | null)[] | null | undefined;
     relationMetadata?: ({
         __typename?: "Relation" | undefined;
@@ -241,6 +245,7 @@ declare const historyAssets: Ref<{
             date: number;
         } | null)[] | null | undefined;
         total_frames?: number | null | undefined;
+        setMediafile?: number | null | undefined;
     } | null)[] | null | undefined;
     components?: (any | null)[] | null | undefined;
     componentsOfType?: (any | null)[] | null | undefined;
@@ -253,6 +258,7 @@ declare const historyAssets: Ref<{
         thumbnail_file_location?: string | null | undefined;
         filename?: string | null | undefined;
         transcode_filename?: string | null | undefined;
+        primary_transcode_location?: string | null | undefined;
         entities?: (string | null)[] | null | undefined;
         mediainfo?: {
             __typename?: "MediaInfo" | undefined;
@@ -271,6 +277,7 @@ declare const historyAssets: Ref<{
             audio?: boolean | null | undefined;
             video?: boolean | null | undefined;
             image?: boolean | null | undefined;
+            pdf?: boolean | null | undefined;
         } | null | undefined;
         mimetype?: string | null | undefined;
         img_width?: string | null | undefined;
@@ -278,6 +285,7 @@ declare const historyAssets: Ref<{
     } | null)[] | null | undefined;
     primary_mediafile?: string | null | undefined;
     primary_transcode?: string | null | undefined;
+    primary_transcode_location?: string | null | undefined;
     primary_mediafile_info?: {
         __typename?: "MediaInfo" | undefined;
         width: string;
