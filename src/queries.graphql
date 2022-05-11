@@ -33,6 +33,7 @@ fragment touchTableEntity on Entity {
   primary_transcode
   mediafiles {
     filename
+    original_file_location
     transcode_filename
     mimetype
     mediatype {
