@@ -17,7 +17,11 @@ import {
 } from "@vue/apollo-composable";
 import { reactive, Ref, ref } from "vue";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client/core";
-import { Entity, GetBoxVisiterRelationsByTypeDocument } from "..";
+import {
+  DeleteRelationFromBoxVisiterDocument,
+  Entity,
+  GetBoxVisiterRelationsByTypeDocument,
+} from "..";
 
 export type UseBoxVisiter = {
   create: (_storyId: string) => Promise<BoxVisiter>;
@@ -39,6 +43,10 @@ export type UseBoxVisiter = {
     _assetId: string,
     _type: RelationType.Visited | RelationType.InBasket
   ) => Promise<Array<Relation>>;
+  deleteRelationFromBoxVisiter: (
+    _code: string,
+    _relationId: string
+  ) => Promise<any>;
   selectedStory: Ref<StorySelected | undefined>;
   setSelectedStory: (input: StorySelected) => void;
   setStartAsset: (input: Entity) => void;
@@ -116,6 +124,15 @@ const useBoxVisiter = (
     boxVisiter.value = updated?.data?.AddFrameToStoryBoxVisiter as BoxVisiter;
     return boxVisiter.value;
   };
+
+  const _updateBoxVisiterRelations = (updatedRelations: Relation[]) => {
+    if (boxVisiter.value) {
+      const boxVisiterClone = { ...boxVisiter.value };
+      boxVisiterClone.relations = updatedRelations;
+      boxVisiter.value = boxVisiterClone;
+    }
+  };
+
   const addAssetToBoxVisiter = async (
     _code: string,
     _assetId: string,
@@ -131,11 +148,21 @@ const useBoxVisiter = (
       type: _type,
     });
     relations = updated?.data?.AddAssetToBoxVisiter as Array<Relation>;
-    if (boxVisiter.value?.relations) {
-      const boxVisiterClone = { ...boxVisiter.value };
-      boxVisiterClone.relations = relations;
-      boxVisiter.value = boxVisiterClone;
-    }
+    _updateBoxVisiterRelations(relations);
+    return relations;
+  };
+
+  const deleteRelationFromBoxVisiter = async (
+    _code: string,
+    _relationId: string
+  ) => {
+    let relations;
+    const { mutate } = apolloProvider(() =>
+      useMutation(DeleteRelationFromBoxVisiterDocument)
+    );
+    const deleted = await mutate({ code: _code, relationId: _relationId });
+    relations = deleted?.data?.DeleteBoxVisiterRelation as Relation[];
+    _updateBoxVisiterRelations(relations);
     return relations;
   };
 
@@ -178,6 +205,7 @@ const useBoxVisiter = (
     setStartAsset,
     addHistoryAsset,
     clearHistoryAssets,
+    deleteRelationFromBoxVisiter,
   };
 };
 
