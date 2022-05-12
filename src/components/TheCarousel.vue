@@ -40,23 +40,11 @@
 
       <VideoPlayer
         class="pb-6"
-        v-if="
-          mediafiles[selectedIndex].mediatype.video ||
-          checkOnFileExtension(
-            ['.wmv', '.avi', '.mp4', '.mov', '.webm', '.mkv', '.flv'],
-            mediafiles[selectedIndex].filename
-          )
-        "
+        v-if="mediafiles[selectedIndex].mediatype.video"
         :mediaFile="mediafiles[selectedIndex]"
       />
       <AudioPlayer
-        v-if="
-          mediafiles[selectedIndex].mediatype.audio ||
-          checkOnFileExtension(
-            ['.mp3', '.wav', '.m4a', '.wma', '.ogg'],
-            mediafiles[selectedIndex].filename
-          )
-        "
+        v-if="mediafiles[selectedIndex].mediatype.audio"
         :mediaFile="mediafiles[selectedIndex]"
       />
       <PDFViewer
@@ -284,21 +272,6 @@ export default defineComponent({
     //   openTab.value = !openTab.value
     // }
 
-    const checkOnFileExtension = (
-      extensionList: string[],
-      filename: string
-    ): boolean => {
-      let testList: boolean[] = [];
-      extensionList.forEach((extension: string) => {
-        if (filename.toLowerCase().includes(extension)) {
-          testList.push(true);
-        } else {
-          testList.push(false);
-        }
-      });
-      return testList.find((testItem: any) => testItem === true) as boolean;
-    };
-
     const openCCModal = () => {
       emit("openingCcmodal", true);
     };
@@ -315,7 +288,6 @@ export default defineComponent({
       openTab,
       // toggleCCTab,
       openCCModal,
-      checkOnFileExtension,
     };
   },
 });

@@ -130,7 +130,6 @@ export default defineComponent({
     const copyrightInfo = ref<CopyrightTabInfo>();
 
     const createObjectFromInfo = (info: any[]): CopyrightTabInfo => {
-      console.log(info);
       const tabInfoObject = {
         rights: info.find((infoItem: any) => infoItem.key == "rights")?.value,
         copyright: info.find((infoItem: any) => infoItem.key == "copyright")
