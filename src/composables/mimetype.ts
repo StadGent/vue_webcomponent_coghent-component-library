@@ -8,7 +8,6 @@ export enum ImageMIME {
 }
 export enum AudioMIME {
   AUDIOMPEG = "audio/mpeg",
-  AUDIOOCTET = "application/octet-stream",
   AUDIOAAC = "audio/aac",
   AUDIOOGG = "audio/ogg",
   AUDIOOPUS = "audio/opus",
