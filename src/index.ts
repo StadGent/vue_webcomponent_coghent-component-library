@@ -69,10 +69,7 @@ import {
   AudioMIME,
   ImageMIME,
 } from "./composables/mimetype";
-import {
-  getFileNameByMimeType,
-  getSimpleFileTypeByMimeType,
-} from "./composables/mimeTypeHelper";
+import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
 
 export {
   ImageMIME,
@@ -82,7 +79,6 @@ export {
   useIIIF,
   PrintBoxTicketDocument,
   getFileNameByMimeType,
-  getSimpleFileTypeByMimeType,
   Relation,
   RelationType,
   StorySelected,
