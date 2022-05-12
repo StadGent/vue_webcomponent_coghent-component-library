@@ -75,7 +75,7 @@
         v-if="source.length > 2"
       />
     </div>
-    <div class="flex flex-col items-center w-3/4 relative">
+    <div class="flex flex-col items-center relative">
       <base-button
         class="w-0 absolute z-20 top-0 left-0 mt-3 ml-3"
         customStyle="secondary-round"
@@ -139,12 +139,16 @@
         </svg>
         <div
           v-for="photo in source"
+          v-show="source.length <= 10"
           :key="photo"
           class="w-2 h-2 rounded-full bg-text-dark mx-1"
           :class="{
             [`opacity-40`]: photo.imageUrl !== source[selectedIndex].imageUrl,
           }"
         ></div>
+        <div v-show="source.length > 10">
+          {{ `${selectedIndex + 1}/${source.length}` }}
+        </div>
         <svg
           v-show="source.length > 1"
           class="cursor-pointer flex-shrink-0 ml-2"
