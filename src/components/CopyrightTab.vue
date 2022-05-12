@@ -89,9 +89,10 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, SetupContext, watch } from "vue";
+import { defineComponent, PropType, ref, SetupContext, watch } from "vue";
 import BaseIcon from "./BaseIcon.vue";
 import BaseButton from "./BaseButton.vue";
+import { MediaFile } from "@/queries";
 
 type CopyrightTabInfo = {
   rights: string;
@@ -106,7 +107,7 @@ export default defineComponent({
       required: true,
     },
     mediafiles: {
-      type: Array,
+      type: Array as PropType<any[]>,
     },
     selectedIndex: {
       type: Number,
@@ -125,11 +126,11 @@ export default defineComponent({
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false);
     const secondaryIcons = ref<string[]>();
-    const localMediaFiles: any[] | undefined = props.mediafiles;
     const selectedIndex = ref<number>(props.selectedIndex || 0);
     const copyrightInfo = ref<CopyrightTabInfo>();
 
     const createObjectFromInfo = (info: any[]): CopyrightTabInfo => {
+      console.log(info);
       const tabInfoObject = {
         rights: info.find((infoItem: any) => infoItem.key == "rights")?.value,
         copyright: info.find((infoItem: any) => infoItem.key == "copyright")
@@ -146,17 +147,16 @@ export default defineComponent({
     };
 
     watch(
-      () => selectedIndex.value,
-      (index) => {
-        if (localMediaFiles && index != undefined) {
+      () => [selectedIndex.value, props.mediafiles],
+      () => {
+        if (props.mediafiles && selectedIndex.value != undefined) {
           const infoObject = createObjectFromInfo(
-            localMediaFiles[index].metadata
+            props.mediafiles[selectedIndex.value].metadata
           );
-          console.log({ infoObject });
           copyrightInfo.value = infoObject;
         }
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     );
 
     const toggleCCTab = () => {
