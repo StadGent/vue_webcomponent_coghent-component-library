@@ -126,7 +126,6 @@ export default defineComponent({
   setup(props, { emit }: SetupContext) {
     const openTab = ref<boolean>(false);
     const secondaryIcons = ref<string[]>();
-    const selectedIndex = ref<number>(props.selectedIndex || 0);
     const copyrightInfo = ref<CopyrightTabInfo>();
 
     const createObjectFromInfo = (info: any[]): CopyrightTabInfo => {
@@ -146,11 +145,11 @@ export default defineComponent({
     };
 
     watch(
-      () => [selectedIndex.value, props.mediafiles],
+      () => [props.selectedIndex, props.mediafiles],
       () => {
-        if (props.mediafiles && selectedIndex.value != undefined) {
+        if (props.mediafiles && props.selectedIndex != undefined) {
           const infoObject = createObjectFromInfo(
-            props.mediafiles[selectedIndex.value].metadata
+            props.mediafiles[props.selectedIndex].metadata
           );
           copyrightInfo.value = infoObject;
         }
