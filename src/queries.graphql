@@ -29,8 +29,7 @@ fragment touchTableEntity on Entity {
     key
     value
   }
-  primary_mediafile
-  primary_transcode
+  ...primaryMediafileInfo
   mediafiles {
     filename
     original_file_location
