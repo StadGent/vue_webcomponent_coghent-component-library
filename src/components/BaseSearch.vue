@@ -49,12 +49,12 @@
         cursor-pointer
         hover:text-accent-purple
         search-button
-        justify-center
+        justify-end
       "
     >
       <svg
         v-if="!loading"
-        class="mr-2 stroke-current float-right sm:float-none"
+        class="md:mr-2 stroke-current float-right sm:float-none"
         width="20"
         height="20"
         viewBox="0 0 16 16"
@@ -106,8 +106,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue"
-import { debounce } from "ts-debounce"
+import { defineComponent, ref, watch } from "vue";
+import { debounce } from "ts-debounce";
 
 export default defineComponent({
   name: "SearchField",
@@ -122,27 +122,27 @@ export default defineComponent({
   },
   emits: ["update:modelValue", "onClick"],
   setup(props, { emit }) {
-    const inputValue = ref<string>(props.modelValue)
-    let emitValue = (value: string) => emit("update:modelValue", value)
+    const inputValue = ref<string>(props.modelValue);
+    let emitValue = (value: string) => emit("update:modelValue", value);
     if (props.debounce) {
-      emitValue = debounce(emitValue, props.debounceWait)
+      emitValue = debounce(emitValue, props.debounceWait);
     }
 
     const onClick = () => {
-      emit("onClick")
-    }
+      emit("onClick");
+    };
 
     watch(
       () => props.modelValue,
       (value) => {
-        inputValue.value = value
+        inputValue.value = value;
       }
-    )
+    );
 
-    watch(inputValue, emitValue)
-    return { inputValue, onClick }
+    watch(inputValue, emitValue);
+    return { inputValue, onClick };
   },
-})
+});
 </script>
 
 <style scoped>
