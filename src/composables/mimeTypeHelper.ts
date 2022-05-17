@@ -11,7 +11,7 @@ export const getFileNameByMimeType = (
         mediafile.filename ||
         undefined
       );
-    } else if (mediafile.mediatype?.image) {
+    } else {
       return mediafile.transcode_filename || mediafile.filename || undefined;
     }
   }
