@@ -117,9 +117,9 @@ export declare enum Mime {
     Audiomp3 = "AUDIOMP3",
     Audioaac = "AUDIOAAC",
     Audioogg = "AUDIOOGG",
-    Audiooctet = "AUDIOOCTET",
     Audioopus = "AUDIOOPUS",
     Audiowav = "AUDIOWAV",
+    Audioxwav = "AUDIOXWAV",
     Imgjpg = "IMGJPG",
     Imgjpeg = "IMGJPEG",
     Imgtiff = "IMGTIFF",
@@ -129,6 +129,7 @@ export declare enum Mime {
     Imgwebp = "IMGWEBP",
     Videomp4 = "VIDEOMP4",
     Videowav = "VIDEOWAV",
+    Videomov = "VIDEOMOV",
     Textplain = "TEXTPLAIN",
     Applicationpdf = "APPLICATIONPDF"
 }
@@ -212,8 +213,8 @@ export declare type Mutation = {
     replaceMetadata: Array<Metadata>;
     AddStoryToBoxVisiter?: Maybe<BoxVisiter>;
     AddFrameToStoryBoxVisiter?: Maybe<BoxVisiter>;
-    addTouchTableTimeToBoxVisiter: BoxVisiter;
     DeleteBoxVisiterRelation: Array<Maybe<Relation>>;
+    UpdateBoxVisiterTouchtableTime?: Maybe<BoxVisiter>;
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
 };
 export declare type MutationReplaceMetadataArgs = {
@@ -228,13 +229,13 @@ export declare type MutationAddFrameToStoryBoxVisiterArgs = {
     code: Scalars['String'];
     frameInput: FrameInput;
 };
-export declare type MutationAddTouchTableTimeToBoxVisiterArgs = {
-    code: Scalars['String'];
-    time: Scalars['String'];
-};
 export declare type MutationDeleteBoxVisiterRelationArgs = {
     code: Scalars['String'];
     relationId: Scalars['String'];
+};
+export declare type MutationUpdateBoxVisiterTouchtableTimeArgs = {
+    code: Scalars['String'];
+    touchTableTime: Scalars['String'];
 };
 export declare type MutationAddAssetToBoxVisiterArgs = {
     code: Scalars['String'];
@@ -260,6 +261,7 @@ export declare type Query = {
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
+    RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
@@ -288,6 +290,9 @@ export declare type QueryEntitiesArgs = {
 export declare type QueryRelationsArgs = {
     searchValue: SearchFilter;
     fetchPolicy?: Maybe<Scalars['String']>;
+};
+export declare type QueryRelationsAsEntitiesArgs = {
+    id: Scalars['String'];
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -504,15 +509,16 @@ export declare type TouchTableEntityFragment = {
     mediafiles?: Maybe<Array<Maybe<{
         __typename?: 'MediaFile';
         filename?: Maybe<string>;
+        original_file_location?: Maybe<string>;
         transcode_filename?: Maybe<string>;
         mimetype?: Maybe<string>;
         mediatype?: Maybe<{
             __typename?: 'MimeType';
             type?: Maybe<string>;
             mime?: Maybe<Mime>;
+            image?: Maybe<boolean>;
             audio?: Maybe<boolean>;
             video?: Maybe<boolean>;
-            image?: Maybe<boolean>;
             pdf?: Maybe<boolean>;
         }>;
     }>>>;
@@ -617,9 +623,9 @@ export declare type NestedEntityFragment = {
             __typename?: 'MimeType';
             type?: Maybe<string>;
             mime?: Maybe<Mime>;
+            image?: Maybe<boolean>;
             audio?: Maybe<boolean>;
             video?: Maybe<boolean>;
-            image?: Maybe<boolean>;
             pdf?: Maybe<boolean>;
         }>;
     }>>>;
@@ -672,9 +678,9 @@ export declare type NestedEndEntityFragment = {
             __typename?: 'MimeType';
             type?: Maybe<string>;
             mime?: Maybe<Mime>;
+            image?: Maybe<boolean>;
             audio?: Maybe<boolean>;
             video?: Maybe<boolean>;
-            image?: Maybe<boolean>;
             pdf?: Maybe<boolean>;
         }>;
     }>>>;
@@ -727,9 +733,9 @@ export declare type FullEntityFragment = {
             __typename?: 'MimeType';
             type?: Maybe<string>;
             mime?: Maybe<Mime>;
+            image?: Maybe<boolean>;
             audio?: Maybe<boolean>;
             video?: Maybe<boolean>;
-            image?: Maybe<boolean>;
             pdf?: Maybe<boolean>;
         }>;
         metadata?: Maybe<Array<Maybe<{
@@ -798,6 +804,7 @@ export declare type StoryEntityFragment = ({
             __typename?: 'MimeType';
             type?: Maybe<string>;
             mime?: Maybe<Mime>;
+            image?: Maybe<boolean>;
             audio?: Maybe<boolean>;
             video?: Maybe<boolean>;
             pdf?: Maybe<boolean>;
@@ -1062,17 +1069,6 @@ export declare type AddFrameToStoryBoxVisiterMutation = {
         __typename?: 'BoxVisiter';
     } & FullBoxVisiterFragment)>;
 };
-export declare type AddTouchTableTimeToBoxVisiterMutationVariables = Exact<{
-    code: Scalars['String'];
-    time: Scalars['String'];
-}>;
-export declare type AddTouchTableTimeToBoxVisiterMutation = {
-    __typename?: 'Mutation';
-    addTouchTableTimeToBoxVisiter: {
-        __typename?: 'BoxVisiter';
-        touch_table_time?: Maybe<string>;
-    };
-};
 export declare type AddAssetToBoxVisiterMutationVariables = Exact<{
     code: Scalars['String'];
     assetId: Scalars['String'];
@@ -1098,6 +1094,16 @@ export declare type DeleteRelationFromBoxVisiterMutation = {
         __typename?: 'Relation';
     } & FullRelationFragment)>>;
 };
+export declare type UpdateBoxVisiterTouchtableTimeMutationVariables = Exact<{
+    code: Scalars['String'];
+    touchTableTime: Scalars['String'];
+}>;
+export declare type UpdateBoxVisiterTouchtableTimeMutation = {
+    __typename?: 'Mutation';
+    UpdateBoxVisiterTouchtableTime?: Maybe<({
+        __typename?: 'BoxVisiter';
+    } & FullBoxVisiterFragment)>;
+};
 export declare type GetTouchTableEntityQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
     searchValue: SearchFilter;
@@ -1112,6 +1118,19 @@ export declare type GetTouchTableEntityQuery = {
             __typename?: 'Entity';
         } & TouchTableEntityFragment)>>>;
     }>;
+};
+export declare type RelationsAsEntitiesQueryVariables = Exact<{
+    id: Scalars['String'];
+}>;
+export declare type RelationsAsEntitiesQuery = {
+    __typename?: 'Query';
+    RelationsAsEntities?: Maybe<Array<Maybe<({
+        __typename?: 'Entity';
+        mediafiles?: Maybe<Array<Maybe<{
+            __typename?: 'MediaFile';
+            thumbnail_file_location?: Maybe<string>;
+        }>>>;
+    } & MinimalEntityFragment)>>>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
@@ -1190,10 +1209,6 @@ export declare const AddFrameToStoryBoxVisiterDocument: DocumentNode<AddFrameToS
     code: Scalars['String'];
     frameInput: FrameInput;
 }>>;
-export declare const AddTouchTableTimeToBoxVisiterDocument: DocumentNode<AddTouchTableTimeToBoxVisiterMutation, Exact<{
-    code: Scalars['String'];
-    time: Scalars['String'];
-}>>;
 export declare const AddAssetToBoxVisiterDocument: DocumentNode<AddAssetToBoxVisiterMutation, Exact<{
     code: Scalars['String'];
     assetId: Scalars['String'];
@@ -1203,7 +1218,14 @@ export declare const DeleteRelationFromBoxVisiterDocument: DocumentNode<DeleteRe
     code: Scalars['String'];
     relationId: Scalars['String'];
 }>>;
+export declare const UpdateBoxVisiterTouchtableTimeDocument: DocumentNode<UpdateBoxVisiterTouchtableTimeMutation, Exact<{
+    code: Scalars['String'];
+    touchTableTime: Scalars['String'];
+}>>;
 export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEntityQuery, Exact<{
     limit?: number | null | undefined;
     searchValue: SearchFilter;
+}>>;
+export declare const RelationsAsEntitiesDocument: DocumentNode<RelationsAsEntitiesQuery, Exact<{
+    id: Scalars['String'];
 }>>;

@@ -542,3 +542,12 @@ query getTouchTableEntity($limit: Int, $searchValue: SearchFilter!) {
     }
   }
 }
+
+query RelationsAsEntities($id: String!) {
+  RelationsAsEntities(id: $id){
+    ...minimalEntity
+    mediafiles{
+      thumbnail_file_location
+    }
+  }
+}

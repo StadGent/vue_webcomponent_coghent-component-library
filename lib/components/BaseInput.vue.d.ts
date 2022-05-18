@@ -14,6 +14,11 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    styling: {
+        type: StringConstructor;
+        default: string;
+        required: false;
+    };
 }, {
     onClick: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "onClick")[], "update:modelValue" | "onClick", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
@@ -21,10 +26,12 @@ declare const _default: import("vue").DefineComponent<{
     disabled?: unknown;
     ref?: unknown;
     modelValue?: unknown;
+    styling?: unknown;
 } & {
     disabled: boolean;
     ref: string;
     modelValue: string;
+    styling: string;
 } & {
     placeholder?: string | undefined;
 }> & {
@@ -33,5 +40,6 @@ declare const _default: import("vue").DefineComponent<{
 }, {
     disabled: boolean;
     modelValue: string;
+    styling: string;
 }>;
 export default _default;

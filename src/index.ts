@@ -33,6 +33,7 @@ import {
   Entity,
   RelationType,
   Relation,
+  RelationsAsEntitiesDocument,  
 } from "./queries";
 import BaseButton from "./components/BaseButton.vue";
 import BaseSearch from "./components/BaseSearch.vue";
@@ -137,4 +138,5 @@ export {
   LazyLoadImage,
   ModalState,
   ImageSource,
+  RelationsAsEntitiesDocument,
 };

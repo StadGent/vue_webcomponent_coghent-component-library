@@ -1,3 +1,4 @@
+import { PropType } from "vue";
 declare type CopyrightTabInfo = {
     rights: string;
     source: string;
@@ -9,7 +10,7 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
     };
     mediafiles: {
-        type: ArrayConstructor;
+        type: PropType<any[]>;
     };
     selectedIndex: {
         type: NumberConstructor;
@@ -34,7 +35,7 @@ declare const _default: import("vue").DefineComponent<{
     infotext: string;
     showMoreInfo: boolean;
 } & {
-    mediafiles?: unknown[] | undefined;
+    mediafiles?: any[] | undefined;
     selectedIndex?: number | undefined;
 }> & {}) | (Readonly<{
     infotext?: unknown;
@@ -45,7 +46,7 @@ declare const _default: import("vue").DefineComponent<{
     infotext: string;
     showMoreInfo: boolean;
 } & {
-    mediafiles?: unknown[] | undefined;
+    mediafiles?: any[] | undefined;
     selectedIndex?: number | undefined;
 }> & {}), {
     showMoreInfo: boolean;

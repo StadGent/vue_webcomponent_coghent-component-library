@@ -9,6 +9,7 @@ export declare type UseBoxVisiter = {
     addStoryToVisiter: (_code: string, _storyId: string) => Promise<BoxVisiter | null>;
     addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<BoxVisiter | null>;
     addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
+    deleteRelationFromBoxVisiter: (_code: string, _relationId: string) => Promise<any>;
     selectedStory: Ref<StorySelected | undefined>;
     setSelectedStory: (input: StorySelected) => void;
     setStartAsset: (input: Entity) => void;
@@ -259,7 +260,7 @@ declare const historyAssets: Ref<{
         filename?: string | null | undefined;
         transcode_filename?: string | null | undefined;
         primary_transcode_location?: string | null | undefined;
-        entities?: (string | null)[] | null | undefined;
+        entities?: import("../queries").Maybe<string>[] | null | undefined;
         mediainfo?: {
             __typename?: "MediaInfo" | undefined;
             width: string;

@@ -1,5 +1,5 @@
-import { PropType } from 'vue';
-import { ImageSource, ModalState } from '@/types';
+import { PropType } from "vue";
+import { ImageSource, ModalState } from "@/types";
 declare const _default: import("vue").DefineComponent<{
     infotext: {
         type: StringConstructor;

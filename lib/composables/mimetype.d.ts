@@ -8,7 +8,6 @@ export declare enum ImageMIME {
 }
 export declare enum AudioMIME {
     AUDIOMPEG = "audio/mpeg",
-    AUDIOOCTET = "application/octet-stream",
     AUDIOAAC = "audio/aac",
     AUDIOOGG = "audio/ogg",
     AUDIOOPUS = "audio/opus",
@@ -32,7 +31,6 @@ export declare const MIMETYPES: {
     VIDEOMP4: VideoMIME.VIDEOMP4;
     VIDEOWAV: VideoMIME.VIDEOWAV;
     AUDIOMPEG: AudioMIME.AUDIOMPEG;
-    AUDIOOCTET: AudioMIME.AUDIOOCTET;
     AUDIOAAC: AudioMIME.AUDIOAAC;
     AUDIOOGG: AudioMIME.AUDIOOGG;
     AUDIOOPUS: AudioMIME.AUDIOOPUS;

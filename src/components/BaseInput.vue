@@ -1,6 +1,17 @@
 <template>
   <input
-    class="p-3 h-10 w-9/12 mr-5 bg-text-white focus:outline-none focus:ring-2 focus:ring-accent-yellow focus:border-transparent"
+    class="
+      p-3
+      h-10
+      w-9/12
+      mr-5
+      bg-text-white
+      focus:outline-none
+      focus:ring-2
+      focus:ring-accent-yellow
+      focus:border-transparent
+    "
+    :class="styling"
     :ref="ref"
     :placeholder="placeholder"
     :disabled="disabled"
@@ -8,7 +19,7 @@
   />
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
   inheritAttrs: false,
@@ -26,20 +37,24 @@ export default defineComponent({
     },
     modelValue: {
       type: String,
-      default: '',
+      default: "",
+    },
+    styling: {
+      type: String,
+      default: "",
+      required: false,
     },
   },
-  emits: ['update:modelValue', 'onClick'],
+  emits: ["update:modelValue", "onClick"],
   setup(props, { emit }) {
-
     const onClick = () => {
-      console.log('onclick')
-      emit('onClick')
-    }
+      console.log("onclick");
+      emit("onClick");
+    };
 
-    return {onClick }
+    return { onClick };
   },
-})
+});
 </script>
 <style scoped>
 </style>

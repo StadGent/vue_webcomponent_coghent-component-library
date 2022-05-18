@@ -1,4 +1,4 @@
-import { Entity } from '@/queries';
+import { Entity } from "@/queries";
 declare type MasonryImage = "placeholder" | Entity;
 declare type MasonryTileConfig = {
     SingleImage: {
@@ -45,25 +45,14 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         required: true;
     };
-    noCopy: {
-        type: BooleanConstructor;
-        default: boolean;
-        required: false;
-    };
     showLoadMore: {
         type: BooleanConstructor;
         required: false;
         default: boolean;
     };
-    hasCustomImageOverlay: {
-        type: BooleanConstructor;
-        default: boolean;
-        required: false;
-    };
 }, {
     loadMore: () => void;
     rendered: () => void;
-    copyUrl: (id: string) => Promise<void>;
     getImageUrl: (entity: Entity | "placeholder", tiletype: keyof MasonryTileConfig) => string | undefined;
     masonryTiles: import("vue").Ref<{
         type: "SingleImage" | "TwoImages" | "FourImages";
@@ -269,8 +258,7 @@ declare const _default: import("vue").DefineComponent<{
     }[]>;
     contructTiles: (numberOfTiles?: number, reset?: boolean) => void;
     getFallBackImageUrl: (entity: Entity | "placeholder", tiletype: keyof MasonryTileConfig) => string | undefined;
-    emitForRouterNavigation: (entity: Entity) => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("loadMore" | "navigateWithRouter")[], "loadMore" | "navigateWithRouter", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "loadMore"[], "loadMore", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     entities?: unknown;
     loading?: unknown;
     small?: unknown;
@@ -278,9 +266,7 @@ declare const _default: import("vue").DefineComponent<{
     endOfData?: unknown;
     generateUrl?: unknown;
     noImageUrl?: unknown;
-    noCopy?: unknown;
     showLoadMore?: unknown;
-    hasCustomImageOverlay?: unknown;
 } & {
     entities: Record<string, any>;
     loading: boolean;
@@ -289,18 +275,13 @@ declare const _default: import("vue").DefineComponent<{
     endOfData: boolean;
     generateUrl: Function;
     noImageUrl: string;
-    noCopy: boolean;
     showLoadMore: boolean;
-    hasCustomImageOverlay: boolean;
 } & {}> & {
     onLoadMore?: ((...args: any[]) => any) | undefined;
-    onNavigateWithRouter?: ((...args: any[]) => any) | undefined;
 }, {
     small: boolean;
     itemsEachLoad: number;
     endOfData: boolean;
-    noCopy: boolean;
     showLoadMore: boolean;
-    hasCustomImageOverlay: boolean;
 }>;
 export default _default;
