@@ -524,6 +524,15 @@ mutation deleteRelationFromBoxVisiter($code: String!, $relationId: String!) {
   }
 }
 
+# mutation deleteRelationFromBoxVisiter(
+#   $code: String!
+#   $relationsToDelete: [RelationInput!]!
+# ) {
+#   DeleteBoxVisiterRelation(code: $code, relationsToDelete: $relationsToDelete) {
+#     ...fullRelation
+#   }
+# }
+
 mutation updateBoxVisiterTouchtableTime(
   $code: String!
   $touchTableTime: String!
@@ -544,9 +553,9 @@ query getTouchTableEntity($limit: Int, $searchValue: SearchFilter!) {
 }
 
 query RelationsAsEntities($id: String!) {
-  RelationsAsEntities(id: $id){
+  RelationsAsEntities(id: $id) {
     ...minimalEntity
-    mediafiles{
+    mediafiles {
       thumbnail_file_location
     }
   }
