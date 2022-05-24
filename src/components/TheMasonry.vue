@@ -39,6 +39,7 @@
                   : undefined
               "
               :fall-back-url="getFallBackImageUrl(entity, tile.type)"
+              :noImageUrl="noImageUrl"
               extra-class="h-full object-contain"
               @loaded="rendered"
             />

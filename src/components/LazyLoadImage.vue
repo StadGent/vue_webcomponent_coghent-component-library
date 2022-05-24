@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onMounted } from "vue"
+import { defineComponent, ref, watch, onMounted } from "vue";
 export default defineComponent({
   name: "LazyLoadImage",
   props: {
@@ -42,38 +42,44 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    noImageUrl: {
+      type: String,
+      required: true,
+    },
   },
   emits: ["loaded"],
   setup: (props, { emit }) => {
-    const imageLoaded = ref<boolean>(false)
-    const imageUrl = ref<string | undefined>(props.url)
+    const imageLoaded = ref<boolean>(false);
+    const imageUrl = ref<string | undefined>(props.url);
 
     const rendered = () => {
-      emit("loaded")
-    }
+      emit("loaded");
+    };
 
     const finalImageLoaded = () => {
-      imageLoaded.value = true
-      emit("loaded")
-    }
+      imageLoaded.value = true;
+      emit("loaded");
+    };
 
     watch(
       () => props.url,
       (value: string | undefined) => {
         if (!value) {
-          imageLoaded.value = false
+          imageLoaded.value = false;
         } else {
-          imageUrl.value = value
+          imageUrl.value = value;
         }
       }
-    )
+    );
 
     const setFallback = () => {
-      console.log("setFallback")
-      if (props.fallBackUrl) {
-        imageUrl.value = props.fallBackUrl
+      console.log("setFallback");
+      if (props.fallBackUrl && imageUrl.value != props.fallBackUrl) {
+        imageUrl.value = props.fallBackUrl;
+      } else {
+        imageUrl.value = props.noImageUrl;
       }
-    }
+    };
 
     return {
       setFallback,
@@ -81,7 +87,7 @@ export default defineComponent({
       imageUrl,
       finalImageLoaded,
       rendered,
-    }
+    };
   },
-})
+});
 </script>

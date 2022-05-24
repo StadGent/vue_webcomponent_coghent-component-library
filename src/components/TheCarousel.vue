@@ -1,5 +1,6 @@
 <template>
   <!--Fullscreen modal-->
+
   <base-modal
     :modalState="openIIIFModal"
     :large="true"
@@ -9,22 +10,7 @@
     <section class="h-large flex relative w-full">
       <a
         @click="closeFullscreenModal"
-        class="
-          right-2
-          top-2
-          absolute
-          bg-neutral-0
-          cursor-pointer
-          hover:bg-accent-yellow
-          ml-2
-          mr-2
-          p-2
-          rounded-full
-          shadow-xl
-          text-accent-purple
-          z-50
-          hover:text-neutral-0
-        "
+        class="right-2 top-2 absolute bg-neutral-0 cursor-pointer hover:bg-accent-yellow ml-2 mr-2 p-2 rounded-full shadow-xl text-accent-purple z-50 hover:text-neutral-0"
       >
         <base-icon
           icon="close"
@@ -43,17 +29,21 @@
         v-if="mediafiles[selectedIndex].mediatype.video"
         :mediaFile="mediafiles[selectedIndex]"
       />
+
       <AudioPlayer
         v-if="mediafiles[selectedIndex].mediatype.audio"
         :mediaFile="mediafiles[selectedIndex]"
       />
+
       <PDFViewer
         v-if="mediafiles[selectedIndex].mediatype.pdf"
         :mediaFile="mediafiles[selectedIndex]"
       />
     </section>
   </base-modal>
+
   <!--Carousel -->
+
   <div class="flex items-center">
     <div class="z-0 mt-24 w-1/4 transform -translate-x-1/4">
       <lazy-load-image
@@ -61,8 +51,10 @@
         :url="source[getPrevImage()].imageUrl"
         :fallBackUrl="source[getPrevImage()].fallBackUrl"
         v-if="source.length > 2"
+        :noImageUrl="source[getPrevImage()].noImageUrl"
       />
     </div>
+
     <div class="flex flex-col items-center relative">
       <base-button
         class="w-0 absolute z-20 top-0 left-0 mt-3 ml-3"
@@ -71,6 +63,7 @@
         :iconShown="true"
         :onClick="openFullscreenModal"
       />
+
       <copyright-tab
         class="absolute top-0 right-0 w-full h-full"
         :infotext="infotext"
@@ -79,25 +72,16 @@
         @openingCcmodal="openCCModal"
         :showMoreInfo="!isTouch"
       />
+
       <lazy-load-image
         extraClass="z-10"
         :url="source[selectedIndex].imageUrl"
         :fallBackUrl="source[selectedIndex].fallBackUrl"
+        :noImageUrl="source[selectedIndex].noImageUrl"
       />
+
       <div
-        class="
-          flex
-          items-center
-          bg-text-white
-          shadow
-          w-min
-          inline-block
-          rounded-full
-          p-3
-          px-5
-          z-20
-          -mt-4
-        "
+        class="flex items-center bg-text-white shadow w-min inline-block rounded-full p-3 px-5 z-20 -mt-4"
         v-show="source.length > 1"
       >
         <svg
@@ -117,6 +101,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           />
+
           <path
             d="M11 1L16 6L11 11"
             stroke="#B65099"
@@ -125,6 +110,7 @@
             stroke-linejoin="round"
           />
         </svg>
+
         <div
           v-for="photo in source"
           v-show="source.length <= 10"
@@ -134,9 +120,11 @@
             [`opacity-40`]: photo.imageUrl !== source[selectedIndex].imageUrl,
           }"
         ></div>
+
         <div v-show="source.length > 10">
           {{ `${selectedIndex + 1}/${source.length}` }}
         </div>
+
         <svg
           v-show="source.length > 1"
           class="cursor-pointer flex-shrink-0 ml-2"
@@ -154,6 +142,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           />
+
           <path
             d="M11 1L16 6L11 11"
             stroke="#B65099"
@@ -164,16 +153,19 @@
         </svg>
       </div>
     </div>
+
     <div class="z-0 mt-24 w-1/4 transform translate-x-1/4">
       <lazy-load-image
         extraClass="opacity-70"
         :url="source[getNextImage()].imageUrl"
         :fallBackUrl="source[getNextImage()].fallBackUrl"
+        :noImageUrl="source[getNextImage()].noImageUrl"
         v-if="source.length > 1"
       />
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import {
   defineComponent,
@@ -292,4 +284,5 @@ export default defineComponent({
   },
 });
 </script>
+
 <style scoped></style>
