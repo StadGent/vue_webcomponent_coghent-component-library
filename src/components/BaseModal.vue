@@ -1,20 +1,11 @@
 <template>
-  <div v-show="modalState === 'small'" :class="'fixed right-0 top-0 z-40 ' + customStyles">
+  <div
+    v-show="modalState === 'small'"
+    :class="'fixed right-0 top-0 z-40 ' + customStyles"
+  >
     <!-- Advise -->
     <div
-      class="
-        fixed
-        right-0
-        top-0
-        rounded-bl-lg
-        bg-neutral-0
-        shadow-2xl
-        w-full
-        sm:w-1/2
-        xl:w-1/4
-        max-w-[450px]
-        overflow-hidden
-      "
+      class="fixed right-0 top-0 rounded-bl-lg bg-neutral-0 shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden"
     >
       <slot name="small"></slot>
     </div>
@@ -23,27 +14,18 @@
     v-show="modalState === 'show' || modalState === 'loading'"
     :class="
       modalState === 'small'
-        ? 'fixed z-40 inset-0 m-4 w-64 h-64 ' + customStyles 
+        ? 'fixed z-40 inset-0 m-4 w-64 h-64 ' + customStyles
         : 'fixed z-40 inset-0 m-4 ' + customStyles
     "
   >
     <div
-      class="
-        flex
-        items-end
-        justify-center
-        sm:mt-0
-        text-center
-        sm:block sm:p-0
-        h-full
-        sm:h-4/5
-      "
+      class="flex items-end justify-center sm:mt-0 text-center sm:block sm:p-0 h-full sm:h-4/5"
     >
       <div
         class="fixed inset-0 bg-neutral-80 bg-opacity-75 transition-opacity"
         aria-hidden="true"
         @click="hideModal"
-        v-show="modalState !== 'small'"
+        v-show="modalState !== 'small' && showCloseButton"
       ></div>
       <span
         class="hidden sm:inline-block sm:align-middle h-screen"
@@ -52,18 +34,7 @@
       >
 
       <div
-        class="
-          inline-block
-          align-bottom
-          bg-neutral-0
-          rounded-lg
-          text-left
-          overflow-hidden
-          shadow-xl
-          transform
-          transition-all
-          sm:align-middle sm:w-11/12
-        "
+        class="inline-block align-bottom bg-neutral-0 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle sm:w-11/12"
         :class="{
           'sm:max-w-4xl': !large,
           'h-full': large,
@@ -71,16 +42,8 @@
         }"
       >
         <base-icon
-          class="
-            absolute
-            top-3
-            right-3
-            text-text-black
-            stroke-current
-            fill-current
-            stroke-1
-            cursor-pointer
-          "
+          v-show="showCloseButton"
+          class="absolute top-3 right-3 text-text-black stroke-current fill-current stroke-1 cursor-pointer"
           icon="close"
           @click="hideModal"
         />
@@ -96,9 +59,9 @@
 </template>
 
 <script lang="ts">
-import { ModalState } from "@/types"
-import { defineComponent, PropType, toRefs, watch } from "vue"
-import BaseIcon from "./BaseIcon.vue"
+import { ModalState } from "@/types";
+import { defineComponent, PropType, toRefs, watch } from "vue";
+import BaseIcon from "./BaseIcon.vue";
 
 export default defineComponent({
   name: "Modal",
@@ -119,39 +82,44 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    showCloseButton: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
     customStyles: {
       type: String,
       required: false,
-      default: '',
-    }
+      default: "",
+    },
   },
   emits: ["update:modalState", "hideModal", "showModal"],
   setup(props, { emit }) {
     const hideModal: () => void = () => {
-      emit("update:modalState", "hide")
-      emit("hideModal", "hide")
-    }
+      emit("update:modalState", "hide");
+      emit("hideModal", "hide");
+    };
 
-    const { modalState } = toRefs(props)
+    const { modalState } = toRefs(props);
 
     watch(modalState, (value: ModalState) => {
       if (value == "show" || value == "loading") {
-        document.body.classList.add("overflow-hidden")
+        document.body.classList.add("overflow-hidden");
       } else {
-        document.body.classList.remove("overflow-hidden")
+        document.body.classList.remove("overflow-hidden");
       }
-    })
+    });
 
     const growModal: () => void = () => {
-      emit("showModal", "show")
-    }
+      emit("showModal", "show");
+    };
 
     return {
       hideModal,
       growModal,
-    }
+    };
   },
-})
+});
 </script>
 
 <style scoped>

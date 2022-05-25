@@ -6,6 +6,7 @@
     :large="true"
     class="z-50"
     @hide-modal="closeFullscreenModal"
+    :showCloseButton="false"
   >
     <section class="h-large flex relative w-full">
       <a
@@ -28,11 +29,13 @@
         class="pb-6"
         v-if="mediafiles[selectedIndex].mediatype.video"
         :mediaFile="mediafiles[selectedIndex]"
+        :modalState="openIIIFModal"
       />
 
       <AudioPlayer
         v-if="mediafiles[selectedIndex].mediatype.audio"
         :mediaFile="mediafiles[selectedIndex]"
+        :modalState="openIIIFModal"
       />
 
       <PDFViewer
