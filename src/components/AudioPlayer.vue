@@ -1,9 +1,10 @@
 <template>
-  <div class="flex w-full h-full justify-center items-center">
+  <div class="flex w-full flex-col h-full justify-center items-center">
+    <audio-thumbnail class="h-1/4" />
     <audio
       :id="mediaFile._id"
       controls
-      class="w-full"
+      class="w-full absolute bottom-0"
       controlsList="nodownload"
     >
       <source
@@ -19,8 +20,10 @@
 import { MediaFileMetadata, MediaFile } from "@/queries";
 import { defineComponent, PropType, watch } from "vue";
 import { reloadMediaAfterModalClose } from "../helpers";
+import AudioThumbnail from "./AudioThumbnail.vue";
 
 export default defineComponent({
+  components: { AudioThumbnail },
   name: "AudioPlayer",
   props: {
     mediaFile: {

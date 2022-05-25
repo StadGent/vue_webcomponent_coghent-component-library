@@ -8,7 +8,7 @@
     @hide-modal="closeFullscreenModal"
     :showCloseButton="false"
   >
-    <section class="h-large flex relative w-full">
+    <section class="h-full flex relative w-full">
       <a
         @click="closeFullscreenModal"
         class="right-2 top-2 absolute bg-neutral-0 cursor-pointer hover:bg-accent-yellow ml-2 mr-2 p-2 rounded-full shadow-xl text-accent-purple z-50 hover:text-neutral-0"
@@ -26,7 +26,6 @@
       />
 
       <VideoPlayer
-        class="pb-6"
         v-if="mediafiles[selectedIndex].mediatype.video"
         :mediaFile="mediafiles[selectedIndex]"
         :modalState="openIIIFModal"
