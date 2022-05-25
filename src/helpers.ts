@@ -7,6 +7,13 @@ type WeightedArrayConfigForArray<T> = {
   probability: number | "*";
 };
 
+export const reloadMediaAfterModalClose = (playerId: string) => {
+  const player = document.getElementById(playerId) as HTMLMediaElement;
+  if (player) {
+    player.load();
+  }
+};
+
 export const randomizer = <T extends string>(
   input: Record<T, WeightedArrayConfig>
 ): T | undefined => {

@@ -18,6 +18,7 @@
 <script lang="ts">
 import { MediaFileMetadata, MediaFile } from "@/queries";
 import { defineComponent, PropType, watch } from "vue";
+import { reloadMediaAfterModalClose } from "../helpers";
 
 export default defineComponent({
   name: "AudioPlayer",
@@ -35,12 +36,7 @@ export default defineComponent({
       () => props.modalState,
       (modalState) => {
         if (modalState == "hide") {
-          const player = document.getElementById(
-            props.mediaFile._id
-          ) as HTMLVideoElement;
-          if (player) {
-            player.pause();
-          }
+          reloadMediaAfterModalClose(props.mediaFile._id);
         }
       }
     );

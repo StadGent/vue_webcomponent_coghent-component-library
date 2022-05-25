@@ -15,6 +15,8 @@
 <script lang="ts">
 import { defineComponent, PropType, watch } from "vue";
 import { MediaFile } from "@/queries";
+import { reloadMediaAfterModalClose } from "../helpers";
+
 export default defineComponent({
   name: "VideoPlayer",
   props: {
@@ -32,12 +34,7 @@ export default defineComponent({
       () => props.modalState,
       (modalState) => {
         if (modalState == "hide") {
-          const player = document.getElementById(
-            props.mediaFile._id
-          ) as HTMLVideoElement;
-          if (player) {
-            player.pause();
-          }
+          reloadMediaAfterModalClose(props.mediaFile._id);
         }
       }
     );
