@@ -1,36 +1,10 @@
 <template>
   <label
-    class="
-      flex
-      block
-      my-2
-      text-center text-text-dark
-      py-2
-      shadow-lg
-      pl-2
-      pr-8
-      w-full
-      min-w-48
-      text-neutral-700 text-xl
-      focus:outline-none
-      rounded-full
-      bg-text-white
-    "
+    class="flex block my-2 text-center text-text-dark py-2 shadow-lg pl-2 pr-8 w-full min-w-48 text-neutral-700 text-xl focus:outline-none rounded-full bg-text-white"
   >
     <span
       v-if="label"
-      class="
-        ml-1
-        px-4
-        items-center
-        font-bold
-        text-sm
-        rounded-full
-        bg-accent-purple
-        text-text-white
-        hidden
-        sm:flex
-      "
+      class="ml-1 px-4 items-center font-bold text-sm rounded-full bg-accent-purple text-text-white hidden sm:flex"
       >{{ label }}</span
     >
     <input
@@ -41,16 +15,7 @@
     />
     <a
       @click="onClick"
-      class="
-        flex
-        items-center
-        pt-2
-        pb-2
-        cursor-pointer
-        hover:text-accent-purple
-        search-button
-        justify-end
-      "
+      class="flex items-center pt-2 pb-2 pl-2 cursor-pointer hover:text-accent-purple min-w-max justify-end"
     >
       <svg
         v-if="!loading"
@@ -145,8 +110,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.search-button {
-  min-width: 10rem;
-}
-</style>
+<style scoped></style>
