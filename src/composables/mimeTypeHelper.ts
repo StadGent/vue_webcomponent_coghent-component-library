@@ -3,16 +3,16 @@ import { MediaFile } from "@/queries";
 export const getFileNameByMimeType = (
   mediafile: MediaFile
 ): string | undefined => {
+  let filename = undefined;
   if (mediafile.mimetype) {
     if (mediafile.mediatype?.video) {
-      return (
+      filename =
         mediafile.thumbnail_file_location ||
         mediafile.transcode_filename ||
-        mediafile.filename ||
-        undefined
-      );
+        mediafile.filename;
     } else {
-      return mediafile.transcode_filename || mediafile.filename || undefined;
+      filename = mediafile.transcode_filename || mediafile.filename;
     }
   }
+  return filename || mediafile.filename || undefined;
 };
