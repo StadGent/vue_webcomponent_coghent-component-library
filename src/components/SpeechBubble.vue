@@ -1,55 +1,61 @@
 <template>
   <div
-    :class="
-      cardDetails.alignment == 'Left'
-        ? `speech half left ${color} rounded-md`
-        : `speech half right ${color} rounded-md`
-    "
+    :class="`w-full flex ${
+      alignment == 'Left' ? 'justify-start' : 'justify-end'
+    }`"
   >
-    <div v-if="cardDetails.alignment == 'Left'" class="flex gap-4">
-      <div class="w-1/3 p-4 flex justify-center items-center rounded-md">
-        <div class="rounded-full bg-neutral-0 w-20 h-20"></div>
-      </div>
-      <div class="w-2/3 bg-background-light p-4">
-        <div class="w-full flex justify-between font-bold text-xs">
-          <p>{{ cardDetails.name }}</p>
-          <p>{{ cardDetails.date }}</p>
+    <div
+      :class="
+        alignment == 'Left'
+          ? `speech half left ${color} rounded-md my-5 w-full md:w-3/4`
+          : `speech half right ${color} rounded-md my-5 w-full md:w-3/4`
+      "
+    >
+      <div v-if="alignment == 'Left'" class="flex gap-4">
+        <div class="w-1/3 p-4 flex justify-center items-center rounded-md">
+          <div class="rounded-full bg-neutral-0 w-20 h-20"></div>
         </div>
-        <div class="w-full p-2">
-          <q>{{ cardDetails.content }}</q>
-        </div>
-        <div
-          class="w-full flex items-center cursor-pointer"
-          @click="submitLike"
-        >
-          <base-icon icon="thumbsup" />
-          <p class="px-2">
-            {{ cardDetails.likes }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div v-else class="flex">
-      <div class="w-2/3 bg-background-light p-4">
-        <div class="w-full flex justify-between font-bold text-xs">
-          <p>{{ cardDetails.name }}</p>
-          <p>{{ cardDetails.date }}</p>
-        </div>
-        <div class="w-full p-2">
-          <q>{{ cardDetails.content }}</q>
-        </div>
-        <div
-          class="w-full flex items-center cursor-pointer"
-          @click="submitLike"
-        >
-          <base-icon icon="thumbsup" />
-          <p class="px-2">
-            {{ cardDetails.likes }}
-          </p>
+        <div class="w-2/3 bg-background-light p-4 rounded-r-md">
+          <div class="w-full flex justify-between font-bold text-xs">
+            <p>{{ cardDetails.name }}</p>
+            <p>{{ cardDetails.date }}</p>
+          </div>
+          <div class="w-full my-2 bottomline">
+            <q>{{ cardDetails.content }}</q>
+          </div>
+          <div
+            class="flex max-w-min items-center cursor-pointer"
+            @click="submitLike"
+          >
+            <base-icon icon="thumbsup" />
+            <p class="px-2">
+              {{ cardDetails.likes }}
+            </p>
+          </div>
         </div>
       </div>
-      <div class="w-1/3 p-4 flex justify-center items-center rounded-md">
-        <div class="rounded-full bg-neutral-0 w-20 h-20"></div>
+      <div v-else class="flex">
+        <div class="w-2/3 bg-background-light p-4 rounded-l-md">
+          <div class="w-full flex justify-between font-bold text-xs">
+            <p>{{ cardDetails.name }}</p>
+            <p>{{ cardDetails.date }}</p>
+          </div>
+          <div class="w-full my-2 bottomline">
+            <q>{{ cardDetails.content }}</q>
+          </div>
+          <div
+            class="flex max-w-min items-center cursor-pointer"
+            @click="submitLike"
+          >
+            <base-icon icon="thumbsup" />
+            <p class="px-2">
+              {{ cardDetails.likes }}
+            </p>
+          </div>
+        </div>
+        <div class="w-1/3 p-4 flex justify-center items-center rounded-md">
+          <div class="rounded-full bg-neutral-0 w-20 h-20"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -62,11 +68,11 @@ import baseIcon from "../components/BaseIcon.vue";
 type Alignment = "Left" | "Right";
 
 export type TestimoniCard = {
+  id: string;
   name: string;
   date: string;
   content: string;
   likes: number;
-  alignment: Alignment;
 };
 
 export default defineComponent({
@@ -82,13 +88,19 @@ export default defineComponent({
       required: false,
       default: "#02a77f",
     },
+    alignment: {
+      type: String as PropType<Alignment>,
+      required: false,
+      default: "Left",
+    },
   },
-  setup(props) {
+  emits: ["receivedLike"],
+  setup(props, { emit }) {
     const root = document.documentElement;
     root.style.setProperty("--bubble-color", props.color);
 
     const submitLike = () => {
-      props.cardDetails.likes++;
+      emit("receivedLike", props.cardDetails);
     };
 
     return {
@@ -120,5 +132,10 @@ export default defineComponent({
   border-right-color: var(--bubble-color);
   bottom: -20px;
   right: 0;
+}
+
+.bottomline {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-width: 1px;
 }
 </style>
