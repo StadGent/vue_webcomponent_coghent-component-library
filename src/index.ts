@@ -33,7 +33,7 @@ import {
   Entity,
   RelationType,
   Relation,
-  RelationsAsEntitiesDocument,  
+  RelationsAsEntitiesDocument,
 } from "./queries";
 import BaseButton from "./components/BaseButton.vue";
 import BaseSearch from "./components/BaseSearch.vue";
@@ -53,6 +53,8 @@ import BaseMetaData from "./components/BaseMetaData.vue";
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue";
 import TheMasonry from "./components/TheMasonry.vue";
 import BaseOverlay from "./components/BaseOverlay.vue";
+import SpeechBubble from "./components/SpeechBubble.vue";
+import type TestimoniCard from "./components/SpeechBubble.vue";
 import { ModalState, ImageSource } from "./types";
 import {
   boxVisiter,
@@ -87,6 +89,8 @@ export {
   Entity,
   TheMasonry,
   BaseOverlay,
+  SpeechBubble,
+  TestimoniCard,
   DeleteRelationFromBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
