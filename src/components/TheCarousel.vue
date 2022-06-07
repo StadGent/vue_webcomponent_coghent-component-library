@@ -53,7 +53,9 @@
         :url="source[getPrevImage()].imageUrl"
         :fallBackUrl="source[getPrevImage()].fallBackUrl"
         v-if="source.length > 2"
-        :noImageUrl="source[getPrevImage()].noImageUrl"
+        :noImageUrl="
+          source[selectedIndex].mediaType.audio ? audioUrl : noImageUrl
+        "
       />
     </div>
 
@@ -79,7 +81,9 @@
         extraClass="z-10"
         :url="source[selectedIndex].imageUrl"
         :fallBackUrl="source[selectedIndex].fallBackUrl"
-        :noImageUrl="source[selectedIndex].noImageUrl"
+        :noImageUrl="
+          source[selectedIndex].mediaType.audio ? audioUrl : noImageUrl
+        "
       />
 
       <div
@@ -161,7 +165,9 @@
         extraClass="opacity-70"
         :url="source[getNextImage()].imageUrl"
         :fallBackUrl="source[getNextImage()].fallBackUrl"
-        :noImageUrl="source[getNextImage()].noImageUrl"
+        :noImageUrl="
+          source[selectedIndex].mediaType.audio ? audioUrl : noImageUrl
+        "
         v-if="source.length > 1"
       />
     </div>
@@ -187,6 +193,7 @@ import { ImageSource, ModalState } from "@/types";
 import VideoPlayer from "./VideoPlayer.vue";
 import AudioPlayer from "./AudioPlayer.vue";
 import PDFViewer from "./PDFViewer.vue";
+import { useIIIF } from "../composables/useIIIF";
 
 export default defineComponent({
   props: {
@@ -225,6 +232,7 @@ export default defineComponent({
     const prevIndex = ref<number>(0);
     const openIIIFModal = ref<ModalState>("hide");
     const openTab = ref<boolean>(false);
+    const { noImageUrl, audioUrl } = useIIIF("");
 
     const nextImage = () => {
       selectedIndex.value =
@@ -282,6 +290,8 @@ export default defineComponent({
       openTab,
       // toggleCCTab,
       openCCModal,
+      noImageUrl,
+      audioUrl,
     };
   },
 });

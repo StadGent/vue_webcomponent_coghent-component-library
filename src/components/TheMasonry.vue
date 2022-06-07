@@ -39,7 +39,11 @@
                   : undefined
               "
               :fall-back-url="getFallBackImageUrl(entity, tile.type)"
-              :noImageUrl="noImageUrl"
+              :noImageUrl="
+                entity.mediafiles && entity.mediafiles[0].mediatype.audio
+                  ? audioUrl
+                  : noImageUrl
+              "
               extra-class="h-full object-contain"
               @loaded="rendered"
             />
@@ -71,6 +75,7 @@ import BaseButton from "./BaseButton.vue";
 import LazyLoadImage from "./LazyLoadImage.vue";
 import { randomizer } from "../helpers";
 import { Entity } from "@/queries";
+import { useIIIF } from "../composables/useIIIF";
 
 type MasonryImage = "placeholder" | Entity;
 
@@ -128,10 +133,6 @@ export default defineComponent({
       type: Function,
       required: true,
     },
-    noImageUrl: {
-      type: String,
-      required: true,
-    },
     showLoadMore: {
       type: Boolean,
       required: false,
@@ -144,7 +145,7 @@ export default defineComponent({
     const loadMore = () => emit("loadMore");
     const renderCount = ref<number>(0);
     const generateUrl = props.generateUrl;
-    const noImageUrl = props.noImageUrl;
+    const { noImageUrl, audioUrl } = useIIIF("");
 
     const tiles: MasonryTileConfig = {
       SingleImage: {
@@ -368,6 +369,8 @@ export default defineComponent({
       masonryTiles,
       contructTiles,
       getFallBackImageUrl,
+      noImageUrl,
+      audioUrl,
     };
   },
 });
