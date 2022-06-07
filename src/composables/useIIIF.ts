@@ -1,5 +1,6 @@
 const useIIIF = (_url: string) => {
   const noImageUrl = "/no-image.png";
+  const audioUrl = "/audiothumbnail.png";
 
   const generateUrl = (
     filename: string,
@@ -17,6 +18,7 @@ const useIIIF = (_url: string) => {
   };
 
   return {
+    audioUrl,
     noImageUrl,
     generateUrl,
     generateInfoUrl,
