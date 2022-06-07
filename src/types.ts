@@ -3,6 +3,7 @@ export type ImageSource = {
   infoJson: string;
   fallBackUrl: string;
   noImageUrl: string;
+  mediaType: object;
 };
 
 export type ModalState = "show" | "hide" | "loading" | "small";
