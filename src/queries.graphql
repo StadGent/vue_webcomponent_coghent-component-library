@@ -16,6 +16,16 @@ fragment minimalEntity on Entity {
     width
     height
   }
+  mediafiles {
+    mediatype {
+      type
+      mime
+      image
+      audio
+      video
+      pdf
+    }
+  }
 }
 
 fragment touchTableEntity on Entity {
