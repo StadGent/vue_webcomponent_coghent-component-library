@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full h-full">
+  <div class="w-full h-full">
     <div ref="OpenSeadragon-toolbar" class="hidden" />
     <ViewerToolbar
       v-model:zoomIn="zoomInDiv"
@@ -10,20 +10,11 @@
     />
     <div
       v-show="loading"
-      class="
-        absolute
-        flex
-        h-full
-        items-center
-        justify-center
-        text-center
-        w-full
-        z-40
-      "
+      class="absolute flex h-full items-center justify-center text-center w-full z-40"
     >
       Loading ...
     </div>
-    <div ref="OpenSeadragonDiv" class="w-full h-full z-0 checkboard" />
+    <div ref="OpenSeadragonDiv" class="w-screen h-full z-0 checkboard" />
   </div>
 </template>
 
