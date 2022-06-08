@@ -1,49 +1,6 @@
 <template>
   <!--Fullscreen modal-->
-
-  <base-modal
-    :modalState="openIIIFModal"
-    :large="true"
-    class="z-50"
-    @hide-modal="closeFullscreenModal"
-    :showCloseButton="false"
-  >
-    <section class="h-full flex relative w-full">
-      <a
-        @click="closeFullscreenModal"
-        class="right-2 top-2 absolute bg-neutral-0 cursor-pointer hover:bg-accent-yellow ml-2 mr-2 p-2 rounded-full shadow-xl text-accent-purple z-50 hover:text-neutral-0"
-      >
-        <base-icon
-          icon="close"
-          class="h-5 w-5 ml-0.5 stroke-current fill-current stroke-2"
-        />
-      </a>
-
-      <IIIFViewer
-        v-if="mediafiles[selectedIndex].mediatype.image"
-        :canGoFullScreen="isTouch ? false : true"
-        :imageUrl="source[selectedIndex].infoJson"
-      />
-
-      <VideoPlayer
-        v-if="mediafiles[selectedIndex].mediatype.video"
-        :mediaFile="mediafiles[selectedIndex]"
-        :modalState="openIIIFModal"
-      />
-
-      <AudioPlayer
-        v-if="mediafiles[selectedIndex].mediatype.audio"
-        :mediaFile="mediafiles[selectedIndex]"
-        :modalState="openIIIFModal"
-      />
-
-      <PDFViewer
-        v-if="mediafiles[selectedIndex].mediatype.pdf"
-        :mediaFile="mediafiles[selectedIndex]"
-      />
-    </section>
-  </base-modal>
-
+  <media-modal />
   <!--Carousel -->
 
   <div class="flex items-center">
@@ -65,7 +22,7 @@
         customStyle="secondary-round"
         customIcon="fullscreen"
         :iconShown="true"
-        :onClick="openFullscreenModal"
+        :onClick="openMediaModal"
       />
 
       <copyright-tab
@@ -186,13 +143,11 @@ import {
 import BaseButton from "./BaseButton.vue";
 import BaseModal from "./BaseModal.vue";
 import BaseIcon from "./BaseIcon.vue";
-import IIIFViewer from "./IIIFViewer.vue";
 import CopyrightTab from "./CopyrightTab.vue";
 import LazyLoadImage from "./LazyLoadImage.vue";
+import MediaModal from "./MediaModal.vue";
+import { useMediaModal } from "@/composables/useMediaModal";
 import { ImageSource, ModalState } from "@/types";
-import VideoPlayer from "./VideoPlayer.vue";
-import AudioPlayer from "./AudioPlayer.vue";
-import PDFViewer from "./PDFViewer.vue";
 import { useIIIF } from "../composables/useIIIF";
 
 export default defineComponent({
@@ -217,13 +172,10 @@ export default defineComponent({
   components: {
     BaseButton,
     BaseModal,
-    IIIFViewer,
     BaseIcon,
     CopyrightTab,
     LazyLoadImage,
-    VideoPlayer,
-    AudioPlayer,
-    PDFViewer,
+    MediaModal,
   },
   emits: ["openingCcmodal", "currentCarouselPicture"],
   setup(props, { emit }: SetupContext) {
@@ -233,6 +185,19 @@ export default defineComponent({
     const openIIIFModal = ref<ModalState>("hide");
     const openTab = ref<boolean>(false);
     const { noImageUrl, audioUrl } = useIIIF("");
+    const { setMediaModalImageUrl, setMediaModalFile, openMediaModal } =
+      useMediaModal();
+
+    watch(
+      () => selectedIndex.value,
+      (index) => {
+        setMediaModalImageUrl(props.source[index].infoJson);
+        if (props.mediafiles) {
+          setMediaModalFile(props.mediafiles[index]);
+        }
+      },
+      { immediate: true }
+    );
 
     const nextImage = () => {
       selectedIndex.value =
@@ -262,14 +227,6 @@ export default defineComponent({
           : selectedIndex.value - 1);
     };
 
-    const openFullscreenModal = () => {
-      openIIIFModal.value = "show";
-    };
-
-    const closeFullscreenModal = () => {
-      openIIIFModal.value = "hide";
-    };
-
     // const toggleCCTab = () => {
     //   openTab.value = !openTab.value
     // }
@@ -284,10 +241,9 @@ export default defineComponent({
       nextImage,
       getNextImage,
       getPrevImage,
-      openFullscreenModal,
-      closeFullscreenModal,
       openIIIFModal,
       openTab,
+      openMediaModal,
       // toggleCCTab,
       openCCModal,
       noImageUrl,

@@ -54,7 +54,9 @@ import BaseMetaDataTab from "./components/BaseMetaDataTab.vue";
 import TheMasonry from "./components/TheMasonry.vue";
 import BaseOverlay from "./components/BaseOverlay.vue";
 import SpeechBubble from "./components/SpeechBubble.vue";
-import type TestimoniCard from "./components/SpeechBubble.vue";
+import MediaModal from "./components/MediaModal.vue";
+import { useMediaModal } from "./composables/useMediaModal";
+import type TestimoniCard from "@/components/SpeechBubble.vue";
 import { ModalState, ImageSource } from "./types";
 import {
   boxVisiter,
@@ -91,6 +93,8 @@ export {
   BaseOverlay,
   SpeechBubble,
   TestimoniCard,
+  MediaModal,
+  useMediaModal,
   DeleteRelationFromBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
