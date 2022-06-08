@@ -40,7 +40,7 @@
               "
               :fall-back-url="getFallBackImageUrl(entity, tile.type)"
               :noImageUrl="
-                entity.mediafiles && entity.mediafiles[0].mediatype.audio
+                entity.mediafiles.length && entity.mediafiles[0].mediatype.audio
                   ? audioUrl
                   : noImageUrl
               "
