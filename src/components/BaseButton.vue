@@ -21,10 +21,28 @@
       "
       :icon="customIcon"
     />
+    <span
+      v-if="hasBadge === true"
+      class="
+        ml-2
+        mb-4
+        invisible
+        lg:visible
+        w-5
+        h-5
+        flex
+        leading-5
+        justify-center
+        rounded-full
+        text-sm text-text-white text-bold
+      "
+      :class="`${badgeColor}`"
+      >{{ badgeValue }}</span
+    >
   </span>
 </template>
 <script lang="ts">
-import { defineComponent, ref, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import BaseIcon from "./BaseIcon.vue";
 type CustomIcon =
   | "storybox"
@@ -113,6 +131,18 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false,
+    },
+    hasBadge: {
+      type: Boolean,
+      default: false,
+    },
+    badgeColor: {
+      type: String,
+      default: "bg-accent-purple",
+    },
+    badgeValue: {
+      type: String,
+      default: "",
     },
   },
   emits: [],

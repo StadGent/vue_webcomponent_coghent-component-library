@@ -35,6 +35,7 @@ import {
   Relation,
   RelationsAsEntitiesDocument,
 } from "./queries";
+import Badge from "./components/Badge.vue";
 import BaseButton from "./components/BaseButton.vue";
 import BaseSearch from "./components/BaseSearch.vue";
 import BaseIcon from "./components/BaseIcon.vue";
@@ -77,6 +78,7 @@ import {
 import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
 
 export {
+  Badge,
   ImageMIME,
   AudioMIME,
   VideoMIME,
