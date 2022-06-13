@@ -37,6 +37,7 @@ type CustomIcon =
   | "surprise";
 type ButtonTypes =
   | "primary"
+  | "primaryUnavailable"
   | "secondary"
   | "ghost-black"
   | "ghost-purple"
@@ -45,12 +46,16 @@ type ButtonTypes =
   | "cc-round-black"
   | "round-white"
   | "details-black"
+  | "storybox-black"
+  | "storybox-red"
   | "touchtable-white-round"
   | "touchtable-green-round"
   | "touchtable-purple"
   | "touchtable-black";
 const buttonstyles: Record<ButtonTypes, string> = {
   primary: "text-text-white bg-accent-purple rounded-full shadow-lg px-10 py-3",
+  primaryUnavailable:
+    "text-text-white bg-text-dark opacity-50 rounded-full shadow-lg px-10 py-3 cursor-not-allowed",
   secondary:
     "text-accent-purple bg-text-white rounded-full shadow-lg px-10 py-3",
   "ghost-black": "text-text-dark py-3",
@@ -61,7 +66,9 @@ const buttonstyles: Record<ButtonTypes, string> = {
   "cc-round-black":
     "text-text-black bg-text-white rounded-full shadow-lg stroke-3 px-2 py-2",
   "round-white": "text-text-white px-2 py-2",
-  "details-black": "text-text-dark py-3",
+  "details-black": "text-text-dark py-4",
+  "storybox-black": "text-text-dark p-4",
+  "storybox-red": "text-text-red p-3",
   "touchtable-white-round": "text-text-dark p-8 bg-text-white rounded-full",
   "touchtable-green-round": "text-text-white p-8 bg-accent-green rounded-full",
   "touchtable-purple": "text-accent-purple py-4",
