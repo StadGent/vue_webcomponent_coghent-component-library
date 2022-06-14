@@ -35,6 +35,7 @@ import {
   Relation,
   RelationsAsEntitiesDocument,
 } from "./queries";
+import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
 import BaseButton from "./components/BaseButton.vue";
 import BaseSearch from "./components/BaseSearch.vue";
@@ -78,6 +79,7 @@ import {
 import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
 
 export {
+  CircleLoader,
   Badge,
   ImageMIME,
   AudioMIME,
