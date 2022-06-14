@@ -273,6 +273,20 @@ type Ticket {
   body: String!
 }
 
+type KeyValuePair {
+  key: String
+  value: String
+}
+
+type StoryboxBuild{
+  frameId: String
+  title: String
+  language: String
+  description: String
+  assets: [Entity]
+  assetTimings: [KeyValuePair]
+}
+
 type Query {
   PrintBoxTicket(code: String!): Ticket!
   ActiveBox: EntitiesResults!

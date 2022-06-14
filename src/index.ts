@@ -34,6 +34,8 @@ import {
   RelationType,
   Relation,
   RelationsAsEntitiesDocument,
+  StoryboxBuild,
+  KeyValuePair,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -79,6 +81,8 @@ import {
 import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
 
 export {
+  KeyValuePair,
+  StoryboxBuild,
   CircleLoader,
   Badge,
   ImageMIME,
