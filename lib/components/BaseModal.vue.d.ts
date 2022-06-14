@@ -16,6 +16,11 @@ declare const _default: import("vue").DefineComponent<{
         required: false;
         default: boolean;
     };
+    showCloseButton: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
     customStyles: {
         type: StringConstructor;
         required: false;
@@ -24,17 +29,33 @@ declare const _default: import("vue").DefineComponent<{
 }, {
     hideModal: () => void;
     growModal: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modalState" | "hideModal" | "showModal")[], "update:modalState" | "hideModal" | "showModal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    modalState?: unknown;
-    large?: unknown;
-    scroll?: unknown;
-    customStyles?: unknown;
-} & {
-    modalState: ModalState;
-    large: boolean;
-    scroll: boolean;
-    customStyles: string;
-} & {}> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modalState" | "hideModal" | "showModal")[], "update:modalState" | "hideModal" | "showModal", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    modalState: {
+        type: PropType<ModalState>;
+        required: true;
+        default: string;
+    };
+    large: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
+    scroll: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
+    showCloseButton: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
+    customStyles: {
+        type: StringConstructor;
+        required: false;
+        default: string;
+    };
+}>> & {
     "onUpdate:modalState"?: ((...args: any[]) => any) | undefined;
     onHideModal?: ((...args: any[]) => any) | undefined;
     onShowModal?: ((...args: any[]) => any) | undefined;
@@ -42,6 +63,7 @@ declare const _default: import("vue").DefineComponent<{
     modalState: ModalState;
     large: boolean;
     scroll: boolean;
+    showCloseButton: boolean;
     customStyles: string;
 }>;
 export default _default;

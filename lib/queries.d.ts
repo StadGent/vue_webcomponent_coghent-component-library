@@ -112,6 +112,10 @@ export declare enum JsPatchOp {
     Replace = "replace",
     Remove = "remove"
 }
+export declare type KeyValuePair = {
+    key?: Maybe<Scalars['String']>;
+    value?: Maybe<Scalars['String']>;
+};
 export declare enum Mime {
     Audiompeg = "AUDIOMPEG",
     Audiomp3 = "AUDIOMP3",
@@ -262,6 +266,7 @@ export declare type Query = {
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
     RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
+    CreateStorybox?: Maybe<Entity>;
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
@@ -286,6 +291,7 @@ export declare type QueryEntitiesArgs = {
     fetchPolicy?: Maybe<Scalars['String']>;
     randomization?: Maybe<Scalars['Boolean']>;
     seed?: Maybe<Scalars['String']>;
+    and_filter?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryRelationsArgs = {
     searchValue: SearchFilter;
@@ -293,6 +299,9 @@ export declare type QueryRelationsArgs = {
 };
 export declare type QueryRelationsAsEntitiesArgs = {
     id: Scalars['String'];
+};
+export declare type QueryCreateStoryboxArgs = {
+    storyboxInfo: StoryboxBuild;
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -314,6 +323,10 @@ export declare type Relation = {
     seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
     total_frames?: Maybe<Scalars['Int']>;
     setMediafile?: Maybe<Scalars['Int']>;
+};
+export declare type RelationInput = {
+    key: Scalars['String'];
+    type: RelationType;
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
@@ -346,6 +359,7 @@ export declare type SearchFilter = {
     seed?: Maybe<Scalars['String']>;
     has_mediafile?: Maybe<Scalars['Boolean']>;
     skip_relations?: Maybe<Scalars['Boolean']>;
+    and_filter?: Maybe<Scalars['Boolean']>;
 };
 export declare type Story = {
     __typename?: 'Story';
@@ -358,6 +372,14 @@ export declare type StoryInput = {
     id?: Maybe<Scalars['String']>;
     last_frame?: Maybe<Scalars['String']>;
     total_frames?: Maybe<Scalars['Int']>;
+};
+export declare type StoryboxBuild = {
+    frameId?: Maybe<Scalars['String']>;
+    title?: Maybe<Scalars['String']>;
+    language?: Maybe<Scalars['String']>;
+    description?: Maybe<Scalars['String']>;
+    assets?: Maybe<Array<Maybe<Scalars['String']>>>;
+    assetTimings?: Maybe<Array<Maybe<KeyValuePair>>>;
 };
 export declare type Ticket = {
     __typename?: 'Ticket';
@@ -489,13 +511,23 @@ export declare type MinimalEntityFragment = {
         width: string;
         height: string;
     }>;
+    mediafiles?: Maybe<Array<Maybe<{
+        __typename?: 'MediaFile';
+        mediatype?: Maybe<{
+            __typename?: 'MimeType';
+            type?: Maybe<string>;
+            mime?: Maybe<Mime>;
+            image?: Maybe<boolean>;
+            audio?: Maybe<boolean>;
+            video?: Maybe<boolean>;
+            pdf?: Maybe<boolean>;
+        }>;
+    }>>>;
 };
-export declare type TouchTableEntityFragment = {
+export declare type TouchTableEntityFragment = ({
     __typename?: 'Entity';
     id: string;
     type: string;
-    primary_mediafile?: Maybe<string>;
-    primary_transcode?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -529,7 +561,7 @@ export declare type TouchTableEntityFragment = {
         label?: Maybe<string>;
         value?: Maybe<string>;
     }>>>;
-};
+} & PrimaryMediafileInfoFragment);
 export declare type FullBoxVisiterFragment = {
     __typename?: 'BoxVisiter';
     id: string;
@@ -1132,11 +1164,20 @@ export declare type RelationsAsEntitiesQuery = {
         }>>>;
     } & MinimalEntityFragment)>>>;
 };
+export declare type CreateStoryboxQueryVariables = Exact<{
+    storyboxInfo: StoryboxBuild;
+}>;
+export declare type CreateStoryboxQuery = {
+    __typename?: 'Query';
+    CreateStorybox?: Maybe<({
+        __typename?: 'Entity';
+    } & MinimalEntityFragment)>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
+export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
 export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const FullBoxVisiterFragmentDoc: DocumentNode<FullBoxVisiterFragment, unknown>;
-export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
 export declare const FullStoryFragmentDoc: DocumentNode<FullStoryFragment, unknown>;
@@ -1228,4 +1269,7 @@ export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEnti
 }>>;
 export declare const RelationsAsEntitiesDocument: DocumentNode<RelationsAsEntitiesQuery, Exact<{
     id: Scalars['String'];
+}>>;
+export declare const CreateStoryboxDocument: DocumentNode<CreateStoryboxQuery, Exact<{
+    storyboxInfo: StoryboxBuild;
 }>>;

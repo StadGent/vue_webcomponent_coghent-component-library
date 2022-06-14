@@ -273,17 +273,17 @@ type Ticket {
   body: String!
 }
 
-type KeyValuePair {
+input KeyValuePair {
   key: String
   value: String
 }
 
-type StoryboxBuild{
+input StoryboxBuild{
   frameId: String
   title: String
   language: String
   description: String
-  assets: [Entity]
+  assets: [String]
   assetTimings: [KeyValuePair]
 }
 
@@ -308,6 +308,7 @@ type Query {
   Relations(searchValue: SearchFilter!, fetchPolicy: String): RelationsResults
   User: User
   RelationsAsEntities(id: String!): [Entity]
+  CreateStorybox(storyboxInfo: StoryboxBuild!): Entity
 }
 
 type Mutation {

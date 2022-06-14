@@ -1,6 +1,6 @@
 @import url('https://use.typekit.net/trm3hjr.css');
 
-/*! tailwindcss v2.2.7 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -452,6 +452,18 @@ textarea::placeholder {
 button,
 [role="button"] {
   cursor: pointer;
+}
+
+/**
+ * Override legacy focus reset from Normalize with modern Firefox focus styles.
+ *
+ * This is actually an improvement over the new defaults in Firefox in our testing,
+ * as it triggers the better focus styles even for links, which still use a dotted
+ * outline in Firefox by default.
+ */
+
+:-moz-focusring {
+  outline: auto;
 }
 
 table {
@@ -138670,10 +138682,6 @@ video {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
-.search-button[data-v-0b38bd89] {
-  min-width: 10rem;
-}
-
 .h-screen-90[data-v-4930085c] {
   height: 90vh;
 }
@@ -138944,4 +138952,32 @@ html[data-v-7e4054c4] {
 .v-enter-from[data-v-6664bebf],
 .v-leave-to[data-v-6664bebf] {
   transform: translateY(-100%);
+}
+
+.speech[data-v-2990d53e] {
+  position: relative;
+  background-color: var(--bubble-color);
+}
+
+.speech[data-v-2990d53e]::after {
+  content: "";
+  border: 20px solid transparent;
+  position: absolute;
+}
+
+.half.speech.left[data-v-2990d53e]::after {
+  border-left-color: var(--bubble-color);
+  bottom: -20px;
+  left: 0;
+}
+
+.half.speech.right[data-v-2990d53e]::after {
+  border-right-color: var(--bubble-color);
+  bottom: -20px;
+  right: 0;
+}
+
+.bottomline[data-v-2990d53e] {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-width: 1px;
 }

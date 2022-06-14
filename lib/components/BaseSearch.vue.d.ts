@@ -24,22 +24,30 @@ declare const _default: import("vue").DefineComponent<{
 }, {
     inputValue: import("vue").Ref<string>;
     onClick: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "onClick")[], "update:modelValue" | "onClick", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    label?: unknown;
-    searchLabel?: unknown;
-    modelValue?: unknown;
-    debounce?: unknown;
-    debounceWait?: unknown;
-    loading?: unknown;
-} & {
-    modelValue: string;
-    debounce: boolean;
-    debounceWait: number;
-    loading: boolean;
-} & {
-    label?: string | undefined;
-    searchLabel?: string | undefined;
-}> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "onClick")[], "update:modelValue" | "onClick", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    label: {
+        type: StringConstructor;
+    };
+    searchLabel: {
+        type: StringConstructor;
+    };
+    modelValue: {
+        type: StringConstructor;
+        default: string;
+    };
+    debounce: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    debounceWait: {
+        type: NumberConstructor;
+        default: number;
+    };
+    loading: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+}>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     onOnClick?: ((...args: any[]) => any) | undefined;
 }, {

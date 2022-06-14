@@ -570,3 +570,9 @@ query RelationsAsEntities($id: String!) {
     }
   }
 }
+
+query createStorybox($storyboxInfo: StoryboxBuild!) {
+  CreateStorybox(storyboxInfo: $storyboxInfo){
+    ...minimalEntity
+  }
+}

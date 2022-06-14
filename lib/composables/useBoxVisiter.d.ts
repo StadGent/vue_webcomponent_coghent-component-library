@@ -260,7 +260,7 @@ declare const historyAssets: Ref<{
         filename?: string | null | undefined;
         transcode_filename?: string | null | undefined;
         primary_transcode_location?: string | null | undefined;
-        entities?: import("../queries").Maybe<string>[] | null | undefined;
+        entities?: (string | null)[] | null | undefined;
         mediainfo?: {
             __typename?: "MediaInfo" | undefined;
             width: string;

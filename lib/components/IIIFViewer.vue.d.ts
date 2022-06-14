@@ -15,13 +15,17 @@ declare const _default: import("vue").DefineComponent<{
     fullPageButtonDiv: import("vue").Ref<string | undefined>;
     homeDiv: import("vue").Ref<string | undefined>;
     loading: import("vue").Ref<boolean>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    imageUrl?: unknown;
-    canGoFullScreen?: unknown;
-} & {
-    imageUrl: string;
-    canGoFullScreen: boolean;
-} & {}> & {}, {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    imageUrl: {
+        type: StringConstructor;
+        default: string;
+    };
+    canGoFullScreen: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
+    };
+}>>, {
     imageUrl: string;
     canGoFullScreen: boolean;
 }>;

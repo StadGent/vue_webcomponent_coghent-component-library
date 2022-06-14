@@ -41,10 +41,6 @@ declare const _default: import("vue").DefineComponent<{
         type: FunctionConstructor;
         required: true;
     };
-    noImageUrl: {
-        type: StringConstructor;
-        required: true;
-    };
     showLoadMore: {
         type: BooleanConstructor;
         required: false;
@@ -258,25 +254,41 @@ declare const _default: import("vue").DefineComponent<{
     }[]>;
     contructTiles: (numberOfTiles?: number, reset?: boolean) => void;
     getFallBackImageUrl: (entity: Entity | "placeholder", tiletype: keyof MasonryTileConfig) => string | undefined;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "loadMore"[], "loadMore", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    entities?: unknown;
-    loading?: unknown;
-    small?: unknown;
-    itemsEachLoad?: unknown;
-    endOfData?: unknown;
-    generateUrl?: unknown;
-    noImageUrl?: unknown;
-    showLoadMore?: unknown;
-} & {
-    entities: Record<string, any>;
-    loading: boolean;
-    small: boolean;
-    itemsEachLoad: number;
-    endOfData: boolean;
-    generateUrl: Function;
     noImageUrl: string;
-    showLoadMore: boolean;
-} & {}> & {
+    audioUrl: string;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "loadMore"[], "loadMore", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    entities: {
+        type: ObjectConstructor;
+        required: true;
+    };
+    loading: {
+        type: BooleanConstructor;
+        required: true;
+    };
+    small: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    itemsEachLoad: {
+        type: NumberConstructor;
+        default: number;
+        required: false;
+    };
+    endOfData: {
+        type: BooleanConstructor;
+        default: boolean;
+        required: false;
+    };
+    generateUrl: {
+        type: FunctionConstructor;
+        required: true;
+    };
+    showLoadMore: {
+        type: BooleanConstructor;
+        required: false;
+        default: boolean;
+    };
+}>> & {
     onLoadMore?: ((...args: any[]) => any) | undefined;
 }, {
     small: boolean;

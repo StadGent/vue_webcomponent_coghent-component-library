@@ -21,20 +21,28 @@ declare const _default: import("vue").DefineComponent<{
     };
 }, {
     onClick: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "onClick")[], "update:modelValue" | "onClick", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    placeholder?: unknown;
-    disabled?: unknown;
-    ref?: unknown;
-    modelValue?: unknown;
-    styling?: unknown;
-} & {
-    disabled: boolean;
-    ref: string;
-    modelValue: string;
-    styling: string;
-} & {
-    placeholder?: string | undefined;
-}> & {
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "onClick")[], "update:modelValue" | "onClick", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    placeholder: {
+        type: StringConstructor;
+    };
+    disabled: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    ref: {
+        type: StringConstructor;
+        required: true;
+    };
+    modelValue: {
+        type: StringConstructor;
+        default: string;
+    };
+    styling: {
+        type: StringConstructor;
+        default: string;
+        required: false;
+    };
+}>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     onOnClick?: ((...args: any[]) => any) | undefined;
 }, {

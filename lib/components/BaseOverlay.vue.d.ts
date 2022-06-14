@@ -12,13 +12,18 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
         default: string;
     };
-}, void, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    alignment?: unknown;
-    overlayState?: unknown;
-} & {
-    alignment: Alignment;
-    overlayState: ModalState;
-} & {}> & {}, {
+}, void, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    alignment: {
+        type: PropType<Alignment>;
+        default: string;
+        required: false;
+    };
+    overlayState: {
+        type: PropType<ModalState>;
+        required: true;
+        default: string;
+    };
+}>>, {
     alignment: Alignment;
     overlayState: ModalState;
 }>;
