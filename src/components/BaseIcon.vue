@@ -48,7 +48,8 @@ type CustomIcon =
   | "copyrightCategoryICNC"
   | "copy"
   | "thumbsup"
-  | "surprise";
+  | "surprise"
+  | "newItem";
 const icons: Record<CustomIcon, string> = {
   talk: `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 17 17">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M15 1H2c-.552 0-1 .448-1 1v10c0 .552.448 1 1 1h4l2.5 3 2.5-3h4c.552 0 1-.448 1-1V2c0-.552-.448-1-1-1zM4 5h9M4 9h9"/>
@@ -534,6 +535,11 @@ const icons: Record<CustomIcon, string> = {
   thumbsup: `<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M4 16H1V9H4" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M4 9L7 1H8C8.552 1 9 1.448 9 2V7H13.999C15.322 7 16.28 8.261 15.926 9.535L14.537 14.535C14.297 15.401 13.508 16 12.61 16H4V9Z" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+  newItem: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.5 9.5V14.5C12.5 15.052 12.052 15.5 11.5 15.5H1.5C0.948 15.5 0.5 15.052 0.5 14.5V4.5C0.5 3.948 0.948 3.5 1.5 3.5H6.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.5 0.5V6.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.5 3.5H15.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
 };
 export default defineComponent({
