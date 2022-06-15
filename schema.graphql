@@ -42,6 +42,12 @@ enum MetaKey {
   scopeNote
 }
 
+enum EntityTypes {
+  frame
+  story
+  box_visit
+}
+
 enum RelationType {
   authoredBy
   isIn
@@ -278,7 +284,7 @@ input KeyValuePair {
   value: String
 }
 
-input StoryboxBuild{
+input StoryboxBuild {
   frameId: String
   title: String
   language: String
@@ -307,6 +313,7 @@ type Query {
   ): EntitiesResults
   Relations(searchValue: SearchFilter!, fetchPolicy: String): RelationsResults
   User: User
+  StoryBox: Entity
   RelationsAsEntities(id: String!): [Entity]
   CreateStorybox(storyboxInfo: StoryboxBuild!): Entity
 }
