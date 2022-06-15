@@ -69,7 +69,8 @@ type ButtonTypes =
   | "touchtable-white-round"
   | "touchtable-green-round"
   | "touchtable-purple"
-  | "touchtable-black";
+  | "touchtable-black"
+  | "square-icon";
 const buttonstyles: Record<ButtonTypes, string> = {
   primary: "text-text-white bg-accent-purple rounded-full shadow-lg px-10 py-3",
   primaryUnavailable:
@@ -91,6 +92,7 @@ const buttonstyles: Record<ButtonTypes, string> = {
   "touchtable-green-round": "text-text-white p-8 bg-accent-green rounded-full",
   "touchtable-purple": "text-accent-purple py-4",
   "touchtable-black": "text-text-dark py-4",
+  "square-icon": "bg-background-dark p-2",
 };
 type iconTypes = "sm" | "default";
 const iconstyles: Record<iconTypes, string> = {
