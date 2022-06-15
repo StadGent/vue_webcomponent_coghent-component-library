@@ -1,37 +1,13 @@
 <template>
   <div class="w-max">
     <div
-      class="
-        top-1
-        right-0
-        hidden
-        z-30
-        bg-neutral-0
-        mt-2
-        rounded-full
-        mr-3
-        cursor-pointer
-        absolute
-        lg:block
-      "
+      class="top-1 right-0 z-30 bg-neutral-0 mt-2 rounded-full mr-3 cursor-pointer absolute"
     >
       <div class="static w-full">
         <div
           v-show="openTab"
           @click="openCCModal"
-          class="
-            w-full
-            bg-neutral-0
-            inline-block
-            rounded-md
-            items-center
-            w-min
-            shadow
-            p-4
-            z-20
-            pr-8
-            divide-y divide-neutral-80
-          "
+          class="w-full bg-neutral-0 inline-block rounded-md items-center w-min shadow p-4 z-20 pr-8 divide-y divide-neutral-80"
         >
           <div v-if="copyrightInfo" class="text-xxs">
             <div v-if="copyrightInfo.rights" class="pb-2">
@@ -60,30 +36,6 @@
         :iconShown="true"
         :onClick="toggleCCTab"
         :noMargin="true"
-      />
-    </div>
-
-    <div
-      class="
-        top-0
-        right-0
-        absolute
-        z-30
-        mt-2
-        mr-3
-        bg-neutral-0
-        rounded-full
-        cursor-pointer
-        lg:hidden
-      "
-    >
-      <base-button
-        class="absolute flex items-center justify-center right-0 z-30"
-        customStyle="cc-round-black"
-        customIcon="info"
-        :iconShown="true"
-        :noMargin="true"
-        :onClick="openCCModal"
       />
     </div>
   </div>
