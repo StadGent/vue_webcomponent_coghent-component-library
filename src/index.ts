@@ -26,6 +26,7 @@ import {
   AddAssetToBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
   DeleteRelationFromBoxVisiterDocument,
+  StoryBoxDocument,
   PrintBoxTicketDocument,
   FrameInput,
   StoryInput,
@@ -61,6 +62,7 @@ import BaseOverlay from "./components/BaseOverlay.vue";
 import SpeechBubble from "./components/SpeechBubble.vue";
 import MediaModal from "./components/MediaModal.vue";
 import { useMediaModal } from "./composables/useMediaModal";
+import { useStorybox } from "./composables/useStoryBox";
 import type TestimoniCard from "@/components/SpeechBubble.vue";
 import { ModalState, ImageSource } from "./types";
 import {
@@ -82,6 +84,8 @@ import {
 import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
 
 export {
+  useStorybox,
+  StoryBoxDocument,
   CreateStoryboxDocument,
   KeyValuePair,
   StoryboxBuild,
