@@ -19,11 +19,12 @@ export const useStorybox = () => {
     return storyBox;
   };
 
-  const addStoryBoxes = (newStoryBoxes: Entity[]) => {
+  const addStoryBoxes = (newStoryBoxes: Entity[]): Entity[] => {
     StoryBoxState.value.storyboxes.push(...newStoryBoxes);
+    return StoryBoxState.value.storyboxes;
   };
 
-  const deleteStoryBoxes = (storyBoxIdsToDelete: string[]) => {
+  const deleteStoryBoxes = (storyBoxIdsToDelete: string[]): Entity[] => {
     storyBoxIdsToDelete.forEach((storyBoxId: string) => {
       const storybox: Entity | undefined = StoryBoxState.value.storyboxes.find(
         (storyBox: Entity) => storyBox.id == storyBoxId
@@ -33,6 +34,7 @@ export const useStorybox = () => {
         StoryBoxState.value.storyboxes.splice(index, 1);
       }
     });
+    return StoryBoxState.value.storyboxes;
   };
 
   return { setStoryBoxes, getStoryBoxById, addStoryBoxes, deleteStoryBoxes };
