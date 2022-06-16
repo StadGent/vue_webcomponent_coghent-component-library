@@ -267,6 +267,7 @@ export declare type Query = {
     User?: Maybe<User>;
     RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
     CreateStorybox?: Maybe<Entity>;
+    Storybox?: Maybe<EntitiesResults>;
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
@@ -1173,6 +1174,35 @@ export declare type CreateStoryboxQuery = {
         __typename?: 'Entity';
     } & MinimalEntityFragment)>;
 };
+export declare type StoryboxQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type StoryboxQuery = {
+    __typename?: 'Query';
+    Storybox?: Maybe<{
+        __typename?: 'EntitiesResults';
+        count?: Maybe<number>;
+        results?: Maybe<Array<Maybe<{
+            __typename?: 'Entity';
+            id: string;
+            type: string;
+            metadata: Array<Maybe<{
+                __typename?: 'Metadata';
+                key: MetaKey;
+                value?: Maybe<string>;
+            }>>;
+            relations?: Maybe<Array<Maybe<{
+                __typename?: 'Relation';
+                key: string;
+                type: RelationType;
+                value?: Maybe<string>;
+                timestamp_start?: Maybe<number>;
+                timestamp_end?: Maybe<number>;
+                timestamp_zoom?: Maybe<number>;
+            }>>>;
+        }>>>;
+    }>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
@@ -1272,4 +1302,7 @@ export declare const RelationsAsEntitiesDocument: DocumentNode<RelationsAsEntiti
 }>>;
 export declare const CreateStoryboxDocument: DocumentNode<CreateStoryboxQuery, Exact<{
     storyboxInfo: StoryboxBuild;
+}>>;
+export declare const StoryboxDocument: DocumentNode<StoryboxQuery, Exact<{
+    [key: string]: never;
 }>>;

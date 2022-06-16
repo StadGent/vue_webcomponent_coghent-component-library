@@ -582,3 +582,24 @@ query StoryBox {
     ...minimalEntity
   }
 }
+query storybox {
+  Storybox {
+    count
+    results {
+      id
+      type
+      metadata(key: [title, description]) {
+        key
+        value
+      }
+      relations {
+        key
+        type
+        value
+        timestamp_start
+        timestamp_end
+        timestamp_zoom
+      }
+    }
+  }
+}

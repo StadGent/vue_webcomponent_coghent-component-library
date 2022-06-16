@@ -26,7 +26,6 @@ import {
   AddAssetToBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
   DeleteRelationFromBoxVisiterDocument,
-  StoryBoxDocument,
   PrintBoxTicketDocument,
   FrameInput,
   StoryInput,
@@ -38,6 +37,7 @@ import {
   StoryboxBuild,
   KeyValuePair,
   CreateStoryboxDocument,
+  StoryboxDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -62,7 +62,6 @@ import BaseOverlay from "./components/BaseOverlay.vue";
 import SpeechBubble from "./components/SpeechBubble.vue";
 import MediaModal from "./components/MediaModal.vue";
 import { useMediaModal } from "./composables/useMediaModal";
-import { useStorybox } from "./composables/useStoryBox";
 import type TestimoniCard from "@/components/SpeechBubble.vue";
 import { ModalState, ImageSource } from "./types";
 import {
@@ -82,10 +81,13 @@ import {
   ImageMIME,
 } from "./composables/mimetype";
 import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
+import { useStorybox, StoryBoxType, StoryBoxState } from "@/composables/useStoryBox"
 
 export {
   useStorybox,
-  StoryBoxDocument,
+  StoryBoxType,
+  StoryBoxState,
+  StoryboxDocument,
   CreateStoryboxDocument,
   KeyValuePair,
   StoryboxBuild,
