@@ -12,6 +12,13 @@ export const useStorybox = () => {
     StoryBoxState.value.storyboxes = newStoryBoxes;
   };
 
+  const getStoryBoxById = (storyBoxId: string): Entity | undefined => {
+    const storyBox = StoryBoxState.value.storyboxes.find(
+      (box: Entity) => box.id == storyBoxId
+    );
+    return storyBox;
+  };
+
   const addStoryBoxes = (newStoryBoxes: Entity[]) => {
     StoryBoxState.value.storyboxes.push(...newStoryBoxes);
   };
@@ -28,5 +35,5 @@ export const useStorybox = () => {
     });
   };
 
-  return { setStoryBoxes, addStoryBoxes, deleteStoryBoxes };
+  return { setStoryBoxes, getStoryBoxById, addStoryBoxes, deleteStoryBoxes };
 };
