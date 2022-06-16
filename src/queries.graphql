@@ -583,20 +583,16 @@ query LinkStorybox($code: Int) {
   }
 }
 
-query StoryBox {
-  StoryBox {
-    ...minimalEntity
-  }
-}
 query storybox {
   Storybox {
     count
     results {
       id
       type
-      metadata(key: [title, description]) {
+      metadata{
         key
         value
+        label
       }
       relations {
         key
