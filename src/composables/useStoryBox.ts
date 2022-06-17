@@ -1,4 +1,4 @@
-import { MetaKey } from '@/queries';
+import { MetaKey, StoryboxBuildInput } from '@/queries';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { provideApolloClient, useQuery } from '@vue/apollo-composable';
 import { ref } from "vue";
@@ -7,10 +7,10 @@ import { CreateStoryboxDocument, Entity, GetEntityByIdDocument, KeyValuePair, St
 export type StoryBoxType = {
   count: number;
   storyboxes: Entity[];
-  activeStoryboxAssets: Array<Entity>
+  activeStorybox: StoryboxBuild | null
 };
 
-export const StoryBoxState = ref<StoryBoxType>({ count: 0, storyboxes: [], activeStoryboxAssets: [] });
+export const StoryBoxState = ref<StoryBoxType>({ count: 0, storyboxes: [], activeStorybox: null });
 
 export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   const apolloProvider = provideApolloClient(_client);
@@ -53,33 +53,46 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return StoryBoxState;
   };
 
-  const createNew = async (_storyboxInfo: StoryboxBuild) => {
+  const createNew = async () => {
     const { fetchMore } = apolloProvider(() =>
       useQuery(CreateStoryboxDocument, { storyboxInfo: {} })
     );
     const frame = await fetchMore({
-      variables: { storyboxInfo: _storyboxInfo },
-    });
-    await getStoryboxes();
-    return frame;
-  };
+      variables: {
+        storyboxInfo: {
+          frameId: StoryBoxState.value.activeStorybox?.frameId,
+          title: StoryBoxState.value.activeStorybox?.title,
+          description: StoryBoxState.value.activeStorybox?.description,
+          assets: StoryBoxState.value.activeStorybox?.assets.map(_asset => _asset?.id),
+          assetTimings: StoryBoxState.value.activeStorybox?.assetTimings,
 
-  const createStoryboxFromEntity = (_entity: Entity) => {
-    console.log(`+ createStoryboxFromEntity`, _entity);
-    let storybox: StoryboxBuild = {}
-    // console.log('+ title from entity', _entity.metadata.filter(data => data?.key === MetaKey.Title))
-    // console.log('+ description from entity', _entity.metadata.filter(data => data?.key === MetaKey.Description))
-    console.log('+ relations from entity', _entity.relations)
-    storybox.frameId = _entity.id
-    storybox.assets = _entity.relations?.map(_relation => _relation?.key.replace(`entities/`, '')) as Array<string>
-    storybox.assetTimings = []
-    if (_entity.relations) {
-      for (const _relation of _entity.relations) {
-        storybox.assetTimings.push({ key: _relation?.key.replace(`entities/`, ''), value: String(_relation?.timestamp_end! - _relation?.timestamp_zoom!) } as KeyValuePair)
+        } as StoryboxBuildInput
       }
+    })
+    await getStoryboxes()
+    return frame
+  }
+
+  const createStoryboxFromEntity = async (_entityId: string) => {
+    StoryBoxState.value.activeStorybox = {} as StoryboxBuild
+    StoryBoxState.value.activeStorybox.assets = []
+    const entity = getStoryBoxById(_entityId)
+    console.log(`+ createStoryboxFromEntity`, entity);
+    if (entity) {
+      // console.log('+ title from entity', _entity.metadata.filter(data => data?.key === MetaKey.Title))
+      // console.log('+ description from entity', _entity.metadata.filter(data => data?.key === MetaKey.Description))
+      console.log('+ relations from entity', entity.relations)
+      StoryBoxState.value.activeStorybox.frameId = entity.id
+      await getAssets(entity.relations?.map(_relation => _relation?.key.replace(`entities/`, '')) as Array<string>)
+      StoryBoxState.value.activeStorybox.assetTimings = []
+      if (entity.relations) {
+        for (const _relation of entity.relations) {
+          StoryBoxState.value.activeStorybox.assetTimings.push({ key: _relation?.key.replace(`entities/`, ''), value: String(_relation?.timestamp_end! - _relation?.timestamp_zoom!) } as KeyValuePair)
+        }
+      }
+      console.log(`+ storybox from entity`, StoryBoxState.value.activeStorybox)
     }
-    console.log(`+ storybox from entity`, storybox)
-    return storybox
+    return StoryBoxState.value.activeStorybox
   }
 
   const getAssets = async (_assetIds: Array<string>) => {
@@ -90,10 +103,10 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       for (const assetId of _assetIds) {
         const result = await fetchMore({ variables: { id: assetId } })
         const asset = result?.data?.Entity as any
-        StoryBoxState.value.activeStoryboxAssets.push(asset as Entity)
+        StoryBoxState.value.activeStorybox?.assets?.push(asset as Entity)
       }
     }
-    return StoryBoxState.value.activeStoryboxAssets
+    return StoryBoxState.value.activeStorybox?.assets
   }
 
   return {

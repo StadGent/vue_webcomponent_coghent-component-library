@@ -38,6 +38,8 @@ import {
   KeyValuePair,
   CreateStoryboxDocument,
   StoryboxDocument,
+  StoryboxBuildInput,
+  KeyValuePairInput,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -90,7 +92,9 @@ export {
   StoryboxDocument,
   CreateStoryboxDocument,
   KeyValuePair,
+  KeyValuePairInput,
   StoryboxBuild,
+  StoryboxBuildInput,
   CircleLoader,
   Badge,
   ImageMIME,

@@ -134,6 +134,12 @@ export enum JsPatchOp {
 }
 
 export type KeyValuePair = {
+  __typename?: 'KeyValuePair';
+  key?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type KeyValuePairInput = {
   key?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
 };
@@ -366,7 +372,7 @@ export type QueryRelationsAsEntitiesArgs = {
 
 
 export type QueryCreateStoryboxArgs = {
-  storyboxInfo: StoryboxBuild;
+  storyboxInfo: StoryboxBuildInput;
 };
 
 export type Relation = {
@@ -447,12 +453,22 @@ export type StoryInput = {
 };
 
 export type StoryboxBuild = {
+  __typename?: 'StoryboxBuild';
+  frameId: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  assets: Array<Maybe<Entity>>;
+  assetTimings: Array<Maybe<KeyValuePair>>;
+};
+
+export type StoryboxBuildInput = {
   frameId?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   assets?: Maybe<Array<Maybe<Scalars['String']>>>;
-  assetTimings?: Maybe<Array<Maybe<KeyValuePair>>>;
+  assetTimings?: Maybe<Array<Maybe<KeyValuePairInput>>>;
 };
 
 export type Ticket = {
@@ -869,7 +885,7 @@ export type RelationsAsEntitiesQuery = { __typename?: 'Query', RelationsAsEntiti
   )>>> };
 
 export type CreateStoryboxQueryVariables = Exact<{
-  storyboxInfo: StoryboxBuild;
+  storyboxInfo: StoryboxBuildInput;
 }>;
 
 
@@ -921,5 +937,5 @@ export const DeleteRelationFromBoxVisiterDocument = {"kind":"Document","definiti
 export const UpdateBoxVisiterTouchtableTimeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updateBoxVisiterTouchtableTime"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"touchTableTime"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UpdateBoxVisiterTouchtableTime"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}},{"kind":"Argument","name":{"kind":"Name","value":"touchTableTime"},"value":{"kind":"Variable","name":{"kind":"Name","value":"touchTableTime"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fullBoxVisiter"}}]}}]}},...FullBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<UpdateBoxVisiterTouchtableTimeMutation, UpdateBoxVisiterTouchtableTimeMutationVariables>;
 export const GetTouchTableEntityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTouchTableEntity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"searchValue"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SearchFilter"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Entities"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"searchValue"},"value":{"kind":"Variable","name":{"kind":"Name","value":"searchValue"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"touchTableEntity"}}]}}]}}]}},...TouchTableEntityFragmentDoc.definitions]} as unknown as DocumentNode<GetTouchTableEntityQuery, GetTouchTableEntityQueryVariables>;
 export const RelationsAsEntitiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RelationsAsEntities"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"RelationsAsEntities"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"minimalEntity"}},{"kind":"Field","name":{"kind":"Name","value":"mediafiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thumbnail_file_location"}}]}}]}}]}},...MinimalEntityFragmentDoc.definitions]} as unknown as DocumentNode<RelationsAsEntitiesQuery, RelationsAsEntitiesQueryVariables>;
-export const CreateStoryboxDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"createStorybox"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"storyboxInfo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"StoryboxBuild"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CreateStorybox"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"storyboxInfo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"storyboxInfo"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"minimalEntity"}}]}}]}},...MinimalEntityFragmentDoc.definitions]} as unknown as DocumentNode<CreateStoryboxQuery, CreateStoryboxQueryVariables>;
+export const CreateStoryboxDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"createStorybox"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"storyboxInfo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"StoryboxBuildInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CreateStorybox"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"storyboxInfo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"storyboxInfo"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"minimalEntity"}}]}}]}},...MinimalEntityFragmentDoc.definitions]} as unknown as DocumentNode<CreateStoryboxQuery, CreateStoryboxQueryVariables>;
 export const StoryboxDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"storybox"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Storybox"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp_start"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp_end"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp_zoom"}}]}}]}}]}}]}}]} as unknown as DocumentNode<StoryboxQuery, StoryboxQueryVariables>;

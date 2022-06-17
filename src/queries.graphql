@@ -571,7 +571,7 @@ query RelationsAsEntities($id: String!) {
   }
 }
 
-query createStorybox($storyboxInfo: StoryboxBuild!) {
+query createStorybox($storyboxInfo: StoryboxBuildInput!) {
   CreateStorybox(storyboxInfo: $storyboxInfo) {
     ...minimalEntity
   }
