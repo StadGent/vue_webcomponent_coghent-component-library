@@ -54,6 +54,8 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   };
 
   const createNew = async () => {
+    const newOrderedTimings = orderTimingOfAssetsAsAssetOrder(StoryBoxState.value.activeStorybox?.assetTimings as Array<KeyValuePair>)
+    StoryBoxState.value.activeStorybox ? StoryBoxState.value.activeStorybox.assetTimings = newOrderedTimings : null
     const { fetchMore } = apolloProvider(() =>
       useQuery(CreateStoryboxDocument, { storyboxInfo: {} })
     );
@@ -77,22 +79,30 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     StoryBoxState.value.activeStorybox = {} as StoryboxBuild
     StoryBoxState.value.activeStorybox.assets = []
     const entity = getStoryBoxById(_entityId)
-    console.log(`+ createStoryboxFromEntity`, entity);
     if (entity) {
       // console.log('+ title from entity', _entity.metadata.filter(data => data?.key === MetaKey.Title))
       // console.log('+ description from entity', _entity.metadata.filter(data => data?.key === MetaKey.Description))
-      console.log('+ relations from entity', entity.relations)
       StoryBoxState.value.activeStorybox.frameId = entity.id
       await getAssets(entity.relations?.map(_relation => _relation?.key.replace(`entities/`, '')) as Array<string>)
       StoryBoxState.value.activeStorybox.assetTimings = []
       if (entity.relations) {
+        let tmpAssetTimings = []
         for (const _relation of entity.relations) {
-          StoryBoxState.value.activeStorybox.assetTimings.push({ key: _relation?.key.replace(`entities/`, ''), value: String(_relation?.timestamp_end! - _relation?.timestamp_zoom!) } as KeyValuePair)
+          tmpAssetTimings.push({ key: _relation?.key.replace(`entities/`, ''), value: String(_relation?.timestamp_end! - _relation?.timestamp_zoom!) } as KeyValuePair)
         }
+        StoryBoxState.value.activeStorybox.assetTimings = orderTimingOfAssetsAsAssetOrder(tmpAssetTimings)
       }
       console.log(`+ storybox from entity`, StoryBoxState.value.activeStorybox)
     }
     return StoryBoxState.value.activeStorybox
+  }
+
+  const orderTimingOfAssetsAsAssetOrder = (_assetTimings: Array<KeyValuePair>) => {
+    let orderedAssetTimings: Array<KeyValuePair> = []
+    for (const _asset of StoryBoxState.value.activeStorybox?.assets!) {
+      orderedAssetTimings.push(_assetTimings.find((obj: KeyValuePair) => obj.key === _asset?.id)!)
+    }
+    return orderedAssetTimings
   }
 
   const getAssets = async (_assetIds: Array<string>) => {
@@ -118,5 +128,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     getStoryBoxById,
     createStoryboxFromEntity,
     getAssets,
+    orderTimingOfAssetsAsAssetOrder,
   };
 };
