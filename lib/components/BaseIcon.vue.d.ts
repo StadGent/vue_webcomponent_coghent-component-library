@@ -6,6 +6,14 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
         required: true;
     };
+    height: {
+        type: NumberConstructor;
+        required: false;
+    };
+    width: {
+        type: NumberConstructor;
+        required: false;
+    };
 }, {
     icons: Record<CustomIcon, string>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
@@ -13,6 +21,14 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<CustomIcon>;
         default: string;
         required: true;
+    };
+    height: {
+        type: NumberConstructor;
+        required: false;
+    };
+    width: {
+        type: NumberConstructor;
+        required: false;
     };
 }>>, {
     icon: CustomIcon;

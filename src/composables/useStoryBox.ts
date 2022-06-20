@@ -108,7 +108,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
 
   const getAssets = async (_assetIds: Array<string>) => {
     const { fetchMore } = apolloProvider(() =>
-      useQuery(GetEntityByIdDocument, { id: `noid` })
+      useQuery(GetEntityByIdDocument, { id: `` })
     );
     if (_assetIds.length >= 0) {
       for (const assetId of _assetIds) {

@@ -93,6 +93,11 @@ export declare type EntityMetadataCollectionArgs = {
 export declare type EntityComponentsOfTypeArgs = {
     key?: Maybe<Scalars['String']>;
 };
+export declare enum EntityTypes {
+    Frame = "frame",
+    Story = "story",
+    BoxVisit = "box_visit"
+}
 export declare type FrameInput = {
     storyId: Scalars['String'];
     frameId: Scalars['String'];
@@ -113,6 +118,11 @@ export declare enum JsPatchOp {
     Remove = "remove"
 }
 export declare type KeyValuePair = {
+    __typename?: 'KeyValuePair';
+    key?: Maybe<Scalars['String']>;
+    value?: Maybe<Scalars['String']>;
+};
+export declare type KeyValuePairInput = {
     key?: Maybe<Scalars['String']>;
     value?: Maybe<Scalars['String']>;
 };
@@ -265,9 +275,12 @@ export declare type Query = {
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
+    StoryBox?: Maybe<Entity>;
     RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
+    LinkStorybox?: Maybe<Entity>;
     CreateStorybox?: Maybe<Entity>;
     Storybox?: Maybe<EntitiesResults>;
+    AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
@@ -301,8 +314,15 @@ export declare type QueryRelationsArgs = {
 export declare type QueryRelationsAsEntitiesArgs = {
     id: Scalars['String'];
 };
+export declare type QueryLinkStoryboxArgs = {
+    code?: Maybe<Scalars['Int']>;
+};
 export declare type QueryCreateStoryboxArgs = {
-    storyboxInfo: StoryboxBuild;
+    storyboxInfo: StoryboxBuildInput;
+};
+export declare type QueryAddEntityAsRelationArgs = {
+    entityId: Scalars['String'];
+    entityRelationId: Scalars['String'];
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -375,12 +395,21 @@ export declare type StoryInput = {
     total_frames?: Maybe<Scalars['Int']>;
 };
 export declare type StoryboxBuild = {
+    __typename?: 'StoryboxBuild';
+    frameId: Scalars['String'];
+    title?: Maybe<Scalars['String']>;
+    language?: Maybe<Scalars['String']>;
+    description?: Maybe<Scalars['String']>;
+    assets: Array<Maybe<Entity>>;
+    assetTimings: Array<Maybe<KeyValuePair>>;
+};
+export declare type StoryboxBuildInput = {
     frameId?: Maybe<Scalars['String']>;
     title?: Maybe<Scalars['String']>;
     language?: Maybe<Scalars['String']>;
     description?: Maybe<Scalars['String']>;
     assets?: Maybe<Array<Maybe<Scalars['String']>>>;
-    assetTimings?: Maybe<Array<Maybe<KeyValuePair>>>;
+    assetTimings?: Maybe<Array<Maybe<KeyValuePairInput>>>;
 };
 export declare type Ticket = {
     __typename?: 'Ticket';
@@ -1166,11 +1195,20 @@ export declare type RelationsAsEntitiesQuery = {
     } & MinimalEntityFragment)>>>;
 };
 export declare type CreateStoryboxQueryVariables = Exact<{
-    storyboxInfo: StoryboxBuild;
+    storyboxInfo: StoryboxBuildInput;
 }>;
 export declare type CreateStoryboxQuery = {
     __typename?: 'Query';
     CreateStorybox?: Maybe<({
+        __typename?: 'Entity';
+    } & MinimalEntityFragment)>;
+};
+export declare type LinkStoryboxQueryVariables = Exact<{
+    code?: Maybe<Scalars['Int']>;
+}>;
+export declare type LinkStoryboxQuery = {
+    __typename?: 'Query';
+    LinkStorybox?: Maybe<({
         __typename?: 'Entity';
     } & MinimalEntityFragment)>;
 };
@@ -1190,6 +1228,7 @@ export declare type StoryboxQuery = {
                 __typename?: 'Metadata';
                 key: MetaKey;
                 value?: Maybe<string>;
+                label?: Maybe<string>;
             }>>;
             relations?: Maybe<Array<Maybe<{
                 __typename?: 'Relation';
@@ -1202,6 +1241,18 @@ export declare type StoryboxQuery = {
             }>>>;
         }>>>;
     }>;
+};
+export declare type AddEntityAsRelationQueryVariables = Exact<{
+    entityId: Scalars['String'];
+    entityRelationId: Scalars['String'];
+}>;
+export declare type AddEntityAsRelationQuery = {
+    __typename?: 'Query';
+    AddEntityAsRelation?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+    }>>>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
@@ -1301,8 +1352,15 @@ export declare const RelationsAsEntitiesDocument: DocumentNode<RelationsAsEntiti
     id: Scalars['String'];
 }>>;
 export declare const CreateStoryboxDocument: DocumentNode<CreateStoryboxQuery, Exact<{
-    storyboxInfo: StoryboxBuild;
+    storyboxInfo: StoryboxBuildInput;
+}>>;
+export declare const LinkStoryboxDocument: DocumentNode<LinkStoryboxQuery, Exact<{
+    code?: number | null | undefined;
 }>>;
 export declare const StoryboxDocument: DocumentNode<StoryboxQuery, Exact<{
     [key: string]: never;
+}>>;
+export declare const AddEntityAsRelationDocument: DocumentNode<AddEntityAsRelationQuery, Exact<{
+    entityId: Scalars['String'];
+    entityRelationId: Scalars['String'];
 }>>;
