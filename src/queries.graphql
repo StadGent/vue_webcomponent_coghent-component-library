@@ -577,6 +577,12 @@ query createStorybox($storyboxInfo: StoryboxBuild!) {
   }
 }
 
+query LinkStorybox($code: Int) {
+  LinkStorybox(code: $code) {
+    ...minimalEntity
+  }
+}
+
 query StoryBox {
   StoryBox {
     ...minimalEntity

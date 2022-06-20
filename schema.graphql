@@ -316,6 +316,7 @@ type Query {
   StoryBox: Entity
   RelationsAsEntities(id: String!): [Entity]
   CreateStorybox(storyboxInfo: StoryboxBuild!): Entity
+  LinkStorybox(code: Int): Entity
   Storybox: EntitiesResults
 }
 
