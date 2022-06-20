@@ -605,3 +605,10 @@ query storybox {
     }
   }
 }
+
+query addEntityAsRelation($entityId: String!, $entityRelationId: String!){
+  AddEntityAsRelation(entityId: $entityId, entityRelationId: $entityRelationId){
+    key
+    type
+  }
+}

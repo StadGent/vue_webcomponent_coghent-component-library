@@ -1,4 +1,4 @@
-import { MetaKey, StoryboxBuildInput } from '@/queries';
+import { AddEntityAsRelationDocument, MetaKey, StoryboxBuildInput } from '@/queries';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { provideApolloClient, useQuery } from '@vue/apollo-composable';
 import { ref } from "vue";
@@ -45,13 +45,14 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   };
 
   const getStoryboxes = async () => {
-    const { fetchMore } = apolloProvider(() => useQuery(StoryboxDocument));
-    const result = await fetchMore({});
-    StoryBoxState.value.storyboxes = result?.data.Storybox
-      ?.results as Array<Entity>;
-    StoryBoxState.value.count = result?.data.Storybox?.count as number;
-    return StoryBoxState;
-  };
+    const { fetchMore } = apolloProvider(() =>
+      useQuery(StoryboxDocument, {}, { fetchPolicy: 'network-only' })
+    );
+    const result = await fetchMore({})
+    StoryBoxState.value.storyboxes = result?.data.Storybox?.results as Array<Entity>
+    StoryBoxState.value.count = result?.data.Storybox?.count as number
+    return StoryBoxState
+  }
 
   const createNew = async () => {
     const newOrderedTimings = orderTimingOfAssetsAsAssetOrder(StoryBoxState.value.activeStorybox?.assetTimings as Array<KeyValuePair>)
@@ -92,7 +93,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
         }
         StoryBoxState.value.activeStorybox.assetTimings = orderTimingOfAssetsAsAssetOrder(tmpAssetTimings)
       }
-      console.log(`+ storybox from entity`, StoryBoxState.value.activeStorybox)
     }
     return StoryBoxState.value.activeStorybox
   }
@@ -100,23 +100,43 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   const orderTimingOfAssetsAsAssetOrder = (_assetTimings: Array<KeyValuePair>) => {
     let orderedAssetTimings: Array<KeyValuePair> = []
     for (const _asset of StoryBoxState.value.activeStorybox?.assets!) {
-      orderedAssetTimings.push(_assetTimings.find((obj: KeyValuePair) => obj.key === _asset?.id)!)
+      const timing = _assetTimings.find((obj: KeyValuePair) => obj.key === _asset?.id)
+      orderedAssetTimings.push(timing != undefined ? timing : { key: _asset?.id, value: '1' } as KeyValuePair)
     }
     return orderedAssetTimings
   }
 
   const getAssets = async (_assetIds: Array<string>) => {
     const { fetchMore } = apolloProvider(() =>
-      useQuery(GetEntityByIdDocument, { id: '' })
+      useQuery(GetEntityByIdDocument, { id: `noid` })
     );
     if (_assetIds.length >= 0) {
       for (const assetId of _assetIds) {
-        const result = await fetchMore({ variables: { id: assetId } })
-        const asset = result?.data?.Entity as any
-        StoryBoxState.value.activeStorybox?.assets?.push(asset as Entity)
+        if (assetId) {
+          const result = await fetchMore({ variables: { id: assetId } })
+          const asset = result?.data?.Entity as any
+          StoryBoxState.value.activeStorybox?.assets?.push(asset as Entity)
+        }
       }
     }
     return StoryBoxState.value.activeStorybox?.assets
+  }
+
+  const assetToStorybox = async (_storyboxId: string, _assetId: string) => {
+    const { fetchMore } = apolloProvider(() =>
+      useQuery(AddEntityAsRelationDocument, { entityId: _storyboxId, entityRelationId: _assetId })
+    );
+    const result = await fetchMore({ variables: { entityId: _storyboxId, entityRelationId: _assetId } })
+    return result
+  }
+
+  const assetIsInStorybox = (_entity: Entity, _storyboxId: string) => {
+    let result = undefined
+    const storyboxEntity = getStoryBoxById(_storyboxId)
+    if (storyboxEntity?.relations && storyboxEntity?.relations.length >= 0) {
+      result = storyboxEntity?.relations.find(_relation => _relation?.key === _entity._key)
+    }
+    return result
   }
 
   return {
@@ -129,5 +149,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     createStoryboxFromEntity,
     getAssets,
     orderTimingOfAssetsAsAssetOrder,
+    assetToStorybox,
+    assetIsInStorybox,
   };
 };
