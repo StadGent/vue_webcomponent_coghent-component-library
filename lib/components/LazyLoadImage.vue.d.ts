@@ -23,6 +23,10 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         required: true;
     };
+    onClick: {
+        type: FunctionConstructor;
+        required: false;
+    };
 }, {
     setFallback: () => void;
     imageLoaded: import("vue").Ref<boolean>;
@@ -53,6 +57,10 @@ declare const _default: import("vue").DefineComponent<{
     noImageUrl: {
         type: StringConstructor;
         required: true;
+    };
+    onClick: {
+        type: FunctionConstructor;
+        required: false;
     };
 }>> & {
     onLoaded?: ((...args: any[]) => any) | undefined;
