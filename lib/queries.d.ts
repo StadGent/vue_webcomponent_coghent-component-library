@@ -230,6 +230,7 @@ export declare type Mutation = {
     DeleteBoxVisiterRelation: Array<Maybe<Relation>>;
     UpdateBoxVisiterTouchtableTime?: Maybe<BoxVisiter>;
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
+    DeleteEntity?: Maybe<Scalars['String']>;
 };
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
@@ -255,6 +256,9 @@ export declare type MutationAddAssetToBoxVisiterArgs = {
     code: Scalars['String'];
     assetId: Scalars['String'];
     type: RelationType;
+};
+export declare type MutationDeleteEntityArgs = {
+    id: Scalars['String'];
 };
 export declare type Position = {
     __typename?: 'Position';
@@ -315,7 +319,7 @@ export declare type QueryRelationsAsEntitiesArgs = {
     id: Scalars['String'];
 };
 export declare type QueryLinkStoryboxArgs = {
-    code?: Maybe<Scalars['Int']>;
+    code: Scalars['String'];
 };
 export declare type QueryCreateStoryboxArgs = {
     storyboxInfo: StoryboxBuildInput;
@@ -1204,7 +1208,7 @@ export declare type CreateStoryboxQuery = {
     } & MinimalEntityFragment)>;
 };
 export declare type LinkStoryboxQueryVariables = Exact<{
-    code?: Maybe<Scalars['Int']>;
+    code: Scalars['String'];
 }>;
 export declare type LinkStoryboxQuery = {
     __typename?: 'Query';
@@ -1228,7 +1232,6 @@ export declare type StoryboxQuery = {
                 __typename?: 'Metadata';
                 key: MetaKey;
                 value?: Maybe<string>;
-                label?: Maybe<string>;
             }>>;
             relations?: Maybe<Array<Maybe<{
                 __typename?: 'Relation';
@@ -1253,6 +1256,13 @@ export declare type AddEntityAsRelationQuery = {
         key: string;
         type: RelationType;
     }>>>;
+};
+export declare type DeleteEntityMutationVariables = Exact<{
+    id: Scalars['String'];
+}>;
+export declare type DeleteEntityMutation = {
+    __typename?: 'Mutation';
+    DeleteEntity?: Maybe<string>;
 };
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
@@ -1355,7 +1365,7 @@ export declare const CreateStoryboxDocument: DocumentNode<CreateStoryboxQuery, E
     storyboxInfo: StoryboxBuildInput;
 }>>;
 export declare const LinkStoryboxDocument: DocumentNode<LinkStoryboxQuery, Exact<{
-    code?: number | null | undefined;
+    code: Scalars['String'];
 }>>;
 export declare const StoryboxDocument: DocumentNode<StoryboxQuery, Exact<{
     [key: string]: never;
@@ -1363,4 +1373,7 @@ export declare const StoryboxDocument: DocumentNode<StoryboxQuery, Exact<{
 export declare const AddEntityAsRelationDocument: DocumentNode<AddEntityAsRelationQuery, Exact<{
     entityId: Scalars['String'];
     entityRelationId: Scalars['String'];
+}>>;
+export declare const DeleteEntityDocument: DocumentNode<DeleteEntityMutation, Exact<{
+    id: Scalars['String'];
 }>>;
