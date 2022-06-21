@@ -577,7 +577,7 @@ query createStorybox($storyboxInfo: StoryboxBuildInput!) {
   }
 }
 
-query LinkStorybox($code: Int) {
+query LinkStorybox($code: String!) {
   LinkStorybox(code: $code) {
     ...minimalEntity
   }
@@ -610,4 +610,8 @@ query addEntityAsRelation($entityId: String!, $entityRelationId: String!){
     key
     type
   }
+}
+
+mutation deleteEntity($id: String!){
+  DeleteEntity(id: $id)
 }

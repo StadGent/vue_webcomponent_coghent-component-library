@@ -2,13 +2,14 @@ import { AddEntityAsRelationDocument, MetaKey, StoryboxBuildInput } from '@/quer
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { provideApolloClient, useQuery } from '@vue/apollo-composable';
 import { ref } from "vue";
-import { CreateStoryboxDocument, Entity, GetEntityByIdDocument, KeyValuePair, StoryboxBuild, StoryboxDocument } from "..";
+import { CreateStoryboxDocument, Entity, GetEntityByIdDocument, KeyValuePair, LinkStoryboxDocument, StoryboxBuild, StoryboxDocument } from "..";
 
 export type StoryBoxType = {
   count: number;
   storyboxes: Entity[];
   activeStorybox: StoryboxBuild | null
 };
+export const storyboxDataIsUpdated = ref<boolean>(false)
 
 export const StoryBoxState = ref<StoryBoxType>({ count: 0, storyboxes: [], activeStorybox: null });
 
@@ -32,15 +33,18 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   };
 
   const deleteStoryBoxes = (storyBoxIdsToDelete: string[]): Entity[] => {
+    let copyStoryboxes: Array<Entity> = []
+    Object.assign(copyStoryboxes, StoryBoxState.value.storyboxes)
     storyBoxIdsToDelete.forEach((storyBoxId: string) => {
-      const storybox: Entity | undefined = StoryBoxState.value.storyboxes.find(
+      const storybox: Entity | undefined = copyStoryboxes.find(
         (storyBox: Entity) => storyBox.id == storyBoxId
       );
       if (storybox) {
-        const index = StoryBoxState.value.storyboxes.indexOf(storybox);
-        StoryBoxState.value.storyboxes.splice(index, 1);
+        const index = copyStoryboxes.indexOf(storybox);
+        copyStoryboxes.splice(index, 1);
       }
     });
+    StoryBoxState.value.storyboxes = copyStoryboxes
     return StoryBoxState.value.storyboxes;
   };
 
@@ -55,19 +59,21 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   }
 
   const createNew = async () => {
-    const newOrderedTimings = orderTimingOfAssetsAsAssetOrder(StoryBoxState.value.activeStorybox?.assetTimings as Array<KeyValuePair>)
-    StoryBoxState.value.activeStorybox ? StoryBoxState.value.activeStorybox.assetTimings = newOrderedTimings : null
+    if (StoryBoxState.value.activeStorybox?.assetTimings) {
+      const newOrderedTimings = orderTimingOfAssetsAsAssetOrder(StoryBoxState.value.activeStorybox?.assetTimings as Array<KeyValuePair>)
+      StoryBoxState.value.activeStorybox ? StoryBoxState.value.activeStorybox.assetTimings = newOrderedTimings : null
+    }
     const { fetchMore } = apolloProvider(() =>
       useQuery(CreateStoryboxDocument, { storyboxInfo: {} })
     );
     const frame = await fetchMore({
       variables: {
         storyboxInfo: {
-          frameId: StoryBoxState.value.activeStorybox?.frameId,
+          frameId: StoryBoxState.value.activeStorybox?.frameId ? StoryBoxState.value.activeStorybox?.frameId : null,
           title: StoryBoxState.value.activeStorybox?.title,
           description: StoryBoxState.value.activeStorybox?.description,
-          assets: StoryBoxState.value.activeStorybox?.assets.map(_asset => _asset?.id),
-          assetTimings: StoryBoxState.value.activeStorybox?.assetTimings,
+          assets: StoryBoxState.value.activeStorybox?.assets ? StoryBoxState.value.activeStorybox?.assets.map(_asset => _asset?.id) : [],
+          assetTimings: StoryBoxState.value.activeStorybox?.assetTimings ? StoryBoxState.value.activeStorybox?.assetTimings : [],
 
         } as StoryboxBuildInput
       }
@@ -139,6 +145,16 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return result
   }
 
+  const linkBoxCodeToUser = async (_code: string) => {
+    const { fetchMore } = apolloProvider(() =>
+      useQuery(LinkStoryboxDocument, { code: _code })
+    );
+
+    const newFrame = await fetchMore({ variables: { code: _code } })
+
+    return newFrame?.data.LinkStorybox
+  }
+
   return {
     setStoryBoxes,
     addStoryBoxes,
@@ -151,5 +167,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     orderTimingOfAssetsAsAssetOrder,
     assetToStorybox,
     assetIsInStorybox,
+    linkBoxCodeToUser,
   };
 };

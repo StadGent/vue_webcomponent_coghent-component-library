@@ -1,3 +1,5 @@
+import { Entity, Metadata, MetaKey } from './queries';
+
 type WeightedArrayConfig = {
   probability: number | "*";
 };
@@ -30,7 +32,7 @@ export const randomizer = <T extends string>(
     });
   });
 
-  for (i = 0; i < values.length; i++) {
+  for (i = 0;i < values.length;i++) {
     if (values[i].probability === "*") {
       continue;
     }
@@ -51,3 +53,11 @@ export const randomizer = <T extends string>(
 
   return pickedValue;
 };
+
+export const getMetadataOfTypeFromEntity = (_entity: Entity, _key: MetaKey) => {
+  let foundMetadata: undefined | Metadata = undefined
+  if (_entity && _entity.metadata && _entity.metadata.length >= 0) {
+    foundMetadata = _entity.metadata.find(data => data?.key === _key) as Metadata | undefined
+  }
+  return foundMetadata
+}

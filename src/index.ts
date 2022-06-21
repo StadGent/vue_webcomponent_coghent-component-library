@@ -42,6 +42,7 @@ import {
   KeyValuePairInput,
   AddEntityAsRelationDocument,
   LinkStoryboxDocument,
+  DeleteEntityDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -90,9 +91,14 @@ import {
   useStorybox,
   StoryBoxType,
   StoryBoxState,
+  storyboxDataIsUpdated,
 } from "@/composables/useStoryBox";
+import { getMetadataOfTypeFromEntity } from './helpers';
 
 export {
+  storyboxDataIsUpdated,
+  DeleteEntityDocument,
+  getMetadataOfTypeFromEntity,
   LinkStoryboxDocument,
   AddEntityAsRelationDocument,
   useStorybox,
