@@ -41,6 +41,7 @@
         :noImageUrl="
           source[selectedIndex].mediaType.audio ? audioUrl : noImageUrl
         "
+        :onClick="openMediaModal"
       />
 
       <div

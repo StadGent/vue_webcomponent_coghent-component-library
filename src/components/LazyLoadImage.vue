@@ -11,9 +11,12 @@
     v-if="url"
     v-show="imageLoaded"
     :src="imageUrl"
-    :class="`${extraClass} flex w-full rounded-md shadow`"
+    :class="`${extraClass} flex w-full rounded-md shadow ${
+      onClick ? 'cursor-pointer' : ''
+    }`"
     @load="finalImageLoaded"
     @error="setFallback"
+    @click="onClick"
   />
 </template>
 
@@ -45,6 +48,10 @@ export default defineComponent({
     noImageUrl: {
       type: String,
       required: true,
+    },
+    onClick: {
+      type: Function,
+      required: false,
     },
   },
   emits: ["loaded"],
