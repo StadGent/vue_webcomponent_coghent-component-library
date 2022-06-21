@@ -61,6 +61,7 @@ import CopyrightTab from "./components/CopyrightTab.vue";
 import LazyLoadImage from "./components/LazyLoadImage.vue";
 import BaseMetaData from "./components/BaseMetaData.vue";
 import BaseMetaDataTab from "./components/BaseMetaDataTab.vue";
+import BoxVisitCode from "./components/BoxVisitCode.vue";
 import TheMasonry from "./components/TheMasonry.vue";
 import BaseOverlay from "./components/BaseOverlay.vue";
 import SpeechBubble from "./components/SpeechBubble.vue";
@@ -85,7 +86,11 @@ import {
   ImageMIME,
 } from "./composables/mimetype";
 import { getFileNameByMimeType } from "./composables/mimeTypeHelper";
-import { useStorybox, StoryBoxType, StoryBoxState } from "@/composables/useStoryBox"
+import {
+  useStorybox,
+  StoryBoxType,
+  StoryBoxState,
+} from "@/composables/useStoryBox";
 
 export {
   LinkStoryboxDocument,
@@ -101,6 +106,7 @@ export {
   StoryboxBuildInput,
   CircleLoader,
   Badge,
+  BoxVisitCode,
   ImageMIME,
   AudioMIME,
   VideoMIME,
