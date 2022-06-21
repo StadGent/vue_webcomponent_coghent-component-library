@@ -49,7 +49,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       useQuery(StoryboxDocument, {}, { fetchPolicy: 'network-only' })
     );
     const result = await fetchMore({})
-    StoryBoxState.value.storyboxes = result?.data.Storybox?.results as Array<Entity>
+    StoryBoxState.value.storyboxes = result?.data.Storybox?.results as unknown as Array<Entity>
     StoryBoxState.value.count = result?.data.Storybox?.count as number
     return StoryBoxState
   }
@@ -81,8 +81,8 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     StoryBoxState.value.activeStorybox.assets = []
     const entity = getStoryBoxById(_entityId)
     if (entity) {
-      // console.log('+ title from entity', _entity.metadata.filter(data => data?.key === MetaKey.Title))
-      // console.log('+ description from entity', _entity.metadata.filter(data => data?.key === MetaKey.Description))
+      StoryBoxState.value.activeStorybox.title = entity.metadata.find(data => data?.key === MetaKey.Title)?.value
+      StoryBoxState.value.activeStorybox.description = entity.metadata.find(data => data?.key === MetaKey.Description)?.value
       StoryBoxState.value.activeStorybox.frameId = entity.id
       await getAssets(entity.relations?.map(_relation => _relation?.key.replace(`entities/`, '')) as Array<string>)
       StoryBoxState.value.activeStorybox.assetTimings = []

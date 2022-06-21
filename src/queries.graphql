@@ -589,10 +589,9 @@ query storybox {
     results {
       id
       type
-      metadata{
+      metadata(key: [title, description]) {
         key
         value
-        label
       }
       relations {
         key
