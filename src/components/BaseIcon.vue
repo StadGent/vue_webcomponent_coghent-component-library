@@ -49,7 +49,8 @@ type CustomIcon =
   | "copy"
   | "thumbsup"
   | "surprise"
-  | "newItem";
+  | "newItem"
+  | "download";
 export default defineComponent({
   props: {
     icon: {
@@ -561,6 +562,12 @@ export default defineComponent({
 <path d="M12.5 9.5V14.5C12.5 15.052 12.052 15.5 11.5 15.5H1.5C0.948 15.5 0.5 15.052 0.5 14.5V4.5C0.5 3.948 0.948 3.5 1.5 3.5H6.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M12.5 0.5V6.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M9.5 3.5H15.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      download: `<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="385.54 242.5 14 15" width="14px" height="15px" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 392.54 253.5 L 392.54 242.5" stroke="#2D242A" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" transform="matrix(-1, 0, 0, -1, 785.080017, 496)"/>
+  <path d="M 397.54 253.5 L 392.54 248.5 L 387.54 253.5" stroke="#2D242A" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" transform="matrix(-1, 0, 0, -1, 785.080017, 502)" style="fill: none;"/>
+  <path d="M15 16H1" stroke="#2D242A" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" transform="matrix(1, 0, 0, 1, 384.539948, 241.499985)"/>
 </svg>`,
     };
 

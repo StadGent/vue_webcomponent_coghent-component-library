@@ -178,7 +178,7 @@ export default defineComponent({
     LazyLoadImage,
     MediaModal,
   },
-  emits: ["openingCcmodal", "currentCarouselPicture"],
+  emits: ["openingCcmodal", "currentPictureIndex"],
   setup(props, { emit }: SetupContext) {
     const selectedIndex = ref<number>(0);
     const nextIndex = ref<number>(0);
@@ -196,6 +196,7 @@ export default defineComponent({
         if (props.mediafiles) {
           setMediaModalFile(props.mediafiles[index]);
         }
+        emit("currentPictureIndex", index);
       },
       { immediate: true }
     );
