@@ -2,6 +2,7 @@ import {
   AddEntityAsRelationDocument,
   MetaKey,
   StoryboxBuildInput,
+  GetStoryByIdDocument,
 } from "@/queries";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { provideApolloClient, useQuery } from "@vue/apollo-composable";
@@ -96,8 +97,8 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
           description: StoryBoxState.value.activeStorybox?.description,
           assets: StoryBoxState.value.activeStorybox?.assets
             ? StoryBoxState.value.activeStorybox?.assets.map(
-                (_asset) => _asset?.id
-              )
+              (_asset) => _asset?.id
+            )
             : [],
           assetTimings: StoryBoxState.value.activeStorybox?.assetTimings
             ? StoryBoxState.value.activeStorybox?.assetTimings
@@ -218,6 +219,16 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     }
   );
 
+  const getStoryData = async (_storyId: string) => {
+    const { fetchMore } = apolloProvider(() =>
+      useQuery(GetStoryByIdDocument, { id: _storyId })
+    );
+
+    const story = await fetchMore({ variables: { id: _storyId } })
+    console.log(`\n story,`, story?.data.Entity)
+    return story?.data.Entity ? story?.data.Entity : null
+  }
+
   return {
     setStoryBoxes,
     addStoryBoxes,
@@ -231,5 +242,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     assetToStorybox,
     assetIsInStorybox,
     linkBoxCodeToUser,
+    getStoryData,
   };
 };

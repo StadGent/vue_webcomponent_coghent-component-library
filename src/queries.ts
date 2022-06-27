@@ -320,6 +320,7 @@ export type Query = {
   CreateBoxVisiter?: Maybe<BoxVisiter>;
   Stories?: Maybe<EntitiesResults>;
   Entity?: Maybe<Entity>;
+  getStoryById?: Maybe<Entity>;
   Entities?: Maybe<EntitiesResults>;
   Relations?: Maybe<RelationsResults>;
   User?: Maybe<User>;
@@ -354,6 +355,11 @@ export type QueryCreateBoxVisiterArgs = {
 
 
 export type QueryEntityArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryGetStoryByIdArgs = {
   id: Scalars['String'];
 };
 
