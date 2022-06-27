@@ -458,8 +458,8 @@ query getEnumsByName($enumName: String!) {
   }
 }
 
-query getActiveBox {
-  ActiveBox {
+query getActiveBox($id: String) {
+  ActiveBox(id: $id) {
     count
     limit
     results {
