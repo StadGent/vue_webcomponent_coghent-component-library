@@ -225,7 +225,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     );
 
     const story = await fetchMore({ variables: { id: _storyId } })
-    console.log(`\n story,`, story?.data.Entity)
     return story?.data.Entity ? story?.data.Entity : null
   }
 
