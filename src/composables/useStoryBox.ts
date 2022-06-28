@@ -13,6 +13,7 @@ import {
   GetEntityByIdDocument,
   KeyValuePair,
   LinkStoryboxDocument,
+  RelationType,
   StoryboxBuild,
   StoryboxDocument,
 } from "..";
@@ -65,6 +66,31 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return StoryBoxState.value.storyboxes;
   };
 
+  const correctAssetRelationsForStoryboxes = async (_storyboxes: Array<Entity>): Promise<Array<Entity>> => {
+    const updatedStoryboxes: Array<Entity> = []
+    return new Promise((resolve, reject) => {
+      for (const storybox of _storyboxes) {
+        let tmpStorybox: Entity = {
+          id: '',
+          object_id: '',
+          type: '',
+          metadata: [],
+          metadataByLabel: [],
+          title: [],
+          scopeNote: [],
+          collections: []
+        };
+        Object.assign(tmpStorybox, storybox)
+        if (storybox.relations) {
+          const components = storybox.relations.filter(_relation => _relation?.type == RelationType.Components)
+          tmpStorybox.relations = components
+        }
+        updatedStoryboxes.push(tmpStorybox)
+      }
+      resolve(updatedStoryboxes)
+    })
+  }
+
   const getStoryboxes = async () => {
     const { fetchMore } = apolloProvider(() =>
       useQuery(StoryboxDocument, {}, { fetchPolicy: "network-only" })
@@ -72,6 +98,8 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     const result = await fetchMore({});
     StoryBoxState.value.storyboxes = result?.data.Storybox
       ?.results as unknown as Array<Entity>;
+    // StoryBoxState.value.storyboxes = await correctAssetRelationsForStoryboxes(StoryBoxState.value.storyboxes)
+    console.log(`storyboxes`, StoryBoxState.value.storyboxes)
     return StoryBoxState;
   };
 
@@ -171,7 +199,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
         if (assetId) {
           const result = await fetchMore({ variables: { id: assetId } });
           const asset = result?.data?.Entity as any;
-          StoryBoxState.value.activeStorybox?.assets?.push(asset as Entity);
+          asset && asset.type === 'asset' ? StoryBoxState.value.activeStorybox?.assets?.push(asset as Entity) : null
         }
       }
     }
