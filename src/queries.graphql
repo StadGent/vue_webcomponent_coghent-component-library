@@ -444,7 +444,7 @@ query getStories {
 }
 
 query getStoryById($id: String!) {
-  Entity(id: $id) {
+  GetStoryById(id: $id) {
     ...fullStory
   }
 }
