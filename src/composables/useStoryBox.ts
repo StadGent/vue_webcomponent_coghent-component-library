@@ -224,7 +224,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     const storyboxEntity = getStoryBoxById(_storyboxId);
     if (storyboxEntity?.relations && storyboxEntity?.relations.length >= 0) {
       result = storyboxEntity?.relations.find(
-        (_relation) => _relation?.key === _entity._key
+        (_relation) => _relation?.key === `entities/${_entity.id}`
       );
     }
     return result;
@@ -256,6 +256,16 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return story?.data.GetStoryById ? story?.data.GetStoryById : null
   }
 
+  const getStoryboxAssetAmount = (_id: string): number => {
+    let count = 0
+    const foundBox = StoryBoxState.value.storyboxes.find(_box => _box.id === _id)
+    if (foundBox && foundBox.relations) {
+      const components = foundBox.relations?.filter(_relation => _relation?.type == RelationType.Components)
+      count = components.length
+    }
+    return count
+  }
+
   return {
     setStoryBoxes,
     addStoryBoxes,
@@ -270,5 +280,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     assetIsInStorybox,
     linkBoxCodeToUser,
     getStoryData,
+    getStoryboxAssetAmount,
   };
 };
