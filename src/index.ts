@@ -47,6 +47,7 @@ import {
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
 import BaseButton from "./components/BaseButton.vue";
+import BaseDropDown from "./components/BaseDropDown.vue";
 import BaseSearch from "./components/BaseSearch.vue";
 import BaseIcon from "./components/BaseIcon.vue";
 import BaseInput from "./components/BaseInput.vue";
@@ -96,6 +97,7 @@ import {
 import { getMetadataOfTypeFromEntity } from './helpers';
 
 export {
+  BaseDropDown,
   storyboxDataIsUpdated,
   DeleteEntityDocument,
   getMetadataOfTypeFromEntity,
