@@ -152,7 +152,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       StoryBoxState.value.activeStorybox.frameId = entity.id;
       await getAssets(
         entity.relations?.map((_relation) =>
-          _relation?.key.replace(`entities/`, "")
+          _relation?.type === RelationType.Components ? _relation?.key.replace(`entities/`, "") : null
         ) as Array<string>
       );
       StoryBoxState.value.activeStorybox.assetTimings = [];
@@ -191,6 +191,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   };
 
   const getAssets = async (_assetIds: Array<string>) => {
+    _assetIds = _assetIds.filter(_id => _id !== null)
     const { fetchMore } = apolloProvider(() =>
       useQuery(GetEntityByIdDocument, { id: `` })
     );
