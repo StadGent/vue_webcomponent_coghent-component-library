@@ -190,7 +190,8 @@ export declare enum MetaKey {
     Firstname = "firstname",
     Lastname = "lastname",
     Nationality = "nationality",
-    ScopeNote = "scopeNote"
+    ScopeNote = "scopeNote",
+    BoxCode = "boxCode"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -276,6 +277,7 @@ export declare type Query = {
     CreateBoxVisiter?: Maybe<BoxVisiter>;
     Stories?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
+    GetStoryById?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Relations?: Maybe<RelationsResults>;
     User?: Maybe<User>;
@@ -285,9 +287,14 @@ export declare type Query = {
     CreateStorybox?: Maybe<Entity>;
     Storybox?: Maybe<EntitiesResults>;
     AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
+    LinkFrameToVisiter?: Maybe<BoxVisiter>;
+    GetvisiterOfEntity?: Maybe<BoxVisiter>;
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
+};
+export declare type QueryActiveBoxArgs = {
+    id?: Maybe<Scalars['String']>;
 };
 export declare type QueryBoxVisiterByCodeArgs = {
     code: Scalars['String'];
@@ -300,6 +307,9 @@ export declare type QueryCreateBoxVisiterArgs = {
     storyId: Scalars['String'];
 };
 export declare type QueryEntityArgs = {
+    id: Scalars['String'];
+};
+export declare type QueryGetStoryByIdArgs = {
     id: Scalars['String'];
 };
 export declare type QueryEntitiesArgs = {
@@ -327,6 +337,12 @@ export declare type QueryCreateStoryboxArgs = {
 export declare type QueryAddEntityAsRelationArgs = {
     entityId: Scalars['String'];
     entityRelationId: Scalars['String'];
+};
+export declare type QueryLinkFrameToVisiterArgs = {
+    frameId: Scalars['String'];
+};
+export declare type QueryGetvisiterOfEntityArgs = {
+    id: Scalars['String'];
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -604,6 +620,14 @@ export declare type FullBoxVisiterFragment = {
     frames_seen_last_visit?: Maybe<number>;
     start_time?: Maybe<string>;
     touch_table_time?: Maybe<string>;
+    relations?: Maybe<Array<Maybe<({
+        __typename?: 'Relation';
+    } & BoxRelationFragment)>>>;
+};
+export declare type MinimalBoxVisiterFragment = {
+    __typename?: 'BoxVisiter';
+    id: string;
+    code: string;
     relations?: Maybe<Array<Maybe<({
         __typename?: 'Relation';
     } & BoxRelationFragment)>>>;
@@ -1030,7 +1054,7 @@ export declare type GetStoryByIdQueryVariables = Exact<{
 }>;
 export declare type GetStoryByIdQuery = {
     __typename?: 'Query';
-    Entity?: Maybe<({
+    GetStoryById?: Maybe<({
         __typename?: 'Entity';
     } & FullStoryFragment)>;
 };
@@ -1049,7 +1073,7 @@ export declare type GetEnumsByNameQuery = {
     }>;
 };
 export declare type GetActiveBoxQueryVariables = Exact<{
-    [key: string]: never;
+    id?: Maybe<Scalars['String']>;
 }>;
 export declare type GetActiveBoxQuery = {
     __typename?: 'Query';
@@ -1264,11 +1288,30 @@ export declare type DeleteEntityMutation = {
     __typename?: 'Mutation';
     DeleteEntity?: Maybe<string>;
 };
+export declare type LinkFrameToVisiterQueryVariables = Exact<{
+    frameId: Scalars['String'];
+}>;
+export declare type LinkFrameToVisiterQuery = {
+    __typename?: 'Query';
+    LinkFrameToVisiter?: Maybe<({
+        __typename?: 'BoxVisiter';
+    } & MinimalBoxVisiterFragment)>;
+};
+export declare type GetvisiterOfEntityQueryVariables = Exact<{
+    id: Scalars['String'];
+}>;
+export declare type GetvisiterOfEntityQuery = {
+    __typename?: 'Query';
+    GetvisiterOfEntity?: Maybe<({
+        __typename?: 'BoxVisiter';
+    } & MinimalBoxVisiterFragment)>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
 export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const FullBoxVisiterFragmentDoc: DocumentNode<FullBoxVisiterFragment, unknown>;
+export declare const MinimalBoxVisiterFragmentDoc: DocumentNode<MinimalBoxVisiterFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
 export declare const AssetMetadataFragmentDoc: DocumentNode<AssetMetadataFragment, unknown>;
 export declare const FullStoryFragmentDoc: DocumentNode<FullStoryFragment, unknown>;
@@ -1315,7 +1358,7 @@ export declare const GetEnumsByNameDocument: DocumentNode<GetEnumsByNameQuery, E
     enumName: Scalars['String'];
 }>>;
 export declare const GetActiveBoxDocument: DocumentNode<GetActiveBoxQuery, Exact<{
-    [key: string]: never;
+    id?: string | null | undefined;
 }>>;
 export declare const GetBoxVisitersDocument: DocumentNode<GetBoxVisitersQuery, Exact<{
     [key: string]: never;
@@ -1375,5 +1418,11 @@ export declare const AddEntityAsRelationDocument: DocumentNode<AddEntityAsRelati
     entityRelationId: Scalars['String'];
 }>>;
 export declare const DeleteEntityDocument: DocumentNode<DeleteEntityMutation, Exact<{
+    id: Scalars['String'];
+}>>;
+export declare const LinkFrameToVisiterDocument: DocumentNode<LinkFrameToVisiterQuery, Exact<{
+    frameId: Scalars['String'];
+}>>;
+export declare const GetvisiterOfEntityDocument: DocumentNode<GetvisiterOfEntityQuery, Exact<{
     id: Scalars['String'];
 }>>;
