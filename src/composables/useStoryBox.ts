@@ -99,7 +99,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     StoryBoxState.value.storyboxes = result?.data.Storybox
       ?.results as unknown as Array<Entity>;
     // StoryBoxState.value.storyboxes = await correctAssetRelationsForStoryboxes(StoryBoxState.value.storyboxes)
-    console.log(`storyboxes`, StoryBoxState.value.storyboxes)
     return StoryBoxState;
   };
 
@@ -170,7 +169,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
           orderTimingOfAssetsAsAssetOrder(tmpAssetTimings);
       }
     }
-    console.log(`StoryBoxState.value.activeStorybox`, StoryBoxState.value.activeStorybox)
     return StoryBoxState.value.activeStorybox;
   };
 
