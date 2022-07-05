@@ -74,6 +74,14 @@ fragment fullBoxVisiter on BoxVisiter {
   }
 }
 
+fragment minimalBoxVisiter on BoxVisiter {
+  id
+  code
+  relations {
+    ...boxRelation
+  }
+}
+
 fragment fullStory on Entity {
   ...storyEntity
   relationMetadata {
@@ -614,4 +622,16 @@ query addEntityAsRelation($entityId: String!, $entityRelationId: String!){
 
 mutation deleteEntity($id: String!){
   DeleteEntity(id: $id)
+}
+
+query linkFrameToVisiter($frameId: String!){
+    LinkFrameToVisiter(frameId: $frameId){
+        ...minimalBoxVisiter
+    }
+}
+
+query getvisiterOfEntity($id: String!){
+    GetvisiterOfEntity(id: $id){
+        ...minimalBoxVisiter
+    }
 }

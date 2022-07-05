@@ -333,6 +333,8 @@ type Query {
   CreateStorybox(storyboxInfo: StoryboxBuildInput!): Entity
   Storybox: EntitiesResults
   AddEntityAsRelation(entityId: String!, entityRelationId: String!): [Relation]
+  LinkFrameToVisiter(frameId: String!): BoxVisiter
+  GetvisiterOfEntity(id: String!): BoxVisiter
 }
 
 type Mutation {

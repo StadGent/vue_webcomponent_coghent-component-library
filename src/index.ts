@@ -43,6 +43,8 @@ import {
   AddEntityAsRelationDocument,
   LinkStoryboxDocument,
   DeleteEntityDocument,
+  LinkFrameToVisiterDocument,
+  GetvisiterOfEntityDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -97,6 +99,8 @@ import {
 import { getMetadataOfTypeFromEntity } from './helpers';
 
 export {
+  GetvisiterOfEntityDocument,
+  LinkFrameToVisiterDocument,
   BaseDropDown,
   storyboxDataIsUpdated,
   DeleteEntityDocument,

@@ -3,11 +3,8 @@ import {
   MetaKey,
   StoryboxBuildInput,
   GetStoryByIdDocument,
-} from "@/queries";
-import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
-import { provideApolloClient, useQuery } from "@vue/apollo-composable";
-import { ref, watch } from "vue";
-import {
+  LinkFrameToVisiterDocument,
+  GetvisiterOfEntityDocument,
   CreateStoryboxDocument,
   Entity,
   GetEntityByIdDocument,
@@ -16,7 +13,10 @@ import {
   RelationType,
   StoryboxBuild,
   StoryboxDocument,
-} from "..";
+} from "@/queries";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { provideApolloClient, useQuery } from "@vue/apollo-composable";
+import { ref, watch } from "vue";
 
 export type StoryBoxType = {
   count: number;
@@ -267,6 +267,22 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return count
   }
 
+  const linkFrameToStoryAndCreateVisiter = async (_frameId: string) => {
+    const { fetchMore } = apolloProvider(() =>
+      useQuery(LinkFrameToVisiterDocument, { frameId: '' })
+    );
+    const visiter = await fetchMore({ variables: { frameId: _frameId } })
+    return visiter?.data.LinkFrameToVisiter
+  }
+
+  const getVisiterFromFrame = async (_frameId: string) => {
+    const { fetchMore } = apolloProvider(() =>
+      useQuery(GetvisiterOfEntityDocument, { id: _frameId })
+    );
+    const visiter = await fetchMore({ variables: { id: _frameId } })
+    return visiter?.data.GetvisiterOfEntity
+  }
+
   return {
     setStoryBoxes,
     addStoryBoxes,
@@ -282,5 +298,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     linkBoxCodeToUser,
     getStoryData,
     getStoryboxAssetAmount,
+    linkFrameToStoryAndCreateVisiter,
+    getVisiterFromFrame,
   };
 };
