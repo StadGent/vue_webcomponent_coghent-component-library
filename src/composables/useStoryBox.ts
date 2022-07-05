@@ -150,6 +150,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
         (data) => data?.key === MetaKey.Description
       )?.value;
       StoryBoxState.value.activeStorybox.frameId = entity.id;
+
       await getAssets(
         entity.relations?.map((_relation) =>
           _relation?.type === RelationType.Components ? _relation?.key.replace(`entities/`, "") : null
@@ -159,17 +160,17 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       if (entity.relations) {
         let tmpAssetTimings = [];
         for (const _relation of entity.relations) {
+          let duration = _relation?.timestamp_end! - _relation?.timestamp_zoom!
           tmpAssetTimings.push({
             key: _relation?.key.replace(`entities/`, ""),
-            value: String(
-              _relation?.timestamp_end! - _relation?.timestamp_zoom!
-            ),
+            value: String(duration != 0 ? duration : 5)
           } as KeyValuePair);
         }
         StoryBoxState.value.activeStorybox.assetTimings =
           orderTimingOfAssetsAsAssetOrder(tmpAssetTimings);
       }
     }
+    console.log(`StoryBoxState.value.activeStorybox`, StoryBoxState.value.activeStorybox)
     return StoryBoxState.value.activeStorybox;
   };
 
