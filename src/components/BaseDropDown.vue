@@ -1,10 +1,9 @@
 <template>
-  <select name="dropdown" id="dropdown" :class="style">
+  <select name="dropdown" id="dropdown" :class="style" v-model="myDropdown">
     <option
       v-for="option in options"
       :key="option"
       :value="option"
-      @click="setValue(option)"
       :selected="option === active"
     >
       {{ option }}
@@ -13,12 +12,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 
 export default defineComponent({
   props: {
     active: {
-      type: Object as PropType<Number | String>,
+      type: Object as PropType<number | string>,
       required: true,
     },
     numberMax: {
@@ -30,7 +29,7 @@ export default defineComponent({
       required: false,
     },
     values: {
-      type: Object as PropType<Array<String | Number>>,
+      type: Object as PropType<Array<string | number>>,
       default: [],
     },
     style: {
@@ -42,6 +41,11 @@ export default defineComponent({
   emits: [`selected`],
   setup(props, { emit }) {
     const options = ref<Array<String | Number>>(props.values);
+    const myDropdown = ref<number | string>(props.active);
+
+    watch(myDropdown, (option) => {
+      emit(`selected`, option);
+    });
     const setNumbers = (_max = 10, _step = 1) => {
       const numbers: Array<number> = [];
       numbers.push(_step);
@@ -52,19 +56,14 @@ export default defineComponent({
       options.value = numbers;
     };
 
-    const setValue = (_option: number | string) => {
-      emit(`selected`, _option);
-    };
-
     onMounted(() => {
-      console.log(props);
       if (props.numberStep || props.numberMax) {
         setNumbers(props.numberMax, props.numberStep);
       }
     });
     return {
-      setValue,
       options,
+      myDropdown,
     };
   },
 });
