@@ -141,6 +141,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     StoryBoxState.value.activeStorybox = {} as StoryboxBuild;
     StoryBoxState.value.activeStorybox.assets = [];
     const entity = getStoryBoxById(_entityId);
+    console.log(`createStoryboxFromEntity | entity`, entity)
     if (entity) {
       StoryBoxState.value.activeStorybox.title = entity.metadata.find(
         (data) => data?.key === MetaKey.Title
