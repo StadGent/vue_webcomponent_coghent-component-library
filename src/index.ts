@@ -96,7 +96,7 @@ import {
   StoryBoxState,
   storyboxDataIsUpdated,
 } from "@/composables/useStoryBox";
-import { getMetadataOfTypeFromEntity } from './helpers';
+import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromEntity, getMetadataOfTypeFromEntity } from './helpers';
 
 export {
   GetvisiterOfEntityDocument,
@@ -104,6 +104,8 @@ export {
   BaseDropDown,
   storyboxDataIsUpdated,
   DeleteEntityDocument,
+  getFirstMediafileWithFilelocationOfEntity,
+  getFirstValueOfPropertyFromEntity,
   getMetadataOfTypeFromEntity,
   LinkStoryboxDocument,
   AddEntityAsRelationDocument,

@@ -1,4 +1,4 @@
-import { Entity, Metadata, MetaKey } from './queries';
+import { Entity, MediaFile, Metadata, MetaKey } from './queries';
 
 type WeightedArrayConfig = {
   probability: number | "*";
@@ -60,4 +60,28 @@ export const getMetadataOfTypeFromEntity = (_entity: Entity, _key: MetaKey) => {
     foundMetadata = _entity.metadata.find(data => data?.key === _key) as Metadata | undefined
   }
   return foundMetadata
+}
+
+
+
+
+export const getFirstValueOfPropertyFromEntity = (_entity: Entity, _property: `title` | `description`) => {
+  let foundMetadata: undefined | Metadata = undefined
+  if (_entity && _property in _entity) {
+    const prop = _entity[_property as keyof Entity] as Array<Metadata>
+    if (prop[0]) {
+      foundMetadata = prop[0] as Metadata
+    }
+  }
+  return foundMetadata
+}
+
+export const getFirstMediafileWithFilelocationOfEntity = (_entity: Entity): Promise<null | MediaFile> => {
+  return new Promise((resolve, reject) => {
+    if (_entity && _entity.mediafiles) {
+      for (const media of _entity.mediafiles) {
+        if (media?.original_file_location) resolve(media)
+      }
+    }
+  })
 }
