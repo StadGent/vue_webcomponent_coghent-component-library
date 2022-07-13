@@ -330,6 +330,8 @@ export declare type QueryRelationsAsEntitiesArgs = {
 };
 export declare type QueryLinkStoryboxArgs = {
     code: Scalars['String'];
+    title: Scalars['String'];
+    description: Scalars['String'];
 };
 export declare type QueryCreateStoryboxArgs = {
     storyboxInfo: StoryboxBuildInput;
@@ -1233,6 +1235,8 @@ export declare type CreateStoryboxQuery = {
 };
 export declare type LinkStoryboxQueryVariables = Exact<{
     code: Scalars['String'];
+    title: Scalars['String'];
+    description: Scalars['String'];
 }>;
 export declare type LinkStoryboxQuery = {
     __typename?: 'Query';
@@ -1409,6 +1413,8 @@ export declare const CreateStoryboxDocument: DocumentNode<CreateStoryboxQuery, E
 }>>;
 export declare const LinkStoryboxDocument: DocumentNode<LinkStoryboxQuery, Exact<{
     code: Scalars['String'];
+    title: Scalars['String'];
+    description: Scalars['String'];
 }>>;
 export declare const StoryboxDocument: DocumentNode<StoryboxQuery, Exact<{
     [key: string]: never;
