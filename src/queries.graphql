@@ -585,8 +585,8 @@ query createStorybox($storyboxInfo: StoryboxBuildInput!) {
   }
 }
 
-query LinkStorybox($code: String!) {
-  LinkStorybox(code: $code) {
+query LinkStorybox($code: String!, $title: String!, $description: String!) {
+  LinkStorybox(code: $code, title: $title, description: $description) {
     ...minimalEntity
   }
 }

@@ -98,7 +98,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     const result = await fetchMore({});
     StoryBoxState.value.storyboxes = result?.data.Storybox
       ?.results as unknown as Array<Entity>;
-    // StoryBoxState.value.storyboxes = await correctAssetRelationsForStoryboxes(StoryBoxState.value.storyboxes)
     return StoryBoxState;
   };
 
@@ -231,12 +230,12 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return result;
   };
 
-  const linkBoxCodeToUser = async (_code: string) => {
+  const linkBoxCodeToUser = async (_code: string, _title: string, _description: string) => {
     const { fetchMore } = apolloProvider(() =>
-      useQuery(LinkStoryboxDocument, { code: _code })
+      useQuery(LinkStoryboxDocument, { code: _code, title: _title, description: _description })
     );
 
-    const newFrame = await fetchMore({ variables: { code: _code } });
+    const newFrame = await fetchMore({ variables: { code: _code, title: _title, description: _description  } });
 
     return newFrame?.data.LinkStorybox;
   };
