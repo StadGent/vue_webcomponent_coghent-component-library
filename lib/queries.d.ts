@@ -31,6 +31,7 @@ export declare type BoxVisiter = {
     code: Scalars['String'];
     start_time?: Maybe<Scalars['String']>;
     touch_table_time?: Maybe<Scalars['String']>;
+    ticketUsed?: Maybe<Scalars['Int']>;
 };
 export declare type BoxVisiterRelationByTypeArgs = {
     type: RelationType;
@@ -232,6 +233,7 @@ export declare type Mutation = {
     UpdateBoxVisiterTouchtableTime?: Maybe<BoxVisiter>;
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
     DeleteEntity?: Maybe<Scalars['String']>;
+    UpdatedScannedOfBoxvisiter?: Maybe<BoxVisiter>;
 };
 export declare type MutationReplaceMetadataArgs = {
     id: Scalars['String'];
@@ -260,6 +262,9 @@ export declare type MutationAddAssetToBoxVisiterArgs = {
 };
 export declare type MutationDeleteEntityArgs = {
     id: Scalars['String'];
+};
+export declare type MutationUpdatedScannedOfBoxvisiterArgs = {
+    code: Scalars['String'];
 };
 export declare type Position = {
     __typename?: 'Position';
@@ -1310,6 +1315,16 @@ export declare type GetvisiterOfEntityQuery = {
         __typename?: 'BoxVisiter';
     } & MinimalBoxVisiterFragment)>;
 };
+export declare type UpdatedScannedOfBoxvisiterMutationVariables = Exact<{
+    code: Scalars['String'];
+}>;
+export declare type UpdatedScannedOfBoxvisiterMutation = {
+    __typename?: 'Mutation';
+    UpdatedScannedOfBoxvisiter?: Maybe<({
+        __typename?: 'BoxVisiter';
+        ticketUsed?: Maybe<number>;
+    } & MinimalBoxVisiterFragment)>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
@@ -1431,4 +1446,7 @@ export declare const LinkFrameToVisiterDocument: DocumentNode<LinkFrameToVisiter
 }>>;
 export declare const GetvisiterOfEntityDocument: DocumentNode<GetvisiterOfEntityQuery, Exact<{
     id: Scalars['String'];
+}>>;
+export declare const UpdatedScannedOfBoxvisiterDocument: DocumentNode<UpdatedScannedOfBoxvisiterMutation, Exact<{
+    code: Scalars['String'];
 }>>;

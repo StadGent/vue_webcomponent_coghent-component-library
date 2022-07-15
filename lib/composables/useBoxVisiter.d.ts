@@ -19,6 +19,7 @@ export declare type UseBoxVisiter = {
     startAsset: Ref<Entity | undefined>;
     historyAssets: Ref<Entity[]>;
     clearHistoryAssets: () => void;
+    updateScannedTimesOfVisiter: (_code: string) => Promise<BoxVisiter | null>;
 };
 export declare type StorySelected = {
     id: string;
@@ -95,6 +96,7 @@ declare const boxVisiter: Ref<{
     code: string;
     start_time?: string | null | undefined;
     touch_table_time?: string | null | undefined;
+    ticketUsed?: number | null | undefined;
 } | null>;
 declare const startAsset: Ref<Entity | undefined>;
 declare const historyAssets: Ref<{
