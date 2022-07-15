@@ -96,9 +96,10 @@ import {
   StoryBoxState,
   storyboxDataIsUpdated,
 } from "@/composables/useStoryBox";
-import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromEntity, getMetadataOfTypeFromEntity } from './helpers';
+import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromEntity, getMediaTypeByfilename, getMetadataOfTypeFromEntity } from './helpers';
 
 export {
+  getMediaTypeByfilename,
   GetvisiterOfEntityDocument,
   LinkFrameToVisiterDocument,
   BaseDropDown,

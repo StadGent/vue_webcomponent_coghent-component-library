@@ -1,4 +1,4 @@
-import { Entity, MediaFile, Metadata, MetaKey } from './queries';
+import { Entity, MediaFile, Metadata, MetaKey, MimeType } from './queries';
 
 type WeightedArrayConfig = {
   probability: number | "*";
@@ -83,5 +83,18 @@ export const getFirstMediafileWithFilelocationOfEntity = (_entity: Entity): Prom
         if (media?.original_file_location) resolve(media)
       }
     }
+  })
+}
+
+export const getMediaTypeByfilename = (_entity: Entity, _filename: string | undefined): Promise<MimeType | null> => {
+  return new Promise((resolve, reject) => {
+    if (_entity.mediafiles && _filename != undefined) {
+      const found = _entity.mediafiles.find(_media => _media?.filename && _media.filename === _filename)
+      if (found != undefined) {
+        found.mediatype ? resolve(found.mediatype) : null
+        found.mimetype ? resolve({ type: found.mimetype } as MimeType) : null
+      }
+    }
+    resolve(null)
   })
 }
