@@ -635,3 +635,10 @@ query getvisiterOfEntity($id: String!){
         ...minimalBoxVisiter
     }
 }
+
+mutation updatedScannedOfBoxvisiter ($code: String!){
+  UpdatedScannedOfBoxvisiter(code: $code){
+    ...minimalBoxVisiter
+    ticketUsed
+  }
+}

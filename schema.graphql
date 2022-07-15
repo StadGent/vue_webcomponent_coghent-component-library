@@ -273,6 +273,7 @@ type BoxVisiter {
   code: String!
   start_time: String
   touch_table_time: String
+  ticketUsed: Int
 }
 
 type Ticket {
@@ -356,4 +357,5 @@ type Mutation {
     type: RelationType!
   ): [Relation]!
   DeleteEntity(id: String!): String
+  UpdatedScannedOfBoxvisiter(code: String!): BoxVisiter
 }

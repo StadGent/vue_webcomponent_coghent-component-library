@@ -132,7 +132,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
         } as StoryboxBuildInput,
       },
     });
-    await getStoryboxes();
+    // await getStoryboxes();
     return frame;
   };
 
@@ -235,7 +235,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       useQuery(LinkStoryboxDocument, { code: _code, title: _title, description: _description })
     );
 
-    const newFrame = await fetchMore({ variables: { code: _code, title: _title, description: _description  } });
+    const newFrame = await fetchMore({ variables: { code: _code, title: _title, description: _description } });
 
     return newFrame?.data.LinkStorybox;
   };

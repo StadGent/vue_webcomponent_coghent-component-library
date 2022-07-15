@@ -45,6 +45,7 @@ import {
   DeleteEntityDocument,
   LinkFrameToVisiterDocument,
   GetvisiterOfEntityDocument,
+  UpdatedScannedOfBoxvisiterDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -99,6 +100,7 @@ import {
 import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromEntity, getMediaTypeByfilename, getMetadataOfTypeFromEntity } from './helpers';
 
 export {
+  UpdatedScannedOfBoxvisiterDocument,
   getMediaTypeByfilename,
   GetvisiterOfEntityDocument,
   LinkFrameToVisiterDocument,

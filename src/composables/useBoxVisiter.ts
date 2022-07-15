@@ -8,7 +8,7 @@ import {
   GetBoxVisiterByCodeDocument,
   Relation,
   RelationType,
-  StoryInput,
+  UpdatedScannedOfBoxvisiterDocument,
 } from "@/queries";
 import {
   provideApolloClient,
@@ -56,6 +56,7 @@ export type UseBoxVisiter = {
   startAsset: Ref<Entity | undefined>;
   historyAssets: Ref<Entity[]>;
   clearHistoryAssets: () => void;
+  updateScannedTimesOfVisiter: (_code: string) => Promise<BoxVisiter | null>
 };
 
 export type StorySelected = {
@@ -189,6 +190,14 @@ const useBoxVisiter = (
     historyAssets.value = [];
   };
 
+  const updateScannedTimesOfVisiter = async (_code: string): Promise<BoxVisiter | null> => {
+    const { mutate } = apolloProvider(() =>
+      useMutation(UpdatedScannedOfBoxvisiterDocument)
+    );
+    const visiter = await mutate({ code: _code });
+    return visiter?.data?.UpdatedScannedOfBoxvisiter as BoxVisiter | null
+  }
+
   return {
     create,
     getByCode,
@@ -206,6 +215,7 @@ const useBoxVisiter = (
     addHistoryAsset,
     clearHistoryAssets,
     deleteRelationFromBoxVisiter,
+    updateScannedTimesOfVisiter,
   };
 };
 
