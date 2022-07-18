@@ -443,6 +443,18 @@ export declare type Ticket = {
     code: Scalars['String'];
     body: Scalars['String'];
 };
+export declare enum UploadCreation {
+    Owner = "owner",
+    Other = "other",
+    None = "none"
+}
+export declare enum UploadStatus {
+    Creating = "creating",
+    Uploaded = "uploaded",
+    Verified = "verified",
+    Denied = "denied",
+    Waiting = "waiting"
+}
 export declare type User = {
     __typename?: 'User';
     id: Scalars['String'];
