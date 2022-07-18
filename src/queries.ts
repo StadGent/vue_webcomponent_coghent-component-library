@@ -529,6 +529,20 @@ export type Ticket = {
   body: Scalars['String'];
 };
 
+export enum UploadCreation {
+  Owner = 'owner',
+  Other = 'other',
+  None = 'none'
+}
+
+export enum UploadStatus {
+  Creating = 'creating',
+  Uploaded = 'uploaded',
+  Verified = 'verified',
+  Denied = 'denied',
+  Waiting = 'waiting'
+}
+
 export type User = {
   __typename?: 'User';
   id: Scalars['String'];

@@ -54,7 +54,8 @@ type CustomIcon =
   | "qrCode"
   | "twitter"
   | "instagram"
-  | "facebook";
+  | "facebook"
+  | "upload";
 export default defineComponent({
   props: {
     icon: {
@@ -623,6 +624,11 @@ export default defineComponent({
 		c2.04,2.04,4.88,3.22,7.77,3.22c2.9,0,5.73-1.18,7.78-3.22c2.05-2.05,3.22-4.89,3.22-7.78c0-2.9-1.17-5.74-3.22-7.78
 		C135.661,29.421,132.821,28.251,129.921,28.251z"/>
 </g>
+</svg>`,
+      upload: `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 12V1" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13 6L8 1L3 6" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 16H1" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
     };
 

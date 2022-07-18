@@ -46,6 +46,8 @@ import {
   LinkFrameToVisiterDocument,
   GetvisiterOfEntityDocument,
   UpdatedScannedOfBoxvisiterDocument,
+  UploadStatus,
+  UploadCreation,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -98,8 +100,14 @@ import {
   storyboxDataIsUpdated,
 } from "@/composables/useStoryBox";
 import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromEntity, getMediaTypeByfilename, getMetadataOfTypeFromEntity } from './helpers';
+import useUpload, { currentUploadStep, uploadState } from './composables/useUpload';
 
 export {
+  currentUploadStep,
+  uploadState,
+  useUpload,
+  UploadStatus,
+  UploadCreation,
   UpdatedScannedOfBoxvisiterDocument,
   getMediaTypeByfilename,
   GetvisiterOfEntityDocument,

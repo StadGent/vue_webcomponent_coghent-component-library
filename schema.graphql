@@ -1,5 +1,19 @@
 scalar Void
 
+enum UploadStatus {
+  creating
+  uploaded
+  verified
+  denied
+  waiting
+}
+
+enum UploadCreation {
+  owner
+  other
+  none
+}
+
 enum MIME {
   AUDIOMPEG
   AUDIOMP3

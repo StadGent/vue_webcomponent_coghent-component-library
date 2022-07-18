@@ -52,7 +52,9 @@ type CustomIcon =
   | "edit"
   | "logout"
   | "user"
-  | "surprise";
+  | "newItem"
+  | "surprise"
+  | "upload";
 type ButtonTypes =
   | "primary"
   | "primaryUnavailable"
