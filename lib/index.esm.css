@@ -138985,3 +138985,11 @@ html[data-v-7e4054c4] {
   border-bottom-color: rgba(0, 0, 0, 0.1);
   border-bottom-width: 1px;
 }
+
+.lineMin[data-v-0e0700c9] {
+  min-width: 4rem;
+}
+
+.maxStep[data-v-0e0700c9] {
+  max-width: 9.5rem;
+}

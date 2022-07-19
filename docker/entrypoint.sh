@@ -3,4 +3,5 @@
 set -e
 
 echo "Starting component library"
-exec npm run dev
+# exec npm run dev
+tail -f /dev/null
