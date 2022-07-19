@@ -1,9 +1,9 @@
 <template>
-  <div class="flex w-full h-full justify-center items-center">
+  <div class="flex w-full h-full justify-center object-top">
     <div
       v-for="(step, index) in steps"
       :key="index"
-      class="flex flex-col justidy-center items-center"
+      class="flex flex-col items-center"
     >
       <div class="flex flex-row items-center">
         <div :class="getLineStyle(index, true)" class="lineMin h-0.5"></div>
@@ -26,7 +26,14 @@
       </div>
       <h3
         v-if="showTitles === true"
-        class="mt-2 font-bold text-base text-accent-purple"
+        class="
+          maxStep
+          mt-2
+          font-bold
+          text-base text-accent-purple
+          flex
+          text-center
+        "
       >
         {{ step }}
       </h3>
@@ -140,5 +147,8 @@ export default defineComponent({
 <style scoped>
 .lineMin {
   min-width: 4rem;
+}
+.maxStep {
+  max-width: 9.5rem;
 }
 </style>
