@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-text-white flex w-full h-full justify-center items-center">
+  <div class="flex w-full h-full justify-center items-center">
     <div
       v-for="(step, index) in steps"
       :key="index"
