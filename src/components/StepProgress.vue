@@ -5,7 +5,7 @@
       :key="index"
       class="flex flex-col items-center"
     >
-      <div class="flex flex-row items-center">
+      <div class="flex flex-row items-center" :class="correction(index)">
         <div :class="getLineStyle(index, true)" class="lineMin h-0.5"></div>
         <div
           :class="getOuterCircleStyle(index)"
@@ -133,12 +133,23 @@ export default defineComponent({
       return show;
     };
 
+    const correction = (_index: number) => {
+      const step = _index + 1;
+      let style = "";
+      if (step > props.currentStep) style += "mt-1";
+      if (step === props.currentStep && props.currentStatus === "todo")
+        style += "mt-1";
+
+      return style;
+    };
+
     return {
       stepStyle,
       getInnerCircleStyle,
       getLineStyle,
       showCheckIcon,
       getOuterCircleStyle,
+      correction,
     };
   },
 });
@@ -146,7 +157,7 @@ export default defineComponent({
 
 <style scoped>
 .lineMin {
-  min-width: 4rem;
+  min-width: 5rem;
 }
 .maxStep {
   max-width: 9.5rem;
