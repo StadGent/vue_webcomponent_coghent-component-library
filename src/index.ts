@@ -72,6 +72,7 @@ import BoxVisitCode from "./components/BoxVisitCode.vue";
 import TheMasonry from "./components/TheMasonry.vue";
 import BaseOverlay from "./components/BaseOverlay.vue";
 import SpeechBubble from "./components/SpeechBubble.vue";
+import StepProgress from "./components/StepProgress.vue";
 import MediaModal from "./components/MediaModal.vue";
 import { useMediaModal } from "./composables/useMediaModal";
 import type TestimoniCard from "@/components/SpeechBubble.vue";
@@ -103,6 +104,7 @@ import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromE
 import useUpload, { currentUploadStep, uploadState } from './composables/useUpload';
 
 export {
+  StepProgress,
   currentUploadStep,
   uploadState,
   useUpload,
