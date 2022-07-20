@@ -104,7 +104,8 @@ export declare enum EntityTypes {
     BoxVisit = "box_visit",
     Contains = "contains",
     Asset = "asset",
-    Thesaurus = "thesaurus"
+    Thesaurus = "thesaurus",
+    Person = "person"
 }
 export declare type FilterInput = {
     key: Scalars['String'];
@@ -470,7 +471,7 @@ export declare type Ticket = {
     body: Scalars['String'];
 };
 export declare enum UploadCreation {
-    Owner = "owner",
+    Cc0 = "cc0",
     Other = "other",
     None = "none"
 }
