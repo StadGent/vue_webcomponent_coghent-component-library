@@ -642,3 +642,18 @@ mutation updatedScannedOfBoxvisiter ($code: String!){
     ticketUsed
   }
 }
+
+query getUploadRelations($searchValue: String!){
+  GetUploadRelations(searchValue: $searchValue){
+    count
+    limit
+    results {
+      id
+      type
+      metadata(key: [title, fullname]){
+          key
+          value
+      }
+    }
+  }
+}

@@ -20,6 +20,10 @@ export declare type Scalars = {
     Float: number;
     Void: void;
 };
+export declare enum AdvancedInputType {
+    TextInput = "TextInput",
+    MultiSelectInput = "MultiSelectInput"
+}
 export declare type BoxVisiter = {
     __typename?: 'BoxVisiter';
     _key?: Maybe<Scalars['String']>;
@@ -97,8 +101,17 @@ export declare type EntityComponentsOfTypeArgs = {
 export declare enum EntityTypes {
     Frame = "frame",
     Story = "story",
-    BoxVisit = "box_visit"
+    BoxVisit = "box_visit",
+    Contains = "contains",
+    Asset = "asset",
+    Thesaurus = "thesaurus"
 }
+export declare type FilterInput = {
+    key: Scalars['String'];
+    type: AdvancedInputType;
+    textInput?: Maybe<TextInput>;
+    multiSelectInput?: Maybe<MultiSelectInput>;
+};
 export declare type FrameInput = {
     storyId: Scalars['String'];
     frameId: Scalars['String'];
@@ -192,7 +205,9 @@ export declare enum MetaKey {
     Lastname = "lastname",
     Nationality = "nationality",
     ScopeNote = "scopeNote",
-    BoxCode = "boxCode"
+    BoxCode = "boxCode",
+    Periode = "periode",
+    Maker = "maker"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
@@ -223,6 +238,10 @@ export declare type MimeType = {
     video?: Maybe<Scalars['Boolean']>;
     image?: Maybe<Scalars['Boolean']>;
     pdf?: Maybe<Scalars['Boolean']>;
+};
+export declare type MultiSelectInput = {
+    value?: Maybe<Array<Maybe<Scalars['String']>>>;
+    AndOrValue?: Maybe<Scalars['Boolean']>;
 };
 export declare type Mutation = {
     __typename?: 'Mutation';
@@ -294,6 +313,7 @@ export declare type Query = {
     AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
     LinkFrameToVisiter?: Maybe<BoxVisiter>;
     GetvisiterOfEntity?: Maybe<BoxVisiter>;
+    GetUploadRelations?: Maybe<EntitiesResults>;
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
@@ -350,6 +370,9 @@ export declare type QueryLinkFrameToVisiterArgs = {
 };
 export declare type QueryGetvisiterOfEntityArgs = {
     id: Scalars['String'];
+};
+export declare type QueryGetUploadRelationsArgs = {
+    searchValue: Scalars['String'];
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -437,6 +460,9 @@ export declare type StoryboxBuildInput = {
     description?: Maybe<Scalars['String']>;
     assets?: Maybe<Array<Maybe<Scalars['String']>>>;
     assetTimings?: Maybe<Array<Maybe<KeyValuePairInput>>>;
+};
+export declare type TextInput = {
+    value?: Maybe<Scalars['String']>;
 };
 export declare type Ticket = {
     __typename?: 'Ticket';
@@ -1337,6 +1363,27 @@ export declare type UpdatedScannedOfBoxvisiterMutation = {
         ticketUsed?: Maybe<number>;
     } & MinimalBoxVisiterFragment)>;
 };
+export declare type GetUploadRelationsQueryVariables = Exact<{
+    searchValue: Scalars['String'];
+}>;
+export declare type GetUploadRelationsQuery = {
+    __typename?: 'Query';
+    GetUploadRelations?: Maybe<{
+        __typename?: 'EntitiesResults';
+        count?: Maybe<number>;
+        limit?: Maybe<number>;
+        results?: Maybe<Array<Maybe<{
+            __typename?: 'Entity';
+            id: string;
+            type: string;
+            metadata: Array<Maybe<{
+                __typename?: 'Metadata';
+                key: MetaKey;
+                value?: Maybe<string>;
+            }>>;
+        }>>>;
+    }>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
@@ -1461,4 +1508,7 @@ export declare const GetvisiterOfEntityDocument: DocumentNode<GetvisiterOfEntity
 }>>;
 export declare const UpdatedScannedOfBoxvisiterDocument: DocumentNode<UpdatedScannedOfBoxvisiterMutation, Exact<{
     code: Scalars['String'];
+}>>;
+export declare const GetUploadRelationsDocument: DocumentNode<GetUploadRelationsQuery, Exact<{
+    searchValue: Scalars['String'];
 }>>;

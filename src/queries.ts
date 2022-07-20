@@ -16,6 +16,11 @@ export type Scalars = {
   Void: void;
 };
 
+export enum AdvancedInputType {
+  TextInput = 'TextInput',
+  MultiSelectInput = 'MultiSelectInput'
+}
+
 export type BoxVisiter = {
   __typename?: 'BoxVisiter';
   _key?: Maybe<Scalars['String']>;
@@ -108,8 +113,18 @@ export type EntityComponentsOfTypeArgs = {
 export enum EntityTypes {
   Frame = 'frame',
   Story = 'story',
-  BoxVisit = 'box_visit'
+  BoxVisit = 'box_visit',
+  Contains = 'contains',
+  Asset = 'asset',
+  Thesaurus = 'thesaurus'
 }
+
+export type FilterInput = {
+  key: Scalars['String'];
+  type: AdvancedInputType;
+  textInput?: Maybe<TextInput>;
+  multiSelectInput?: Maybe<MultiSelectInput>;
+};
 
 export type FrameInput = {
   storyId: Scalars['String'];
@@ -253,6 +268,11 @@ export type MimeType = {
   pdf?: Maybe<Scalars['Boolean']>;
 };
 
+export type MultiSelectInput = {
+  value?: Maybe<Array<Maybe<Scalars['String']>>>;
+  AndOrValue?: Maybe<Scalars['Boolean']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   replaceMetadata: Array<Metadata>;
@@ -341,6 +361,7 @@ export type Query = {
   AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
   LinkFrameToVisiter?: Maybe<BoxVisiter>;
   GetvisiterOfEntity?: Maybe<BoxVisiter>;
+  GetUploadRelations?: Maybe<EntitiesResults>;
 };
 
 
@@ -427,6 +448,11 @@ export type QueryLinkFrameToVisiterArgs = {
 
 export type QueryGetvisiterOfEntityArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetUploadRelationsArgs = {
+  searchValue: Scalars['String'];
 };
 
 export type Relation = {
@@ -523,6 +549,10 @@ export type StoryboxBuildInput = {
   description?: Maybe<Scalars['String']>;
   assets?: Maybe<Array<Maybe<Scalars['String']>>>;
   assetTimings?: Maybe<Array<Maybe<KeyValuePairInput>>>;
+};
+
+export type TextInput = {
+  value?: Maybe<Scalars['String']>;
 };
 
 export type Ticket = {
@@ -1031,6 +1061,13 @@ export type UpdatedScannedOfBoxvisiterMutation = { __typename?: 'Mutation', Upda
     & MinimalBoxVisiterFragment
   )> };
 
+export type GetUploadRelationsQueryVariables = Exact<{
+  searchValue: Scalars['String'];
+}>;
+
+
+export type GetUploadRelationsQuery = { __typename?: 'Query', GetUploadRelations?: Maybe<{ __typename?: 'EntitiesResults', count?: Maybe<number>, limit?: Maybe<number>, results?: Maybe<Array<Maybe<{ __typename?: 'Entity', id: string, type: string, metadata: Array<Maybe<{ __typename?: 'Metadata', key: MetaKey, value?: Maybe<string> }>> }>>> }> };
+
 export const MinimalEntityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"minimalEntity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"object_id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"description"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile"}},{"kind":"Field","name":{"kind":"Name","value":"primary_transcode"}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile_info"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mediafiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mediatype"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"mime"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"audio"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"pdf"}}]}}]}}]}}]} as unknown as DocumentNode<MinimalEntityFragment, unknown>;
 export const PrimaryMediafileInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"primaryMediafileInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"primary_width"}},{"kind":"Field","name":{"kind":"Name","value":"primary_height"}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile"}},{"kind":"Field","name":{"kind":"Name","value":"primary_transcode"}},{"kind":"Field","name":{"kind":"Name","value":"primary_mediafile_location"}}]}}]} as unknown as DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export const TouchTableEntityFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"touchTableEntity"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Entity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"description"},"name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"primaryMediafileInfo"}},{"kind":"Field","name":{"kind":"Name","value":"mediafiles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"filename"}},{"kind":"Field","name":{"kind":"Name","value":"original_file_location"}},{"kind":"Field","name":{"kind":"Name","value":"transcode_filename"}},{"kind":"Field","name":{"kind":"Name","value":"mimetype"}},{"kind":"Field","name":{"kind":"Name","value":"mediatype"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"mime"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"audio"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"pdf"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"relations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},...PrimaryMediafileInfoFragmentDoc.definitions]} as unknown as DocumentNode<TouchTableEntityFragment, unknown>;
@@ -1078,3 +1115,4 @@ export const DeleteEntityDocument = {"kind":"Document","definitions":[{"kind":"O
 export const LinkFrameToVisiterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"linkFrameToVisiter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"frameId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"LinkFrameToVisiter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"frameId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"frameId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"minimalBoxVisiter"}}]}}]}},...MinimalBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<LinkFrameToVisiterQuery, LinkFrameToVisiterQueryVariables>;
 export const GetvisiterOfEntityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getvisiterOfEntity"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetvisiterOfEntity"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"minimalBoxVisiter"}}]}}]}},...MinimalBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<GetvisiterOfEntityQuery, GetvisiterOfEntityQueryVariables>;
 export const UpdatedScannedOfBoxvisiterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updatedScannedOfBoxvisiter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UpdatedScannedOfBoxvisiter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"minimalBoxVisiter"}},{"kind":"Field","name":{"kind":"Name","value":"ticketUsed"}}]}}]}},...MinimalBoxVisiterFragmentDoc.definitions]} as unknown as DocumentNode<UpdatedScannedOfBoxvisiterMutation, UpdatedScannedOfBoxvisiterMutationVariables>;
+export const GetUploadRelationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getUploadRelations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"searchValue"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetUploadRelations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"searchValue"},"value":{"kind":"Variable","name":{"kind":"Name","value":"searchValue"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"title"},{"kind":"EnumValue","value":"fullname"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetUploadRelationsQuery, GetUploadRelationsQueryVariables>;

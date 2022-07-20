@@ -48,6 +48,7 @@ import {
   UpdatedScannedOfBoxvisiterDocument,
   UploadStatus,
   UploadCreation,
+  GetUploadRelationsDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -104,6 +105,7 @@ import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromE
 import useUpload, { currentUploadStep, uploadState } from './composables/useUpload';
 
 export {
+  GetUploadRelationsDocument,
   StepProgress,
   currentUploadStep,
   uploadState,
