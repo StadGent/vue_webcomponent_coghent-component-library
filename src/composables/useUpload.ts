@@ -12,7 +12,7 @@ export type UploadState = {
   status: UploadStatus | null
 }
 
-export let currentUploadStep = ref<number>(1)
+export let currentUploadStep = ref<number>(0)
 
 
 const initUploadState = {
@@ -30,6 +30,7 @@ const useUpload = () => {
 
   const newInit = (_uploader: string | null) => {
     uploadState = initUploadState
+    currentUploadStep.value = 0
     nextStep()
     uploadState.uploader = _uploader
     uploadState.status = UploadStatus.Creating
@@ -47,6 +48,10 @@ const useUpload = () => {
     uploadState.creator = _creator
   }
 
+  const setStatus = (_status: UploadStatus) => {
+    uploadState.status = _status
+  }
+
   const upload = () => { }
   const getAllUploads = () => { }
   const GetUploadsByStatus = () => { }
@@ -56,6 +61,7 @@ const useUpload = () => {
     nextStep,
     previousStep,
     setCreator,
+    setStatus,
   }
 }
 export default useUpload

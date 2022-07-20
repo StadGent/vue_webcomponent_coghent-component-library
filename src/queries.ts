@@ -214,7 +214,9 @@ export enum MetaKey {
   Lastname = 'lastname',
   Nationality = 'nationality',
   ScopeNote = 'scopeNote',
-  BoxCode = 'boxCode'
+  BoxCode = 'boxCode',
+  Periode = 'periode',
+  Maker = 'maker'
 }
 
 export type Metadata = {

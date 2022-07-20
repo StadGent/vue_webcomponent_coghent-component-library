@@ -55,6 +55,8 @@ enum MetaKey {
   nationality
   scopeNote
   boxCode
+  periode
+  maker
 }
 
 enum EntityTypes {
