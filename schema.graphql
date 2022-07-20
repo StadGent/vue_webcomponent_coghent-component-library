@@ -9,7 +9,7 @@ enum UploadStatus {
 }
 
 enum UploadCreation {
-  owner
+  cc0
   other
   none
 }
@@ -66,6 +66,7 @@ enum EntityTypes {
   contains  
   asset
   thesaurus
+  person
 }
 
 enum RelationType {

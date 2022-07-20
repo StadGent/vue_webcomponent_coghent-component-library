@@ -116,7 +116,8 @@ export enum EntityTypes {
   BoxVisit = 'box_visit',
   Contains = 'contains',
   Asset = 'asset',
-  Thesaurus = 'thesaurus'
+  Thesaurus = 'thesaurus',
+  Person = 'person'
 }
 
 export type FilterInput = {
@@ -562,7 +563,7 @@ export type Ticket = {
 };
 
 export enum UploadCreation {
-  Owner = 'owner',
+  Cc0 = 'cc0',
   Other = 'other',
   None = 'none'
 }

@@ -21,7 +21,7 @@ const initUploadState = {
   metadata: [],
   relations: [],
   uploader: null,
-  creator: UploadCreation.None,
+  creator: UploadCreation.Cc0,
   status: null
 }
 
@@ -40,10 +40,12 @@ const useUpload = () => {
     currentUploadStep.value++
     uploadState.step = currentUploadStep.value
   }
+
   const previousStep = () => {
     currentUploadStep.value--
     uploadState.step = currentUploadStep.value
   }
+
   const setCreator = (_creator: UploadCreation) => {
     uploadState.creator = _creator
   }
