@@ -94,11 +94,6 @@ enum StatusKey {
   shown
 }
 
-enum StatusKey {
-  hidden
-  shown
-}
-
 enum ComponentType {
   frame
   audio
