@@ -25,7 +25,7 @@ import {
   GetTouchTableEntityByIdDocument,
   AddAssetToBoxVisiterDocument,
   GetBoxVisiterRelationsByTypeDocument,
-  DeleteRelationFromBoxVisiterDocument,
+  DeleteBoxVisiterBasketItemDocument,
   PrintBoxTicketDocument,
   FrameInput,
   StoryInput,
@@ -49,6 +49,7 @@ import {
   UploadStatus,
   UploadCreation,
   GetUploadRelationsDocument,
+  BasketByCustomFrameIdDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -101,8 +102,16 @@ import {
   StoryBoxState,
   storyboxDataIsUpdated,
 } from "@/composables/useStoryBox";
-import { getFirstMediafileWithFilelocationOfEntity, getFirstValueOfPropertyFromEntity, getMediaTypeByfilename, getMetadataOfTypeFromEntity } from './helpers';
-import useUpload, { currentUploadStep, uploadState } from './composables/useUpload';
+import {
+  getFirstMediafileWithFilelocationOfEntity,
+  getFirstValueOfPropertyFromEntity,
+  getMediaTypeByfilename,
+  getMetadataOfTypeFromEntity,
+} from "./helpers";
+import useUpload, {
+  currentUploadStep,
+  uploadState,
+} from "./composables/useUpload";
 
 export {
   GetUploadRelationsDocument,
@@ -112,6 +121,7 @@ export {
   useUpload,
   UploadStatus,
   UploadCreation,
+  BasketByCustomFrameIdDocument,
   UpdatedScannedOfBoxvisiterDocument,
   getMediaTypeByfilename,
   GetvisiterOfEntityDocument,
@@ -154,7 +164,7 @@ export {
   TestimoniCard,
   MediaModal,
   useMediaModal,
-  DeleteRelationFromBoxVisiterDocument,
+  DeleteBoxVisiterBasketItemDocument,
   GetBoxVisiterRelationsByTypeDocument,
   AddAssetToBoxVisiterDocument,
   VideoPlayer,

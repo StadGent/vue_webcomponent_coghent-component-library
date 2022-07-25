@@ -57,13 +57,15 @@ enum MetaKey {
   boxCode
   periode
   maker
+  status
+  likes
 }
 
 enum EntityTypes {
   frame
   story
   box_visit
-  contains  
+  contains
   asset
   thesaurus
   person
@@ -84,6 +86,12 @@ enum RelationType {
   frames
   box_stories
   box
+  story_box
+}
+
+enum StatusKey {
+  hidden
+  shown
 }
 
 enum ComponentType {
@@ -242,6 +250,12 @@ type Relation {
   setMediafile: Int
 }
 
+input EntityInfo {
+  type: EntityTypes!
+  title: String!
+  description: String!
+}
+
 type EntitiesResults {
   results: [Entity]
   relations: [Relation]
@@ -315,6 +329,7 @@ type BoxVisiter {
   start_time: String
   touch_table_time: String
   ticketUsed: Int
+  storyboxes: [Entity]
 }
 
 type Ticket {
@@ -356,6 +371,7 @@ type Query {
   BoxVisiterRelationsByType(code: String!, type: RelationType!): [Relation]
   CreateBoxVisiter(storyId: String!): BoxVisiter
   Stories: EntitiesResults
+  CreateEntity(entityInfo: EntityInfo!): Entity
   Entity(id: String!): Entity
   GetStoryById(id: String!): Entity
   Entities(
@@ -378,13 +394,16 @@ type Query {
   LinkFrameToVisiter(frameId: String!): BoxVisiter
   GetvisiterOfEntity(id: String!): BoxVisiter
   GetUploadRelations(searchValue: String!): EntitiesResults
+  CreateTestimoni(entityInfo: EntityInfo!): Entity
+  LinkTestimoniToAsset(assetId: String!, testimoniId: String!): [Relation]
+  BasketByCustomFrameId(frameId: String!): [Relation]
 }
 
 type Mutation {
   replaceMetadata(id: String!, metadata: [MetadataInput!]!): [Metadata!]!
   AddStoryToBoxVisiter(code: String!, storyId: String!): BoxVisiter
   AddFrameToStoryBoxVisiter(code: String!, frameInput: FrameInput!): BoxVisiter
-  DeleteBoxVisiterRelation(code: String!, relationId: String!): [Relation]!
+  DeleteBoxVisiterBasketItem(code: String!, relationId: String!): [Relation]!
   # DeleteBoxVisiterRelation(
   #   code: String!
   #   relationsToDelete: [RelationInput!]!

@@ -72,6 +72,9 @@ fragment fullBoxVisiter on BoxVisiter {
   relations {
     ...boxRelation
   }
+  storyboxes {
+    ...touchTableEntity
+  }
 }
 
 fragment minimalBoxVisiter on BoxVisiter {
@@ -536,8 +539,8 @@ mutation addAssetToBoxVisiter(
   }
 }
 
-mutation deleteRelationFromBoxVisiter($code: String!, $relationId: String!) {
-  DeleteBoxVisiterRelation(code: $code, relationId: $relationId) {
+mutation DeleteBoxVisiterBasketItem($code: String!, $relationId: String!) {
+  DeleteBoxVisiterBasketItem(code: $code, relationId: $relationId) {
     ...fullRelation
   }
 }
@@ -579,6 +582,12 @@ query RelationsAsEntities($id: String!) {
   }
 }
 
+query CreateEntity($entityInfo: EntityInfo!) {
+  CreateEntity(entityInfo: $entityInfo) {
+    ...minimalEntity
+  }
+}
+
 query createStorybox($storyboxInfo: StoryboxBuildInput!) {
   CreateStorybox(storyboxInfo: $storyboxInfo) {
     ...minimalEntity
@@ -613,47 +622,70 @@ query storybox {
   }
 }
 
-query addEntityAsRelation($entityId: String!, $entityRelationId: String!){
-  AddEntityAsRelation(entityId: $entityId, entityRelationId: $entityRelationId){
+query addEntityAsRelation($entityId: String!, $entityRelationId: String!) {
+  AddEntityAsRelation(
+    entityId: $entityId
+    entityRelationId: $entityRelationId
+  ) {
     key
     type
   }
 }
 
-mutation deleteEntity($id: String!){
+mutation deleteEntity($id: String!) {
   DeleteEntity(id: $id)
 }
 
-query linkFrameToVisiter($frameId: String!){
-    LinkFrameToVisiter(frameId: $frameId){
-        ...minimalBoxVisiter
-    }
+query linkFrameToVisiter($frameId: String!) {
+  LinkFrameToVisiter(frameId: $frameId) {
+    ...minimalBoxVisiter
+  }
 }
 
-query getvisiterOfEntity($id: String!){
-    GetvisiterOfEntity(id: $id){
-        ...minimalBoxVisiter
-    }
+query getvisiterOfEntity($id: String!) {
+  GetvisiterOfEntity(id: $id) {
+    ...minimalBoxVisiter
+  }
 }
 
-mutation updatedScannedOfBoxvisiter ($code: String!){
-  UpdatedScannedOfBoxvisiter(code: $code){
+mutation updatedScannedOfBoxvisiter($code: String!) {
+  UpdatedScannedOfBoxvisiter(code: $code) {
     ...minimalBoxVisiter
     ticketUsed
   }
 }
 
-query getUploadRelations($searchValue: String!){
-  GetUploadRelations(searchValue: $searchValue){
+query getUploadRelations($searchValue: String!) {
+  GetUploadRelations(searchValue: $searchValue) {
     count
     limit
     results {
       id
       type
-      metadata(key: [title, fullname]){
-          key
-          value
+      metadata(key: [title, fullname]) {
+        key
+        value
       }
     }
+  }
+}
+query CreateTestimoni($entityInfo: EntityInfo!) {
+  CreateTestimoni(entityInfo: $entityInfo) {
+    ...fullEntity
+  }
+}
+
+query LinkTestimoniToAsset($assetId: String!, $testimoniId: String!) {
+  LinkTestimoniToAsset(assetId: $assetId, testimoniId: $testimoniId) {
+    key
+    type
+    label
+    value
+  }
+}
+
+query BasketByCustomFrameId($frameId: String!) {
+  BasketByCustomFrameId(frameId: $frameId) {
+    ...fullRelation
   }
 }

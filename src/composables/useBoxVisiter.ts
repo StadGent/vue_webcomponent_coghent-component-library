@@ -18,7 +18,7 @@ import {
 import { reactive, Ref, ref } from "vue";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client/core";
 import {
-  DeleteRelationFromBoxVisiterDocument,
+  DeleteBoxVisiterBasketItemDocument,
   Entity,
   GetBoxVisiterRelationsByTypeDocument,
 } from "..";
@@ -28,7 +28,11 @@ export type UseBoxVisiter = {
   getByCode: (code: string) => Promise<BoxVisiter | null>;
   getRelationsByType: (
     code: string,
-    _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories
+    _type:
+      | RelationType.Visited
+      | RelationType.InBasket
+      | RelationType.Stories
+      | RelationType.Components
   ) => Promise<Array<Relation>>;
   addStoryToVisiter: (
     _code: string,
@@ -41,9 +45,9 @@ export type UseBoxVisiter = {
   addAssetToBoxVisiter: (
     _code: string,
     _assetId: string,
-    _type: RelationType.Visited | RelationType.InBasket
+    _type: RelationType.Visited | RelationType.Components
   ) => Promise<Array<Relation>>;
-  deleteRelationFromBoxVisiter: (
+  deleteBasketItemFromBoxVisiter: (
     _code: string,
     _relationId: string
   ) => Promise<any>;
@@ -56,7 +60,7 @@ export type UseBoxVisiter = {
   startAsset: Ref<Entity | undefined>;
   historyAssets: Ref<Entity[]>;
   clearHistoryAssets: () => void;
-  updateScannedTimesOfVisiter: (_code: string) => Promise<BoxVisiter | null>
+  updateScannedTimesOfVisiter: (_code: string) => Promise<BoxVisiter | null>;
 };
 
 export type StorySelected = {
@@ -96,7 +100,11 @@ const useBoxVisiter = (
   };
   const getRelationsByType = async (
     _code: string,
-    _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories
+    _type:
+      | RelationType.Visited
+      | RelationType.InBasket
+      | RelationType.Stories
+      | RelationType.Components
   ) => {
     const { fetchMore } = apolloProvider(() =>
       useQuery(GetBoxVisiterRelationsByTypeDocument, {
@@ -134,10 +142,20 @@ const useBoxVisiter = (
     }
   };
 
+  const _updateStoryboxBasket = (updatedRelations: Relation[]) => {
+    if (boxVisiter.value) {
+      const boxVisiterClone = JSON.parse(JSON.stringify(boxVisiter.value));
+      if (boxVisiterClone.storyboxes && boxVisiterClone.storyboxes[0]) {
+        boxVisiterClone.storyboxes[0].relations = updatedRelations;
+        boxVisiter.value = boxVisiterClone;
+      }
+    }
+  };
+
   const addAssetToBoxVisiter = async (
     _code: string,
     _assetId: string,
-    _type: RelationType.Visited | RelationType.InBasket
+    _type: RelationType.Visited | RelationType.Components
   ) => {
     let relations: Array<Relation>;
     const { mutate } = apolloProvider(() =>
@@ -149,21 +167,25 @@ const useBoxVisiter = (
       type: _type,
     });
     relations = updated?.data?.AddAssetToBoxVisiter as Array<Relation>;
-    _updateBoxVisiterRelations(relations);
+    if (_type == RelationType.Visited) {
+      _updateBoxVisiterRelations(relations);
+    } else {
+      _updateStoryboxBasket(relations);
+    }
     return relations;
   };
 
-  const deleteRelationFromBoxVisiter = async (
+  const deleteBasketItemFromBoxVisiter = async (
     _code: string,
     _relationId: string
   ) => {
     let relations;
     const { mutate } = apolloProvider(() =>
-      useMutation(DeleteRelationFromBoxVisiterDocument)
+      useMutation(DeleteBoxVisiterBasketItemDocument)
     );
     const deleted = await mutate({ code: _code, relationId: _relationId });
-    relations = deleted?.data?.DeleteBoxVisiterRelation as Relation[];
-    _updateBoxVisiterRelations(relations);
+    relations = deleted?.data?.DeleteBoxVisiterBasketItem as Relation[];
+    _updateStoryboxBasket(relations);
     return relations;
   };
 
@@ -190,13 +212,15 @@ const useBoxVisiter = (
     historyAssets.value = [];
   };
 
-  const updateScannedTimesOfVisiter = async (_code: string): Promise<BoxVisiter | null> => {
+  const updateScannedTimesOfVisiter = async (
+    _code: string
+  ): Promise<BoxVisiter | null> => {
     const { mutate } = apolloProvider(() =>
       useMutation(UpdatedScannedOfBoxvisiterDocument)
     );
     const visiter = await mutate({ code: _code });
-    return visiter?.data?.UpdatedScannedOfBoxvisiter as BoxVisiter | null
-  }
+    return visiter?.data?.UpdatedScannedOfBoxvisiter as BoxVisiter | null;
+  };
 
   return {
     create,
@@ -214,7 +238,7 @@ const useBoxVisiter = (
     setStartAsset,
     addHistoryAsset,
     clearHistoryAssets,
-    deleteRelationFromBoxVisiter,
+    deleteBasketItemFromBoxVisiter,
     updateScannedTimesOfVisiter,
   };
 };
