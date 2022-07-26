@@ -55,74 +55,16 @@ declare const _default: import("vue").DefineComponent<{
         mediafiles: ("placeholder" | {
             __typename?: "Entity" | undefined;
             _key?: string | null | undefined;
-            id: string;
-            object_id: string;
-            type: string;
-            metadata: ({
-                __typename?: "Metadata" | undefined;
-                key: import("../queries").MetaKey;
-                value?: string | null | undefined;
-                nestedMetaData?: any | null | undefined;
-                lang?: string | null | undefined;
-                unMappedKey?: string | null | undefined;
-                label?: string | null | undefined;
-                type?: import("../queries").RelationType | null | undefined;
-            } | null)[];
-            metadataByLabel: ({
-                __typename?: "Metadata" | undefined;
-                key: import("../queries").MetaKey;
-                value?: string | null | undefined;
-                nestedMetaData?: any | null | undefined;
-                lang?: string | null | undefined;
-                unMappedKey?: string | null | undefined;
-                label?: string | null | undefined;
-                type?: import("../queries").RelationType | null | undefined;
-            } | null)[];
-            metadataCollection?: ({
-                __typename?: "MetadataCollection" | undefined;
-                label: string;
-                data?: ({
-                    __typename?: "Metadata" | undefined;
-                    key: import("../queries").MetaKey;
-                    value?: string | null | undefined;
-                    nestedMetaData?: any | null | undefined;
-                    lang?: string | null | undefined;
-                    unMappedKey?: string | null | undefined;
-                    label?: string | null | undefined;
-                    type?: import("../queries").RelationType | null | undefined;
-                } | null)[] | null | undefined;
-                nested?: boolean | null | undefined;
-            } | null)[] | null | undefined;
-            title: ({
-                __typename?: "Metadata" | undefined;
-                key: import("../queries").MetaKey;
-                value?: string | null | undefined;
-                nestedMetaData?: any | null | undefined;
-                lang?: string | null | undefined;
-                unMappedKey?: string | null | undefined;
-                label?: string | null | undefined;
-                type?: import("../queries").RelationType | null | undefined;
-            } | null)[];
-            scopeNote: ({
-                __typename?: "Metadata" | undefined;
-                key: import("../queries").MetaKey;
-                value?: string | null | undefined;
-                nestedMetaData?: any | null | undefined;
-                lang?: string | null | undefined;
-                unMappedKey?: string | null | undefined;
-                label?: string | null | undefined;
-                type?: import("../queries").RelationType | null | undefined;
-            } | null)[];
+            assets?: (any | null)[] | null | undefined;
             collections: ({
                 __typename?: "Relation" | undefined;
+                active?: boolean | null | undefined;
+                audioFile?: string | null | undefined;
+                date?: string | null | undefined;
                 key: string;
-                type: import("../queries").RelationType;
-                order?: number | null | undefined;
                 label?: string | null | undefined;
-                value?: string | null | undefined;
-                timestamp_start?: number | null | undefined;
-                timestamp_end?: number | null | undefined;
-                timestamp_zoom?: number | null | undefined;
+                last_frame?: string | null | undefined;
+                order?: number | null | undefined;
                 position?: {
                     __typename?: "Position" | undefined;
                     x?: number | null | undefined;
@@ -130,126 +72,184 @@ declare const _default: import("vue").DefineComponent<{
                     z?: number | null | undefined;
                 } | null | undefined;
                 scale?: number | null | undefined;
-                audioFile?: string | null | undefined;
-                subtitleFile?: string | null | undefined;
-                date?: string | null | undefined;
-                active?: boolean | null | undefined;
-                last_frame?: string | null | undefined;
                 seen_frames?: ({
                     __typename?: "FrameSeen" | undefined;
-                    id: string;
                     date: number;
+                    id: string;
                 } | null)[] | null | undefined;
-                total_frames?: number | null | undefined;
                 setMediafile?: number | null | undefined;
+                subtitleFile?: string | null | undefined;
+                timestamp_end?: number | null | undefined;
+                timestamp_start?: number | null | undefined;
+                timestamp_zoom?: number | null | undefined;
+                total_frames?: number | null | undefined;
+                type: import("../queries").RelationType;
+                value?: string | null | undefined;
             } | null)[];
-            relations?: ({
-                __typename?: "Relation" | undefined;
-                key: string;
-                type: import("../queries").RelationType;
-                order?: number | null | undefined;
-                label?: string | null | undefined;
-                value?: string | null | undefined;
-                timestamp_start?: number | null | undefined;
-                timestamp_end?: number | null | undefined;
-                timestamp_zoom?: number | null | undefined;
-                position?: {
-                    __typename?: "Position" | undefined;
-                    x?: number | null | undefined;
-                    y?: number | null | undefined;
-                    z?: number | null | undefined;
-                } | null | undefined;
-                scale?: number | null | undefined;
-                audioFile?: string | null | undefined;
-                subtitleFile?: string | null | undefined;
-                date?: string | null | undefined;
-                active?: boolean | null | undefined;
-                last_frame?: string | null | undefined;
-                seen_frames?: ({
-                    __typename?: "FrameSeen" | undefined;
-                    id: string;
-                    date: number;
-                } | null)[] | null | undefined;
-                total_frames?: number | null | undefined;
-                setMediafile?: number | null | undefined;
-            } | null)[] | null | undefined;
-            relationMetadata?: ({
-                __typename?: "Relation" | undefined;
-                key: string;
-                type: import("../queries").RelationType;
-                order?: number | null | undefined;
-                label?: string | null | undefined;
-                value?: string | null | undefined;
-                timestamp_start?: number | null | undefined;
-                timestamp_end?: number | null | undefined;
-                timestamp_zoom?: number | null | undefined;
-                position?: {
-                    __typename?: "Position" | undefined;
-                    x?: number | null | undefined;
-                    y?: number | null | undefined;
-                    z?: number | null | undefined;
-                } | null | undefined;
-                scale?: number | null | undefined;
-                audioFile?: string | null | undefined;
-                subtitleFile?: string | null | undefined;
-                date?: string | null | undefined;
-                active?: boolean | null | undefined;
-                last_frame?: string | null | undefined;
-                seen_frames?: ({
-                    __typename?: "FrameSeen" | undefined;
-                    id: string;
-                    date: number;
-                } | null)[] | null | undefined;
-                total_frames?: number | null | undefined;
-                setMediafile?: number | null | undefined;
-            } | null)[] | null | undefined;
             components?: (any | null)[] | null | undefined;
             componentsOfType?: (any | null)[] | null | undefined;
-            assets?: (any | null)[] | null | undefined;
             frames?: (any | null)[] | null | undefined;
+            id: string;
             mediafiles?: ({
                 __typename?: "MediaFile" | undefined;
                 _id: string;
-                original_file_location?: string | null | undefined;
-                thumbnail_file_location?: string | null | undefined;
-                filename?: string | null | undefined;
-                transcode_filename?: string | null | undefined;
-                primary_transcode_location?: string | null | undefined;
                 entities?: (string | null)[] | null | undefined;
+                filename?: string | null | undefined;
+                img_height?: string | null | undefined;
+                img_width?: string | null | undefined;
                 mediainfo?: {
                     __typename?: "MediaInfo" | undefined;
-                    width: string;
                     height: string;
+                    width: string;
+                } | null | undefined;
+                mediatype?: {
+                    __typename?: "MimeType" | undefined;
+                    audio?: boolean | null | undefined;
+                    image?: boolean | null | undefined;
+                    mime?: import("../queries").Mime | null | undefined;
+                    pdf?: boolean | null | undefined;
+                    type?: string | null | undefined;
+                    video?: boolean | null | undefined;
                 } | null | undefined;
                 metadata?: ({
                     __typename?: "MediaFileMetadata" | undefined;
                     key?: string | null | undefined;
                     value?: string | null | undefined;
                 } | null)[] | null | undefined;
-                mediatype?: {
-                    __typename?: "MimeType" | undefined;
-                    type?: string | null | undefined;
-                    mime?: import("../queries").Mime | null | undefined;
-                    audio?: boolean | null | undefined;
-                    video?: boolean | null | undefined;
-                    image?: boolean | null | undefined;
-                    pdf?: boolean | null | undefined;
-                } | null | undefined;
                 mimetype?: string | null | undefined;
-                img_width?: string | null | undefined;
-                img_height?: string | null | undefined;
+                original_file_location?: string | null | undefined;
+                primary_transcode_location?: string | null | undefined;
+                thumbnail_file_location?: string | null | undefined;
+                transcode_filename?: string | null | undefined;
             } | null)[] | null | undefined;
+            metadata: ({
+                __typename?: "Metadata" | undefined;
+                key: import("../queries").MetaKey;
+                label?: string | null | undefined;
+                lang?: string | null | undefined;
+                nestedMetaData?: any | null | undefined;
+                type?: import("../queries").RelationType | null | undefined;
+                unMappedKey?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[];
+            metadataByLabel: ({
+                __typename?: "Metadata" | undefined;
+                key: import("../queries").MetaKey;
+                label?: string | null | undefined;
+                lang?: string | null | undefined;
+                nestedMetaData?: any | null | undefined;
+                type?: import("../queries").RelationType | null | undefined;
+                unMappedKey?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[];
+            metadataCollection?: ({
+                __typename?: "MetadataCollection" | undefined;
+                data?: ({
+                    __typename?: "Metadata" | undefined;
+                    key: import("../queries").MetaKey;
+                    label?: string | null | undefined;
+                    lang?: string | null | undefined;
+                    nestedMetaData?: any | null | undefined;
+                    type?: import("../queries").RelationType | null | undefined;
+                    unMappedKey?: string | null | undefined;
+                    value?: string | null | undefined;
+                } | null)[] | null | undefined;
+                label: string;
+                nested?: boolean | null | undefined;
+            } | null)[] | null | undefined;
+            object_id: string;
+            primary_height?: string | null | undefined;
             primary_mediafile?: string | null | undefined;
-            primary_transcode?: string | null | undefined;
-            primary_transcode_location?: string | null | undefined;
             primary_mediafile_info?: {
                 __typename?: "MediaInfo" | undefined;
-                width: string;
                 height: string;
+                width: string;
             } | null | undefined;
             primary_mediafile_location?: string | null | undefined;
+            primary_transcode?: string | null | undefined;
+            primary_transcode_location?: string | null | undefined;
             primary_width?: string | null | undefined;
-            primary_height?: string | null | undefined;
+            relationMetadata?: ({
+                __typename?: "Relation" | undefined;
+                active?: boolean | null | undefined;
+                audioFile?: string | null | undefined;
+                date?: string | null | undefined;
+                key: string;
+                label?: string | null | undefined;
+                last_frame?: string | null | undefined;
+                order?: number | null | undefined;
+                position?: {
+                    __typename?: "Position" | undefined;
+                    x?: number | null | undefined;
+                    y?: number | null | undefined;
+                    z?: number | null | undefined;
+                } | null | undefined;
+                scale?: number | null | undefined;
+                seen_frames?: ({
+                    __typename?: "FrameSeen" | undefined;
+                    date: number;
+                    id: string;
+                } | null)[] | null | undefined;
+                setMediafile?: number | null | undefined;
+                subtitleFile?: string | null | undefined;
+                timestamp_end?: number | null | undefined;
+                timestamp_start?: number | null | undefined;
+                timestamp_zoom?: number | null | undefined;
+                total_frames?: number | null | undefined;
+                type: import("../queries").RelationType;
+                value?: string | null | undefined;
+            } | null)[] | null | undefined;
+            relations?: ({
+                __typename?: "Relation" | undefined;
+                active?: boolean | null | undefined;
+                audioFile?: string | null | undefined;
+                date?: string | null | undefined;
+                key: string;
+                label?: string | null | undefined;
+                last_frame?: string | null | undefined;
+                order?: number | null | undefined;
+                position?: {
+                    __typename?: "Position" | undefined;
+                    x?: number | null | undefined;
+                    y?: number | null | undefined;
+                    z?: number | null | undefined;
+                } | null | undefined;
+                scale?: number | null | undefined;
+                seen_frames?: ({
+                    __typename?: "FrameSeen" | undefined;
+                    date: number;
+                    id: string;
+                } | null)[] | null | undefined;
+                setMediafile?: number | null | undefined;
+                subtitleFile?: string | null | undefined;
+                timestamp_end?: number | null | undefined;
+                timestamp_start?: number | null | undefined;
+                timestamp_zoom?: number | null | undefined;
+                total_frames?: number | null | undefined;
+                type: import("../queries").RelationType;
+                value?: string | null | undefined;
+            } | null)[] | null | undefined;
+            scopeNote: ({
+                __typename?: "Metadata" | undefined;
+                key: import("../queries").MetaKey;
+                label?: string | null | undefined;
+                lang?: string | null | undefined;
+                nestedMetaData?: any | null | undefined;
+                type?: import("../queries").RelationType | null | undefined;
+                unMappedKey?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[];
+            title: ({
+                __typename?: "Metadata" | undefined;
+                key: import("../queries").MetaKey;
+                label?: string | null | undefined;
+                lang?: string | null | undefined;
+                nestedMetaData?: any | null | undefined;
+                type?: import("../queries").RelationType | null | undefined;
+                unMappedKey?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[];
+            type: string;
         })[];
     }[]>;
     contructTiles: (numberOfTiles?: number, reset?: boolean) => void;

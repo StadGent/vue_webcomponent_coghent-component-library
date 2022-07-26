@@ -1,4 +1,5 @@
 scalar Void
+scalar Upload
 
 enum UploadStatus {
   creating
@@ -8,10 +9,14 @@ enum UploadStatus {
   waiting
 }
 
-enum UploadCreation {
+enum Rights {
   cc0
-  other
-  none
+  undetermined
+}
+
+enum Publication {
+  public
+  private
 }
 
 enum MIME {
@@ -55,10 +60,18 @@ enum MetaKey {
   nationality
   scopeNote
   boxCode
+}
+
+extend enum MetaKey {
   periode
   maker
   status
   likes
+}
+
+extend enum MetaKey {
+  publication_status
+  rights
 }
 
 enum EntityTypes {
@@ -87,11 +100,12 @@ enum RelationType {
   box_stories
   box
   story_box
+  userConnected
 }
 
 enum StatusKey {
   hidden
-  shown
+  shown  
 }
 
 enum ComponentType {
@@ -363,6 +377,11 @@ type StoryboxBuild {
   assetTimings: [KeyValuePair]!
 }
 
+input MediaFileInput {
+  filename: String
+  metadata: [MetadataInput!]
+}
+
 type Query {
   PrintBoxTicket(code: String!): Ticket!
   ActiveBox(id: String): EntitiesResults!
@@ -419,4 +438,5 @@ type Mutation {
   ): [Relation]!
   DeleteEntity(id: String!): String
   UpdatedScannedOfBoxvisiter(code: String!): BoxVisiter
+  UploadMediafile(media: MediaFileInput!, file: Upload, relations: [RelationInput], metadata: [MetadataInput]): MediaFile
 }

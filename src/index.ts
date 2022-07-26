@@ -47,9 +47,11 @@ import {
   GetvisiterOfEntityDocument,
   UpdatedScannedOfBoxvisiterDocument,
   UploadStatus,
-  UploadCreation,
+  Rights,
   GetUploadRelationsDocument,
   BasketByCustomFrameIdDocument,
+  UploadMediafileDocument,
+  Publication,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -114,14 +116,16 @@ import useUpload, {
 } from "./composables/useUpload";
 
 export {
+  Publication,
+  UploadMediafileDocument,
   GetUploadRelationsDocument,
   StepProgress,
   currentUploadStep,
   uploadState,
   useUpload,
   UploadStatus,
-  UploadCreation,
   BasketByCustomFrameIdDocument,
+  Rights,
   UpdatedScannedOfBoxvisiterDocument,
   getMediaTypeByfilename,
   GetvisiterOfEntityDocument,

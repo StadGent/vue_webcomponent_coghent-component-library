@@ -689,3 +689,10 @@ query BasketByCustomFrameId($frameId: String!) {
     ...fullRelation
   }
 }
+
+mutation uploadMediafile($media: MediaFileInput!, $file: Upload, $relations: [RelationInput], $metadata: [MetadataInput]){
+  UploadMediafile(media: $media, file: $file, relations: $relations, metadata: $metadata){
+      _id
+      filename
+  }
+}

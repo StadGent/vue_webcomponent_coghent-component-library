@@ -18,6 +18,7 @@ type CustomIcon =
   | "bigInfo"
   | "link"
   | "check"
+  | "check"
   | "fullscreen"
   | "monitor"
   | "zoomIn"
@@ -55,7 +56,8 @@ type CustomIcon =
   | "twitter"
   | "instagram"
   | "facebook"
-  | "upload";
+  | "upload"
+  | "file";
 export default defineComponent({
   props: {
     icon: {
@@ -630,6 +632,14 @@ export default defineComponent({
 <path d="M13 6L8 1L3 6" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M15 16H1" stroke="#B65099" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
+      file: `<svg width="32" height="39" viewBox="0 0 32 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M31 35.7749C31 36.9828 29.9722 38 28.7516 38H3.24839C2.02784 38 1 36.9828 1 35.7749V3.22509C1 2.01718 2.02784 1 3.24839 1H24.5118L31 7.42096V35.7749Z"
+          fill="white"
+          stroke="#BFC5E0"
+          stroke-miterlimit="10"
+        />
+      </svg>`,
     };
 
     return { icons };

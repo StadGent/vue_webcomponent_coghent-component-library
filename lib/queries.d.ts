@@ -18,72 +18,76 @@ export declare type Scalars = {
     Boolean: boolean;
     Int: number;
     Float: number;
+    Upload: any;
     Void: void;
 };
 export declare enum AdvancedInputType {
-    TextInput = "TextInput",
-    MultiSelectInput = "MultiSelectInput"
+    MultiSelectInput = "MultiSelectInput",
+    TextInput = "TextInput"
 }
 export declare type BoxVisiter = {
     __typename?: 'BoxVisiter';
     _key?: Maybe<Scalars['String']>;
-    id: Scalars['String'];
-    type: Scalars['String'];
-    relations?: Maybe<Array<Maybe<Relation>>>;
-    relationByType?: Maybe<Array<Maybe<Relation>>>;
-    frames_seen_last_visit?: Maybe<Scalars['Int']>;
     code: Scalars['String'];
+    frames_seen_last_visit?: Maybe<Scalars['Int']>;
+    id: Scalars['String'];
+    relationByType?: Maybe<Array<Maybe<Relation>>>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
     start_time?: Maybe<Scalars['String']>;
-    touch_table_time?: Maybe<Scalars['String']>;
     ticketUsed?: Maybe<Scalars['Int']>;
+    touch_table_time?: Maybe<Scalars['String']>;
+    type: Scalars['String'];
 };
 export declare type BoxVisiterRelationByTypeArgs = {
     type: RelationType;
 };
 export declare type BoxVisitersResults = {
     __typename?: 'BoxVisitersResults';
-    results?: Maybe<Array<Maybe<BoxVisiter>>>;
-    relations?: Maybe<Array<Maybe<Relation>>>;
     count?: Maybe<Scalars['Int']>;
     limit?: Maybe<Scalars['Int']>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
+    results?: Maybe<Array<Maybe<BoxVisiter>>>;
 };
 export declare enum ComponentType {
-    Frame = "frame",
-    Audio = "audio"
+    Audio = "audio",
+    Frame = "frame"
 }
 export declare type EntitiesResults = {
     __typename?: 'EntitiesResults';
-    results?: Maybe<Array<Maybe<Entity>>>;
-    relations?: Maybe<Array<Maybe<Relation>>>;
     count?: Maybe<Scalars['Int']>;
     limit?: Maybe<Scalars['Int']>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
+    results?: Maybe<Array<Maybe<Entity>>>;
 };
 export declare type Entity = {
     __typename?: 'Entity';
     _key?: Maybe<Scalars['String']>;
+    assets?: Maybe<Array<Maybe<Entity>>>;
+    collections: Array<Maybe<Relation>>;
+    components?: Maybe<Array<Maybe<Entity>>>;
+    componentsOfType?: Maybe<Array<Maybe<Entity>>>;
+    frames?: Maybe<Array<Maybe<Entity>>>;
     id: Scalars['String'];
-    object_id: Scalars['String'];
-    type: Scalars['String'];
+    mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     metadata: Array<Maybe<Metadata>>;
     metadataByLabel: Array<Maybe<Metadata>>;
     metadataCollection?: Maybe<Array<Maybe<MetadataCollection>>>;
-    title: Array<Maybe<Metadata>>;
-    scopeNote: Array<Maybe<Metadata>>;
-    collections: Array<Maybe<Relation>>;
-    relations?: Maybe<Array<Maybe<Relation>>>;
-    relationMetadata?: Maybe<Array<Maybe<Relation>>>;
-    components?: Maybe<Array<Maybe<Entity>>>;
-    componentsOfType?: Maybe<Array<Maybe<Entity>>>;
-    assets?: Maybe<Array<Maybe<Entity>>>;
-    frames?: Maybe<Array<Maybe<Entity>>>;
-    mediafiles?: Maybe<Array<Maybe<MediaFile>>>;
+    object_id: Scalars['String'];
+    primary_height?: Maybe<Scalars['String']>;
     primary_mediafile?: Maybe<Scalars['String']>;
-    primary_transcode?: Maybe<Scalars['String']>;
-    primary_transcode_location?: Maybe<Scalars['String']>;
     primary_mediafile_info?: Maybe<MediaInfo>;
     primary_mediafile_location?: Maybe<Scalars['String']>;
+    primary_transcode?: Maybe<Scalars['String']>;
+    primary_transcode_location?: Maybe<Scalars['String']>;
     primary_width?: Maybe<Scalars['String']>;
-    primary_height?: Maybe<Scalars['String']>;
+    relationMetadata?: Maybe<Array<Maybe<Relation>>>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
+    scopeNote: Array<Maybe<Metadata>>;
+    title: Array<Maybe<Metadata>>;
+    type: Scalars['String'];
+};
+export declare type EntityComponentsOfTypeArgs = {
+    key?: Maybe<Scalars['String']>;
 };
 export declare type EntityMetadataArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
@@ -95,32 +99,29 @@ export declare type EntityMetadataCollectionArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
     label?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
-export declare type EntityComponentsOfTypeArgs = {
-    key?: Maybe<Scalars['String']>;
-};
 export declare enum EntityTypes {
-    Frame = "frame",
-    Story = "story",
+    Asset = "asset",
     BoxVisit = "box_visit",
     Contains = "contains",
-    Asset = "asset",
-    Thesaurus = "thesaurus",
-    Person = "person"
+    Frame = "frame",
+    Person = "person",
+    Story = "story",
+    Thesaurus = "thesaurus"
 }
 export declare type FilterInput = {
     key: Scalars['String'];
-    type: AdvancedInputType;
-    textInput?: Maybe<TextInput>;
     multiSelectInput?: Maybe<MultiSelectInput>;
+    textInput?: Maybe<TextInput>;
+    type: AdvancedInputType;
 };
 export declare type FrameInput = {
-    storyId: Scalars['String'];
     frameId: Scalars['String'];
+    storyId: Scalars['String'];
 };
 export declare type FrameSeen = {
     __typename?: 'FrameSeen';
-    id: Scalars['String'];
     date: Scalars['Int'];
+    id: Scalars['String'];
 };
 export declare type JsPatch = {
     op: JsPatchOp;
@@ -129,8 +130,8 @@ export declare type JsPatch = {
 };
 export declare enum JsPatchOp {
     Add = "add",
-    Replace = "replace",
-    Remove = "remove"
+    Remove = "remove",
+    Replace = "replace"
 }
 export declare type KeyValuePair = {
     __typename?: 'KeyValuePair';
@@ -142,41 +143,45 @@ export declare type KeyValuePairInput = {
     value?: Maybe<Scalars['String']>;
 };
 export declare enum Mime {
-    Audiompeg = "AUDIOMPEG",
-    Audiomp3 = "AUDIOMP3",
+    Applicationpdf = "APPLICATIONPDF",
     Audioaac = "AUDIOAAC",
+    Audiomp3 = "AUDIOMP3",
+    Audiompeg = "AUDIOMPEG",
     Audioogg = "AUDIOOGG",
     Audioopus = "AUDIOOPUS",
     Audiowav = "AUDIOWAV",
     Audioxwav = "AUDIOXWAV",
-    Imgjpg = "IMGJPG",
-    Imgjpeg = "IMGJPEG",
-    Imgtiff = "IMGTIFF",
-    Imgpng = "IMGPNG",
     Imgavif = "IMGAVIF",
     Imgbmp = "IMGBMP",
+    Imgjpeg = "IMGJPEG",
+    Imgjpg = "IMGJPG",
+    Imgpng = "IMGPNG",
+    Imgtiff = "IMGTIFF",
     Imgwebp = "IMGWEBP",
-    Videomp4 = "VIDEOMP4",
-    Videowav = "VIDEOWAV",
-    Videomov = "VIDEOMOV",
     Textplain = "TEXTPLAIN",
-    Applicationpdf = "APPLICATIONPDF"
+    Videomov = "VIDEOMOV",
+    Videomp4 = "VIDEOMP4",
+    Videowav = "VIDEOWAV"
 }
 export declare type MediaFile = {
     __typename?: 'MediaFile';
     _id: Scalars['String'];
-    original_file_location?: Maybe<Scalars['String']>;
-    thumbnail_file_location?: Maybe<Scalars['String']>;
-    filename?: Maybe<Scalars['String']>;
-    transcode_filename?: Maybe<Scalars['String']>;
-    primary_transcode_location?: Maybe<Scalars['String']>;
     entities?: Maybe<Array<Maybe<Scalars['String']>>>;
-    mediainfo?: Maybe<MediaInfo>;
-    metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
-    mediatype?: Maybe<MimeType>;
-    mimetype?: Maybe<Scalars['String']>;
-    img_width?: Maybe<Scalars['String']>;
+    filename?: Maybe<Scalars['String']>;
     img_height?: Maybe<Scalars['String']>;
+    img_width?: Maybe<Scalars['String']>;
+    mediainfo?: Maybe<MediaInfo>;
+    mediatype?: Maybe<MimeType>;
+    metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
+    mimetype?: Maybe<Scalars['String']>;
+    original_file_location?: Maybe<Scalars['String']>;
+    primary_transcode_location?: Maybe<Scalars['String']>;
+    thumbnail_file_location?: Maybe<Scalars['String']>;
+    transcode_filename?: Maybe<Scalars['String']>;
+};
+export declare type MediaFileInput = {
+    filename?: Maybe<Scalars['String']>;
+    metadata?: Maybe<Array<MetadataInput>>;
 };
 export declare type MediaFileMetadata = {
     __typename?: 'MediaFileMetadata';
@@ -185,106 +190,115 @@ export declare type MediaFileMetadata = {
 };
 export declare type MediaInfo = {
     __typename?: 'MediaInfo';
-    width: Scalars['String'];
     height: Scalars['String'];
+    width: Scalars['String'];
 };
 export declare enum MetaKey {
+    QrCode = "QRCode",
+    BoxCode = "boxCode",
+    Collection = "collection",
+    Depth = "depth",
+    Description = "description",
+    Firstname = "firstname",
+    Fullname = "fullname",
+    Height = "height",
+    Lastname = "lastname",
+    Maker = "maker",
+    Material = "material",
+    Nationality = "nationality",
+    ObjectName = "object_name",
+    ObjectNumber = "object_number",
+    Periode = "periode",
+    PublicationStatus = "publication_status",
+    Rights = "rights",
+    ScopeNote = "scopeNote",
     Title = "title",
     Type = "type",
-    Collection = "collection",
-    Description = "description",
-    Material = "material",
-    Height = "height",
-    Width = "width",
-    Depth = "depth",
     UnMapped = "unMapped",
-    ObjectNumber = "object_number",
-    ObjectName = "object_name",
-    QrCode = "QRCode",
-    Fullname = "fullname",
-    Firstname = "firstname",
-    Lastname = "lastname",
-    Nationality = "nationality",
-    ScopeNote = "scopeNote",
-    BoxCode = "boxCode",
-    Periode = "periode",
-    Maker = "maker"
+    Width = "width"
 }
 export declare type Metadata = {
     __typename?: 'Metadata';
     key: MetaKey;
-    value?: Maybe<Scalars['String']>;
-    nestedMetaData?: Maybe<Entity>;
-    lang?: Maybe<Scalars['String']>;
-    unMappedKey?: Maybe<Scalars['String']>;
     label?: Maybe<Scalars['String']>;
+    lang?: Maybe<Scalars['String']>;
+    nestedMetaData?: Maybe<Entity>;
     type?: Maybe<RelationType>;
+    unMappedKey?: Maybe<Scalars['String']>;
+    value?: Maybe<Scalars['String']>;
 };
 export declare type MetadataCollection = {
     __typename?: 'MetadataCollection';
-    label: Scalars['String'];
     data?: Maybe<Array<Maybe<Metadata>>>;
+    label: Scalars['String'];
     nested?: Maybe<Scalars['Boolean']>;
 };
 export declare type MetadataInput = {
     key: MetaKey;
-    value: Scalars['String'];
     lang?: Maybe<Scalars['String']>;
+    value: Scalars['String'];
 };
 export declare type MimeType = {
     __typename?: 'MimeType';
-    type?: Maybe<Scalars['String']>;
-    mime?: Maybe<Mime>;
     audio?: Maybe<Scalars['Boolean']>;
-    video?: Maybe<Scalars['Boolean']>;
     image?: Maybe<Scalars['Boolean']>;
+    mime?: Maybe<Mime>;
     pdf?: Maybe<Scalars['Boolean']>;
+    type?: Maybe<Scalars['String']>;
+    video?: Maybe<Scalars['Boolean']>;
 };
 export declare type MultiSelectInput = {
-    value?: Maybe<Array<Maybe<Scalars['String']>>>;
     AndOrValue?: Maybe<Scalars['Boolean']>;
+    value?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 export declare type Mutation = {
     __typename?: 'Mutation';
-    replaceMetadata: Array<Metadata>;
-    AddStoryToBoxVisiter?: Maybe<BoxVisiter>;
-    AddFrameToStoryBoxVisiter?: Maybe<BoxVisiter>;
-    DeleteBoxVisiterRelation: Array<Maybe<Relation>>;
-    UpdateBoxVisiterTouchtableTime?: Maybe<BoxVisiter>;
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
+    AddFrameToStoryBoxVisiter?: Maybe<BoxVisiter>;
+    AddStoryToBoxVisiter?: Maybe<BoxVisiter>;
+    DeleteBoxVisiterRelation: Array<Maybe<Relation>>;
     DeleteEntity?: Maybe<Scalars['String']>;
+    UpdateBoxVisiterTouchtableTime?: Maybe<BoxVisiter>;
     UpdatedScannedOfBoxvisiter?: Maybe<BoxVisiter>;
+    UploadMediafile?: Maybe<MediaFile>;
+    replaceMetadata: Array<Metadata>;
 };
-export declare type MutationReplaceMetadataArgs = {
-    id: Scalars['String'];
-    metadata: Array<MetadataInput>;
-};
-export declare type MutationAddStoryToBoxVisiterArgs = {
+export declare type MutationAddAssetToBoxVisiterArgs = {
+    assetId: Scalars['String'];
     code: Scalars['String'];
-    storyId: Scalars['String'];
+    type: RelationType;
 };
 export declare type MutationAddFrameToStoryBoxVisiterArgs = {
     code: Scalars['String'];
     frameInput: FrameInput;
 };
+export declare type MutationAddStoryToBoxVisiterArgs = {
+    code: Scalars['String'];
+    storyId: Scalars['String'];
+};
 export declare type MutationDeleteBoxVisiterRelationArgs = {
     code: Scalars['String'];
     relationId: Scalars['String'];
+};
+export declare type MutationDeleteEntityArgs = {
+    id: Scalars['String'];
 };
 export declare type MutationUpdateBoxVisiterTouchtableTimeArgs = {
     code: Scalars['String'];
     touchTableTime: Scalars['String'];
 };
-export declare type MutationAddAssetToBoxVisiterArgs = {
-    code: Scalars['String'];
-    assetId: Scalars['String'];
-    type: RelationType;
-};
-export declare type MutationDeleteEntityArgs = {
-    id: Scalars['String'];
-};
 export declare type MutationUpdatedScannedOfBoxvisiterArgs = {
     code: Scalars['String'];
+};
+export declare type MutationUploadMediafileArgs = {
+    file?: Maybe<Scalars['Upload']>;
+    media: MediaFileInput;
+    metadata?: Maybe<Array<Maybe<MetadataInput>>>;
+    relations?: Maybe<Array<Maybe<RelationInput>>>;
+};
+export declare type MutationReplaceMetadataArgs = {
+    id: Scalars['String'];
+    metadata: Array<MetadataInput>;
 };
 export declare type Position = {
     __typename?: 'Position';
@@ -292,35 +306,40 @@ export declare type Position = {
     y?: Maybe<Scalars['Float']>;
     z?: Maybe<Scalars['Float']>;
 };
+export declare enum Publication {
+    Private = "private",
+    Public = "public"
+}
 export declare type Query = {
     __typename?: 'Query';
-    PrintBoxTicket: Ticket;
     ActiveBox: EntitiesResults;
-    BoxVisiters?: Maybe<BoxVisitersResults>;
+    AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
     BoxVisiterByCode?: Maybe<BoxVisiter>;
     BoxVisiterRelationsByType?: Maybe<Array<Maybe<Relation>>>;
+    BoxVisiters?: Maybe<BoxVisitersResults>;
     CreateBoxVisiter?: Maybe<BoxVisiter>;
-    Stories?: Maybe<EntitiesResults>;
+    CreateStorybox?: Maybe<Entity>;
+    Entities?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
     GetStoryById?: Maybe<Entity>;
-    Entities?: Maybe<EntitiesResults>;
-    Relations?: Maybe<RelationsResults>;
-    User?: Maybe<User>;
-    StoryBox?: Maybe<Entity>;
-    RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
-    LinkStorybox?: Maybe<Entity>;
-    CreateStorybox?: Maybe<Entity>;
-    Storybox?: Maybe<EntitiesResults>;
-    AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
-    LinkFrameToVisiter?: Maybe<BoxVisiter>;
-    GetvisiterOfEntity?: Maybe<BoxVisiter>;
     GetUploadRelations?: Maybe<EntitiesResults>;
-};
-export declare type QueryPrintBoxTicketArgs = {
-    code: Scalars['String'];
+    GetvisiterOfEntity?: Maybe<BoxVisiter>;
+    LinkFrameToVisiter?: Maybe<BoxVisiter>;
+    LinkStorybox?: Maybe<Entity>;
+    PrintBoxTicket: Ticket;
+    Relations?: Maybe<RelationsResults>;
+    RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
+    Stories?: Maybe<EntitiesResults>;
+    StoryBox?: Maybe<Entity>;
+    Storybox?: Maybe<EntitiesResults>;
+    User?: Maybe<User>;
 };
 export declare type QueryActiveBoxArgs = {
     id?: Maybe<Scalars['String']>;
+};
+export declare type QueryAddEntityAsRelationArgs = {
+    entityId: Scalars['String'];
+    entityRelationId: Scalars['String'];
 };
 export declare type QueryBoxVisiterByCodeArgs = {
     code: Scalars['String'];
@@ -332,69 +351,68 @@ export declare type QueryBoxVisiterRelationsByTypeArgs = {
 export declare type QueryCreateBoxVisiterArgs = {
     storyId: Scalars['String'];
 };
+export declare type QueryCreateStoryboxArgs = {
+    storyboxInfo: StoryboxBuildInput;
+};
+export declare type QueryEntitiesArgs = {
+    and_filter?: Maybe<Scalars['Boolean']>;
+    fetchPolicy?: Maybe<Scalars['String']>;
+    limit?: Maybe<Scalars['Int']>;
+    randomization?: Maybe<Scalars['Boolean']>;
+    searchValue: SearchFilter;
+    seed?: Maybe<Scalars['String']>;
+    skip?: Maybe<Scalars['Int']>;
+};
 export declare type QueryEntityArgs = {
     id: Scalars['String'];
 };
 export declare type QueryGetStoryByIdArgs = {
     id: Scalars['String'];
 };
-export declare type QueryEntitiesArgs = {
-    limit?: Maybe<Scalars['Int']>;
-    skip?: Maybe<Scalars['Int']>;
-    searchValue: SearchFilter;
-    fetchPolicy?: Maybe<Scalars['String']>;
-    randomization?: Maybe<Scalars['Boolean']>;
-    seed?: Maybe<Scalars['String']>;
-    and_filter?: Maybe<Scalars['Boolean']>;
-};
-export declare type QueryRelationsArgs = {
-    searchValue: SearchFilter;
-    fetchPolicy?: Maybe<Scalars['String']>;
-};
-export declare type QueryRelationsAsEntitiesArgs = {
-    id: Scalars['String'];
-};
-export declare type QueryLinkStoryboxArgs = {
-    code: Scalars['String'];
-    title: Scalars['String'];
-    description: Scalars['String'];
-};
-export declare type QueryCreateStoryboxArgs = {
-    storyboxInfo: StoryboxBuildInput;
-};
-export declare type QueryAddEntityAsRelationArgs = {
-    entityId: Scalars['String'];
-    entityRelationId: Scalars['String'];
-};
-export declare type QueryLinkFrameToVisiterArgs = {
-    frameId: Scalars['String'];
+export declare type QueryGetUploadRelationsArgs = {
+    searchValue: Scalars['String'];
 };
 export declare type QueryGetvisiterOfEntityArgs = {
     id: Scalars['String'];
 };
-export declare type QueryGetUploadRelationsArgs = {
-    searchValue: Scalars['String'];
+export declare type QueryLinkFrameToVisiterArgs = {
+    frameId: Scalars['String'];
+};
+export declare type QueryLinkStoryboxArgs = {
+    code: Scalars['String'];
+    description: Scalars['String'];
+    title: Scalars['String'];
+};
+export declare type QueryPrintBoxTicketArgs = {
+    code: Scalars['String'];
+};
+export declare type QueryRelationsArgs = {
+    fetchPolicy?: Maybe<Scalars['String']>;
+    searchValue: SearchFilter;
+};
+export declare type QueryRelationsAsEntitiesArgs = {
+    id: Scalars['String'];
 };
 export declare type Relation = {
     __typename?: 'Relation';
+    active?: Maybe<Scalars['Boolean']>;
+    audioFile?: Maybe<Scalars['String']>;
+    date?: Maybe<Scalars['String']>;
     key: Scalars['String'];
-    type: RelationType;
-    order?: Maybe<Scalars['Int']>;
     label?: Maybe<Scalars['String']>;
-    value?: Maybe<Scalars['String']>;
-    timestamp_start?: Maybe<Scalars['Float']>;
-    timestamp_end?: Maybe<Scalars['Float']>;
-    timestamp_zoom?: Maybe<Scalars['Float']>;
+    last_frame?: Maybe<Scalars['String']>;
+    order?: Maybe<Scalars['Int']>;
     position?: Maybe<Position>;
     scale?: Maybe<Scalars['Float']>;
-    audioFile?: Maybe<Scalars['String']>;
-    subtitleFile?: Maybe<Scalars['String']>;
-    date?: Maybe<Scalars['String']>;
-    active?: Maybe<Scalars['Boolean']>;
-    last_frame?: Maybe<Scalars['String']>;
     seen_frames?: Maybe<Array<Maybe<FrameSeen>>>;
-    total_frames?: Maybe<Scalars['Int']>;
     setMediafile?: Maybe<Scalars['Int']>;
+    subtitleFile?: Maybe<Scalars['String']>;
+    timestamp_end?: Maybe<Scalars['Float']>;
+    timestamp_start?: Maybe<Scalars['Float']>;
+    timestamp_zoom?: Maybe<Scalars['Float']>;
+    total_frames?: Maybe<Scalars['Int']>;
+    type: RelationType;
+    value?: Maybe<Scalars['String']>;
 };
 export declare type RelationInput = {
     key: Scalars['String'];
@@ -402,41 +420,46 @@ export declare type RelationInput = {
 };
 export declare enum RelationType {
     AuthoredBy = "authoredBy",
-    IsIn = "isIn",
+    Box = "box",
+    BoxStories = "box_stories",
+    CarriedOutBy = "carriedOutBy",
+    Components = "components",
     Contains = "contains",
+    Frames = "frames",
+    InBasket = "inBasket",
+    IsIn = "isIn",
     IsTypeOf = "isTypeOf",
     IsUsedIn = "isUsedIn",
-    Components = "components",
     Parent = "parent",
-    CarriedOutBy = "carriedOutBy",
     Stories = "stories",
-    Visited = "visited",
-    InBasket = "inBasket",
-    Frames = "frames",
-    BoxStories = "box_stories",
-    Box = "box"
+    UserConnected = "userConnected",
+    Visited = "visited"
 }
 export declare type RelationsResults = {
     __typename?: 'RelationsResults';
-    results?: Maybe<Array<Maybe<Relation>>>;
     count?: Maybe<Scalars['Int']>;
     limit?: Maybe<Scalars['Int']>;
+    results?: Maybe<Array<Maybe<Relation>>>;
 };
+export declare enum Rights {
+    Cc0 = "cc0",
+    Undetermined = "undetermined"
+}
 export declare type SearchFilter = {
-    value?: Maybe<Scalars['String']>;
+    and_filter?: Maybe<Scalars['Boolean']>;
+    has_mediafile?: Maybe<Scalars['Boolean']>;
     isAsc?: Maybe<Scalars['Boolean']>;
     key?: Maybe<Scalars['String']>;
-    relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
     randomize?: Maybe<Scalars['Boolean']>;
+    relation_filter?: Maybe<Array<Maybe<Scalars['String']>>>;
     seed?: Maybe<Scalars['String']>;
-    has_mediafile?: Maybe<Scalars['Boolean']>;
     skip_relations?: Maybe<Scalars['Boolean']>;
-    and_filter?: Maybe<Scalars['Boolean']>;
+    value?: Maybe<Scalars['String']>;
 };
 export declare type Story = {
     __typename?: 'Story';
-    key: Scalars['String'];
     active?: Maybe<Scalars['Boolean']>;
+    key: Scalars['String'];
     last_frame?: Maybe<Scalars['String']>;
     total_frames?: Maybe<Scalars['Int']>;
 };
@@ -447,49 +470,77 @@ export declare type StoryInput = {
 };
 export declare type StoryboxBuild = {
     __typename?: 'StoryboxBuild';
-    frameId: Scalars['String'];
-    title?: Maybe<Scalars['String']>;
-    language?: Maybe<Scalars['String']>;
-    description?: Maybe<Scalars['String']>;
-    assets: Array<Maybe<Entity>>;
     assetTimings: Array<Maybe<KeyValuePair>>;
+    assets: Array<Maybe<Entity>>;
+    description?: Maybe<Scalars['String']>;
+    frameId: Scalars['String'];
+    language?: Maybe<Scalars['String']>;
+    title?: Maybe<Scalars['String']>;
 };
 export declare type StoryboxBuildInput = {
-    frameId?: Maybe<Scalars['String']>;
-    title?: Maybe<Scalars['String']>;
-    language?: Maybe<Scalars['String']>;
-    description?: Maybe<Scalars['String']>;
-    assets?: Maybe<Array<Maybe<Scalars['String']>>>;
     assetTimings?: Maybe<Array<Maybe<KeyValuePairInput>>>;
+    assets?: Maybe<Array<Maybe<Scalars['String']>>>;
+    description?: Maybe<Scalars['String']>;
+    frameId?: Maybe<Scalars['String']>;
+    language?: Maybe<Scalars['String']>;
+    title?: Maybe<Scalars['String']>;
 };
 export declare type TextInput = {
     value?: Maybe<Scalars['String']>;
 };
 export declare type Ticket = {
     __typename?: 'Ticket';
-    code: Scalars['String'];
     body: Scalars['String'];
+    code: Scalars['String'];
 };
-export declare enum UploadCreation {
-    Cc0 = "cc0",
-    Other = "other",
-    None = "none"
-}
 export declare enum UploadStatus {
     Creating = "creating",
+    Denied = "denied",
     Uploaded = "uploaded",
     Verified = "verified",
-    Denied = "denied",
     Waiting = "waiting"
 }
 export declare type User = {
     __typename?: 'User';
-    id: Scalars['String'];
     email: Scalars['String'];
     family_name: Scalars['String'];
     given_name: Scalars['String'];
+    id: Scalars['String'];
     name: Scalars['String'];
     preferred_username: Scalars['String'];
+};
+/** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
+export declare type __EnumValue = {
+    __typename?: '__EnumValue';
+    name: Scalars['String'];
+    description?: Maybe<Scalars['String']>;
+    isDeprecated: Scalars['Boolean'];
+    deprecationReason?: Maybe<Scalars['String']>;
+};
+/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
+export declare type __Field = {
+    __typename?: '__Field';
+    name: Scalars['String'];
+    description?: Maybe<Scalars['String']>;
+    args: Array<__InputValue>;
+    type: __Type;
+    isDeprecated: Scalars['Boolean'];
+    deprecationReason?: Maybe<Scalars['String']>;
+};
+/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
+export declare type __FieldArgsArgs = {
+    includeDeprecated?: Maybe<Scalars['Boolean']>;
+};
+/** Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value. */
+export declare type __InputValue = {
+    __typename?: '__InputValue';
+    name: Scalars['String'];
+    description?: Maybe<Scalars['String']>;
+    type: __Type;
+    /** A GraphQL-formatted string representing the default value for this input value. */
+    defaultValue?: Maybe<Scalars['String']>;
+    isDeprecated: Scalars['Boolean'];
+    deprecationReason?: Maybe<Scalars['String']>;
 };
 /**
  * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
@@ -552,39 +603,6 @@ export declare enum __TypeKind {
     /** Indicates this type is a non-null. `ofType` is a valid field. */
     NonNull = "NON_NULL"
 }
-/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
-export declare type __Field = {
-    __typename?: '__Field';
-    name: Scalars['String'];
-    description?: Maybe<Scalars['String']>;
-    args: Array<__InputValue>;
-    type: __Type;
-    isDeprecated: Scalars['Boolean'];
-    deprecationReason?: Maybe<Scalars['String']>;
-};
-/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
-export declare type __FieldArgsArgs = {
-    includeDeprecated?: Maybe<Scalars['Boolean']>;
-};
-/** Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value. */
-export declare type __InputValue = {
-    __typename?: '__InputValue';
-    name: Scalars['String'];
-    description?: Maybe<Scalars['String']>;
-    type: __Type;
-    /** A GraphQL-formatted string representing the default value for this input value. */
-    defaultValue?: Maybe<Scalars['String']>;
-    isDeprecated: Scalars['Boolean'];
-    deprecationReason?: Maybe<Scalars['String']>;
-};
-/** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
-export declare type __EnumValue = {
-    __typename?: '__EnumValue';
-    name: Scalars['String'];
-    description?: Maybe<Scalars['String']>;
-    isDeprecated: Scalars['Boolean'];
-    deprecationReason?: Maybe<Scalars['String']>;
-};
 export declare type MinimalEntityFragment = {
     __typename?: 'Entity';
     id: string;
@@ -1385,6 +1403,20 @@ export declare type GetUploadRelationsQuery = {
         }>>>;
     }>;
 };
+export declare type UploadMediafileMutationVariables = Exact<{
+    media: MediaFileInput;
+    file?: Maybe<Scalars['Upload']>;
+    relations?: Maybe<Array<Maybe<RelationInput>> | Maybe<RelationInput>>;
+    metadata?: Maybe<Array<Maybe<MetadataInput>> | Maybe<MetadataInput>>;
+}>;
+export declare type UploadMediafileMutation = {
+    __typename?: 'Mutation';
+    UploadMediafile?: Maybe<{
+        __typename?: 'MediaFile';
+        _id: string;
+        filename?: Maybe<string>;
+    }>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
@@ -1512,4 +1544,10 @@ export declare const UpdatedScannedOfBoxvisiterDocument: DocumentNode<UpdatedSca
 }>>;
 export declare const GetUploadRelationsDocument: DocumentNode<GetUploadRelationsQuery, Exact<{
     searchValue: Scalars['String'];
+}>>;
+export declare const UploadMediafileDocument: DocumentNode<UploadMediafileMutation, Exact<{
+    media: MediaFileInput;
+    file?: Maybe<Scalars['Upload']>;
+    relations?: RelationInput | Maybe<RelationInput>[] | null | undefined;
+    metadata?: MetadataInput | Maybe<MetadataInput>[] | null | undefined;
 }>>;
