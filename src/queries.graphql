@@ -545,20 +545,8 @@ mutation DeleteBoxVisiterBasketItem($code: String!, $relationId: String!) {
   }
 }
 
-# mutation deleteRelationFromBoxVisiter(
-#   $code: String!
-#   $relationsToDelete: [RelationInput!]!
-# ) {
-#   DeleteBoxVisiterRelation(code: $code, relationsToDelete: $relationsToDelete) {
-#     ...fullRelation
-#   }
-# }
-
-mutation updateBoxVisiterTouchtableTime(
-  $code: String!
-  $touchTableTime: String!
-) {
-  UpdateBoxVisiterTouchtableTime(code: $code, touchTableTime: $touchTableTime) {
+mutation AddTouchTableTime($code: String!) {
+  AddTouchTableTime(_code: $code) {
     ...fullBoxVisiter
   }
 }
@@ -594,8 +582,8 @@ query createStorybox($storyboxInfo: StoryboxBuildInput!) {
   }
 }
 
-query LinkStorybox($code: String!, $title: String!, $description: String!) {
-  LinkStorybox(code: $code, title: $title, description: $description) {
+query LinkStorybox($code: String!) {
+  LinkStorybox(code: $code) {
     ...minimalEntity
   }
 }
