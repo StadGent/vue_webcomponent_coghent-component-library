@@ -23,7 +23,6 @@ export type StoryBoxType = {
   storyboxes: Entity[];
   activeStorybox: StoryboxBuild | null;
 };
-export const storyboxDataIsUpdated = ref<boolean>(false);
 
 export const StoryBoxState = ref<StoryBoxType>({
   count: 0,
