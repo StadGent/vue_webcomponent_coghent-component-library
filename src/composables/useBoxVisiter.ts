@@ -2,6 +2,7 @@ import {
   AddAssetToBoxVisiterDocument,
   AddFrameToStoryBoxVisiterDocument,
   AddStoryToBoxVisiterDocument,
+  AddTouchTableTimeDocument,
   BoxVisiter,
   CreateBoxVisiterDocument,
   FrameInput,
@@ -51,6 +52,7 @@ export type UseBoxVisiter = {
     _code: string,
     _relationId: string
   ) => Promise<any>;
+  addTouchTableTime: (_code: string) => Promise<BoxVisiter>;
   selectedStory: Ref<StorySelected | undefined>;
   setSelectedStory: (input: StorySelected) => void;
   setStartAsset: (input: Entity) => void;
@@ -189,6 +191,16 @@ const useBoxVisiter = (
     return relations;
   };
 
+  const addTouchTableTime = async (_code: string): Promise<BoxVisiter> => {
+    const { mutate } = apolloProvider(() =>
+      useMutation(AddTouchTableTimeDocument)
+    );
+    const result = await mutate({ code: _code });
+    const updatedBoxVisiter = result?.data?.AddTouchTableTime as BoxVisiter;
+    console.log(updatedBoxVisiter);
+    return updatedBoxVisiter;
+  };
+
   const resetBoxVisiter = () => {
     boxVisiter.value = null;
     startAsset.value = undefined;
@@ -234,6 +246,7 @@ const useBoxVisiter = (
     historyAssets,
     setSelectedStory,
     addAssetToBoxVisiter,
+    addTouchTableTime,
     resetBoxVisiter,
     setStartAsset,
     addHistoryAsset,

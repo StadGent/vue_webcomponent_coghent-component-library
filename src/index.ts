@@ -52,6 +52,7 @@ import {
   BasketByCustomFrameIdDocument,
   UploadMediafileDocument,
   Publication,
+  AddTouchTableTimeDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -116,6 +117,7 @@ import useUpload, {
 } from "./composables/useUpload";
 
 export {
+  AddTouchTableTimeDocument,
   Publication,
   UploadMediafileDocument,
   GetUploadRelationsDocument,
