@@ -32,8 +32,13 @@ export let uploadState = reactive<UploadState>(initUploadState)
 const useUpload = () => {
 
   const newInit = (_uploader: string | null) => {
-    uploadState = initUploadState
+    uploadState.relations = []
+    uploadState.metadata = []
+    uploadState.file = null
+    uploadState.liscense = Liscense["cc0"]
     currentUploadStep.value = 0
+    uploadState.step = currentUploadStep.value
+
     nextStep()
     uploadState.uploader = _uploader
     uploadState.status = UploadStatus.Creating
@@ -63,7 +68,7 @@ const useUpload = () => {
     for (const relation of uploadState.relations) {
       relations.push({
         key: relation.key,
-        type: RelationType.UserConnected
+        type: RelationType.Components
       } as RelationInput)
     }
     return relations
