@@ -27,10 +27,17 @@ export default defineComponent({
   setup: (props) => {
     const codeNumberArray = ref<Array<number>>([]);
 
-    const numberArray = props.code.split("").map((number) => {
-      return Number(number);
-    });
-    codeNumberArray.value = numberArray;
+    watch(
+      () => props.code,
+      (code) => {
+        if (code) {
+          const numberArray = props.code.split("").map((number) => {
+            return Number(number);
+          });
+          codeNumberArray.value = numberArray;
+        }
+      }
+    );
 
     return {
       codeNumberArray,
