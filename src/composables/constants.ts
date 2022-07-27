@@ -8,4 +8,5 @@ export const License: Record<Rights, string> = {
 export const PublicationStatus: Record<Publication, string> = {
   [Publication.Public]: "publiek",
   [Publication.Private]: "niet-publiek",
+  [Publication.Validate]: "te valideren",
 }

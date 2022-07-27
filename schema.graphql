@@ -17,6 +17,7 @@ enum Rights {
 enum Publication {
   public
   private
+  validate
 }
 
 enum MIME {
@@ -193,6 +194,7 @@ type Entity {
   assets: [Entity]
   frames: [Entity]
   mediafiles: [MediaFile]
+  nonPublicMediafiles: [MediaFile]
   primary_mediafile: String
   primary_transcode: String
   primary_transcode_location: String

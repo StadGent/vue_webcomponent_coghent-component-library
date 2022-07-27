@@ -16,7 +16,7 @@ export type UploadState = {
 }
 
 export let currentUploadStep = ref<number>(0)
-const USER_MEDIAFILE_NAEM_PREFIX = 'user-uploaded-'
+const USER_MEDIAFILE_NAME_PREFIX = 'user-uploaded-'
 
 
 const initUploadState = {
@@ -88,9 +88,13 @@ const useUpload = () => {
     for (const _meta of uploadState.metadata) {
       metadata.push({
         key: _meta.key,
-        value: _meta.key === MetaKey.Title ? `${USER_MEDIAFILE_NAEM_PREFIX}${_meta.value}` : _meta.value,
+        value: _meta.key === MetaKey.Title ? `${USER_MEDIAFILE_NAME_PREFIX}${_meta.value}` : _meta.value,
       } as MetadataInput)
     }
+    metadata.push({
+      key: MetaKey.PublicationStatus,
+      value: PublicationStatus[Publication["Validate"]]
+    } as MetadataInput)
     return metadata
   }
 
@@ -132,6 +136,15 @@ const useUpload = () => {
 
     return result ? result?.data.GetMyUploadedAssets : null
   }
+
+  const stripUserUploadPrefix = (_title: string) => {
+    let stripped = _title
+    if (_title.includes(USER_MEDIAFILE_NAME_PREFIX)) {
+      stripped = _title.replace(USER_MEDIAFILE_NAME_PREFIX, "")
+    }
+    return stripped
+  }
+
   const GetUploadsByStatus = () => { }
 
   return {
@@ -143,6 +156,7 @@ const useUpload = () => {
     rightIsSet,
     upload,
     getAllUploads,
+    stripUserUploadPrefix,
   }
 }
 export default useUpload
