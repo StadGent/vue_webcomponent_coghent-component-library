@@ -60,13 +60,13 @@ enum MetaKey {
   nationality
   scopeNote
   boxCode
+  status
+  likes
 }
 
 extend enum MetaKey {
   periode
-  maker
-  status
-  likes
+  maker  
 }
 
 extend enum MetaKey {
@@ -416,6 +416,7 @@ type Query {
   CreateTestimoni(entityInfo: EntityInfo!): Entity
   LinkTestimoniToAsset(assetId: String!, testimoniId: String!): [Relation]
   BasketByCustomFrameId(frameId: String!): [Relation]
+  GetMyUploadedAssets: EntitiesResults
 }
 
 type Mutation {

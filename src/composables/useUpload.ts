@@ -1,8 +1,9 @@
-import { Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus } from '@/queries'
+import { GetMyUploadedAssetsDocument, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus } from '@/queries'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
-import { provideApolloClient, useMutation } from '@vue/apollo-composable'
+import { provideApolloClient, useMutation, useQuery } from '@vue/apollo-composable'
 import { reactive, ref } from 'vue'
 import { License, PublicationStatus } from './constants'
+import { StoryBoxState } from './useStoryBox'
 
 export type UploadState = {
   step: number,
@@ -123,7 +124,14 @@ const useUpload = () => {
     return res ? res?.data?.UploadMediafile : null
 
   }
-  const getAllUploads = () => { }
+  const getAllUploads = async (_client: ApolloClient<NormalizedCacheObject>) => {
+    const { fetchMore } = provideApolloClient(_client)(() =>
+      useQuery(GetMyUploadedAssetsDocument, {}, { fetchPolicy: "network-only" })
+    );
+    const result = await fetchMore({});
+
+    return result ? result?.data.GetMyUploadedAssets : null
+  }
   const GetUploadsByStatus = () => { }
 
   return {
@@ -134,6 +142,7 @@ const useUpload = () => {
     setStatus,
     rightIsSet,
     upload,
+    getAllUploads,
   }
 }
 export default useUpload

@@ -684,3 +684,37 @@ mutation uploadMediafile($media: MediaFileInput!, $file: Upload, $relations: [Re
       filename
   }
 }
+
+query getMyUploadedAssets {
+  GetMyUploadedAssets {
+    count
+    results {
+      id
+      type
+      metadata(key: [title, description, periode, maker]) {
+        key
+        value
+      }
+      relations {
+        key
+        type
+        value
+      }
+      mediafiles {
+        _id
+        original_file_location
+        transcode_filename
+        filename
+        mimetype
+        mediatype {
+          type
+          mime
+          image
+          audio
+          video
+          pdf
+        }
+      }
+    }
+  }
+}
