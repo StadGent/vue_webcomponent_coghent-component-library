@@ -365,6 +365,7 @@ fragment fullMediafile on MediaFile {
   original_file_location
   transcode_filename
   thumbnail_file_location
+  primary_transcode_location
   mimetype
   mediatype {
     type

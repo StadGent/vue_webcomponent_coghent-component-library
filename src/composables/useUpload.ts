@@ -1,7 +1,8 @@
-import { GetMyUploadedAssetsDocument, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus } from '@/queries'
+import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus } from '@/queries'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { provideApolloClient, useMutation, useQuery } from '@vue/apollo-composable'
 import { reactive, ref } from 'vue'
+import { getMetadataOfTypeFromEntity } from '..'
 import { License, PublicationStatus } from './constants'
 import { StoryBoxState } from './useStoryBox'
 
@@ -17,6 +18,7 @@ export type UploadState = {
 
 export let currentUploadStep = ref<number>(0)
 const USER_MEDIAFILE_NAME_PREFIX = 'user-uploaded-'
+const NO_IMAGE_PATH = './no-image.png'
 
 
 const initUploadState = {
@@ -70,6 +72,44 @@ const useUpload = () => {
 
   const rightIsSet = (_right: Rights) => {
     return License[_right] === uploadState.liscense
+  }
+
+  const getMediafiles = (_entity: Entity) => {
+    const mediafiles = []
+    const status = getMetadataOfTypeFromEntity(_entity, MetaKey.PublicationStatus)
+    if (status !== undefined) {
+      let activeKey = null
+      for (const key of Object.values(Publication)) {
+        if (status.value === PublicationStatus[key]) {
+          activeKey = key
+        }
+
+      }
+      switch (activeKey) {
+        case Publication.Public:
+          _entity.mediafiles ? mediafiles.push(..._entity.mediafiles) : null
+          break;
+        case Publication.Private || Publication.Validate:
+          _entity.nonPublicMediafiles ? mediafiles.push(..._entity.nonPublicMediafiles) : null
+          break;
+        default:
+          _entity.mediafiles ? mediafiles.push(..._entity.mediafiles) : null
+          _entity.nonPublicMediafiles ? mediafiles.push(..._entity.nonPublicMediafiles) : null
+          break;
+      }
+    }
+    return mediafiles
+  }
+
+  const getMediafileLink = (_mediafiles: Array<MediaFile>) => {
+    let mediafileLink = NO_IMAGE_PATH
+    if (_mediafiles.length >= 1) {
+      if (_mediafiles[0].primary_transcode_location) {
+        mediafileLink = _mediafiles[0].primary_transcode_location
+      } else if (_mediafiles[0].original_file_location)
+        mediafileLink = _mediafiles[0].original_file_location
+    }
+    return mediafileLink
   }
 
   const getRelationsForUpload = () => {
@@ -157,6 +197,8 @@ const useUpload = () => {
     upload,
     getAllUploads,
     stripUserUploadPrefix,
+    getMediafiles,
+    getMediafileLink,
   }
 }
 export default useUpload

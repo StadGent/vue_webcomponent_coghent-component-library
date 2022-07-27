@@ -115,8 +115,11 @@ import useUpload, {
   currentUploadStep,
   uploadState,
 } from "./composables/useUpload";
+import { PublicationStatus, License } from './composables/constants';
 
 export {
+  PublicationStatus,
+  License,
   GetMyUploadedAssetsDocument,
   AddTouchTableTimeDocument,
   Publication,
