@@ -2,7 +2,7 @@ import { Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput,
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { provideApolloClient, useMutation } from '@vue/apollo-composable'
 import { reactive, ref } from 'vue'
-import { Liscense, PublicationStatus } from './constants'
+import { License, PublicationStatus } from './constants'
 
 export type UploadState = {
   step: number,
@@ -24,7 +24,7 @@ const initUploadState = {
   metadata: [],
   relations: [],
   uploader: null,
-  liscense: Liscense["cc0"],
+  liscense: License["cc0"],
   status: null
 }
 
@@ -35,7 +35,7 @@ const useUpload = () => {
     uploadState.relations = []
     uploadState.metadata = []
     uploadState.file = null
-    uploadState.liscense = Liscense["cc0"]
+    uploadState.liscense = License["cc0"]
     currentUploadStep.value = 0
     uploadState.step = currentUploadStep.value
 
@@ -56,11 +56,15 @@ const useUpload = () => {
   }
 
   const setCreator = (_creator: Rights) => {
-    uploadState.liscense = Liscense[_creator]
+    uploadState.liscense = License[_creator]
   }
 
   const setStatus = (_status: UploadStatus) => {
     uploadState.status = _status
+  }
+
+  const rightIsSet = (_right: Rights) => {
+    return License[_right] === uploadState.liscense
   }
 
   const getRelationsForUpload = () => {
@@ -124,6 +128,7 @@ const useUpload = () => {
     previousStep,
     setCreator,
     setStatus,
+    rightIsSet,
     upload,
   }
 }

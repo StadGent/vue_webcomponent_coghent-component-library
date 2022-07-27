@@ -1,6 +1,6 @@
 import { Publication, Rights } from '@/queries';
 
-export const Liscense: Record<Rights, string> = {
+export const License: Record<Rights, string> = {
   [Rights.Cc0]: "CC0 1.0",
   [Rights.Undetermined]: "To be determined",
 }
