@@ -16,7 +16,8 @@ export type UploadState = {
   status: UploadStatus | null
 }
 
-export let currentUploadStep = ref<number>(0)
+export const currentUploadStep = ref<number>(0)
+
 const USER_MEDIAFILE_NAME_PREFIX = 'user-uploaded-'
 const NO_IMAGE_PATH = './no-image.png'
 
@@ -33,7 +34,6 @@ const initUploadState = {
 
 export let uploadState = reactive<UploadState>(initUploadState)
 const useUpload = () => {
-
   const newInit = (_uploader: string | null) => {
     uploadState.relations = []
     uploadState.metadata = []
@@ -48,10 +48,15 @@ const useUpload = () => {
     uploadState.status = UploadStatus.Creating
   }
 
+  const setStep = (_step: number) => {
+    currentUploadStep.value = _step
+    uploadState.step = currentUploadStep.value
+  }
+
   const nextStep = () => {
     currentUploadStep.value++
     uploadState.step = currentUploadStep.value
-    console.log(`uploadstate`, uploadState)
+    console.log(`CL | uploadState`, uploadState);
   }
 
   const previousStep = () => {
@@ -202,6 +207,7 @@ const useUpload = () => {
   return {
     newInit,
     nextStep,
+    setStep,
     previousStep,
     setCreator,
     setStatus,

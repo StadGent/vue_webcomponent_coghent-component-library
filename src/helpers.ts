@@ -98,3 +98,9 @@ export const getMediaTypeByfilename = (_entity: Entity, _filename: string | unde
     resolve(null)
   })
 }
+
+export const getUrlParamValue = (_searchParam: string) => {
+  const urlParams = window.location.search;
+  const params = new URLSearchParams(urlParams);
+  return params.get(_searchParam)
+};

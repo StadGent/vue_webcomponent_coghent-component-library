@@ -111,6 +111,7 @@ import {
   getFirstValueOfPropertyFromEntity,
   getMediaTypeByfilename,
   getMetadataOfTypeFromEntity,
+  getUrlParamValue,
 } from "./helpers";
 import useUpload, {
   currentUploadStep,
@@ -119,6 +120,7 @@ import useUpload, {
 import { PublicationStatus, License } from './composables/constants';
 
 export {
+  getUrlParamValue,
   UploadObjectFromEntityDocument,
   PublicationStatus,
   License,
