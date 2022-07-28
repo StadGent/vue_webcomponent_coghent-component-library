@@ -1,10 +1,9 @@
-import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus } from '@/queries'
+import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus, UploadObjectFromEntityDocument } from '@/queries'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { provideApolloClient, useMutation, useQuery } from '@vue/apollo-composable'
 import { reactive, ref } from 'vue'
 import { getMetadataOfTypeFromEntity } from '..'
-import { License, PublicationStatus } from './constants'
-import { StoryBoxState } from './useStoryBox'
+import { getPublicationKeyFromValue, License, PublicationStatus } from './constants'
 
 export type UploadState = {
   step: number,
@@ -20,7 +19,6 @@ export type UploadState = {
 export let currentUploadStep = ref<number>(0)
 const USER_MEDIAFILE_NAME_PREFIX = 'user-uploaded-'
 const NO_IMAGE_PATH = './no-image.png'
-
 
 const initUploadState = {
   step: currentUploadStep.value,
@@ -81,17 +79,15 @@ const useUpload = () => {
     _base64String === null ? uploadState.base64Image = NO_IMAGE_PATH : uploadState.base64Image = _base64String
   }
 
-  const getMediafiles = (_entity: Entity) => {
+  const setFile = (_file: any) => {
+    uploadState.file = _file
+  }
+
+  const getMediafiles = async (_entity: Entity) => {
     const mediafiles = []
     const status = getMetadataOfTypeFromEntity(_entity, MetaKey.PublicationStatus)
     if (status !== undefined) {
-      let activeKey = null
-      for (const key of Object.values(Publication)) {
-        if (status.value === PublicationStatus[key]) {
-          activeKey = key
-        }
-
-      }
+      let activeKey = await getPublicationKeyFromValue(status.value!)
       switch (activeKey) {
         case Publication.Public:
           _entity.mediafiles ? mediafiles.push(..._entity.mediafiles) : null
@@ -192,6 +188,15 @@ const useUpload = () => {
     return stripped
   }
 
+  const entityToUploadComposable = async (_entityId: string, _client: ApolloClient<NormalizedCacheObject>) => {
+    const { fetchMore } = provideApolloClient(_client)(() =>
+      useQuery(UploadObjectFromEntityDocument, { entityId: _entityId }, { fetchPolicy: "network-only" })
+    );
+    const result = await fetchMore({ variables: { entityId: _entityId } });
+
+    return result ? result?.data.UploadObjectFromEntity : null
+  }
+
   const GetUploadsByStatus = () => { }
 
   return {
@@ -202,11 +207,13 @@ const useUpload = () => {
     setStatus,
     rightIsSet,
     setBase64Image,
+    setFile,
     upload,
     getAllUploads,
     stripUserUploadPrefix,
     getMediafiles,
     getMediafileLink,
+    entityToUploadComposable,
   }
 }
 export default useUpload

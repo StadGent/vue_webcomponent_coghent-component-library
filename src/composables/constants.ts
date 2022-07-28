@@ -10,3 +10,14 @@ export const PublicationStatus: Record<Publication, string> = {
   [Publication.Private]: "niet-publiek",
   [Publication.Validate]: "te valideren",
 }
+
+export const getPublicationKeyFromValue = (publication_status: string) => {
+  return new Promise((resolve, reject) => {
+    for (const key of Object.values(Publication)) {
+      if (publication_status === PublicationStatus[key]) {
+        resolve(key)
+      }
+    }
+    resolve(Publication.Private)
+  })
+}

@@ -382,6 +382,21 @@ fragment fullMediafile on MediaFile {
   }
 }
 
+fragment fullUploadComposable on UploadComposable {
+  file_location
+  base64Image
+  metadata(key: [title, description, maker, periode, publication_status]) {
+    key
+    value
+  }
+  relations {
+    key
+    type
+    value
+  }
+  liscense
+}
+
 query getEntities($limit: Int, $skip: Int, $searchValue: SearchFilter!) {
   Entities(limit: $limit, skip: $skip, searchValue: $searchValue) {
     count
@@ -712,5 +727,11 @@ query getMyUploadedAssets {
         ...fullMediafile
       }
     }
+  }
+}
+
+query uploadObjectFromEntity($entityId: String!){
+  UploadObjectFromEntity(entityId: $entityId){
+    ...fullUploadComposable
   }
 }

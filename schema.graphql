@@ -384,6 +384,14 @@ input MediaFileInput {
   metadata: [MetadataInput!]
 }
 
+type UploadComposable {
+  file_location: String,
+  base64Image: String,
+  metadata(key: [MetaKey]): [Metadata],
+  relations: [Relation],
+  liscense: Rights,
+}
+
 type Query {
   PrintBoxTicket(code: String!): Ticket!
   ActiveBox(id: String): EntitiesResults!
@@ -419,6 +427,7 @@ type Query {
   LinkTestimoniToAsset(assetId: String!, testimoniId: String!): [Relation]
   BasketByCustomFrameId(frameId: String!): [Relation]
   GetMyUploadedAssets: EntitiesResults
+  UploadObjectFromEntity(entityId: String!): UploadComposable
 }
 
 type Mutation {
