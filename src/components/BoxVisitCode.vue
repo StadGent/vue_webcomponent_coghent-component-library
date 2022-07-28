@@ -36,7 +36,8 @@ export default defineComponent({
           });
           codeNumberArray.value = numberArray;
         }
-      }
+      },
+      { immediate: true }
     );
 
     return {
