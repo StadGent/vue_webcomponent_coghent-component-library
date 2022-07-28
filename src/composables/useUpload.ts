@@ -8,7 +8,8 @@ import { StoryBoxState } from './useStoryBox'
 
 export type UploadState = {
   step: number,
-  file: any | null
+  file: any | null,
+  base64Image: string | null,
   metadata: Array<Metadata>,
   relations: Array<Relation>,
   uploader: string | null,
@@ -24,6 +25,7 @@ const NO_IMAGE_PATH = './no-image.png'
 const initUploadState = {
   step: currentUploadStep.value,
   file: null,
+  base64Image: null,
   metadata: [],
   relations: [],
   uploader: null,
@@ -38,6 +40,7 @@ const useUpload = () => {
     uploadState.relations = []
     uploadState.metadata = []
     uploadState.file = null
+    uploadState.base64Image = null
     uploadState.liscense = License["cc0"]
     currentUploadStep.value = 0
     uploadState.step = currentUploadStep.value
@@ -72,6 +75,10 @@ const useUpload = () => {
 
   const rightIsSet = (_right: Rights) => {
     return License[_right] === uploadState.liscense
+  }
+
+  const setBase64Image = (_base64String: string | null) => {
+    _base64String === null ? uploadState.base64Image = NO_IMAGE_PATH : uploadState.base64Image = _base64String
   }
 
   const getMediafiles = (_entity: Entity) => {
@@ -194,6 +201,7 @@ const useUpload = () => {
     setCreator,
     setStatus,
     rightIsSet,
+    setBase64Image,
     upload,
     getAllUploads,
     stripUserUploadPrefix,
