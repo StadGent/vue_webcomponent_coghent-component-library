@@ -21,3 +21,5 @@ export const getPublicationKeyFromValue = (publication_status: string) => {
     resolve(Publication.Private)
   })
 }
+
+export const NO_IMAGE_PATH = './no-image.png'

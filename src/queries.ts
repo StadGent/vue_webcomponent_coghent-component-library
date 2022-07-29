@@ -226,6 +226,14 @@ export type MediaInfo = {
   width: Scalars['String'];
 };
 
+export type MediafilesResults = {
+  __typename?: 'MediafilesResults';
+  count?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  relations?: Maybe<Array<Maybe<Relation>>>;
+  results?: Maybe<Array<Maybe<MediaFile>>>;
+};
+
 export enum MetaKey {
   QrCode = 'QRCode',
   BoxCode = 'boxCode',
@@ -273,6 +281,7 @@ export type MetadataCollection = {
 
 export type MetadataInput = {
   key: MetaKey;
+  label?: Maybe<Scalars['String']>;
   lang?: Maybe<Scalars['String']>;
   value: Scalars['String'];
 };

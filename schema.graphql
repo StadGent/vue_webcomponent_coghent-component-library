@@ -168,6 +168,7 @@ input MetadataInput {
   key: MetaKey!
   value: String!
   lang: String
+  label: String
 }
 
 type MetadataCollection {
@@ -274,6 +275,13 @@ input EntityInfo {
 
 type EntitiesResults {
   results: [Entity]
+  relations: [Relation]
+  count: Int
+  limit: Int
+}
+
+type MediafilesResults {
+  results: [MediaFile]
   relations: [Relation]
   count: Int
   limit: Int

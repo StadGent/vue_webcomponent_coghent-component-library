@@ -115,11 +115,16 @@ import {
 } from "./helpers";
 import useUpload, {
   currentUploadStep,
+  LoadingState,
+  uploadLoadingState,
   uploadState,
 } from "./composables/useUpload";
-import { PublicationStatus, License } from './composables/constants';
+import { PublicationStatus, License, NO_IMAGE_PATH } from './composables/constants';
 
 export {
+  LoadingState,
+  uploadLoadingState,
+  NO_IMAGE_PATH,
   getUrlParamValue,
   UploadObjectFromEntityDocument,
   PublicationStatus,
