@@ -108,6 +108,7 @@ import {
   StoryBoxState,
 } from "@/composables/useStoryBox";
 import {
+  getFilename,
   getFirstMediafileWithFilelocationOfEntity,
   getFirstValueOfPropertyFromEntity,
   getMediaTypeByfilename,
@@ -123,6 +124,7 @@ import useUpload, {
 import { PublicationStatus, License, NO_IMAGE_PATH } from './composables/constants';
 
 export {
+  getFilename,
   UpdateEntityDocument,
   LoadingState,
   uploadLoadingState,

@@ -143,16 +143,6 @@ const useUpload = () => {
     return mediafileLink
   }
 
-  const getFilename = (_mediafile: MediaFile | null) => {
-    let filename: null | string = null
-    if (_mediafile !== null) {
-      if (_mediafile.filename) filename = _mediafile.filename
-      if (_mediafile.transcode_filename) filename = _mediafile.transcode_filename
-    } else filename = NO_IMAGE_PATH
-
-    return filename
-  }
-
   const getRelationsForUpload = (_relations: Array<Relation>) => {
     const relations = []
     for (const relation of _relations) {
@@ -267,7 +257,6 @@ const useUpload = () => {
     rightIsSet,
     setBase64Image,
     setFile,
-    getFilename,
     upload,
     getAllUploads,
     stripUserUploadPrefix,

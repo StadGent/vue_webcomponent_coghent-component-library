@@ -1,3 +1,4 @@
+import { NO_IMAGE_PATH } from './composables/constants';
 import { Entity, MediaFile, Metadata, MetaKey, MimeType } from './queries';
 
 type WeightedArrayConfig = {
@@ -104,3 +105,13 @@ export const getUrlParamValue = (_searchParam: string) => {
   const params = new URLSearchParams(urlParams);
   return params.get(_searchParam)
 };
+
+export const getFilename = (_mediafile: MediaFile | null) => {
+  let filename: null | string = null
+  if (_mediafile !== null) {
+    if (_mediafile.filename) filename = _mediafile.filename
+    if (_mediafile.transcode_filename) filename = _mediafile.transcode_filename
+  } else filename = NO_IMAGE_PATH
+
+  return filename
+}
