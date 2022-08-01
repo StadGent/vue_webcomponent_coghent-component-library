@@ -452,4 +452,5 @@ type Mutation {
   DeleteEntity(id: String!): String
   UpdatedScannedOfBoxvisiter(code: String!): BoxVisiter
   UploadMediafile(media: MediaFileInput!, file: Upload, relations: [RelationInput], metadata: [MetadataInput]): MediaFile
+  UpdateEntity(id: String!, metadata: [MetadataInput]! ,relations: [RelationInput]!): Entity
 }

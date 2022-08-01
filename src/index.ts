@@ -55,6 +55,7 @@ import {
   AddTouchTableTimeDocument,
   GetMyUploadedAssetsDocument,
   UploadObjectFromEntityDocument,
+  UpdateEntityDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -122,6 +123,7 @@ import useUpload, {
 import { PublicationStatus, License, NO_IMAGE_PATH } from './composables/constants';
 
 export {
+  UpdateEntityDocument,
   LoadingState,
   uploadLoadingState,
   NO_IMAGE_PATH,

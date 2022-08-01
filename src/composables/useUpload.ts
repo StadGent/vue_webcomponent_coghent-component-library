@@ -1,4 +1,4 @@
-import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus, UploadObjectFromEntityDocument, UploadComposable } from '@/queries'
+import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus, UploadObjectFromEntityDocument, UploadComposable, UpdateEntityDocument } from '@/queries'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { provideApolloClient, useMutation, useQuery } from '@vue/apollo-composable'
 import { reactive, ref } from 'vue'
@@ -143,13 +143,13 @@ const useUpload = () => {
     return mediafileLink
   }
 
-  const getRelationsForUpload = () => {
+  const getRelationsForUpload = (_relations: Array<Relation>) => {
     const relations = []
-    for (const relation of uploadState.relations) {
+    for (const relation of _relations) {
       relations.push({
         key: relation.key,
         type: RelationType.Components,
-        label: relation.value,
+        value: relation.value,
       } as RelationInput)
     }
     return relations
@@ -185,7 +185,6 @@ const useUpload = () => {
       value: uploadState.liscense
     } as MetadataInput
 
-    console.log(`uploadstate, `, uploadState)
 
     const res = await mutate({
       media: {
@@ -193,16 +192,14 @@ const useUpload = () => {
         metadata: [nonPublic, right]
       },
       file: uploadState.file,
-      relations: getRelationsForUpload() as Array<RelationInput>,
+      relations: getRelationsForUpload(uploadState.relations) as Array<RelationInput>,
       metadata: getMetadataForUpload() as Array<MetadataInput>,
     });
-
-    console.log(`result of upload`, res?.data?.UploadMediafile)
     uploadLoadingState.upload = "loaded"
 
     return res ? res?.data?.UploadMediafile : null
-
   }
+
   const getAllUploads = async (_client: ApolloClient<NormalizedCacheObject>) => {
     const { fetchMore } = provideApolloClient(_client)(() =>
       useQuery(GetMyUploadedAssetsDocument, {}, { fetchPolicy: "network-only" })
@@ -235,10 +232,27 @@ const useUpload = () => {
     return uploadComposable
   }
 
-  const updateAsset = async () => {
-    uploadLoadingState.update = "loading"
-    uploadLoadingState.update = "loaded"
+  const getMetadataForUpdate = (_metadata: Array<Metadata>) => {
+    const metadata = []
+    for (const _meta of _metadata) {
+      metadata.push({
+        key: _meta.key,
+        value: _meta.key === MetaKey.Title ? `${USER_MEDIAFILE_NAME_PREFIX}${_meta.value}` : _meta.value,
+      } as MetadataInput)
+    }
+    return metadata
+  }
 
+  const updateAsset = async (_id: string, _client: ApolloClient<NormalizedCacheObject>) => {
+    uploadLoadingState.update = "loading"
+    const { mutate } = provideApolloClient(_client)(() => useMutation(UpdateEntityDocument));
+    const updated = await mutate({
+      id: _id,
+      metadata: getMetadataForUpdate(uploadState.metadata) as Array<MetadataInput>,
+      relations: getRelationsForUpload(uploadState.relations) as Array<RelationInput>,
+    })
+    uploadLoadingState.update = "loaded"
+    return updated ? updated?.data?.UpdateEntity : null
   }
 
   const GetUploadsByStatus = () => { }

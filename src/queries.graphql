@@ -735,3 +735,20 @@ query uploadObjectFromEntity($entityId: String!){
     ...fullUploadComposable
   }
 }
+
+mutation updateEntity($id: String!, $metadata: [MetadataInput]!, $relations: [RelationInput]!){
+    UpdateEntity(id: $id, metadata:$metadata,relations:$relations){
+        id
+        object_id
+        metadata(key: [title, description, object_number, publication_status]){
+            key
+            value
+            label            
+        }
+        relations{
+            type
+            key
+            value
+        }
+    }
+}
