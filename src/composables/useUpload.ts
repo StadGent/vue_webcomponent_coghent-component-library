@@ -117,12 +117,12 @@ const useUpload = () => {
     if (status !== undefined) {
       let activeKey = await getPublicationKeyFromValue(status.value!)
       switch (activeKey) {
-        case Publication.Public:
-          _entity.mediafiles ? mediafiles.push(..._entity.mediafiles) : null
-          break;
-        case Publication.Private || Publication.Validate:
-          _entity.nonPublicMediafiles ? mediafiles.push(..._entity.nonPublicMediafiles) : null
-          break;
+        // case Publication.Public:
+        //   _entity.mediafiles ? mediafiles.push(..._entity.mediafiles) : null
+        //   break;
+        // case Publication.Private || Publication.Validate:
+        //   _entity.nonPublicMediafiles ? mediafiles.push(..._entity.nonPublicMediafiles) : null
+        //   break;
         default:
           _entity.mediafiles ? mediafiles.push(..._entity.mediafiles) : null
           _entity.nonPublicMediafiles ? mediafiles.push(..._entity.nonPublicMediafiles) : null
