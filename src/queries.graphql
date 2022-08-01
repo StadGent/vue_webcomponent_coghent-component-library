@@ -363,6 +363,7 @@ fragment assetMetadata on Relation {
 fragment fullMediafile on MediaFile {
    _id
   original_file_location
+  filename
   transcode_filename
   thumbnail_file_location
   primary_transcode_location
