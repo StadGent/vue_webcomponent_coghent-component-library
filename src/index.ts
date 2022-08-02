@@ -56,6 +56,9 @@ import {
   GetMyUploadedAssetsDocument,
   UploadObjectFromEntityDocument,
   UpdateEntityDocument,
+  CreateTestimonyDocument,
+  EntityInfo,
+  EntityTypes,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -83,7 +86,7 @@ import SpeechBubble from "./components/SpeechBubble.vue";
 import StepProgress from "./components/StepProgress.vue";
 import MediaModal from "./components/MediaModal.vue";
 import { useMediaModal } from "./composables/useMediaModal";
-import type TestimoniCard from "@/components/SpeechBubble.vue";
+import type testimonyCard from "@/components/SpeechBubble.vue";
 import { ModalState, ImageSource } from "./types";
 import {
   boxVisiter,
@@ -122,7 +125,11 @@ import useUpload, {
   uploadLoadingState,
   uploadState,
 } from "./composables/useUpload";
-import { PublicationStatus, License, NO_IMAGE_PATH } from './composables/constants';
+import {
+  PublicationStatus,
+  License,
+  NO_IMAGE_PATH,
+} from "./composables/constants";
 
 export {
   entityIsPublic,
@@ -132,6 +139,9 @@ export {
   uploadLoadingState,
   NO_IMAGE_PATH,
   getUrlParamValue,
+  EntityInfo,
+  EntityTypes,
+  CreateTestimonyDocument,
   UploadObjectFromEntityDocument,
   PublicationStatus,
   License,
@@ -185,7 +195,7 @@ export {
   TheMasonry,
   BaseOverlay,
   SpeechBubble,
-  TestimoniCard,
+  testimonyCard,
   MediaModal,
   useMediaModal,
   DeleteBoxVisiterBasketItemDocument,

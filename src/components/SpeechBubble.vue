@@ -67,7 +67,7 @@ import baseIcon from "../components/BaseIcon.vue";
 
 type Alignment = "Left" | "Right";
 
-export type TestimoniCard = {
+export type testimonyCard = {
   id: string;
   name: string;
   date: string;
@@ -80,7 +80,7 @@ export default defineComponent({
   components: { baseIcon },
   props: {
     cardDetails: {
-      type: Object as PropType<TestimoniCard>,
+      type: Object as PropType<testimonyCard>,
       required: true,
     },
     color: {

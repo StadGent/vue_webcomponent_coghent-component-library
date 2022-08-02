@@ -3,7 +3,7 @@
   <media-modal />
   <!--Carousel -->
 
-  <div class="flex items-center">
+  <div class="flex">
     <div class="z-0 mt-24 w-1/4 transform -translate-x-1/4">
       <lazy-load-image
         extraClass="opacity-70"

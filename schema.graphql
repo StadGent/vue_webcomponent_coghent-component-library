@@ -63,11 +63,12 @@ enum MetaKey {
   boxCode
   status
   likes
+  date
 }
 
 extend enum MetaKey {
   periode
-  maker  
+  maker
 }
 
 extend enum MetaKey {
@@ -102,11 +103,13 @@ enum RelationType {
   box
   story_box
   userConnected
+  isTestimonyFor
+  hasTestimony
 }
 
 enum StatusKey {
   hidden
-  shown  
+  shown
 }
 
 enum ComponentType {
@@ -204,6 +207,8 @@ type Entity {
   primary_mediafile_location: String
   primary_width: String
   primary_height: String
+  testimonies: [Entity]
+  user: String
 }
 
 type MediaInfo {
@@ -394,11 +399,11 @@ input MediaFileInput {
 }
 
 type UploadComposable {
-  file_location: String,
-  base64Image: String,
-  metadata(key: [MetaKey]): [Metadata],
-  relations: [Relation],
-  liscense: Rights,
+  file_location: String
+  base64Image: String
+  metadata(key: [MetaKey]): [Metadata]
+  relations: [Relation]
+  liscense: Rights
 }
 
 type Query {
@@ -432,8 +437,7 @@ type Query {
   LinkFrameToVisiter(frameId: String!): BoxVisiter
   GetvisiterOfEntity(id: String!): BoxVisiter
   GetUploadRelations(searchValue: String!): EntitiesResults
-  CreateTestimoni(entityInfo: EntityInfo!): Entity
-  LinkTestimoniToAsset(assetId: String!, testimoniId: String!): [Relation]
+  LinktestimonyToAsset(assetId: String!, testimonyId: String!): [Relation]
   BasketByCustomFrameId(frameId: String!): [Relation]
   GetMyUploadedAssets: EntitiesResults
   UploadObjectFromEntity(entityId: String!): UploadComposable
@@ -452,6 +456,16 @@ type Mutation {
   ): [Relation]!
   DeleteEntity(id: String!): String
   UpdatedScannedOfBoxvisiter(code: String!): BoxVisiter
-  UploadMediafile(media: MediaFileInput!, file: Upload, relations: [RelationInput], metadata: [MetadataInput]): MediaFile
-  UpdateEntity(id: String!, metadata: [MetadataInput]! ,relations: [RelationInput]!): Entity
+  UploadMediafile(
+    media: MediaFileInput!
+    file: Upload
+    relations: [RelationInput]
+    metadata: [MetadataInput]
+  ): MediaFile
+  UpdateEntity(
+    id: String!
+    metadata: [MetadataInput]!
+    relations: [RelationInput]!
+  ): Entity
+  CreateTestimony(entityInfo: EntityInfo!, assetId: String!): Entity
 }

@@ -255,7 +255,7 @@ fragment fullEntity on Entity {
   primary_mediafile
   primary_transcode
   mediafiles {
-   ...fullMediafile
+    ...fullMediafile
   }
   relations {
     key
@@ -263,6 +263,26 @@ fragment fullEntity on Entity {
     label
     value
   }
+  testimonies {
+    ...testimony
+  }
+}
+
+fragment testimony on Entity {
+  id
+  description: metadata(key: [description]) {
+    key
+    value
+  }
+  likes: metadata(key: [likes]) {
+    key
+    value
+  }
+  date: metadata(key: [date]) {
+    key
+    value
+  }
+  user
 }
 
 fragment creator on Entity {
@@ -365,7 +385,7 @@ fragment assetMetadata on Relation {
 }
 
 fragment fullMediafile on MediaFile {
-   _id
+  _id
   original_file_location
   filename
   transcode_filename
@@ -682,14 +702,14 @@ query getUploadRelations($searchValue: String!) {
     }
   }
 }
-query CreateTestimoni($entityInfo: EntityInfo!) {
-  CreateTestimoni(entityInfo: $entityInfo) {
+mutation CreateTestimony($entityInfo: EntityInfo!, $assetId: String!) {
+  CreateTestimony(entityInfo: $entityInfo, assetId: $assetId) {
     ...fullEntity
   }
 }
 
-query LinkTestimoniToAsset($assetId: String!, $testimoniId: String!) {
-  LinkTestimoniToAsset(assetId: $assetId, testimoniId: $testimoniId) {
+query LinktestimonyToAsset($assetId: String!, $testimonyId: String!) {
+  LinktestimonyToAsset(assetId: $assetId, testimonyId: $testimonyId) {
     key
     type
     label
@@ -703,10 +723,20 @@ query BasketByCustomFrameId($frameId: String!) {
   }
 }
 
-mutation uploadMediafile($media: MediaFileInput!, $file: Upload, $relations: [RelationInput], $metadata: [MetadataInput]){
-  UploadMediafile(media: $media, file: $file, relations: $relations, metadata: $metadata){
-      _id
-      filename
+mutation uploadMediafile(
+  $media: MediaFileInput!
+  $file: Upload
+  $relations: [RelationInput]
+  $metadata: [MetadataInput]
+) {
+  UploadMediafile(
+    media: $media
+    file: $file
+    relations: $relations
+    metadata: $metadata
+  ) {
+    _id
+    filename
   }
 }
 
@@ -735,8 +765,8 @@ query getMyUploadedAssets {
   }
 }
 
-query uploadObjectFromEntity($entityId: String!){
-  UploadObjectFromEntity(entityId: $entityId){
+query uploadObjectFromEntity($entityId: String!) {
+  UploadObjectFromEntity(entityId: $entityId) {
     ...fullUploadComposable
   }
 }
