@@ -1,5 +1,5 @@
-import { NO_IMAGE_PATH } from './composables/constants';
-import { Entity, MediaFile, Metadata, MetaKey, MimeType } from './queries';
+import { NO_IMAGE_PATH, PublicationStatus } from './composables/constants';
+import { Entity, MediaFile, Metadata, MetaKey, MimeType, Publication } from './queries';
 
 type WeightedArrayConfig = {
   probability: number | "*";
@@ -114,4 +114,22 @@ export const getFilename = (_mediafile: MediaFile | null) => {
   } else filename = NO_IMAGE_PATH
 
   return filename
+}
+
+export const entityIsPublic = (_entity: Entity) => {
+  const statusses = []
+  if (_entity && _entity.publicationStatus && _entity.publicationStatus.length >= 1) {
+    for (const status of _entity.publicationStatus) {
+      if (status) {
+        if (status.value === PublicationStatus.public) statusses.push(true)
+        else if ((status.value === PublicationStatus.private || (status.value === PublicationStatus.validate))) {
+          statusses.push(false)
+        } else {
+          console.log(`STATUS FROM ENTITY WITH ID`, _entity.id, status);
+          statusses.push(false)
+        }
+      }
+    }
+  } else statusses.push(true) // TMP: not every asset has a publication status
+  return statusses.some(status => status === true)
 }

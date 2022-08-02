@@ -238,6 +238,10 @@ fragment fullEntity on Entity {
     key
     value
   }
+  publicationStatus: metadata(key: [publication_status]) {
+            key
+            value
+        }
   objectNumber: metadata(key: [object_number]) {
     key
     value
