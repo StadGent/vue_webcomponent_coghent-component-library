@@ -84,6 +84,7 @@ enum EntityTypes {
   asset
   thesaurus
   person
+  testimony
 }
 
 enum RelationType {
