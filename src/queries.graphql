@@ -721,6 +721,12 @@ query LinktestimonyToAsset($assetId: String!, $testimonyId: String!) {
   }
 }
 
+query GetTestimoniesOfUser {
+  GetTestimoniesOfUser {
+    ...testimony
+  }
+}
+
 query BasketByCustomFrameId($frameId: String!) {
   BasketByCustomFrameId(frameId: $frameId) {
     ...fullRelation

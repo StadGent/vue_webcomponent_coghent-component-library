@@ -442,6 +442,7 @@ type Query {
   BasketByCustomFrameId(frameId: String!): [Relation]
   GetMyUploadedAssets: EntitiesResults
   UploadObjectFromEntity(entityId: String!): UploadComposable
+  GetTestimoniesOfUser: [Entity]
 }
 
 type Mutation {
