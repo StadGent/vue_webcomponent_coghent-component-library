@@ -16,7 +16,7 @@
           <div class="rounded-full bg-neutral-0 w-20 h-20"></div>
         </div>
         <div class="w-2/3 bg-background-light p-4 rounded-r-md">
-          <div class="w-full flex justify-between font-bold text-xs">
+          <div class="w-full sm:flex sm:justify-between font-bold text-xs">
             <p>{{ cardDetails.name }}</p>
             <p>{{ cardDetails.date }}</p>
           </div>
@@ -36,7 +36,7 @@
       </div>
       <div v-else class="flex">
         <div class="w-2/3 bg-background-light p-4 rounded-l-md">
-          <div class="w-full flex justify-between font-bold text-xs">
+          <div class="w-full sm:flex sm:justify-between font-bold text-xs">
             <p>{{ cardDetails.name }}</p>
             <p>{{ cardDetails.date }}</p>
           </div>
