@@ -763,7 +763,7 @@ query getMyUploadedAssets {
     results {
       id
       type
-      metadata(key: [title, description, periode, maker, publication_status]) {
+      metadata(key: [title, description, periode, maker, publication_status, user_action]) {
         key
         value
       }
@@ -796,7 +796,7 @@ mutation updateEntity(
   UpdateEntity(id: $id, metadata: $metadata, relations: $relations) {
     id
     object_id
-    metadata(key: [title, description, object_number, publication_status]) {
+    metadata(key: [title, description, object_number, publication_status, user_action]) {
       key
       value
       label

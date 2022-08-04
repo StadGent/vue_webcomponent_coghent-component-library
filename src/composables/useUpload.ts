@@ -1,4 +1,4 @@
-import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus, UploadObjectFromEntityDocument, UploadComposable, UpdateEntityDocument } from '@/queries'
+import { Entity, GetMyUploadedAssetsDocument, MediaFile, Metadata, MetadataInput, MetaKey, Publication, Relation, RelationInput, RelationType, Rights, UploadMediafileDocument, UploadStatus, UploadObjectFromEntityDocument, UploadComposable, UpdateEntityDocument, UserAction } from '@/queries'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { provideApolloClient, useMutation, useQuery } from '@vue/apollo-composable'
 import { reactive, ref } from 'vue'
@@ -20,6 +20,28 @@ export type UploadLoadingState = {
   actionValues: LoadingState
   upload: LoadingState
   update: LoadingState
+}
+
+export type AssetState = 'created' | 'updated' | 'deleted'
+
+export type AssetStateObject = {
+  action: UserAction
+  publication: Publication
+}
+
+const definedAssetStates = {
+  created: {
+    action: UserAction.Created,
+    publication: Publication.Validate
+  },
+  updated: {
+    action: UserAction.Updated,
+    publication: Publication.Validate
+  },
+  deleted: {
+    action: UserAction.Deleted,
+    publication: Publication.Validate
+  },
 }
 
 export type LoadingState = 'ready' | 'loading' | 'loaded' | 'error'
@@ -155,7 +177,7 @@ const useUpload = () => {
     return relations
   }
 
-  const getMetadataForUpload = (_metadata: Array<Metadata>) => {
+  const getMetadataForUpload = (_metadata: Array<Metadata>, _publication: Publication, _action: UserAction) => {
     const metadata = []
     for (const _meta of uploadState.metadata) {
       metadata.push({
@@ -165,8 +187,12 @@ const useUpload = () => {
       } as MetadataInput)
     }
     metadata.push({
+      key: MetaKey.UserAction,
+      value: _action
+    } as MetadataInput)
+    metadata.push({
       key: MetaKey.PublicationStatus,
-      value: PublicationStatus[Publication["Validate"]]
+      value: PublicationStatus[_publication]
     } as MetadataInput)
     return metadata
   }
@@ -193,7 +219,7 @@ const useUpload = () => {
       },
       file: uploadState.file,
       relations: getRelationsForUpload(uploadState.relations) as Array<RelationInput>,
-      metadata: getMetadataForUpload(uploadState.metadata) as Array<MetadataInput>,
+      metadata: getMetadataForUpload(uploadState.metadata, Publication.Validate, UserAction.Created) as Array<MetadataInput>,
     });
     uploadLoadingState.upload = "loaded"
 
@@ -232,12 +258,28 @@ const useUpload = () => {
     return uploadComposable
   }
 
-  const updateAsset = async (_id: string, _client: ApolloClient<NormalizedCacheObject>) => {
+  const getAssetStateObject = (_state: AssetState): Promise<AssetStateObject> => {
+    return new Promise((resolve, reject) => {
+      for (const key in definedAssetStates) {
+        console.log(`KEY`, key)
+        console.log(`STATE`, _state)
+        console.log(`KEY == STATE`, _state == key)
+        console.log(`KEY === STATE`, _state === key)
+        if (_state == key) resolve(definedAssetStates[key])
+      }
+      // console.log(`DEFAULT ASSETSTATE`)
+      // resolve(definedAssetStates.updated)
+    })
+  }
+
+  const updateAsset = async (_id: string, _assetState: AssetState, _client: ApolloClient<NormalizedCacheObject>) => {
     uploadLoadingState.update = "loading"
+    const assetState = await getAssetStateObject(_assetState)
+    console.log(`assetstate`, assetState);
     const { mutate } = provideApolloClient(_client)(() => useMutation(UpdateEntityDocument));
     const updated = await mutate({
       id: _id,
-      metadata: getMetadataForUpload(uploadState.metadata) as Array<MetadataInput>,
+      metadata: getMetadataForUpload(uploadState.metadata, assetState.publication, assetState.action) as Array<MetadataInput>,
       relations: getRelationsForUpload(uploadState.relations) as Array<RelationInput>,
     })
     uploadLoadingState.update = "loaded"

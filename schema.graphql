@@ -74,6 +74,13 @@ extend enum MetaKey {
 extend enum MetaKey {
   publication_status
   rights
+  user_action
+}
+
+enum UserAction {
+  created
+  updated
+  deleted
 }
 
 enum EntityTypes {
