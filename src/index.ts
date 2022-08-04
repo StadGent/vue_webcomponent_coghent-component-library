@@ -60,6 +60,7 @@ import {
   EntityInfo,
   EntityTypes,
   GetTestimoniesOfUserDocument,
+  UserAction,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -133,6 +134,7 @@ import {
 } from "./composables/constants";
 
 export {
+  UserAction,
   GetTestimoniesOfUserDocument,
   entityIsPublic,
   getFilename,

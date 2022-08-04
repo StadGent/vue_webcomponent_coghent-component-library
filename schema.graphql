@@ -412,6 +412,7 @@ type UploadComposable {
   metadata(key: [MetaKey]): [Metadata]
   relations: [Relation]
   liscense: Rights
+  action: UserAction
 }
 
 type Query {

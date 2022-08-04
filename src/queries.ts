@@ -666,6 +666,7 @@ export type Ticket = {
 
 export type UploadComposable = {
   __typename?: 'UploadComposable';
+  action?: Maybe<UserAction>;
   base64Image?: Maybe<Scalars['String']>;
   file_location?: Maybe<Scalars['String']>;
   liscense?: Maybe<Rights>;

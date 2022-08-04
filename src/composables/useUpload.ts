@@ -14,6 +14,7 @@ export type UploadState = {
   uploader: string | null,
   liscense: string,
   status: UploadStatus | null
+  action: UserAction | null
 }
 
 export type UploadLoadingState = {
@@ -58,7 +59,8 @@ const initUploadState = {
   relations: [],
   uploader: null,
   liscense: License["cc0"],
-  status: null
+  status: null,
+  action: null
 }
 export const uploadLoadingState = reactive<UploadLoadingState>({
   actionValues: "ready",
@@ -77,6 +79,7 @@ const useUpload = () => {
     uploadState.liscense = License["cc0"]
     currentUploadStep.value = 0
     uploadState.step = currentUploadStep.value
+    uploadState.action = null
 
     nextStep()
     uploadState.uploader = _uploader
@@ -90,6 +93,7 @@ const useUpload = () => {
     uploadState.file = _upload.file_location
     uploadState.base64Image = _upload.base64Image!
     uploadState.liscense = _upload.liscense!
+    uploadState.action = _upload.action!
   }
 
   const setStep = (_step: number) => {
@@ -261,14 +265,9 @@ const useUpload = () => {
   const getAssetStateObject = (_state: AssetState): Promise<AssetStateObject> => {
     return new Promise((resolve, reject) => {
       for (const key in definedAssetStates) {
-        console.log(`KEY`, key)
-        console.log(`STATE`, _state)
-        console.log(`KEY == STATE`, _state == key)
-        console.log(`KEY === STATE`, _state === key)
         if (_state == key) resolve(definedAssetStates[key])
       }
-      // console.log(`DEFAULT ASSETSTATE`)
-      // resolve(definedAssetStates.updated)
+      resolve(definedAssetStates.updated)
     })
   }
 
@@ -284,6 +283,10 @@ const useUpload = () => {
     })
     uploadLoadingState.update = "loaded"
     return updated ? updated?.data?.UpdateEntity : null
+  }
+
+  const getAction = () => {
+    return uploadState.action
   }
 
   const GetUploadsByStatus = () => { }
@@ -306,6 +309,7 @@ const useUpload = () => {
     getMediafileLink,
     entityToUploadComposable,
     updateAsset,
+    getAction,
   }
 }
 export default useUpload
