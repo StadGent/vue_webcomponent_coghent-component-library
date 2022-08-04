@@ -5,11 +5,12 @@ import { Entity } from "..";
 export declare type UseBoxVisiter = {
     create: (_storyId: string) => Promise<BoxVisiter>;
     getByCode: (code: string) => Promise<BoxVisiter | null>;
-    getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories) => Promise<Array<Relation>>;
+    getRelationsByType: (code: string, _type: RelationType.Visited | RelationType.InBasket | RelationType.Stories | RelationType.Components) => Promise<Array<Relation>>;
     addStoryToVisiter: (_code: string, _storyId: string) => Promise<BoxVisiter | null>;
     addFrameToStory: (_code: string, _frameInput: FrameInput) => Promise<BoxVisiter | null>;
-    addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.InBasket) => Promise<Array<Relation>>;
-    deleteRelationFromBoxVisiter: (_code: string, _relationId: string) => Promise<any>;
+    addAssetToBoxVisiter: (_code: string, _assetId: string, _type: RelationType.Visited | RelationType.Components) => Promise<Array<Relation>>;
+    deleteBasketItemFromBoxVisiter: (_code: string, _relationId: string) => Promise<any>;
+    addTouchTableTime: (_code: string) => Promise<BoxVisiter>;
     selectedStory: Ref<StorySelected | undefined>;
     setSelectedStory: (input: StorySelected) => void;
     setStartAsset: (input: Entity) => void;
@@ -94,6 +95,249 @@ declare const boxVisiter: Ref<{
         value?: string | null | undefined;
     } | null)[] | null | undefined;
     start_time?: string | null | undefined;
+    storyboxes?: ({
+        __typename?: "Entity" | undefined;
+        _key?: string | null | undefined;
+        assets?: (any | null)[] | null | undefined;
+        collections: ({
+            __typename?: "Relation" | undefined;
+            active?: boolean | null | undefined;
+            audioFile?: string | null | undefined;
+            date?: string | null | undefined;
+            key: string;
+            label?: string | null | undefined;
+            last_frame?: string | null | undefined;
+            order?: number | null | undefined;
+            position?: {
+                __typename?: "Position" | undefined;
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+            } | null | undefined;
+            scale?: number | null | undefined;
+            seen_frames?: ({
+                __typename?: "FrameSeen" | undefined;
+                date: number;
+                id: string;
+            } | null)[] | null | undefined;
+            setMediafile?: number | null | undefined;
+            subtitleFile?: string | null | undefined;
+            timestamp_end?: number | null | undefined;
+            timestamp_start?: number | null | undefined;
+            timestamp_zoom?: number | null | undefined;
+            total_frames?: number | null | undefined;
+            type: RelationType;
+            value?: string | null | undefined;
+        } | null)[];
+        components?: (any | null)[] | null | undefined;
+        componentsOfType?: (any | null)[] | null | undefined;
+        frames?: (any | null)[] | null | undefined;
+        id: string;
+        mediafiles?: ({
+            __typename?: "MediaFile" | undefined;
+            _id: string;
+            entities?: (string | null)[] | null | undefined;
+            filename?: string | null | undefined;
+            img_height?: string | null | undefined;
+            img_width?: string | null | undefined;
+            mediainfo?: {
+                __typename?: "MediaInfo" | undefined;
+                height: string;
+                width: string;
+            } | null | undefined;
+            mediatype?: {
+                __typename?: "MimeType" | undefined;
+                audio?: boolean | null | undefined;
+                image?: boolean | null | undefined;
+                mime?: import("../queries").Mime | null | undefined;
+                pdf?: boolean | null | undefined;
+                type?: string | null | undefined;
+                video?: boolean | null | undefined;
+            } | null | undefined;
+            metadata?: ({
+                __typename?: "MediaFileMetadata" | undefined;
+                key?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[] | null | undefined;
+            mimetype?: string | null | undefined;
+            original_file_location?: string | null | undefined;
+            primary_transcode_location?: string | null | undefined;
+            thumbnail_file_location?: string | null | undefined;
+            transcode_filename?: string | null | undefined;
+        } | null)[] | null | undefined;
+        metadata: ({
+            __typename?: "Metadata" | undefined;
+            key: import("../queries").MetaKey;
+            label?: string | null | undefined;
+            lang?: string | null | undefined;
+            nestedMetaData?: any | null | undefined;
+            type?: RelationType | null | undefined;
+            unMappedKey?: string | null | undefined;
+            value?: string | null | undefined;
+        } | null)[];
+        metadataByLabel: ({
+            __typename?: "Metadata" | undefined;
+            key: import("../queries").MetaKey;
+            label?: string | null | undefined;
+            lang?: string | null | undefined;
+            nestedMetaData?: any | null | undefined;
+            type?: RelationType | null | undefined;
+            unMappedKey?: string | null | undefined;
+            value?: string | null | undefined;
+        } | null)[];
+        metadataCollection?: ({
+            __typename?: "MetadataCollection" | undefined;
+            data?: ({
+                __typename?: "Metadata" | undefined;
+                key: import("../queries").MetaKey;
+                label?: string | null | undefined;
+                lang?: string | null | undefined;
+                nestedMetaData?: any | null | undefined;
+                type?: RelationType | null | undefined;
+                unMappedKey?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[] | null | undefined;
+            label: string;
+            nested?: boolean | null | undefined;
+        } | null)[] | null | undefined;
+        nonPublicMediafiles?: ({
+            __typename?: "MediaFile" | undefined;
+            _id: string;
+            entities?: (string | null)[] | null | undefined;
+            filename?: string | null | undefined;
+            img_height?: string | null | undefined;
+            img_width?: string | null | undefined;
+            mediainfo?: {
+                __typename?: "MediaInfo" | undefined;
+                height: string;
+                width: string;
+            } | null | undefined;
+            mediatype?: {
+                __typename?: "MimeType" | undefined;
+                audio?: boolean | null | undefined;
+                image?: boolean | null | undefined;
+                mime?: import("../queries").Mime | null | undefined;
+                pdf?: boolean | null | undefined;
+                type?: string | null | undefined;
+                video?: boolean | null | undefined;
+            } | null | undefined;
+            metadata?: ({
+                __typename?: "MediaFileMetadata" | undefined;
+                key?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[] | null | undefined;
+            mimetype?: string | null | undefined;
+            original_file_location?: string | null | undefined;
+            primary_transcode_location?: string | null | undefined;
+            thumbnail_file_location?: string | null | undefined;
+            transcode_filename?: string | null | undefined;
+        } | null)[] | null | undefined;
+        object_id: string;
+        primary_height?: string | null | undefined;
+        primary_mediafile?: string | null | undefined;
+        primary_mediafile_info?: {
+            __typename?: "MediaInfo" | undefined;
+            height: string;
+            width: string;
+        } | null | undefined;
+        primary_mediafile_location?: string | null | undefined;
+        primary_transcode?: string | null | undefined;
+        primary_transcode_location?: string | null | undefined;
+        primary_width?: string | null | undefined;
+        publicationStatus?: ({
+            __typename?: "Metadata" | undefined;
+            key: import("../queries").MetaKey;
+            label?: string | null | undefined;
+            lang?: string | null | undefined;
+            nestedMetaData?: any | null | undefined;
+            type?: RelationType | null | undefined;
+            unMappedKey?: string | null | undefined;
+            value?: string | null | undefined;
+        } | null)[] | null | undefined;
+        relationMetadata?: ({
+            __typename?: "Relation" | undefined;
+            active?: boolean | null | undefined;
+            audioFile?: string | null | undefined;
+            date?: string | null | undefined;
+            key: string;
+            label?: string | null | undefined;
+            last_frame?: string | null | undefined;
+            order?: number | null | undefined;
+            position?: {
+                __typename?: "Position" | undefined;
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+            } | null | undefined;
+            scale?: number | null | undefined;
+            seen_frames?: ({
+                __typename?: "FrameSeen" | undefined;
+                date: number;
+                id: string;
+            } | null)[] | null | undefined;
+            setMediafile?: number | null | undefined;
+            subtitleFile?: string | null | undefined;
+            timestamp_end?: number | null | undefined;
+            timestamp_start?: number | null | undefined;
+            timestamp_zoom?: number | null | undefined;
+            total_frames?: number | null | undefined;
+            type: RelationType;
+            value?: string | null | undefined;
+        } | null)[] | null | undefined;
+        relations?: ({
+            __typename?: "Relation" | undefined;
+            active?: boolean | null | undefined;
+            audioFile?: string | null | undefined;
+            date?: string | null | undefined;
+            key: string;
+            label?: string | null | undefined;
+            last_frame?: string | null | undefined;
+            order?: number | null | undefined;
+            position?: {
+                __typename?: "Position" | undefined;
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+            } | null | undefined;
+            scale?: number | null | undefined;
+            seen_frames?: ({
+                __typename?: "FrameSeen" | undefined;
+                date: number;
+                id: string;
+            } | null)[] | null | undefined;
+            setMediafile?: number | null | undefined;
+            subtitleFile?: string | null | undefined;
+            timestamp_end?: number | null | undefined;
+            timestamp_start?: number | null | undefined;
+            timestamp_zoom?: number | null | undefined;
+            total_frames?: number | null | undefined;
+            type: RelationType;
+            value?: string | null | undefined;
+        } | null)[] | null | undefined;
+        scopeNote: ({
+            __typename?: "Metadata" | undefined;
+            key: import("../queries").MetaKey;
+            label?: string | null | undefined;
+            lang?: string | null | undefined;
+            nestedMetaData?: any | null | undefined;
+            type?: RelationType | null | undefined;
+            unMappedKey?: string | null | undefined;
+            value?: string | null | undefined;
+        } | null)[];
+        testimonies?: (any | null)[] | null | undefined;
+        title: ({
+            __typename?: "Metadata" | undefined;
+            key: import("../queries").MetaKey;
+            label?: string | null | undefined;
+            lang?: string | null | undefined;
+            nestedMetaData?: any | null | undefined;
+            type?: RelationType | null | undefined;
+            unMappedKey?: string | null | undefined;
+            value?: string | null | undefined;
+        } | null)[];
+        type: string;
+        user?: string | null | undefined;
+    } | null)[] | null | undefined;
     ticketUsed?: number | null | undefined;
     touch_table_time?: string | null | undefined;
     type: string;
@@ -204,6 +448,38 @@ declare const historyAssets: Ref<{
         label: string;
         nested?: boolean | null | undefined;
     } | null)[] | null | undefined;
+    nonPublicMediafiles?: ({
+        __typename?: "MediaFile" | undefined;
+        _id: string;
+        entities?: (string | null)[] | null | undefined;
+        filename?: string | null | undefined;
+        img_height?: string | null | undefined;
+        img_width?: string | null | undefined;
+        mediainfo?: {
+            __typename?: "MediaInfo" | undefined;
+            height: string;
+            width: string;
+        } | null | undefined;
+        mediatype?: {
+            __typename?: "MimeType" | undefined;
+            audio?: boolean | null | undefined;
+            image?: boolean | null | undefined;
+            mime?: import("../queries").Mime | null | undefined;
+            pdf?: boolean | null | undefined;
+            type?: string | null | undefined;
+            video?: boolean | null | undefined;
+        } | null | undefined;
+        metadata?: ({
+            __typename?: "MediaFileMetadata" | undefined;
+            key?: string | null | undefined;
+            value?: string | null | undefined;
+        } | null)[] | null | undefined;
+        mimetype?: string | null | undefined;
+        original_file_location?: string | null | undefined;
+        primary_transcode_location?: string | null | undefined;
+        thumbnail_file_location?: string | null | undefined;
+        transcode_filename?: string | null | undefined;
+    } | null)[] | null | undefined;
     object_id: string;
     primary_height?: string | null | undefined;
     primary_mediafile?: string | null | undefined;
@@ -216,6 +492,16 @@ declare const historyAssets: Ref<{
     primary_transcode?: string | null | undefined;
     primary_transcode_location?: string | null | undefined;
     primary_width?: string | null | undefined;
+    publicationStatus?: ({
+        __typename?: "Metadata" | undefined;
+        key: import("../queries").MetaKey;
+        label?: string | null | undefined;
+        lang?: string | null | undefined;
+        nestedMetaData?: any | null | undefined;
+        type?: RelationType | null | undefined;
+        unMappedKey?: string | null | undefined;
+        value?: string | null | undefined;
+    } | null)[] | null | undefined;
     relationMetadata?: ({
         __typename?: "Relation" | undefined;
         active?: boolean | null | undefined;
@@ -286,6 +572,7 @@ declare const historyAssets: Ref<{
         unMappedKey?: string | null | undefined;
         value?: string | null | undefined;
     } | null)[];
+    testimonies?: (any | null)[] | null | undefined;
     title: ({
         __typename?: "Metadata" | undefined;
         key: import("../queries").MetaKey;
@@ -297,6 +584,7 @@ declare const historyAssets: Ref<{
         value?: string | null | undefined;
     } | null)[];
     type: string;
+    user?: string | null | undefined;
 }[]>;
 declare const useBoxVisiter: (_client: ApolloClient<NormalizedCacheObject>) => UseBoxVisiter;
 export { useBoxVisiter, boxVisiter, startAsset, selectedStory, historyAssets };

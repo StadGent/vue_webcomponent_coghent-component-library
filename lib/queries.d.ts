@@ -34,6 +34,7 @@ export declare type BoxVisiter = {
     relationByType?: Maybe<Array<Maybe<Relation>>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     start_time?: Maybe<Scalars['String']>;
+    storyboxes?: Maybe<Array<Maybe<Entity>>>;
     ticketUsed?: Maybe<Scalars['Int']>;
     touch_table_time?: Maybe<Scalars['String']>;
     type: Scalars['String'];
@@ -72,6 +73,7 @@ export declare type Entity = {
     metadata: Array<Maybe<Metadata>>;
     metadataByLabel: Array<Maybe<Metadata>>;
     metadataCollection?: Maybe<Array<Maybe<MetadataCollection>>>;
+    nonPublicMediafiles?: Maybe<Array<Maybe<MediaFile>>>;
     object_id: Scalars['String'];
     primary_height?: Maybe<Scalars['String']>;
     primary_mediafile?: Maybe<Scalars['String']>;
@@ -80,11 +82,14 @@ export declare type Entity = {
     primary_transcode?: Maybe<Scalars['String']>;
     primary_transcode_location?: Maybe<Scalars['String']>;
     primary_width?: Maybe<Scalars['String']>;
+    publicationStatus?: Maybe<Array<Maybe<Metadata>>>;
     relationMetadata?: Maybe<Array<Maybe<Relation>>>;
     relations?: Maybe<Array<Maybe<Relation>>>;
     scopeNote: Array<Maybe<Metadata>>;
+    testimonies?: Maybe<Array<Maybe<Entity>>>;
     title: Array<Maybe<Metadata>>;
     type: Scalars['String'];
+    user?: Maybe<Scalars['String']>;
 };
 export declare type EntityComponentsOfTypeArgs = {
     key?: Maybe<Scalars['String']>;
@@ -99,6 +104,11 @@ export declare type EntityMetadataCollectionArgs = {
     key?: Maybe<Array<Maybe<MetaKey>>>;
     label?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
+export declare type EntityInfo = {
+    description: Scalars['String'];
+    title: Scalars['String'];
+    type: EntityTypes;
+};
 export declare enum EntityTypes {
     Asset = "asset",
     BoxVisit = "box_visit",
@@ -106,6 +116,7 @@ export declare enum EntityTypes {
     Frame = "frame",
     Person = "person",
     Story = "story",
+    Testimony = "testimony",
     Thesaurus = "thesaurus"
 }
 export declare type FilterInput = {
@@ -193,16 +204,25 @@ export declare type MediaInfo = {
     height: Scalars['String'];
     width: Scalars['String'];
 };
+export declare type MediafilesResults = {
+    __typename?: 'MediafilesResults';
+    count?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
+    results?: Maybe<Array<Maybe<MediaFile>>>;
+};
 export declare enum MetaKey {
     QrCode = "QRCode",
     BoxCode = "boxCode",
     Collection = "collection",
+    Date = "date",
     Depth = "depth",
     Description = "description",
     Firstname = "firstname",
     Fullname = "fullname",
     Height = "height",
     Lastname = "lastname",
+    Likes = "likes",
     Maker = "maker",
     Material = "material",
     Nationality = "nationality",
@@ -212,6 +232,7 @@ export declare enum MetaKey {
     PublicationStatus = "publication_status",
     Rights = "rights",
     ScopeNote = "scopeNote",
+    Status = "status",
     Title = "title",
     Type = "type",
     UnMapped = "unMapped",
@@ -235,6 +256,7 @@ export declare type MetadataCollection = {
 };
 export declare type MetadataInput = {
     key: MetaKey;
+    label?: Maybe<Scalars['String']>;
     lang?: Maybe<Scalars['String']>;
     value: Scalars['String'];
 };
@@ -256,9 +278,11 @@ export declare type Mutation = {
     AddAssetToBoxVisiter: Array<Maybe<Relation>>;
     AddFrameToStoryBoxVisiter?: Maybe<BoxVisiter>;
     AddStoryToBoxVisiter?: Maybe<BoxVisiter>;
-    DeleteBoxVisiterRelation: Array<Maybe<Relation>>;
+    AddTouchTableTime?: Maybe<BoxVisiter>;
+    CreateTestimony?: Maybe<Entity>;
+    DeleteBoxVisiterBasketItem: Array<Maybe<Relation>>;
     DeleteEntity?: Maybe<Scalars['String']>;
-    UpdateBoxVisiterTouchtableTime?: Maybe<BoxVisiter>;
+    UpdateEntity?: Maybe<Entity>;
     UpdatedScannedOfBoxvisiter?: Maybe<BoxVisiter>;
     UploadMediafile?: Maybe<MediaFile>;
     replaceMetadata: Array<Metadata>;
@@ -276,16 +300,24 @@ export declare type MutationAddStoryToBoxVisiterArgs = {
     code: Scalars['String'];
     storyId: Scalars['String'];
 };
-export declare type MutationDeleteBoxVisiterRelationArgs = {
+export declare type MutationAddTouchTableTimeArgs = {
+    _code: Scalars['String'];
+};
+export declare type MutationCreateTestimonyArgs = {
+    assetId: Scalars['String'];
+    entityInfo: EntityInfo;
+};
+export declare type MutationDeleteBoxVisiterBasketItemArgs = {
     code: Scalars['String'];
     relationId: Scalars['String'];
 };
 export declare type MutationDeleteEntityArgs = {
     id: Scalars['String'];
 };
-export declare type MutationUpdateBoxVisiterTouchtableTimeArgs = {
-    code: Scalars['String'];
-    touchTableTime: Scalars['String'];
+export declare type MutationUpdateEntityArgs = {
+    id: Scalars['String'];
+    metadata: Array<Maybe<MetadataInput>>;
+    relations: Array<Maybe<RelationInput>>;
 };
 export declare type MutationUpdatedScannedOfBoxvisiterArgs = {
     code: Scalars['String'];
@@ -308,30 +340,37 @@ export declare type Position = {
 };
 export declare enum Publication {
     Private = "private",
-    Public = "public"
+    Public = "public",
+    Validate = "validate"
 }
 export declare type Query = {
     __typename?: 'Query';
     ActiveBox: EntitiesResults;
     AddEntityAsRelation?: Maybe<Array<Maybe<Relation>>>;
+    BasketByCustomFrameId?: Maybe<Array<Maybe<Relation>>>;
     BoxVisiterByCode?: Maybe<BoxVisiter>;
     BoxVisiterRelationsByType?: Maybe<Array<Maybe<Relation>>>;
     BoxVisiters?: Maybe<BoxVisitersResults>;
     CreateBoxVisiter?: Maybe<BoxVisiter>;
+    CreateEntity?: Maybe<Entity>;
     CreateStorybox?: Maybe<Entity>;
     Entities?: Maybe<EntitiesResults>;
     Entity?: Maybe<Entity>;
+    GetMyUploadedAssets?: Maybe<EntitiesResults>;
     GetStoryById?: Maybe<Entity>;
+    GetTestimoniesOfUser?: Maybe<Array<Maybe<Entity>>>;
     GetUploadRelations?: Maybe<EntitiesResults>;
     GetvisiterOfEntity?: Maybe<BoxVisiter>;
     LinkFrameToVisiter?: Maybe<BoxVisiter>;
     LinkStorybox?: Maybe<Entity>;
+    LinktestimonyToAsset?: Maybe<Array<Maybe<Relation>>>;
     PrintBoxTicket: Ticket;
     Relations?: Maybe<RelationsResults>;
     RelationsAsEntities?: Maybe<Array<Maybe<Entity>>>;
     Stories?: Maybe<EntitiesResults>;
     StoryBox?: Maybe<Entity>;
     Storybox?: Maybe<EntitiesResults>;
+    UploadObjectFromEntity?: Maybe<UploadComposable>;
     User?: Maybe<User>;
 };
 export declare type QueryActiveBoxArgs = {
@@ -340,6 +379,9 @@ export declare type QueryActiveBoxArgs = {
 export declare type QueryAddEntityAsRelationArgs = {
     entityId: Scalars['String'];
     entityRelationId: Scalars['String'];
+};
+export declare type QueryBasketByCustomFrameIdArgs = {
+    frameId: Scalars['String'];
 };
 export declare type QueryBoxVisiterByCodeArgs = {
     code: Scalars['String'];
@@ -350,6 +392,9 @@ export declare type QueryBoxVisiterRelationsByTypeArgs = {
 };
 export declare type QueryCreateBoxVisiterArgs = {
     storyId: Scalars['String'];
+};
+export declare type QueryCreateEntityArgs = {
+    entityInfo: EntityInfo;
 };
 export declare type QueryCreateStoryboxArgs = {
     storyboxInfo: StoryboxBuildInput;
@@ -380,8 +425,10 @@ export declare type QueryLinkFrameToVisiterArgs = {
 };
 export declare type QueryLinkStoryboxArgs = {
     code: Scalars['String'];
-    description: Scalars['String'];
-    title: Scalars['String'];
+};
+export declare type QueryLinktestimonyToAssetArgs = {
+    assetId: Scalars['String'];
+    testimonyId: Scalars['String'];
 };
 export declare type QueryPrintBoxTicketArgs = {
     code: Scalars['String'];
@@ -392,6 +439,9 @@ export declare type QueryRelationsArgs = {
 };
 export declare type QueryRelationsAsEntitiesArgs = {
     id: Scalars['String'];
+};
+export declare type QueryUploadObjectFromEntityArgs = {
+    entityId: Scalars['String'];
 };
 export declare type Relation = {
     __typename?: 'Relation';
@@ -426,12 +476,15 @@ export declare enum RelationType {
     Components = "components",
     Contains = "contains",
     Frames = "frames",
+    HasTestimony = "hasTestimony",
     InBasket = "inBasket",
     IsIn = "isIn",
+    IsTestimonyFor = "isTestimonyFor",
     IsTypeOf = "isTypeOf",
     IsUsedIn = "isUsedIn",
     Parent = "parent",
     Stories = "stories",
+    StoryBox = "story_box",
     UserConnected = "userConnected",
     Visited = "visited"
 }
@@ -456,6 +509,10 @@ export declare type SearchFilter = {
     skip_relations?: Maybe<Scalars['Boolean']>;
     value?: Maybe<Scalars['String']>;
 };
+export declare enum StatusKey {
+    Hidden = "hidden",
+    Shown = "shown"
+}
 export declare type Story = {
     __typename?: 'Story';
     active?: Maybe<Scalars['Boolean']>;
@@ -492,6 +549,17 @@ export declare type Ticket = {
     __typename?: 'Ticket';
     body: Scalars['String'];
     code: Scalars['String'];
+};
+export declare type UploadComposable = {
+    __typename?: 'UploadComposable';
+    base64Image?: Maybe<Scalars['String']>;
+    file_location?: Maybe<Scalars['String']>;
+    liscense?: Maybe<Rights>;
+    metadata?: Maybe<Array<Maybe<Metadata>>>;
+    relations?: Maybe<Array<Maybe<Relation>>>;
+};
+export declare type UploadComposableMetadataArgs = {
+    key?: Maybe<Array<Maybe<MetaKey>>>;
 };
 export declare enum UploadStatus {
     Creating = "creating",
@@ -687,6 +755,9 @@ export declare type FullBoxVisiterFragment = {
     relations?: Maybe<Array<Maybe<({
         __typename?: 'Relation';
     } & BoxRelationFragment)>>>;
+    storyboxes?: Maybe<Array<Maybe<({
+        __typename?: 'Entity';
+    } & TouchTableEntityFragment)>>>;
 };
 export declare type MinimalBoxVisiterFragment = {
     __typename?: 'BoxVisiter';
@@ -867,6 +938,11 @@ export declare type FullEntityFragment = {
         key: MetaKey;
         value?: Maybe<string>;
     }>>;
+    publicationStatus: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
     objectNumber: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -875,29 +951,44 @@ export declare type FullEntityFragment = {
     metadataCollection?: Maybe<Array<Maybe<({
         __typename?: 'MetadataCollection';
     } & MetadataCollectionFieldsFragment)>>>;
-    mediafiles?: Maybe<Array<Maybe<{
+    mediafiles?: Maybe<Array<Maybe<({
         __typename?: 'MediaFile';
-        _id: string;
-        original_file_location?: Maybe<string>;
-        transcode_filename?: Maybe<string>;
-        thumbnail_file_location?: Maybe<string>;
-        mimetype?: Maybe<string>;
-        filename?: Maybe<string>;
-        mediatype?: Maybe<{
-            __typename?: 'MimeType';
-            type?: Maybe<string>;
-            mime?: Maybe<Mime>;
-            image?: Maybe<boolean>;
-            audio?: Maybe<boolean>;
-            video?: Maybe<boolean>;
-            pdf?: Maybe<boolean>;
-        }>;
-        metadata?: Maybe<Array<Maybe<{
-            __typename?: 'MediaFileMetadata';
-            key?: Maybe<string>;
-            value?: Maybe<string>;
-        }>>>;
+    } & FullMediafileFragment)>>>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        value?: Maybe<string>;
     }>>>;
+    testimonies?: Maybe<Array<Maybe<({
+        __typename?: 'Entity';
+    } & TestimonyFragment)>>>;
+};
+export declare type TestimonyFragment = {
+    __typename?: 'Entity';
+    id: string;
+    user?: Maybe<string>;
+    description: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    likes: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    date: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
+    publicationStatus: Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>;
     relations?: Maybe<Array<Maybe<{
         __typename?: 'Relation';
         key: string;
@@ -1006,12 +1097,54 @@ export declare type AssetMetadataFragment = {
     scale?: Maybe<number>;
     audioFile?: Maybe<string>;
     subtitleFile?: Maybe<string>;
+    setMediafile?: Maybe<number>;
     position?: Maybe<{
         __typename?: 'Position';
         x?: Maybe<number>;
         y?: Maybe<number>;
         z?: Maybe<number>;
     }>;
+};
+export declare type FullMediafileFragment = {
+    __typename?: 'MediaFile';
+    _id: string;
+    original_file_location?: Maybe<string>;
+    filename?: Maybe<string>;
+    transcode_filename?: Maybe<string>;
+    thumbnail_file_location?: Maybe<string>;
+    primary_transcode_location?: Maybe<string>;
+    mimetype?: Maybe<string>;
+    mediatype?: Maybe<{
+        __typename?: 'MimeType';
+        type?: Maybe<string>;
+        mime?: Maybe<Mime>;
+        image?: Maybe<boolean>;
+        audio?: Maybe<boolean>;
+        video?: Maybe<boolean>;
+        pdf?: Maybe<boolean>;
+    }>;
+    metadata?: Maybe<Array<Maybe<{
+        __typename?: 'MediaFileMetadata';
+        key?: Maybe<string>;
+        value?: Maybe<string>;
+    }>>>;
+};
+export declare type FullUploadComposableFragment = {
+    __typename?: 'UploadComposable';
+    file_location?: Maybe<string>;
+    base64Image?: Maybe<string>;
+    liscense?: Maybe<Rights>;
+    metadata?: Maybe<Array<Maybe<{
+        __typename?: 'Metadata';
+        key: MetaKey;
+        value?: Maybe<string>;
+    }>>>;
+    relations?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        value?: Maybe<string>;
+    }>>>;
 };
 export declare type GetEntitiesQueryVariables = Exact<{
     limit?: Maybe<Scalars['Int']>;
@@ -1238,23 +1371,22 @@ export declare type AddAssetToBoxVisiterMutation = {
         order?: Maybe<number>;
     }>>;
 };
-export declare type DeleteRelationFromBoxVisiterMutationVariables = Exact<{
+export declare type DeleteBoxVisiterBasketItemMutationVariables = Exact<{
     code: Scalars['String'];
     relationId: Scalars['String'];
 }>;
-export declare type DeleteRelationFromBoxVisiterMutation = {
+export declare type DeleteBoxVisiterBasketItemMutation = {
     __typename?: 'Mutation';
-    DeleteBoxVisiterRelation: Array<Maybe<({
+    DeleteBoxVisiterBasketItem: Array<Maybe<({
         __typename?: 'Relation';
     } & FullRelationFragment)>>;
 };
-export declare type UpdateBoxVisiterTouchtableTimeMutationVariables = Exact<{
+export declare type AddTouchTableTimeMutationVariables = Exact<{
     code: Scalars['String'];
-    touchTableTime: Scalars['String'];
 }>;
-export declare type UpdateBoxVisiterTouchtableTimeMutation = {
+export declare type AddTouchTableTimeMutation = {
     __typename?: 'Mutation';
-    UpdateBoxVisiterTouchtableTime?: Maybe<({
+    AddTouchTableTime?: Maybe<({
         __typename?: 'BoxVisiter';
     } & FullBoxVisiterFragment)>;
 };
@@ -1286,6 +1418,15 @@ export declare type RelationsAsEntitiesQuery = {
         }>>>;
     } & MinimalEntityFragment)>>>;
 };
+export declare type CreateEntityQueryVariables = Exact<{
+    entityInfo: EntityInfo;
+}>;
+export declare type CreateEntityQuery = {
+    __typename?: 'Query';
+    CreateEntity?: Maybe<({
+        __typename?: 'Entity';
+    } & MinimalEntityFragment)>;
+};
 export declare type CreateStoryboxQueryVariables = Exact<{
     storyboxInfo: StoryboxBuildInput;
 }>;
@@ -1297,8 +1438,6 @@ export declare type CreateStoryboxQuery = {
 };
 export declare type LinkStoryboxQueryVariables = Exact<{
     code: Scalars['String'];
-    title: Scalars['String'];
-    description: Scalars['String'];
 }>;
 export declare type LinkStoryboxQuery = {
     __typename?: 'Query';
@@ -1403,6 +1542,48 @@ export declare type GetUploadRelationsQuery = {
         }>>>;
     }>;
 };
+export declare type CreateTestimonyMutationVariables = Exact<{
+    entityInfo: EntityInfo;
+    assetId: Scalars['String'];
+}>;
+export declare type CreateTestimonyMutation = {
+    __typename?: 'Mutation';
+    CreateTestimony?: Maybe<({
+        __typename?: 'Entity';
+    } & FullEntityFragment)>;
+};
+export declare type LinktestimonyToAssetQueryVariables = Exact<{
+    assetId: Scalars['String'];
+    testimonyId: Scalars['String'];
+}>;
+export declare type LinktestimonyToAssetQuery = {
+    __typename?: 'Query';
+    LinktestimonyToAsset?: Maybe<Array<Maybe<{
+        __typename?: 'Relation';
+        key: string;
+        type: RelationType;
+        label?: Maybe<string>;
+        value?: Maybe<string>;
+    }>>>;
+};
+export declare type GetTestimoniesOfUserQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type GetTestimoniesOfUserQuery = {
+    __typename?: 'Query';
+    GetTestimoniesOfUser?: Maybe<Array<Maybe<({
+        __typename?: 'Entity';
+    } & TestimonyFragment)>>>;
+};
+export declare type BasketByCustomFrameIdQueryVariables = Exact<{
+    frameId: Scalars['String'];
+}>;
+export declare type BasketByCustomFrameIdQuery = {
+    __typename?: 'Query';
+    BasketByCustomFrameId?: Maybe<Array<Maybe<({
+        __typename?: 'Relation';
+    } & FullRelationFragment)>>>;
+};
 export declare type UploadMediafileMutationVariables = Exact<{
     media: MediaFileInput;
     file?: Maybe<Scalars['Upload']>;
@@ -1417,10 +1598,76 @@ export declare type UploadMediafileMutation = {
         filename?: Maybe<string>;
     }>;
 };
+export declare type GetMyUploadedAssetsQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type GetMyUploadedAssetsQuery = {
+    __typename?: 'Query';
+    GetMyUploadedAssets?: Maybe<{
+        __typename?: 'EntitiesResults';
+        count?: Maybe<number>;
+        results?: Maybe<Array<Maybe<{
+            __typename?: 'Entity';
+            id: string;
+            type: string;
+            metadata: Array<Maybe<{
+                __typename?: 'Metadata';
+                key: MetaKey;
+                value?: Maybe<string>;
+            }>>;
+            relations?: Maybe<Array<Maybe<{
+                __typename?: 'Relation';
+                key: string;
+                type: RelationType;
+                value?: Maybe<string>;
+            }>>>;
+            nonPublicMediafiles?: Maybe<Array<Maybe<({
+                __typename?: 'MediaFile';
+            } & FullMediafileFragment)>>>;
+            mediafiles?: Maybe<Array<Maybe<({
+                __typename?: 'MediaFile';
+            } & FullMediafileFragment)>>>;
+        }>>>;
+    }>;
+};
+export declare type UploadObjectFromEntityQueryVariables = Exact<{
+    entityId: Scalars['String'];
+}>;
+export declare type UploadObjectFromEntityQuery = {
+    __typename?: 'Query';
+    UploadObjectFromEntity?: Maybe<({
+        __typename?: 'UploadComposable';
+    } & FullUploadComposableFragment)>;
+};
+export declare type UpdateEntityMutationVariables = Exact<{
+    id: Scalars['String'];
+    metadata: Array<Maybe<MetadataInput>> | Maybe<MetadataInput>;
+    relations: Array<Maybe<RelationInput>> | Maybe<RelationInput>;
+}>;
+export declare type UpdateEntityMutation = {
+    __typename?: 'Mutation';
+    UpdateEntity?: Maybe<{
+        __typename?: 'Entity';
+        id: string;
+        object_id: string;
+        metadata: Array<Maybe<{
+            __typename?: 'Metadata';
+            key: MetaKey;
+            value?: Maybe<string>;
+            label?: Maybe<string>;
+        }>>;
+        relations?: Maybe<Array<Maybe<{
+            __typename?: 'Relation';
+            type: RelationType;
+            key: string;
+            value?: Maybe<string>;
+        }>>>;
+    }>;
+};
 export declare const MinimalEntityFragmentDoc: DocumentNode<MinimalEntityFragment, unknown>;
+export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const PrimaryMediafileInfoFragmentDoc: DocumentNode<PrimaryMediafileInfoFragment, unknown>;
 export declare const TouchTableEntityFragmentDoc: DocumentNode<TouchTableEntityFragment, unknown>;
-export declare const BoxRelationFragmentDoc: DocumentNode<BoxRelationFragment, unknown>;
 export declare const FullBoxVisiterFragmentDoc: DocumentNode<FullBoxVisiterFragment, unknown>;
 export declare const MinimalBoxVisiterFragmentDoc: DocumentNode<MinimalBoxVisiterFragment, unknown>;
 export declare const StoryEntityFragmentDoc: DocumentNode<StoryEntityFragment, unknown>;
@@ -1429,10 +1676,13 @@ export declare const FullStoryFragmentDoc: DocumentNode<FullStoryFragment, unkno
 export declare const NestedEntityFragmentDoc: DocumentNode<NestedEntityFragment, unknown>;
 export declare const NestedEndEntityFragmentDoc: DocumentNode<NestedEndEntityFragment, unknown>;
 export declare const MetadataCollectionFieldsFragmentDoc: DocumentNode<MetadataCollectionFieldsFragment, unknown>;
+export declare const FullMediafileFragmentDoc: DocumentNode<FullMediafileFragment, unknown>;
+export declare const TestimonyFragmentDoc: DocumentNode<TestimonyFragment, unknown>;
 export declare const FullEntityFragmentDoc: DocumentNode<FullEntityFragment, unknown>;
 export declare const CreatorFragmentDoc: DocumentNode<CreatorFragment, unknown>;
 export declare const FullUserFragmentDoc: DocumentNode<FullUserFragment, unknown>;
 export declare const FullRelationFragmentDoc: DocumentNode<FullRelationFragment, unknown>;
+export declare const FullUploadComposableFragmentDoc: DocumentNode<FullUploadComposableFragment, unknown>;
 export declare const GetEntitiesDocument: DocumentNode<GetEntitiesQuery, Exact<{
     limit?: number | null | undefined;
     skip?: number | null | undefined;
@@ -1500,13 +1750,12 @@ export declare const AddAssetToBoxVisiterDocument: DocumentNode<AddAssetToBoxVis
     assetId: Scalars['String'];
     type: RelationType;
 }>>;
-export declare const DeleteRelationFromBoxVisiterDocument: DocumentNode<DeleteRelationFromBoxVisiterMutation, Exact<{
+export declare const DeleteBoxVisiterBasketItemDocument: DocumentNode<DeleteBoxVisiterBasketItemMutation, Exact<{
     code: Scalars['String'];
     relationId: Scalars['String'];
 }>>;
-export declare const UpdateBoxVisiterTouchtableTimeDocument: DocumentNode<UpdateBoxVisiterTouchtableTimeMutation, Exact<{
+export declare const AddTouchTableTimeDocument: DocumentNode<AddTouchTableTimeMutation, Exact<{
     code: Scalars['String'];
-    touchTableTime: Scalars['String'];
 }>>;
 export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEntityQuery, Exact<{
     limit?: number | null | undefined;
@@ -1515,13 +1764,14 @@ export declare const GetTouchTableEntityDocument: DocumentNode<GetTouchTableEnti
 export declare const RelationsAsEntitiesDocument: DocumentNode<RelationsAsEntitiesQuery, Exact<{
     id: Scalars['String'];
 }>>;
+export declare const CreateEntityDocument: DocumentNode<CreateEntityQuery, Exact<{
+    entityInfo: EntityInfo;
+}>>;
 export declare const CreateStoryboxDocument: DocumentNode<CreateStoryboxQuery, Exact<{
     storyboxInfo: StoryboxBuildInput;
 }>>;
 export declare const LinkStoryboxDocument: DocumentNode<LinkStoryboxQuery, Exact<{
     code: Scalars['String'];
-    title: Scalars['String'];
-    description: Scalars['String'];
 }>>;
 export declare const StoryboxDocument: DocumentNode<StoryboxQuery, Exact<{
     [key: string]: never;
@@ -1545,9 +1795,34 @@ export declare const UpdatedScannedOfBoxvisiterDocument: DocumentNode<UpdatedSca
 export declare const GetUploadRelationsDocument: DocumentNode<GetUploadRelationsQuery, Exact<{
     searchValue: Scalars['String'];
 }>>;
+export declare const CreateTestimonyDocument: DocumentNode<CreateTestimonyMutation, Exact<{
+    entityInfo: EntityInfo;
+    assetId: Scalars['String'];
+}>>;
+export declare const LinktestimonyToAssetDocument: DocumentNode<LinktestimonyToAssetQuery, Exact<{
+    assetId: Scalars['String'];
+    testimonyId: Scalars['String'];
+}>>;
+export declare const GetTestimoniesOfUserDocument: DocumentNode<GetTestimoniesOfUserQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare const BasketByCustomFrameIdDocument: DocumentNode<BasketByCustomFrameIdQuery, Exact<{
+    frameId: Scalars['String'];
+}>>;
 export declare const UploadMediafileDocument: DocumentNode<UploadMediafileMutation, Exact<{
     media: MediaFileInput;
     file?: Maybe<Scalars['Upload']>;
     relations?: RelationInput | Maybe<RelationInput>[] | null | undefined;
     metadata?: MetadataInput | Maybe<MetadataInput>[] | null | undefined;
+}>>;
+export declare const GetMyUploadedAssetsDocument: DocumentNode<GetMyUploadedAssetsQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare const UploadObjectFromEntityDocument: DocumentNode<UploadObjectFromEntityQuery, Exact<{
+    entityId: Scalars['String'];
+}>>;
+export declare const UpdateEntityDocument: DocumentNode<UpdateEntityMutation, Exact<{
+    id: Scalars['String'];
+    metadata: Array<Maybe<MetadataInput>> | Maybe<MetadataInput>;
+    relations: Array<Maybe<RelationInput>> | Maybe<RelationInput>;
 }>>;

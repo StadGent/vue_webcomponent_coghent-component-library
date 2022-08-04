@@ -2,17 +2,13 @@ declare const _default: import("vue").DefineComponent<{
     placeholder: {
         type: StringConstructor;
     };
+    icon: {
+        type: StringConstructor;
+        required: false;
+    };
     disabled: {
         type: BooleanConstructor;
         default: boolean;
-    };
-    ref: {
-        type: StringConstructor;
-        required: true;
-    };
-    modelValue: {
-        type: StringConstructor;
-        default: string;
     };
     styling: {
         type: StringConstructor;
@@ -20,22 +16,20 @@ declare const _default: import("vue").DefineComponent<{
         required: false;
     };
 }, {
-    onClick: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "onClick")[], "update:modelValue" | "onClick", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    submit: () => void;
+    inputValue: import("vue").Ref<string>;
+    checkIfEnter: (event: any) => void;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "submitField"[], "submitField", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     placeholder: {
         type: StringConstructor;
+    };
+    icon: {
+        type: StringConstructor;
+        required: false;
     };
     disabled: {
         type: BooleanConstructor;
         default: boolean;
-    };
-    ref: {
-        type: StringConstructor;
-        required: true;
-    };
-    modelValue: {
-        type: StringConstructor;
-        default: string;
     };
     styling: {
         type: StringConstructor;
@@ -43,11 +37,9 @@ declare const _default: import("vue").DefineComponent<{
         required: false;
     };
 }>> & {
-    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-    onOnClick?: ((...args: any[]) => any) | undefined;
+    onSubmitField?: ((...args: any[]) => any) | undefined;
 }, {
     disabled: boolean;
-    modelValue: string;
     styling: string;
 }>;
 export default _default;

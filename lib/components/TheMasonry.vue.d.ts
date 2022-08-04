@@ -157,6 +157,38 @@ declare const _default: import("vue").DefineComponent<{
                 label: string;
                 nested?: boolean | null | undefined;
             } | null)[] | null | undefined;
+            nonPublicMediafiles?: ({
+                __typename?: "MediaFile" | undefined;
+                _id: string;
+                entities?: (string | null)[] | null | undefined;
+                filename?: string | null | undefined;
+                img_height?: string | null | undefined;
+                img_width?: string | null | undefined;
+                mediainfo?: {
+                    __typename?: "MediaInfo" | undefined;
+                    height: string;
+                    width: string;
+                } | null | undefined;
+                mediatype?: {
+                    __typename?: "MimeType" | undefined;
+                    audio?: boolean | null | undefined;
+                    image?: boolean | null | undefined;
+                    mime?: import("../queries").Mime | null | undefined;
+                    pdf?: boolean | null | undefined;
+                    type?: string | null | undefined;
+                    video?: boolean | null | undefined;
+                } | null | undefined;
+                metadata?: ({
+                    __typename?: "MediaFileMetadata" | undefined;
+                    key?: string | null | undefined;
+                    value?: string | null | undefined;
+                } | null)[] | null | undefined;
+                mimetype?: string | null | undefined;
+                original_file_location?: string | null | undefined;
+                primary_transcode_location?: string | null | undefined;
+                thumbnail_file_location?: string | null | undefined;
+                transcode_filename?: string | null | undefined;
+            } | null)[] | null | undefined;
             object_id: string;
             primary_height?: string | null | undefined;
             primary_mediafile?: string | null | undefined;
@@ -169,6 +201,16 @@ declare const _default: import("vue").DefineComponent<{
             primary_transcode?: string | null | undefined;
             primary_transcode_location?: string | null | undefined;
             primary_width?: string | null | undefined;
+            publicationStatus?: ({
+                __typename?: "Metadata" | undefined;
+                key: import("../queries").MetaKey;
+                label?: string | null | undefined;
+                lang?: string | null | undefined;
+                nestedMetaData?: any | null | undefined;
+                type?: import("../queries").RelationType | null | undefined;
+                unMappedKey?: string | null | undefined;
+                value?: string | null | undefined;
+            } | null)[] | null | undefined;
             relationMetadata?: ({
                 __typename?: "Relation" | undefined;
                 active?: boolean | null | undefined;
@@ -239,6 +281,7 @@ declare const _default: import("vue").DefineComponent<{
                 unMappedKey?: string | null | undefined;
                 value?: string | null | undefined;
             } | null)[];
+            testimonies?: (any | null)[] | null | undefined;
             title: ({
                 __typename?: "Metadata" | undefined;
                 key: import("../queries").MetaKey;
@@ -250,6 +293,7 @@ declare const _default: import("vue").DefineComponent<{
                 value?: string | null | undefined;
             } | null)[];
             type: string;
+            user?: string | null | undefined;
         })[];
     }[]>;
     contructTiles: (numberOfTiles?: number, reset?: boolean) => void;
