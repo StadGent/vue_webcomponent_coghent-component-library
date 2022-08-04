@@ -286,6 +286,12 @@ fragment testimony on Entity {
     key
     value
   }
+  relations {
+    key
+    type
+    label
+    value
+  }
   user
 }
 
