@@ -392,6 +392,7 @@ fragment assetMetadata on Relation {
   scale
   audioFile
   subtitleFile
+  setMediafile
 }
 
 fragment fullMediafile on MediaFile {
