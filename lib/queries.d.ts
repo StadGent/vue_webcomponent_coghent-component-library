@@ -236,6 +236,7 @@ export declare enum MetaKey {
     Title = "title",
     Type = "type",
     UnMapped = "unMapped",
+    UserAction = "user_action",
     Width = "width"
 }
 export declare type Metadata = {
@@ -552,6 +553,7 @@ export declare type Ticket = {
 };
 export declare type UploadComposable = {
     __typename?: 'UploadComposable';
+    action?: Maybe<UserAction>;
     base64Image?: Maybe<Scalars['String']>;
     file_location?: Maybe<Scalars['String']>;
     liscense?: Maybe<Rights>;
@@ -577,6 +579,11 @@ export declare type User = {
     name: Scalars['String'];
     preferred_username: Scalars['String'];
 };
+export declare enum UserAction {
+    Created = "created",
+    Deleted = "deleted",
+    Updated = "updated"
+}
 /** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
 export declare type __EnumValue = {
     __typename?: '__EnumValue';

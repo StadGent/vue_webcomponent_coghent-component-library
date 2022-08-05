@@ -138003,3 +138003,13 @@ html[data-v-7e4054c4] {
 .maxStep[data-v-0e0700c9] {
   max-width: 9.5rem;
 }
+
+.progress[data-v-0e0700c9] {
+  display: all;
+}
+
+@media screen and (max-width: 1024px) {
+  .progress[data-v-0e0700c9] {
+    display: none;
+  }
+}

@@ -244,16 +244,6 @@ declare const boxVisiter: Ref<{
         primary_transcode?: string | null | undefined;
         primary_transcode_location?: string | null | undefined;
         primary_width?: string | null | undefined;
-        publicationStatus?: ({
-            __typename?: "Metadata" | undefined;
-            key: import("../queries").MetaKey;
-            label?: string | null | undefined;
-            lang?: string | null | undefined;
-            nestedMetaData?: any | null | undefined;
-            type?: RelationType | null | undefined;
-            unMappedKey?: string | null | undefined;
-            value?: string | null | undefined;
-        } | null)[] | null | undefined;
         relationMetadata?: ({
             __typename?: "Relation" | undefined;
             active?: boolean | null | undefined;
@@ -324,7 +314,6 @@ declare const boxVisiter: Ref<{
             unMappedKey?: string | null | undefined;
             value?: string | null | undefined;
         } | null)[];
-        testimonies?: (any | null)[] | null | undefined;
         title: ({
             __typename?: "Metadata" | undefined;
             key: import("../queries").MetaKey;
@@ -336,7 +325,6 @@ declare const boxVisiter: Ref<{
             value?: string | null | undefined;
         } | null)[];
         type: string;
-        user?: string | null | undefined;
     } | null)[] | null | undefined;
     ticketUsed?: number | null | undefined;
     touch_table_time?: string | null | undefined;
@@ -492,16 +480,6 @@ declare const historyAssets: Ref<{
     primary_transcode?: string | null | undefined;
     primary_transcode_location?: string | null | undefined;
     primary_width?: string | null | undefined;
-    publicationStatus?: ({
-        __typename?: "Metadata" | undefined;
-        key: import("../queries").MetaKey;
-        label?: string | null | undefined;
-        lang?: string | null | undefined;
-        nestedMetaData?: any | null | undefined;
-        type?: RelationType | null | undefined;
-        unMappedKey?: string | null | undefined;
-        value?: string | null | undefined;
-    } | null)[] | null | undefined;
     relationMetadata?: ({
         __typename?: "Relation" | undefined;
         active?: boolean | null | undefined;
@@ -572,7 +550,6 @@ declare const historyAssets: Ref<{
         unMappedKey?: string | null | undefined;
         value?: string | null | undefined;
     } | null)[];
-    testimonies?: (any | null)[] | null | undefined;
     title: ({
         __typename?: "Metadata" | undefined;
         key: import("../queries").MetaKey;
@@ -584,7 +561,6 @@ declare const historyAssets: Ref<{
         value?: string | null | undefined;
     } | null)[];
     type: string;
-    user?: string | null | undefined;
 }[]>;
 declare const useBoxVisiter: (_client: ApolloClient<NormalizedCacheObject>) => UseBoxVisiter;
 export { useBoxVisiter, boxVisiter, startAsset, selectedStory, historyAssets };
