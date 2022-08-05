@@ -1,5 +1,21 @@
 <template>
-  <div class="flex w-full justify-center object-top">
+  <div
+    class="
+      visible
+      col-span-2
+      h-full
+      py-2
+      lg:hidden
+      bg-accent-purple
+      text-text-white
+      flex
+      justify-center
+      items-center
+    "
+  >
+    {{ currentStepTitle() }}
+  </div>
+  <div class="progress flex w-full justify-center object-top">
     <div
       v-for="(step, index) in steps"
       :key="index"
@@ -143,6 +159,13 @@ export default defineComponent({
       return style;
     };
 
+    const currentStepTitle = () => {
+      let title = "";
+      const step = props.steps[props.currentStep - 1];
+      if (step) title = step as string;
+      return title;
+    };
+
     return {
       stepStyle,
       getInnerCircleStyle,
@@ -150,6 +173,7 @@ export default defineComponent({
       showCheckIcon,
       getOuterCircleStyle,
       correction,
+      currentStepTitle,
     };
   },
 });
@@ -161,5 +185,14 @@ export default defineComponent({
 }
 .maxStep {
   max-width: 9.5rem;
+}
+.progress {
+  display: all;
+}
+
+@media screen and (max-width: 1024px) {
+  .progress {
+    display: none;
+  }
 }
 </style>

@@ -108,12 +108,8 @@ const useUpload = () => {
   }
 
   const previousStep = () => {
-    if (currentUploadStep.value === 2 && uploadState.file !== null) {
-      uploadState.step = currentUploadStep.value
-    } else {
-      currentUploadStep.value--
-      uploadState.step = currentUploadStep.value
-    }
+    currentUploadStep.value--
+    uploadState.step = currentUploadStep.value
   }
 
   const setCreator = (_creator: Rights) => {

@@ -1,13 +1,13 @@
 <template>
   <span
-    class="flex max-h-12 font-bold items-center stroke-current cursor-pointer"
+    class="flex max-h-12 font-bold items-center stroke-current cursor-pointer px-6"
     :class="buttonstyles[customStyle]"
     @click="onClick"
   >
     <base-icon
       v-if="iconShown && iconLeft"
       :class="
-        `flex ${noMargin ? '' : 'mr-3 -ml-2'} stroke-current ` +
+        `flex ${noMargin ? '' : 'mr-3 ml-2'} stroke-current ` +
         iconstyles[customIconStyle]
       "
       :icon="customIcon"
@@ -16,7 +16,7 @@
     <base-icon
       v-if="iconShown && !iconLeft"
       :class="
-        `flex ${noMargin ? '' : 'mr-3 -ml-2'} stroke-current ` +
+        `flex ${noMargin ? '' : 'mr-3 ml-2'} stroke-current ` +
         iconstyles[customIconStyle]
       "
       :icon="customIcon"
@@ -74,11 +74,11 @@ type ButtonTypes =
   | "touchtable-black"
   | "square-icon";
 const buttonstyles: Record<ButtonTypes, string> = {
-  primary: "text-text-white bg-accent-purple rounded-full shadow-lg px-10 py-3",
+  primary: "text-text-white bg-accent-purple rounded-full shadow-lg justify-center py-3",
   primaryUnavailable:
-    "text-text-white bg-text-dark opacity-50 rounded-full shadow-lg px-10 py-3 cursor-not-allowed",
+    "text-text-white bg-text-dark opacity-50 rounded-full shadow-lg justify-center py-3 cursor-not-allowed",
   secondary:
-    "text-accent-purple bg-text-white rounded-full shadow-lg px-10 py-3",
+    "text-accent-purple bg-text-white rounded-full shadow-lg justify-center py-3",
   "ghost-black": "text-text-dark py-3",
   "ghost-purple": "text-accent-purple py-3",
   "ghost-red": "text-text-red py-3",
