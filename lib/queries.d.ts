@@ -186,8 +186,8 @@ export declare type MediaFile = {
     metadata?: Maybe<Array<Maybe<MediaFileMetadata>>>;
     mimetype?: Maybe<Scalars['String']>;
     original_file_location?: Maybe<Scalars['String']>;
-    primary_transcode_location?: Maybe<Scalars['String']>;
     thumbnail_file_location?: Maybe<Scalars['String']>;
+    transcode_file_location?: Maybe<Scalars['String']>;
     transcode_filename?: Maybe<Scalars['String']>;
 };
 export declare type MediaFileInput = {
@@ -930,6 +930,7 @@ export declare type FullEntityFragment = {
     type: string;
     primary_mediafile?: Maybe<string>;
     primary_transcode?: Maybe<string>;
+    primary_transcode_location?: Maybe<string>;
     title: Array<Maybe<{
         __typename?: 'Metadata';
         key: MetaKey;
@@ -1119,7 +1120,7 @@ export declare type FullMediafileFragment = {
     filename?: Maybe<string>;
     transcode_filename?: Maybe<string>;
     thumbnail_file_location?: Maybe<string>;
-    primary_transcode_location?: Maybe<string>;
+    transcode_file_location?: Maybe<string>;
     mimetype?: Maybe<string>;
     mediatype?: Maybe<{
         __typename?: 'MimeType';

@@ -131,9 +131,11 @@ import {
   PublicationStatus,
   License,
   NO_IMAGE_PATH,
+  getPublicationKeyFromValue,
 } from "./composables/constants";
 
 export {
+  getPublicationKeyFromValue,
   UserAction,
   GetTestimoniesOfUserDocument,
   entityIsPublic,

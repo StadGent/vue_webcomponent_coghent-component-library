@@ -324,7 +324,7 @@ fragment storyEntity on Entity {
     key
     value
   }
-  metadata(key: [description, collection]) {
+  metadata(key: [description, collection, publication_status]) {
     key
     value
   }

@@ -11,7 +11,7 @@ export const PublicationStatus: Record<Publication, string> = {
   [Publication.Validate]: "te valideren",
 }
 
-export const getPublicationKeyFromValue = (publication_status: string) => {
+export const getPublicationKeyFromValue = async (publication_status: string) => {
   return new Promise((resolve, reject) => {
     for (const key of Object.values(Publication)) {
       if (publication_status === PublicationStatus[key]) {

@@ -17,6 +17,10 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
         required: false;
     };
+    mediafileUrl: {
+        type: StringConstructor;
+        required: false;
+    };
 }, {
     selectedIndex: import("vue").Ref<number>;
     prevImage: () => void;
@@ -44,6 +48,10 @@ declare const _default: import("vue").DefineComponent<{
     isTouch: {
         type: BooleanConstructor;
         default: boolean;
+        required: false;
+    };
+    mediafileUrl: {
+        type: StringConstructor;
         required: false;
     };
 }>>, {
