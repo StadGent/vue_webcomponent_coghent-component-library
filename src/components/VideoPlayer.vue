@@ -8,7 +8,7 @@
   >
     <source
       :src="mediafileUrl + '/' + mediaFile.transcode_filename"
-      :type="mediaFile.mimetype"
+      type="video/mp4"
     />
   </video>
 </template>
@@ -16,6 +16,7 @@
 import { defineComponent, PropType, watch } from "vue";
 import { MediaFile } from "@/queries";
 import { reloadMediaAfterModalClose } from "../helpers";
+import { MIMETYPES } from "../composables/mimetype";
 
 export default defineComponent({
   name: "VideoPlayer",
