@@ -254,6 +254,7 @@ fragment fullEntity on Entity {
   }
   primary_mediafile
   primary_transcode
+  primary_transcode_location
   mediafiles {
     ...fullMediafile
   }
@@ -401,7 +402,7 @@ fragment fullMediafile on MediaFile {
   filename
   transcode_filename
   thumbnail_file_location
-  primary_transcode_location
+  transcode_file_location
   mimetype
   mediatype {
     type

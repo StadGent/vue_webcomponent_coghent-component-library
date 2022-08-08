@@ -7,7 +7,7 @@
     autoplay
   >
     <source
-      :src="mediaFile.original_file_location"
+      :src="mediaFile.transcode_file_location"
       :type="mediaFile.mimetype"
     />
   </video>
