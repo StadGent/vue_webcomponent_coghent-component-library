@@ -1,6 +1,6 @@
 <template>
   <!--Fullscreen modal-->
-  <media-modal />
+  <media-modal :mediafileUrl="mediafileUrl" />
   <!--Carousel -->
 
   <div class="flex">
@@ -167,6 +167,10 @@ export default defineComponent({
     isTouch: {
       type: Boolean,
       default: false,
+      required: false,
+    },
+    mediafileUrl: {
+      type: String,
       required: false,
     },
   },

@@ -7,7 +7,7 @@
     autoplay
   >
     <source
-      :src="mediaFile.transcode_file_location"
+      :src="mediafileUrl + '/' + mediaFile.transcode_filename"
       :type="mediaFile.mimetype"
     />
   </video>
@@ -28,8 +28,13 @@ export default defineComponent({
     modalState: {
       type: String,
     },
+    mediafileUrl: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
+    console.log(props.mediafileUrl + "/" + props.mediaFile.transcode_filename);
     watch(
       () => props.modalState,
       (modalState) => {

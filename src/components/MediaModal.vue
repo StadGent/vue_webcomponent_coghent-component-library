@@ -27,6 +27,7 @@
       <video-player
         v-if="MediaModalState.mediafile.mediatype.video"
         :mediaFile="MediaModalState.mediafile"
+        :mediafileUrl="mediafileUrl"
       />
       <AudioPlayer
         v-if="MediaModalState.mediafile.mediatype.audio"
@@ -61,7 +62,12 @@ export default defineComponent({
     AudioPlayer,
     PDFViewer,
   },
-  props: {},
+  props: {
+    mediafileUrl: {
+      type: String,
+      required: false,
+    },
+  },
   setup: (props) => {
     const { closeMediaModal, openMediaModal, MediaModalState } =
       useMediaModal();
