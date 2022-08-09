@@ -18,9 +18,10 @@
 
     <div class="flex flex-col items-center relative">
       <base-button
-        class="w-0 absolute z-20 top-0 left-0 mt-3 ml-3"
+        class="absolute z-20 top-0 left-0 mt-3 ml-3 justify-center"
         customStyle="secondary-round"
         customIcon="fullscreen"
+        :noMargin=true
         :iconShown="true"
         :onClick="openMediaModal"
       />

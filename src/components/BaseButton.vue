@@ -1,6 +1,6 @@
 <template>
   <span
-    class="flex max-h-12 font-bold items-center stroke-current cursor-pointer px-6"
+    class="flex max-h-12 font-bold items-center stroke-current cursor-pointer"
     :class="buttonstyles[customStyle]"
     @click="onClick"
   >
@@ -74,16 +74,17 @@ type ButtonTypes =
   | "touchtable-black"
   | "square-icon";
 const buttonstyles: Record<ButtonTypes, string> = {
-  primary: "text-text-white bg-accent-purple rounded-full shadow-lg justify-center py-3",
+  primary:
+    "text-text-white bg-accent-purple rounded-full shadow-lg justify-center p-6",
   primaryUnavailable:
-    "text-text-white bg-text-dark opacity-50 rounded-full shadow-lg justify-center py-3 cursor-not-allowed",
+    "text-text-white bg-text-dark opacity-50 rounded-full shadow-lg justify-center p-6 cursor-not-allowed",
   secondary:
-    "text-accent-purple bg-text-white rounded-full shadow-lg justify-center py-3",
+    "text-accent-purple bg-text-white rounded-full shadow-lg justify-center p-6",
   "ghost-black": "text-text-dark py-3",
   "ghost-purple": "text-accent-purple py-3",
   "ghost-red": "text-text-red py-3",
   "secondary-round":
-    "text-accent-purple bg-text-white rounded-full shadow-lg px-4 py-2",
+    "text-accent-purple bg-text-white rounded-full shadow-lg p-2",
   "cc-round-black":
     "text-text-black bg-text-white rounded-full shadow-lg stroke-3 px-2 py-2",
   "round-white": "text-text-white px-2 py-2",
