@@ -823,6 +823,7 @@ mutation updateEntity(
 
 query publishStorybox($frameId: String!) {
   PublishStorybox(frameId: $frameId) {
-    ...minimalBoxVisiter
+    id
+    code
   }
 }
