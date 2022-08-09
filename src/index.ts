@@ -61,6 +61,7 @@ import {
   EntityTypes,
   GetTestimoniesOfUserDocument,
   UserAction,
+  PublishStoryboxDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -136,6 +137,7 @@ import {
 
 export {
   getPublicationKeyFromValue,
+  PublishStoryboxDocument,
   UserAction,
   GetTestimoniesOfUserDocument,
   entityIsPublic,

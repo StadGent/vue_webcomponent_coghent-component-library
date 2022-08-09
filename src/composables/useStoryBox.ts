@@ -13,6 +13,7 @@ import {
   RelationType,
   StoryboxBuild,
   StoryboxDocument,
+  PublishStoryboxDocument,
 } from "@/queries";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { provideApolloClient, useQuery } from "@vue/apollo-composable";
@@ -277,12 +278,13 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return count;
   };
 
-  const linkFrameToStoryAndCreateVisiter = async (_frameId: string) => {
+  const publishStorybox = async (_frameId: string) => {
     const { fetchMore } = apolloProvider(() =>
-      useQuery(LinkFrameToVisiterDocument, { frameId: "" })
+      useQuery(PublishStoryboxDocument, { frameId: _frameId })
     );
+
     const visiter = await fetchMore({ variables: { frameId: _frameId } });
-    return visiter?.data.LinkFrameToVisiter;
+    return visiter?.data.PublishStorybox;
   };
 
   const getVisiterFromFrame = async (_frameId: string) => {
@@ -308,7 +310,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     linkBoxCodeToUser,
     getStoryData,
     getStoryboxAssetAmount,
-    linkFrameToStoryAndCreateVisiter,
+    publishStorybox,
     getVisiterFromFrame,
   };
 };
