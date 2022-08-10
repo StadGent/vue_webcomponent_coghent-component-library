@@ -16,7 +16,6 @@
 import { defineComponent, PropType, watch } from "vue";
 import { MediaFile } from "@/queries";
 import { reloadMediaAfterModalClose } from "../helpers";
-import { MIMETYPES } from "../composables/mimetype";
 
 export default defineComponent({
   name: "VideoPlayer",
@@ -35,7 +34,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    console.log(props.mediafileUrl + "/" + props.mediaFile.transcode_filename);
     watch(
       () => props.modalState,
       (modalState) => {

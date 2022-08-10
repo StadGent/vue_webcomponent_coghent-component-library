@@ -8,7 +8,7 @@
       controlsList="nodownload"
     >
       <source
-        :src="mediaFile.original_file_location"
+        :src="mediafileUrl + '/' + mediaFile.filename"
         :type="mediaFile.mimetype"
       />
 
@@ -32,6 +32,10 @@ export default defineComponent({
     },
     modalState: {
       type: String,
+    },
+    mediafileUrl: {
+      type: String,
+      required: false,
     },
   },
   setup(props) {

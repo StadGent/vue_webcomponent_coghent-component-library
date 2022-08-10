@@ -32,6 +32,7 @@
       <AudioPlayer
         v-if="MediaModalState.mediafile.mediatype.audio"
         :mediaFile="MediaModalState.mediafile"
+        :mediafileUrl="mediafileUrl"
       />
 
       <PDFViewer
