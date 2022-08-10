@@ -92,6 +92,7 @@ enum EntityTypes {
   thesaurus
   person
   testimony
+  museum
 }
 
 enum RelationType {

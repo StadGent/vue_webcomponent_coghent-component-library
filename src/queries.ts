@@ -127,6 +127,7 @@ export enum EntityTypes {
   BoxVisit = 'box_visit',
   Contains = 'contains',
   Frame = 'frame',
+  Museum = 'museum',
   Person = 'person',
   Story = 'story',
   Testimony = 'testimony',
