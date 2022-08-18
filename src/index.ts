@@ -60,6 +60,7 @@ import {
   EntityInfo,
   EntityTypes,
   GetTestimoniesOfUserDocument,
+  GetTestimoniesOfAssetDocument,
   UserAction,
   PublishStoryboxDocument,
 } from "./queries";
@@ -136,6 +137,7 @@ import {
 } from "./composables/constants";
 
 export {
+  GetTestimoniesOfAssetDocument,
   getPublicationKeyFromValue,
   PublishStoryboxDocument,
   UserAction,

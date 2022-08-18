@@ -264,9 +264,6 @@ fragment fullEntity on Entity {
     label
     value
   }
-  testimonies {
-    ...testimony
-  }
 }
 
 fragment testimony on Entity {
@@ -716,7 +713,7 @@ query getUploadRelations($searchValue: String!) {
 }
 mutation CreateTestimony($entityInfo: EntityInfo!, $assetId: String!) {
   CreateTestimony(entityInfo: $entityInfo, assetId: $assetId) {
-    ...fullEntity
+    ...testimony
   }
 }
 
@@ -731,6 +728,12 @@ query LinktestimonyToAsset($assetId: String!, $testimonyId: String!) {
 
 query GetTestimoniesOfUser {
   GetTestimoniesOfUser {
+    ...testimony
+  }
+}
+
+query GetTestimoniesOfAsset($assetId: String!) {
+  GetTestimoniesOfAsset(assetId: $assetId) {
     ...testimony
   }
 }
