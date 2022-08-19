@@ -11,7 +11,7 @@
           : `speech half right ${color} rounded-md my-5 w-full md:w-3/4`
       "
     >
-      <div v-if="alignment == 'Left'" class="flex gap-4">
+      <div v-if="alignment == 'Left'" class="flex">
         <div class="w-1/3 p-4 flex justify-center items-center rounded-md">
           <div class="rounded-full bg-neutral-0 w-20 h-20"></div>
         </div>
