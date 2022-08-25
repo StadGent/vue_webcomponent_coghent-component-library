@@ -229,7 +229,7 @@ const useUpload = () => {
           _meta.key === MetaKey.Title
             ? `${USER_MEDIAFILE_NAME_PREFIX}${_meta.value}`
             : _meta.value,
-        label: _meta.value,
+        label: _meta.key,
       } as MetadataInput);
     }
     metadata.push({
@@ -361,7 +361,7 @@ const useUpload = () => {
     return uploadState.action;
   };
 
-  const GetUploadsByStatus = () => {};
+  const GetUploadsByStatus = () => { };
 
   return {
     newInit,
