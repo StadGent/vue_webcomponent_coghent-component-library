@@ -34,6 +34,12 @@ export const StoryBoxState = ref<StoryBoxType>({
 export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   const apolloProvider = provideApolloClient(_client);
 
+  const refreshGetStoryboxesWhenEmpty = async () => {
+    if (StoryBoxState.value.storyboxes === undefined || StoryBoxState.value.storyboxes.length <= 0) {
+      await getStoryboxes()
+    }
+  }
+
   const setStoryBoxes = (newStoryBoxes: Entity[]) => {
     StoryBoxState.value.storyboxes = newStoryBoxes;
   };
@@ -127,8 +133,8 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
           description: StoryBoxState.value.activeStorybox?.description,
           assets: StoryBoxState.value.activeStorybox?.assets
             ? StoryBoxState.value.activeStorybox?.assets.map(
-                (_asset) => _asset?.id
-              )
+              (_asset) => _asset?.id
+            )
             : [],
           assetTimings: StoryBoxState.value.activeStorybox?.assetTimings
             ? StoryBoxState.value.activeStorybox?.assetTimings
@@ -136,16 +142,14 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
         } as StoryboxBuildInput,
       },
     });
-    // await getStoryboxes();
     return frame;
   };
 
   const createStoryboxFromEntity = async (_entityId: string) => {
-    StoryBoxState.value.activeStorybox = {} as StoryboxBuild;
-    StoryBoxState.value.activeStorybox.assets = [];
     const entity = getStoryBoxById(_entityId);
-    console.log(`createStoryboxFromEntity | entity`, entity);
     if (entity) {
+      StoryBoxState.value.activeStorybox = {} as StoryboxBuild;
+      StoryBoxState.value.activeStorybox.assets = [];
       StoryBoxState.value.activeStorybox.title = entity.metadata.find(
         (data) => data?.key === MetaKey.Title
       )?.value;
@@ -312,5 +316,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     getStoryboxAssetAmount,
     publishStorybox,
     getVisiterFromFrame,
+    refreshGetStoryboxesWhenEmpty,
   };
 };
