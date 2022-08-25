@@ -55,6 +55,7 @@ module.exports = {
         pink: "#92407A",
         yellow: "#CA9B09",
         green: "#028666",
+        orange: "#F55205"
       },
       touchtable: {
         dark: "#2D242A"
