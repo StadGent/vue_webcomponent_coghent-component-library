@@ -1,11 +1,11 @@
 <template>
-  <div
-    v-show="modalState === 'small'"
-    :class="'fixed right-0 top-0 z-40 ' + customStyles"
-  >
+  <div v-show="modalState === 'small'" class="fixed right-0 top-0 z-40">
     <!-- Advise -->
     <div
-      class="fixed right-0 top-0 rounded-bl-lg bg-neutral-0 shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden"
+      :class="
+        'fixed right-0 top-0 rounded-bl-lg bg-neutral-0 shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden ' +
+        customStyles
+      "
     >
       <slot name="small"></slot>
     </div>
@@ -14,8 +14,8 @@
     v-show="modalState === 'show' || modalState === 'loading'"
     :class="
       modalState === 'small'
-        ? 'fixed z-40 inset-0 m-4 w-64 h-64 ' + customStyles
-        : 'fixed z-40 inset-0 m-4 ' + customStyles
+        ? 'fixed z-40 inset-0 m-4 w-64 h-64 '
+        : 'fixed z-40 inset-0 m-4 '
     "
   >
     <div
@@ -34,12 +34,9 @@
       >
 
       <div
-        class="inline-block align-bottom bg-neutral-0 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle sm:w-11/12"
-        :class="{
-          'sm:max-w-4xl': !large,
-          'h-full': large,
-          'overflow-y-scroll': scroll,
-        }"
+        :class="`inline-block align-bottom bg-neutral-0 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle sm:w-11/12 ${
+          !large && 'sm:max-w-4xl'
+        } ${large && 'h-full'} ${scroll && 'overflow-y-auto'} ${customStyles}`"
       >
         <base-icon
           v-show="showCloseButton"
