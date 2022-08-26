@@ -290,6 +290,9 @@ fragment testimony on Entity {
     label
     value
   }
+  linkedParentEntity {
+    ...minimalEntity
+  }
   user
 }
 
