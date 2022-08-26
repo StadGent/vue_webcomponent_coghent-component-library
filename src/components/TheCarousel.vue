@@ -1,6 +1,6 @@
 <template>
   <!--Fullscreen modal-->
-  <media-modal :mediafileUrl="mediafileUrl" />
+  <media-modal :mediafileUrl="mediafileUrl" customZIndex="z-50" />
   <!--Carousel -->
 
   <div class="flex">
@@ -21,7 +21,7 @@
         class="absolute z-20 top-0 left-0 mt-3 ml-3 justify-center"
         customStyle="secondary-round"
         customIcon="fullscreen"
-        :noMargin=true
+        :noMargin="true"
         :iconShown="true"
         :onClick="openMediaModal"
       />

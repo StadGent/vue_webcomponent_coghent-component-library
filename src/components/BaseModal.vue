@@ -1,5 +1,8 @@
 <template>
-  <div v-show="modalState === 'small'" class="fixed right-0 top-0 z-40">
+  <div
+    v-show="modalState === 'small'"
+    :class="`fixed right-0 top-0 ${customZIndex ? customZIndex : 'z-40'}`"
+  >
     <!-- Advise -->
     <div
       :class="
@@ -14,8 +17,8 @@
     v-show="modalState === 'show' || modalState === 'loading'"
     :class="
       modalState === 'small'
-        ? 'fixed z-40 inset-0 m-4 w-64 h-64 '
-        : 'fixed z-40 inset-0 m-4 '
+        ? `fixed inset-0 m-4 w-64 h-64 ${customZIndex ? customZIndex : 'z-40'}`
+        : `fixed inset-0 m-4 ${customZIndex ? customZIndex : 'z-40'}`
     "
   >
     <div
@@ -40,7 +43,7 @@
       >
         <base-icon
           v-show="showCloseButton"
-          class="absolute top-3 right-3 text-text-black stroke-current fill-current stroke-1 cursor-pointer"
+          class="fixed top-3 right-3 text-text-black stroke-current fill-current stroke-1 cursor-pointer"
           icon="close"
           @click="hideModal"
         />
@@ -88,6 +91,10 @@ export default defineComponent({
       type: String,
       required: false,
       default: "",
+    },
+    customZIndex: {
+      type: String,
+      required: false,
     },
   },
   emits: ["update:modalState", "hideModal", "showModal"],
