@@ -42,6 +42,7 @@ export type UploadState = {
   liscense: string;
   status: UploadStatus | null;
   action: UserAction | null;
+  agreedToDisclaimer: boolean;
 };
 
 export type UploadLoadingState = {
@@ -88,6 +89,7 @@ const initUploadState = {
   liscense: License["cc0"],
   status: null,
   action: null,
+  agreedToDisclaimer: false,
 };
 export const uploadLoadingState = reactive<UploadLoadingState>({
   actionValues: "ready",
@@ -145,6 +147,10 @@ const useUpload = () => {
 
   const setStatus = (_status: UploadStatus) => {
     uploadState.status = _status;
+  };
+
+  const setAgreedToDisclaimer = (agreed: boolean) => {
+    uploadState.agreedToDisclaimer = agreed;
   };
 
   const rightIsSet = (_right: Rights) => {
@@ -361,7 +367,7 @@ const useUpload = () => {
     return uploadState.action;
   };
 
-  const GetUploadsByStatus = () => { };
+  const GetUploadsByStatus = () => {};
 
   return {
     newInit,
@@ -382,6 +388,7 @@ const useUpload = () => {
     entityToUploadComposable,
     updateAsset,
     getAction,
+    setAgreedToDisclaimer,
   };
 };
 export default useUpload;
