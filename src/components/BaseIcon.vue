@@ -33,6 +33,8 @@ type CustomIcon =
   | "arrowLeftLine"
   | "creativeCommonsBY"
   | "creativeCommonsNC"
+  | "creativeCommonsCC"
+  | "creativeCommonsSA"
   | "copyrightCategoryCC"
   | "copyrightCategoryPDM"
   | "copyrightCategoryRS"
@@ -56,7 +58,8 @@ type CustomIcon =
   | "upload"
   | "file"
   | "send"
-  | "undo";
+  | "undo"
+  | "downwardArrows";
 export default defineComponent({
   props: {
     icon: {
