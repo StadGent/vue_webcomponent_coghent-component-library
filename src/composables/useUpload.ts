@@ -16,6 +16,7 @@ import {
   UploadComposable,
   UpdateEntityDocument,
   UserAction,
+  CheckIfUploadIsDuplicateDocument,
 } from "@/queries";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import {
@@ -285,6 +286,21 @@ const useUpload = () => {
     return res ? res?.data?.UploadMediafile : null;
   };
 
+  const detectDuplicate = async (
+    _client: ApolloClient<NormalizedCacheObject>,
+    image: string
+  ) => {
+    const { fetchMore } = provideApolloClient(_client)(() =>
+      useQuery(
+        CheckIfUploadIsDuplicateDocument,
+        { base64Image: image },
+        { fetchPolicy: "network-only" }
+      )
+    );
+    const result = await fetchMore({});
+    console.log(result);
+  };
+
   const getAllUploads = async (
     _client: ApolloClient<NormalizedCacheObject>
   ) => {
@@ -389,6 +405,7 @@ const useUpload = () => {
     updateAsset,
     getAction,
     setAgreedToDisclaimer,
+    detectDuplicate,
   };
 };
 export default useUpload;
