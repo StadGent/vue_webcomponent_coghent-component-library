@@ -76,7 +76,14 @@ extend enum MetaKey {
 extend enum MetaKey {
   publication_status
   rights
+  sources
   user_action
+}
+
+enum Publication {
+  public
+  private
+  validate
 }
 
 enum UserAction {
@@ -97,6 +104,12 @@ enum EntityTypes {
   museum
 }
 
+enum Collections {
+  entities
+  box_visits
+  mediafiles
+}
+
 enum RelationType {
   authoredBy
   isIn
@@ -112,6 +125,7 @@ enum RelationType {
   frames
   box_stories
   box
+  story_box_visits
   story_box
   userConnected
   isTestimonyFor
@@ -153,7 +167,13 @@ input StoryInput {
 
 input RelationInput {
   key: String!
+  value: String
   type: RelationType!
+  label: String
+}
+
+type StringResult {
+  result: String!
 }
 
 type Story {
@@ -243,6 +263,7 @@ type MimeType {
 
 type MediaFile {
   _id: String!
+  _key: String!
   original_file_location: String
   thumbnail_file_location: String
   filename: String
@@ -272,6 +293,9 @@ type Relation {
   timestamp_start: Float
   timestamp_end: Float
   timestamp_zoom: Float
+  x: Float
+  y: Float
+  z: Float
   position: Position
   scale: Float
   audioFile: String
@@ -286,6 +310,12 @@ type Relation {
 
 input EntityInfo {
   type: EntityTypes!
+  title: String!
+  description: String!
+}
+
+input EntityInfoInput {
+  type: String!
   title: String!
   description: String!
 }
@@ -395,6 +425,7 @@ input StoryboxBuildInput {
   assets: [String]
   assetTimings: [KeyValuePairInput]
 }
+
 type StoryboxBuild {
   frameId: String!
   title: String
@@ -414,7 +445,7 @@ type UploadComposable {
   base64Image: String
   metadata(key: [MetaKey]): [Metadata]
   relations: [Relation]
-  liscense: Rights
+  liscense: String
   action: UserAction
 }
 
@@ -426,7 +457,7 @@ type Query {
   BoxVisiterRelationsByType(code: String!, type: RelationType!): [Relation]
   CreateBoxVisiter(storyId: String!): BoxVisiter
   Stories: EntitiesResults
-  CreateEntity(entityInfo: EntityInfo!): Entity
+  CreateEntity(entityInfo: EntityInfoInput!): Entity
   Entity(id: String!): Entity
   GetStoryById(id: String!): Entity
   Entities(
@@ -446,16 +477,17 @@ type Query {
   CreateStorybox(storyboxInfo: StoryboxBuildInput!): Entity
   Storybox: EntitiesResults
   AddEntityAsRelation(entityId: String!, entityRelationId: String!): [Relation]
+  LinkTestimonyToAsset(assetId: String!, testimonyId: String!): [Relation]
   LinkFrameToVisiter(frameId: String!): BoxVisiter
   GetvisiterOfEntity(id: String!): BoxVisiter
   GetUploadRelations(searchValue: String!): EntitiesResults
-  LinktestimonyToAsset(assetId: String!, testimonyId: String!): [Relation]
   BasketByCustomFrameId(frameId: String!): [Relation]
   GetMyUploadedAssets: EntitiesResults
   UploadObjectFromEntity(entityId: String!): UploadComposable
   GetTestimoniesOfUser: [Entity]
   GetTestimoniesOfAsset(assetId: String!): [Entity]
   PublishStorybox(frameId: String!): BoxVisiter!
+  CheckIfUploadIsDuplicate(base64Image: String!): StringResult!
 }
 
 type Mutation {

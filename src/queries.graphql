@@ -627,7 +627,7 @@ query RelationsAsEntities($id: String!) {
   }
 }
 
-query CreateEntity($entityInfo: EntityInfo!) {
+query CreateEntity($entityInfo: EntityInfoInput!) {
   CreateEntity(entityInfo: $entityInfo) {
     ...minimalEntity
   }
@@ -700,6 +700,12 @@ mutation updatedScannedOfBoxvisiter($code: String!) {
   }
 }
 
+query checkIfUploadIsDuplicate($base64Image: String!) {
+  CheckIfUploadIsDuplicate(base64Image: $base64Image) {
+    result
+  }
+}
+
 query getUploadRelations($searchValue: String!) {
   GetUploadRelations(searchValue: $searchValue) {
     count
@@ -720,8 +726,8 @@ mutation CreateTestimony($entityInfo: EntityInfo!, $assetId: String!) {
   }
 }
 
-query LinktestimonyToAsset($assetId: String!, $testimonyId: String!) {
-  LinktestimonyToAsset(assetId: $assetId, testimonyId: $testimonyId) {
+query LinkTestimonyToAsset($assetId: String!, $testimonyId: String!) {
+  LinkTestimonyToAsset(assetId: $assetId, testimonyId: $testimonyId) {
     key
     type
     label

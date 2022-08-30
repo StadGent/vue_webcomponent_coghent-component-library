@@ -63,6 +63,7 @@ import {
   GetTestimoniesOfAssetDocument,
   UserAction,
   PublishStoryboxDocument,
+  CheckIfUploadIsDuplicateDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -137,6 +138,7 @@ import {
 } from "./composables/constants";
 
 export {
+  CheckIfUploadIsDuplicateDocument,
   GetTestimoniesOfAssetDocument,
   getPublicationKeyFromValue,
   PublishStoryboxDocument,
