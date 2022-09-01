@@ -383,8 +383,6 @@ const useUpload = () => {
     return uploadState.action;
   };
 
-  const GetUploadsByStatus = () => {};
-
   return {
     newInit,
     setUploadState,
