@@ -298,7 +298,7 @@ const useUpload = () => {
       )
     );
     const result = await fetchMore({});
-    console.log(result);
+    return result;
   };
 
   const getAllUploads = async (
