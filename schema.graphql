@@ -18,6 +18,7 @@ enum Publication {
   public
   private
   validate
+  declined
 }
 
 enum MIME {
@@ -492,6 +493,11 @@ type Query {
 
 type Mutation {
   replaceMetadata(id: String!, metadata: [MetadataInput!]!): [Metadata!]!
+  AddRelation(
+    entityId: String!
+    relation: RelationInput!
+    collection: String
+  ): [Relation]!
   AddStoryToBoxVisiter(code: String!, storyId: String!): BoxVisiter
   AddFrameToStoryBoxVisiter(code: String!, frameInput: FrameInput!): BoxVisiter
   DeleteBoxVisiterBasketItem(code: String!, relationId: String!): [Relation]!
