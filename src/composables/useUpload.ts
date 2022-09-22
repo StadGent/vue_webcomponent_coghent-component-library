@@ -78,8 +78,6 @@ export type LoadingState = "ready" | "loading" | "loaded" | "error";
 
 export const currentUploadStep = ref<number>(0);
 
-const USER_MEDIAFILE_NAME_PREFIX = "user-uploaded-";
-
 const initUploadState = {
   step: currentUploadStep.value,
   file: null,
@@ -232,10 +230,7 @@ const useUpload = () => {
     for (const _meta of uploadState.metadata) {
       metadata.push({
         key: _meta.key,
-        value:
-          _meta.key === MetaKey.Title
-            ? `${USER_MEDIAFILE_NAME_PREFIX}${_meta.value}`
-            : _meta.value,
+        value: _meta.value,
         label: _meta.key,
       } as MetadataInput);
     }
@@ -310,14 +305,6 @@ const useUpload = () => {
     const result = await fetchMore({});
 
     return result ? result?.data.GetMyUploadedAssets : null;
-  };
-
-  const stripUserUploadPrefix = (_title: string) => {
-    let stripped = _title;
-    if (_title.includes(USER_MEDIAFILE_NAME_PREFIX)) {
-      stripped = _title.replace(USER_MEDIAFILE_NAME_PREFIX, "");
-    }
-    return stripped;
   };
 
   const entityToUploadComposable = async (
@@ -396,7 +383,6 @@ const useUpload = () => {
     setFile,
     upload,
     getAllUploads,
-    stripUserUploadPrefix,
     getMediafiles,
     getMediafileLink,
     entityToUploadComposable,
