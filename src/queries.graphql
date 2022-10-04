@@ -810,6 +810,20 @@ query uploadObjectFromEntity($entityId: String!) {
   }
 }
 
+mutation addRelation(
+  $entityId: String!
+  $relation: RelationInput!
+  $collection: String
+) {
+  AddRelation(
+    entityId: $entityId
+    relation: $relation
+    collection: $collection
+  ) {
+    ...boxRelation
+  }
+}
+
 mutation updateEntity(
   $id: String!
   $metadata: [MetadataInput]!

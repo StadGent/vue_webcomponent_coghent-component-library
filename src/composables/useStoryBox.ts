@@ -14,8 +14,10 @@ import {
   StoryboxBuild,
   StoryboxDocument,
   PublishStoryboxDocument,
+  Relation,
 } from "@/queries";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { parse } from "@intlify/message-resolver";
 import { provideApolloClient, useQuery } from "@vue/apollo-composable";
 import { ref, watch } from "vue";
 
@@ -35,10 +37,13 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
   const apolloProvider = provideApolloClient(_client);
 
   const refreshGetStoryboxesWhenEmpty = async () => {
-    if (StoryBoxState.value.storyboxes === undefined || StoryBoxState.value.storyboxes.length <= 0) {
-      await getStoryboxes()
+    if (
+      StoryBoxState.value.storyboxes === undefined ||
+      StoryBoxState.value.storyboxes.length <= 0
+    ) {
+      await getStoryboxes();
     }
-  }
+  };
 
   const setStoryBoxes = (newStoryBoxes: Entity[]) => {
     StoryBoxState.value.storyboxes = newStoryBoxes;
@@ -126,19 +131,17 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     const frame = await fetchMore({
       variables: {
         storyboxInfo: {
-          frameId: StoryBoxState.value.activeStorybox?.frameId
-            ? StoryBoxState.value.activeStorybox?.frameId
-            : null,
+          frameId: StoryBoxState.value.activeStorybox?.frameId || null,
           title: StoryBoxState.value.activeStorybox?.title,
           description: StoryBoxState.value.activeStorybox?.description,
           assets: StoryBoxState.value.activeStorybox?.assets
             ? StoryBoxState.value.activeStorybox?.assets.map(
-              (_asset) => _asset?.id
-            )
+                (_asset) => _asset?.id
+              )
             : [],
-          assetTimings: StoryBoxState.value.activeStorybox?.assetTimings
-            ? StoryBoxState.value.activeStorybox?.assetTimings
-            : [],
+          assetTimings: StoryBoxState.value.activeStorybox?.assetTimings || [],
+          assetDescriptions:
+            StoryBoxState.value.activeStorybox?.assetDescriptions || [],
         } as StoryboxBuildInput,
       },
     });
@@ -167,19 +170,57 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       );
       StoryBoxState.value.activeStorybox.assetTimings = [];
       if (entity.relations) {
-        let tmpAssetTimings = [];
-        for (const _relation of entity.relations) {
-          let duration = _relation?.timestamp_end! - _relation?.timestamp_zoom!;
-          tmpAssetTimings.push({
-            key: _relation?.key.replace(`entities/`, ""),
-            value: String(duration != 0 ? duration : 5),
-          } as KeyValuePair);
+        const timingRelations = entity.relations?.filter(
+          (relation: Relation | any) =>
+            relation.type === RelationType.Components &&
+            relation.timestamp_start
+        );
+        const descriptionRelations = entity.relations.filter(
+          (relation: Relation | any) =>
+            relation.type === RelationType.Components &&
+            !relation.timestamp_start
+        );
+        if (timingRelations) {
+          const timingsKeyValue = parseKeyValuePairsFromRelations(
+            timingRelations as Relation[],
+            "timings"
+          );
+          StoryBoxState.value.activeStorybox.assetTimings =
+            orderTimingOfAssetsAsAssetOrder(timingsKeyValue);
         }
-        StoryBoxState.value.activeStorybox.assetTimings =
-          orderTimingOfAssetsAsAssetOrder(tmpAssetTimings);
+        if (descriptionRelations) {
+          const descriptionsKeyValue = parseKeyValuePairsFromRelations(
+            descriptionRelations as Relation[],
+            "description"
+          );
+          StoryBoxState.value.activeStorybox.assetDescriptions =
+            descriptionsKeyValue;
+        }
       }
     }
     return StoryBoxState.value.activeStorybox;
+  };
+
+  const parseKeyValuePairsFromRelations = (
+    _relations: Relation[],
+    _storyboxRelationType: "timings" | "description"
+  ): KeyValuePair[] => {
+    let tmpAssetTimings = [];
+    for (const _relation of _relations) {
+      const value =
+        _storyboxRelationType == "timings"
+          ? String(
+              _relation?.timestamp_end! - _relation?.timestamp_zoom! != 0
+                ? _relation?.timestamp_end! - _relation?.timestamp_zoom!
+                : 5
+            )
+          : _relation.value;
+      tmpAssetTimings.push({
+        key: _relation?.key.replace(`entities/`, ""),
+        value,
+      } as KeyValuePair);
+    }
+    return tmpAssetTimings;
   };
 
   const orderTimingOfAssetsAsAssetOrder = (

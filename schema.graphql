@@ -103,6 +103,7 @@ enum EntityTypes {
   person
   testimony
   museum
+  getty
 }
 
 enum Collections {
@@ -425,6 +426,7 @@ input StoryboxBuildInput {
   description: String
   assets: [String]
   assetTimings: [KeyValuePairInput]
+  assetDescriptions: [KeyValuePairInput]
 }
 
 type StoryboxBuild {
@@ -434,6 +436,7 @@ type StoryboxBuild {
   description: String
   assets: [Entity]!
   assetTimings: [KeyValuePair]!
+  assetDescriptions: [KeyValuePair]
 }
 
 input MediaFileInput {
