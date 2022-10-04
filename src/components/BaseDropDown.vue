@@ -17,7 +17,7 @@ import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 export default defineComponent({
   props: {
     active: {
-      type: Object as PropType<number | string>,
+      type: Number || String,
       required: true,
     },
     numberMax: {
@@ -29,7 +29,7 @@ export default defineComponent({
       required: false,
     },
     values: {
-      type: Object as PropType<Array<string | number>>,
+      type: Array,
       default: [],
     },
     style: {
@@ -40,7 +40,9 @@ export default defineComponent({
   },
   emits: [`selected`],
   setup(props, { emit }) {
-    const options = ref<Array<String | Number>>(props.values);
+    const options = ref<Array<string | number>>(
+      props.values as Array<string | number>
+    );
     const myDropdown = ref<number | string>(props.active);
 
     watch(myDropdown, (option) => {
