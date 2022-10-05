@@ -170,29 +170,17 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
       );
       StoryBoxState.value.activeStorybox.assetTimings = [];
       if (entity.relations) {
-        const timingRelations = entity.relations?.filter(
-          (relation: Relation | any) =>
-            relation.type === RelationType.Components &&
-            relation.timestamp_start
-        );
-        const descriptionRelations = entity.relations.filter(
-          (relation: Relation | any) =>
-            relation.type === RelationType.Components &&
-            !relation.timestamp_start
-        );
-        if (timingRelations) {
+        if (entity.relations) {
           const timingsKeyValue = parseKeyValuePairsFromRelations(
-            timingRelations as Relation[],
+            entity.relations as Relation[],
             "timings"
+          );
+          const descriptionsKeyValue = parseKeyValuePairsFromRelations(
+            entity.relations as Relation[],
+            "description"
           );
           StoryBoxState.value.activeStorybox.assetTimings =
             orderTimingOfAssetsAsAssetOrder(timingsKeyValue);
-        }
-        if (descriptionRelations) {
-          const descriptionsKeyValue = parseKeyValuePairsFromRelations(
-            descriptionRelations as Relation[],
-            "description"
-          );
           StoryBoxState.value.activeStorybox.assetDescriptions =
             descriptionsKeyValue;
         }
@@ -205,7 +193,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     _relations: Relation[],
     _storyboxRelationType: "timings" | "description"
   ): KeyValuePair[] => {
-    let tmpAssetTimings = [];
+    let keyValuePairs = [];
     for (const _relation of _relations) {
       const value =
         _storyboxRelationType == "timings"
@@ -214,13 +202,13 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
                 ? _relation?.timestamp_end! - _relation?.timestamp_zoom!
                 : 5
             )
-          : _relation.value;
-      tmpAssetTimings.push({
+          : _relation.value || "";
+      keyValuePairs.push({
         key: _relation?.key.replace(`entities/`, ""),
         value,
       } as KeyValuePair);
     }
-    return tmpAssetTimings;
+    return keyValuePairs;
   };
 
   const orderTimingOfAssetsAsAssetOrder = (
