@@ -225,6 +225,7 @@ fragment nestedEndEntity on Entity {
 
 fragment fullEntity on Entity {
   id
+  ldesResource
   type
   title: metadata(key: [title]) {
     key
