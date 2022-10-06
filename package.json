@@ -1,6 +1,6 @@
 {
   "name": "coghent-vue-3-component-library",
-  "version": "0.1.146",
+  "version": "0.1.147",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
