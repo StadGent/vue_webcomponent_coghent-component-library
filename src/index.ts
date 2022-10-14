@@ -64,6 +64,7 @@ import {
   UserAction,
   PublishStoryboxDocument,
   CheckIfUploadIsDuplicateDocument,
+  CreateSubtitlesForUploadDocument,
 } from "./queries";
 import CircleLoader from "./components/CircleLoader.vue";
 import Badge from "./components/Badge.vue";
@@ -138,6 +139,7 @@ import {
 } from "./composables/constants";
 
 export {
+  CreateSubtitlesForUploadDocument,
   CheckIfUploadIsDuplicateDocument,
   GetTestimoniesOfAssetDocument,
   getPublicationKeyFromValue,

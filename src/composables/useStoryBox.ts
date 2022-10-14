@@ -15,6 +15,7 @@ import {
   StoryboxDocument,
   PublishStoryboxDocument,
   Relation,
+  CreateSubtitlesForUploadDocument,
 } from "@/queries";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { parse } from "@intlify/message-resolver";
@@ -145,6 +146,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
         } as StoryboxBuildInput,
       },
     });
+    generateSubtitles(StoryBoxState.value.activeStorybox?.frameId || "");
     return frame;
   };
 
@@ -328,6 +330,19 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     return visiter?.data.GetvisiterOfEntity;
   };
 
+  const generateSubtitles = async (_frameId: string) => {
+    try {
+      const { fetchMore } = provideApolloClient(_client)(() =>
+        useQuery(CreateSubtitlesForUploadDocument, { frameId: _frameId })
+      );
+      const result = await fetchMore({ variables: { frameId: _frameId } });
+      return result;
+    } catch (e) {
+      console.log(e);
+      return "Error during subtitle generation: " + e;
+    }
+  };
+
   return {
     setStoryBoxes,
     addStoryBoxes,
@@ -346,5 +361,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     publishStorybox,
     getVisiterFromFrame,
     refreshGetStoryboxesWhenEmpty,
+    generateSubtitles,
   };
 };

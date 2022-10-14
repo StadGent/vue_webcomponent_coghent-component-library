@@ -707,6 +707,12 @@ query checkIfUploadIsDuplicate($base64Image: String!) {
   }
 }
 
+query createSubtitlesForUpload($frameId: String!) {
+  CreateSubtitlesForUpload(frameId: $frameId) {
+    result
+  }
+}
+
 query getUploadRelations($searchValue: String!) {
   GetUploadRelations(searchValue: $searchValue) {
     count
