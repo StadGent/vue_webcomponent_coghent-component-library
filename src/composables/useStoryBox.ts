@@ -16,6 +16,7 @@ import {
   PublishStoryboxDocument,
   Relation,
   CreateSubtitlesForUploadDocument,
+  GetEntitiesDocument,
 } from "@/queries";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { parse } from "@intlify/message-resolver";
@@ -165,9 +166,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
 
       await getAssets(
         entity.relations?.map((_relation) =>
-          _relation?.type === RelationType.Components &&
-          _relation.label !== "subtitle" &&
-          _relation.label !== "audio"
+          _relation?.type === RelationType.Components
             ? _relation?.key.replace(`entities/`, "")
             : null
         ) as Array<string>
@@ -240,11 +239,17 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     if (_assetIds.length >= 0) {
       for (const assetId of _assetIds) {
         if (assetId) {
-          const result = await fetchMore({ variables: { id: assetId } });
-          const asset = result?.data?.Entity as any;
-          asset && asset.type === "asset"
-            ? StoryBoxState.value.activeStorybox?.assets?.push(asset as Entity)
-            : null;
+          try {
+            const result = await fetchMore({ variables: { id: assetId } });
+            const asset = result?.data?.Entity as any;
+            asset && asset.type === "asset"
+              ? StoryBoxState.value.activeStorybox?.assets?.push(
+                  asset as Entity
+                )
+              : null;
+          } catch (e) {
+            console.log("Error getting assets: " + e);
+          }
         }
       }
     }
