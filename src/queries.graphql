@@ -790,6 +790,7 @@ query getMyUploadedAssets {
           periode
           maker
           publication_status
+          object_number
           user_action
         ]
       ) {
