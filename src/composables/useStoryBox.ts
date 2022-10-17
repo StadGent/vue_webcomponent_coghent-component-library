@@ -165,7 +165,9 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
 
       await getAssets(
         entity.relations?.map((_relation) =>
-          _relation?.type === RelationType.Components
+          _relation?.type === RelationType.Components &&
+          _relation.label !== "subtitle" &&
+          _relation.label !== "audio"
             ? _relation?.key.replace(`entities/`, "")
             : null
         ) as Array<string>
