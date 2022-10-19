@@ -43,7 +43,7 @@
       >
         <base-icon
           v-show="showCloseButton"
-          class="fixed top-3 right-3 text-text-black stroke-current fill-current stroke-1 cursor-pointer"
+          class="fixed top-3 right-3 text-text-black stroke-current fill-current stroke-1 cursor-pointer z-40"
           icon="close"
           @click="hideModal"
         />
@@ -111,6 +111,12 @@ export default defineComponent({
         document.body.classList.add("overflow-hidden");
       } else {
         document.body.classList.remove("overflow-hidden");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        hideModal();
       }
     });
 

@@ -60,7 +60,8 @@ type CustomIcon =
   | "send"
   | "undo"
   | "downwardArrows"
-  | "alert";
+  | "alert"
+  | "help";
 export default defineComponent({
   props: {
     icon: {
@@ -224,11 +225,15 @@ export default defineComponent({
 <path d="M20.5144 3.47962C18.192 1.15987 15.348 0 11.9846 0C8.66025 0 5.847 1.15912 3.54413 3.47962C1.18088 5.88 0 8.7195 0 12C0 15.2794 1.18088 18.0998 3.54413 20.4592C5.907 22.8202 8.71987 24 11.9846 24C15.288 24 18.1519 22.8094 20.5748 20.4296C22.8581 18.1695 24 15.3596 24 12C23.9996 8.63962 22.8379 5.799 20.5144 3.47962ZM19.0121 18.87C17.0299 20.8298 14.6966 21.8089 12.0146 21.8089C9.33113 21.8089 7.01775 20.8387 5.07562 18.8985C3.1335 16.9583 2.16188 14.6588 2.16188 11.9996C2.16188 10.8746 2.33963 9.81075 2.69063 8.80838L5.87025 10.2161H5.64112V11.6423H6.7665C6.7665 11.844 6.74625 12.0446 6.74625 12.2452V12.5873H5.64112V14.0134H6.9465C7.12762 15.0784 7.52962 15.9424 8.0715 16.6252C9.1965 18.1121 11.0048 18.915 12.9731 18.915C14.2594 18.915 15.423 18.5336 16.107 18.1515L15.6244 15.9225C15.2025 16.1434 14.259 16.4441 13.3354 16.4441C12.3304 16.4441 11.3869 16.1434 10.7438 15.42C10.4426 15.0787 10.2218 14.616 10.0811 14.0138H14.4484L20.6542 16.7606C20.2249 17.5219 19.6793 18.2257 19.0121 18.87ZM11.2076 12.5869L11.1814 12.5666L11.2264 12.5869H11.2076ZM14.9441 11.6419H15.1238V10.2157H11.7225L10.3406 9.6045C10.4595 9.33712 10.6005 9.09787 10.7648 8.91075C11.3876 8.14612 12.2711 7.82513 13.2356 7.82513C14.1195 7.82513 14.943 8.08613 15.465 8.307L16.0275 6.0165C15.3038 5.69587 14.2395 5.41463 13.0144 5.41463C11.1263 5.41463 9.519 6.17775 8.37375 7.46325C8.1195 7.75688 7.899 8.0865 7.69913 8.43488L3.753 6.6885C4.1355 6.11513 4.58512 5.56462 5.106 5.03925C6.98887 3.11925 9.291 2.15887 12.015 2.15887C14.7375 2.15887 17.0509 3.11888 18.9533 5.03925C20.8748 6.939 21.8359 9.25875 21.8359 12C21.8359 12.9026 21.7339 13.7542 21.5314 14.5575L14.9441 11.6419Z" fill="black"/>
 </svg>
 `,
-      arrowRightLine: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      arrowRightLine: `<svg width="${props.width || 16}" height="${
+        props.width || 16
+      }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.5 12.5L11 8L6.5 3.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `,
-      arrowLeftLine: `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+      arrowLeftLine: `<svg width="${props.width || 16}" height="${
+        props.height || 16
+      }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 <style type="text/css">
 	.st0{fill:none;}
 </style>
@@ -649,6 +654,11 @@ export default defineComponent({
 </svg>`,
       undo: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-ccw"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>`,
       alert: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`,
+      help: `<svg xmlns="http://www.w3.org/2000/svg" width="${
+        props.width || 24
+      }" height="${
+        props.height || 24
+      }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
     };
 
     return { icons };
