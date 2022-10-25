@@ -137,8 +137,14 @@ import {
   NO_IMAGE_PATH,
   getPublicationKeyFromValue,
 } from "./composables/constants";
+import { useCookieConsent } from "./composables/useCookieConsent";
+import MinimalCookieConsent from "./components/MinimalCookieConsent.vue";
+import CookiePreferencesModal from "./components/CookiePreferencesModal.vue";
 
 export {
+  CookiePreferencesModal,
+  MinimalCookieConsent,
+  useCookieConsent,
   CreateSubtitlesForUploadDocument,
   CheckIfUploadIsDuplicateDocument,
   GetTestimoniesOfAssetDocument,

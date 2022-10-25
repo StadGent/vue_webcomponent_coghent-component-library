@@ -1,12 +1,12 @@
 <template>
   <div
     v-show="modalState === 'small'"
-    :class="`fixed right-0 top-0 ${customZIndex ? customZIndex : 'z-40'}`"
+    :class="`fixed right-0 top-0 ${customZIndex || 'z-40'}`"
   >
     <!-- Advise -->
     <div
       :class="
-        'fixed right-0 top-0 rounded-bl-lg bg-neutral-0 shadow-2xl w-full sm:w-1/2 xl:w-1/4 max-w-[450px] overflow-hidden ' +
+        'fixed right-0 top-0 rounded-bl-lg bg-neutral-0 shadow-2xl w-full sm:w-1/2 xl:w-1/4 overflow-hidden ' +
         customStyles
       "
     >
@@ -17,8 +17,8 @@
     v-show="modalState === 'show' || modalState === 'loading'"
     :class="
       modalState === 'small'
-        ? `fixed inset-0 m-4 w-64 h-64 ${customZIndex ? customZIndex : 'z-40'}`
-        : `fixed inset-0 m-4 ${customZIndex ? customZIndex : 'z-40'}`
+        ? `fixed inset-0 m-4 w-64 h-64 ${customZIndex || 'z-40'}`
+        : `fixed inset-0 m-4 ${customZIndex || 'z-40'}`
     "
   >
     <div
@@ -37,9 +37,11 @@
       >
 
       <div
-        :class="`inline-block align-bottom bg-neutral-0 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle sm:w-11/12 ${
-          !large && 'sm:max-w-4xl'
-        } ${large && 'h-full'} ${scroll && 'overflow-y-auto'} ${customStyles}`"
+        :class="`inline-block align-bottom bg-neutral-0 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle ${
+          !large && 'sm:w-1/3'
+        } ${large && 'h-full sm:w-11/12'} ${
+          scroll && 'overflow-y-auto'
+        } ${customStyles}`"
       >
         <base-icon
           v-show="showCloseButton"
