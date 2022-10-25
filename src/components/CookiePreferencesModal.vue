@@ -36,7 +36,7 @@
       <section class="flex justify-end border-t-2 border-neutral-40 p-2">
         <div
           @click="save"
-          class="p-2 bg-accent-purple text-text-white cursor-pointer"
+          class="p-2 bg-accent-purple text-text-white cursor-pointer rounded-md"
         >
           {{ confirmText }}
         </div>
