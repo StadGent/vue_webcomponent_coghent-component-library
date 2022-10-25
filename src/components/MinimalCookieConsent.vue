@@ -6,7 +6,7 @@
   >
     <div class="w-1/2">
       <h2 class="font-bold">{{ minimalCookieConsentTitle }}</h2>
-      <p>{{ minimalCookieConsentDescription }}</p>
+      <p v-html="minimalCookieConsentDescription"></p>
     </div>
     <div class="w-1/2 flex justify-evenly items-center font-bold gap-8">
       <div
