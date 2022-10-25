@@ -23,7 +23,9 @@
               />
             </div>
             <div>
-              <p class="font-bold">{{ cookie.name }}</p>
+              <label :for="cookie.tag" class="font-bold">{{
+                cookie.name
+              }}</label>
             </div>
           </div>
           <div class="p-2">
@@ -33,8 +35,8 @@
       </section>
       <section class="flex justify-end border-t-2 border-neutral-40 p-2">
         <div
-          @click="savePreferences"
-          class="p-2 bg-accent-purple text-text-white"
+          @click="save"
+          class="p-2 bg-accent-purple text-text-white cursor-pointer"
         >
           {{ confirmText }}
         </div>
@@ -65,7 +67,12 @@ export default defineComponent({
     const { cookieConsentState, closeConsentManager, savePreferences } =
       useCookieConsent();
 
-    return { cookieConsentState, closeConsentManager, savePreferences };
+    const save = () => {
+      savePreferences();
+      closeConsentManager();
+    };
+
+    return { cookieConsentState, closeConsentManager, savePreferences, save };
   },
 });
 </script>
