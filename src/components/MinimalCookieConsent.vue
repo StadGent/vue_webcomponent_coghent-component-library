@@ -1,22 +1,22 @@
 <template>
   <section
     v-if="cookieConsentState.shownCookieManager === 'minimal'"
-    class="fixed flex gap-2 bottom-0 w-auto p-4 m-4 rounded-md bg-neutral-0 z-50"
+    class="fixed flex flex-col md:flex-row gap-2 bottom-0 w-auto p-4 m-4 rounded-md bg-neutral-0 z-50"
     id="weUseCookiesPopup"
   >
-    <div class="w-1/2">
+    <div class="md:w-1/2">
       <h2 class="font-bold">{{ minimalCookieConsentTitle }}</h2>
       <p v-html="minimalCookieConsentDescription"></p>
     </div>
-    <div class="w-1/2 flex justify-evenly items-center font-bold gap-8">
+    <div class="md:w-1/2 flex justify-evenly items-center font-bold gap-8">
       <div
-        class="flex justify-center items-center rounded-md w-full border-2 border-text-black cursor-pointer h-12 hover:bg-neutral-40"
+        class="flex justify-center items-center rounded-md w-full border-2 border-text-black cursor-pointer h-12 hover:bg-neutral-40 p-2"
         @click="preferences"
       >
         <p>{{ preferencesText }}</p>
       </div>
       <div
-        class="flex justify-center items-center rounded-md w-full cursor-pointer h-12 bg-accent-purple text-background-light hover:opacity-90"
+        class="flex justify-center items-center rounded-md w-full cursor-pointer h-12 bg-accent-purple text-background-light hover:opacity-90 p-2"
         @click="acceptAllCookies"
       >
         <p>{{ acceptText }}</p>
