@@ -296,11 +296,17 @@ const useUpload = () => {
     return result;
   };
 
-  const getAllUploads = async (
-    _client: ApolloClient<NormalizedCacheObject>
+  const getUploads = async (
+    _client: ApolloClient<NormalizedCacheObject>,
+    limit: number,
+    skip: number
   ) => {
     const { fetchMore } = provideApolloClient(_client)(() =>
-      useQuery(GetMyUploadedAssetsDocument, {}, { fetchPolicy: "network-only" })
+      useQuery(
+        GetMyUploadedAssetsDocument,
+        { limit, skip },
+        { fetchPolicy: "network-only" }
+      )
     );
     const result = await fetchMore({});
 
@@ -382,7 +388,7 @@ const useUpload = () => {
     setBase64Image,
     setFile,
     upload,
-    getAllUploads,
+    getUploads,
     getMediafiles,
     getMediafileLink,
     entityToUploadComposable,
