@@ -777,8 +777,8 @@ mutation uploadMediafile(
   }
 }
 
-query getMyUploadedAssets {
-  GetMyUploadedAssets {
+query getMyUploadedAssets($limit: Int) {
+  GetMyUploadedAssets(limit: $limit) {
     count
     results {
       id
