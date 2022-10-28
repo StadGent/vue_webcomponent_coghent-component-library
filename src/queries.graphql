@@ -742,9 +742,12 @@ query LinkTestimonyToAsset($assetId: String!, $testimonyId: String!) {
   }
 }
 
-query GetTestimoniesOfUser {
-  GetTestimoniesOfUser {
-    ...testimony
+query GetTestimoniesOfUser($limit: Int, $skip: Int) {
+  GetTestimoniesOfUser(limit: $limit, skip: $skip) {
+    count
+    results {
+      ...testimony
+    }
   }
 }
 
