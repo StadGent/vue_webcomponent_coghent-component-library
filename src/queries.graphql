@@ -646,8 +646,8 @@ query LinkStorybox($code: String!) {
   }
 }
 
-query storybox {
-  Storybox {
+query storybox($limit: Int, $skip: Int) {
+  Storybox(limit: $limit, skip: $skip) {
     count
     results {
       id

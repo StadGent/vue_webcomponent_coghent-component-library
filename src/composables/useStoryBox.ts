@@ -108,11 +108,19 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     });
   };
 
-  const getStoryboxes = async () => {
+  const getStoryboxes = async (
+    limit: number | null = null,
+    skip: number | null = null
+  ) => {
     const { fetchMore } = apolloProvider(() =>
-      useQuery(StoryboxDocument, {}, { fetchPolicy: "network-only" })
+      useQuery(
+        StoryboxDocument,
+        { limit, skip },
+        { fetchPolicy: "network-only" }
+      )
     );
     const result = await fetchMore({});
+    StoryBoxState.value.count = result?.data.Storybox?.count || 0;
     StoryBoxState.value.storyboxes = result?.data.Storybox
       ?.results as unknown as Array<Entity>;
     return StoryBoxState;
@@ -289,13 +297,6 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
 
     return newFrame?.data.LinkStorybox;
   };
-
-  watch(
-    () => StoryBoxState.value.storyboxes.length,
-    (storyboxAmount) => {
-      StoryBoxState.value.count = storyboxAmount;
-    }
-  );
 
   const getStoryData = async (_storyId: string) => {
     const { fetchMore } = apolloProvider(() =>
