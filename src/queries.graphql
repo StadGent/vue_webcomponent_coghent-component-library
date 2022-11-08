@@ -118,7 +118,7 @@ fragment MetadataCollectionFields on MetadataCollection {
       ...NestedEntity
       metadataCollection(
         key: [title, description, object_number, scopeNote]
-        label: ["objectnummer"]
+        label: []
       ) {
         label
         nested
@@ -190,7 +190,7 @@ fragment nestedEndEntity on Entity {
   }
   metadataCollection(
     key: [title, description, object_number, scopeNote]
-    label: ["objectnummer"]
+    label: []
   ) {
     label
     nested
@@ -247,10 +247,7 @@ fragment fullEntity on Entity {
     key
     value
   }
-  metadataCollection(
-    key: [title, description, object_number, scopeNote]
-    label: []
-  ) {
+  metadataCollection(key: [title, description, scopeNote], label: []) {
     ...MetadataCollectionFields
   }
   primary_mediafile
