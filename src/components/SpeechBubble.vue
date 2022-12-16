@@ -23,15 +23,6 @@
           <div class="w-full my-2 bottomline">
             <q>{{ cardDetails.content }}</q>
           </div>
-          <div
-            class="flex max-w-min items-center cursor-pointer"
-            @click="submitLike"
-          >
-            <base-icon icon="thumbsup" />
-            <p class="px-2">
-              {{ cardDetails.likes }}
-            </p>
-          </div>
         </div>
       </div>
       <div v-else class="flex">
@@ -42,15 +33,6 @@
           </div>
           <div class="w-full my-2 bottomline">
             <q>{{ cardDetails.content }}</q>
-          </div>
-          <div
-            class="flex max-w-min items-center cursor-pointer"
-            @click="submitLike"
-          >
-            <base-icon icon="thumbsup" />
-            <p class="px-2">
-              {{ cardDetails.likes }}
-            </p>
           </div>
         </div>
         <div class="w-1/3 p-4 flex justify-center items-center rounded-md">
