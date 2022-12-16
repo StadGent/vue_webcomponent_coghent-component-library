@@ -304,6 +304,7 @@ const useUpload = () => {
     const { fetchMore } = provideApolloClient(_client)(() =>
       useQuery(
         GetMyUploadedAssetsDocument,
+        // @ts-ignore
         { limit, skip },
         { fetchPolicy: "network-only" }
       )

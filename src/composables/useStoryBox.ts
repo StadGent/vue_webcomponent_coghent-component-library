@@ -115,6 +115,7 @@ export const useStorybox = (_client: ApolloClient<NormalizedCacheObject>) => {
     const { fetchMore } = apolloProvider(() =>
       useQuery(
         StoryboxDocument,
+        // @ts-ignore
         { limit, skip },
         { fetchPolicy: "network-only" }
       )
