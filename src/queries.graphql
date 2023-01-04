@@ -313,6 +313,7 @@ fragment primaryMediafileInfo on Entity {
   primary_mediafile
   primary_transcode
   primary_mediafile_location
+  primary_transcode_location
 }
 
 fragment storyEntity on Entity {
