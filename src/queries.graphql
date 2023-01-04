@@ -328,6 +328,7 @@ fragment storyEntity on Entity {
   }
   mediafiles {
     original_file_location
+    transcode_file_location
     filename
     mimetype
     transcode_filename
